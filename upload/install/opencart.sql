@@ -1438,7 +1438,7 @@ INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUE
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
 (24, 'statistics_return_add', 'catalog/model/account/return/addReturn/after', 'event/statistics/addReturn', 1);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1);
+(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/before', 'event/statistics/addOrderHistory', 1);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
 (26, 'admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
@@ -3304,7 +3304,7 @@ INSERT INTO `oc_statistics` (`statistics_id`, `code`, `value`) VALUES
 (2, 'order_processing', 0),
 (3, 'order_complete', 0),
 (4, 'order_other', 0),
-(5, 'returns', 0),
+(5, 'return', 0),
 (6, 'product', 0),
 (7, 'review', 0);
 
