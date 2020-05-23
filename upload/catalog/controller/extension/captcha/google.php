@@ -17,22 +17,18 @@ class ControllerExtensionCaptchaGoogle extends Controller {
     }
 
     public function validate() {
-		if (empty($this->session->data['gcapcha'])) {
-			$this->load->language('extension/captcha/google');
+		$this->load->language('extension/captcha/google');
 
-			if (!isset($this->request->post['g-recaptcha-response'])) {
-				return $this->language->get('error_captcha');
-			}
+		if (empty($this->request->post['g-recaptcha-response'])) {
+			return $this->language->get('error_captcha');
+		}
 
-			$recaptcha = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($this->config->get('captcha_google_secret')) . '&response=' . $this->request->post['g-recaptcha-response'] . '&remoteip=' . $this->request->server['REMOTE_ADDR']);
+		$recaptcha = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($this->config->get('captcha_google_secret')) . '&response=' . $this->request->post['g-recaptcha-response'] . '&remoteip=' . $this->request->server['REMOTE_ADDR']);
 
-			$recaptcha = json_decode($recaptcha, true);
+		$recaptcha = json_decode($recaptcha, true);
 
-			if ($recaptcha['success']) {
-				$this->session->data['gcapcha']	= true;
-			} else {
-				return $this->language->get('error_captcha');
-			}
+		if (!isset($recaptcha['success'])) {
+			return $this->language->get('error_captcha');
 		}
     }
 }
