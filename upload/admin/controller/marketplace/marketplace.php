@@ -154,7 +154,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
 		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POST, 0);
 
 		$response = curl_exec($curl);
 
@@ -540,7 +540,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
 		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POST, 0);
 
 		$response = curl_exec($curl);
 
@@ -558,7 +558,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			if (isset($response_info['error'])) {
 				$data['error_signature'] = $response_info['error'];
 			} else {
-        $data['error_signature'] = '';
+				$data['error_signature'] = '';
 			}
 
 			$data['user_token'] = $this->session->data['user_token'];
@@ -922,7 +922,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$json['error'] = $this->language->get('error_opencart');
 		}
 					
-		if (!$json) {	
+		if (!$json) {
 			$time = time();
 
 			// We create a hash from the data in a similar method to how amazon does things.
