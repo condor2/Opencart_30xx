@@ -37,12 +37,6 @@ class ControllerExtensionModuleBestSeller extends Controller {
 					$tax = false;
 				}
 
-				if ($this->config->get('config_review_status')) {
-					$rating = $result['rating'];
-				} else {
-					$rating = false;
-				}
-
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
@@ -51,10 +45,12 @@ class ControllerExtensionModuleBestSeller extends Controller {
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,
-					'rating'      => $rating,
+					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
 				);
 			}
+
+			$data['review_status'] = $this->config->get('config_review_status');
 
 			return $this->load->view('extension/module/bestseller', $data);
 		}
