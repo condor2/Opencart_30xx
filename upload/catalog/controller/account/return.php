@@ -220,7 +220,18 @@ class ControllerAccountReturn extends Controller {
 
 		$this->load->model('account/return');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+		$this->load->model('account/order');
+
+		if ((!isset($this->request->server['HTTP_REFERER'])) || (!preg_match("/[?|&]route=account\/return\/info/", html_entity_decode($this->request->server['HTTP_REFERER'])) && $this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$this->response->redirect($this->url->link('account/return', '', true));
+
+		} elseif ((!isset($this->request->get['order_id'])) || (isset($this->request->get['order_id']) && !$this->model_account_order->getOrder($this->request->get['order_id']))) {
+			$this->response->redirect($this->url->link('account/return', '', true));
+
+		} elseif ((!isset($this->request->get['product_id'])) || (isset($this->request->get['order_id']) && isset($this->request->get['product_id']) && !$this->model_account_order->getOrderProduct($this->request->get['order_id'], $this->request->get['product_id']))) {			
+			$this->response->redirect($this->url->link('account/return', '', true));
+
+		} elseif (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_account_return->addReturn($this->request->post);
 
 			$this->response->redirect($this->url->link('account/return/success', '', true));
@@ -304,8 +315,6 @@ class ControllerAccountReturn extends Controller {
 		}
 
 		$data['action'] = $this->url->link('account/return/add', '', true);
-
-		$this->load->model('account/order');
 
 		if (isset($this->request->get['order_id'])) {
 			$order_info = $this->model_account_order->getOrder($this->request->get['order_id']);
