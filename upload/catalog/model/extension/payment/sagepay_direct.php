@@ -140,7 +140,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 
 		//create new recurring and set to pending status as no payment has been made yet.
-		$order_recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item['recurring']);
+		$order_recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item);
 		
 		$this->model_checkout_recurring->addReference($order_recurring_id, $vendor_tx_code);
 
