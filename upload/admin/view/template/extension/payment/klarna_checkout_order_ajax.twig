@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-bordered">
   <tr>
 	<td>{{ column_order_id }}</td>
@@ -40,6 +41,7 @@
   <tr>
 	<td>{{ column_customer_details }}</td>
 	<td>
+	 <div class="table-responsive">
 	  <table class="table table-bordered">
 		<thead>
 		  <tr>
@@ -62,11 +64,13 @@
 		</tr>
 		{% endif %}
 	  </table>
+	 </div>
 	</td>
   </tr>
   <tr>
 	<td>{{ column_order_lines }}</td>
 	<td>
+	 <div class="table-responsive">
 	  <table class="table table-bordered">
 		<thead>
 		  <tr>
@@ -99,6 +103,7 @@
             {% endfor %}
 		</tbody>
 	  </table>
+	 </div>
 	</td>
   </tr>
   <tr>
@@ -128,6 +133,7 @@
   <tr>
 	<td>{{ column_capture }}</td>
 	<td>
+	 <div class="table-responsive">
 		<table class="table table-bordered">
 		  <thead>
 			<tr>
@@ -168,11 +174,13 @@
 		  </tfoot>
 		  {% endif %}
 		</table>
+	 </div>
 	</td>
   </tr>
   <tr>
 	<td>{{ column_refund }}</td>
 	<td>
+	 <div class="table-responsive">
 		<table class="table table-bordered">
 		  <thead>
 			<tr>
@@ -202,9 +210,11 @@
 		  </tfoot>
 		  {% endif %}
 		</table>
+	 </div>
 	</td>
   </tr>
 </table>
+</div>
 
 <!-- Modals -->
 <div class="modal fade" id="billing_address" tabindex="-1" role="dialog" aria-labelledby="billing_address_title">

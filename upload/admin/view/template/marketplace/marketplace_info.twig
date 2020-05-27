@@ -54,6 +54,7 @@
                 </fieldset>
                 <fieldset>
                   <legend>{{ text_available }}</legend>
+                  <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
                     <th>{{ text_name }}</th>
@@ -61,7 +62,6 @@
                       <th class="text-right">{{ text_action }}</th>
                         </thead>
                     <tbody>
-                    
                     {% if downloads %}
                     {% for download in downloads %}
                     <tr>
@@ -82,8 +82,8 @@
                     </tr>
                     {% endif %}
                     </tbody>
-                    
                   </table>
+                  </div>
                 </fieldset>
               </div>
               <div id="tab-comment" class="tab-pane">

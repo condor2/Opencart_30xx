@@ -47,7 +47,6 @@
               </tr>
             </thead>
             <tbody>
-            
             {% for product in products %}
             <tr>
               <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail" /></a> {% endif %}</td>
@@ -99,6 +98,7 @@
       {% endif %} <br />
       <div class="row">
         <div class="col-sm-4 col-sm-offset-8">
+         <div class="table-responsive">
           <table class="table table-bordered">
             {% for total in totals %}
             <tr>
@@ -107,6 +107,7 @@
             </tr>
             {% endfor %}
           </table>
+         </div>
         </div>
       </div>
       <div class="buttons clearfix">
@@ -116,4 +117,4 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
-{{ footer }} 
+{{ footer }}

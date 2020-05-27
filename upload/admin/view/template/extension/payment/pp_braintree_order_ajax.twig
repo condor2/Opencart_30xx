@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-bordered">
   <tr>
 		<td>{{ column_status }}</td>
@@ -66,7 +67,8 @@
   <tr>
 	<td>{{ column_transaction_history }}</td>
 	<td>
-		<table class="table table-bordered">
+<div class="table-responsive">		
+<table class="table table-bordered">
 		  <thead>
 				<tr>
 					<td class="text-left">{{ column_date }}</td>
@@ -82,12 +84,14 @@
 				{% endfor %}
 		  </tbody>
 		</table>
+	 </div>
 	</td>
   </tr>
   <tr>
 	<td>{{ column_refund_history }}</td>
 	<td>
-		<table class="table table-bordered">
+<div class="table-responsive">		
+<table class="table table-bordered">
 		  <thead>
 				<tr>
 					<td class="text-left">{{ column_date }}</td>
@@ -111,12 +115,14 @@
 			{% endif %}
 		  </tbody>
 		</table>
+	</div>
 	</td>
   </tr>
   <tr>
 	<td>{{ column_action }}</td>
 	<td>
-		<table class="table table-bordered">
+<div class="table-responsive">		
+<table class="table table-bordered">
 		  <thead>
 				<tr>
 					<td class="text-left">{{ column_void }}</td>
@@ -152,9 +158,11 @@
 				</tr>
 		  </tbody>
 		</table>
+	 </div>
 	</td>
   </tr>
 </table>
+</div>
 
 <script type="text/javascript"><!--
 $('.button-command').on('click', function() {

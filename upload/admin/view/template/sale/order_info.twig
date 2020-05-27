@@ -125,6 +125,7 @@
         <h3 class="panel-title"><i class="fa fa-info-circle"></i> {{ text_order }}</h3>
       </div>
       <div class="panel-body">
+       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -141,6 +142,8 @@
               {% endif %} </tr>
           </tbody>
         </table>
+       </div>
+       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -152,7 +155,6 @@
             </tr>
           </thead>
           <tbody>
-          
           {% for product in products %}
           <tr>
             <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %} <br />
@@ -182,9 +184,10 @@
           </tr>
           {% endfor %}
             </tbody>
-          
         </table>
+       </div>
         {% if comment %}
+       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -196,7 +199,8 @@
               <td>{{ comment }}</td>
             </tr>
           </tbody>
-        </table>
+       </table>
+		  </div>
         {% endif %} </div>
     </div>
     <div class="panel panel-default">
@@ -222,25 +226,13 @@
                   <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
                   <div class="col-sm-10">
                     <select name="order_status_id" id="input-order-status" class="form-control">
-                      
-                      
                       {% for order_statuses in order_statuses %}
                       {% if order_statuses.order_status_id == order_status_id %}
-                      
-                      
                       <option value="{{ order_statuses.order_status_id }}" selected="selected">{{ order_statuses.name }}</option>
-                      
-                      
                       {% else %}
-                      
-                      
                       <option value="{{ order_statuses.order_status_id }}">{{ order_statuses.name }}</option>
-                      
-                      
                       {% endif %}
                       {% endfor %}
-                    
-                    
                     </select>
                   </div>
                 </div>
@@ -281,7 +273,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                
                 {% for custom_field in account_custom_fields %}
                 <tr>
                   <td>{{ custom_field.name }}</td>
@@ -289,7 +280,6 @@
                 </tr>
                 {% endfor %}
                   </tbody>
-                
               </table>
             </div>
             {% endif %}
@@ -310,7 +300,6 @@
                 </tr>
                 {% endfor %}
                   </tbody>
-                
               </table>
             </div>
             {% endif %}
@@ -323,7 +312,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                
                 {% for custom_field in shipping_custom_fields %}
                 <tr>
                   <td>{{ custom_field.name }}</td>
@@ -331,7 +319,6 @@
                 </tr>
                 {% endfor %}
                   </tbody>
-                
               </table>
             </div>
             {% endif %}
@@ -362,7 +349,6 @@
                   <td>{{ accept_language }}</td>
                 </tr>
                   </tbody>
-                
               </table>
             </div>
           </div>
@@ -633,4 +619,4 @@ $('select[name="order_status_id"]').change(function(){
 });
 //--></script> 
 </div>
-{{ footer }} 
+{{ footer }}

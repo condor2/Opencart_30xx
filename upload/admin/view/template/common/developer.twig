@@ -5,6 +5,7 @@
       <h4 class="modal-title"><i class="fa fa-cog"></i> {{ heading_title }}</h4>
     </div>
     <div class="modal-body">
+     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -26,7 +27,6 @@
               {{ button_on }}
               </label>
               {% endif %}
-              
               {% if not developer_theme %}
               <label class="btn btn-danger active" {% if not eval %}disabled="disabled"{% endif %}>
               <input type="radio" name="developer_theme" value="0" autocomplete="off" {% if not eval %}disabled="disabled"{% endif %} checked/>
@@ -63,6 +63,7 @@
           <td class="text-right"><button type="button" value="sass" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
         </tr>
       </table>
+     </div>
     </div>
   </div>
 </div>

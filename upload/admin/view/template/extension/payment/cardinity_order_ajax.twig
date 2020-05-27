@@ -1,8 +1,10 @@
 {% if payment %}
+<div class="table-responsive">
 <table class="table table-bordered">
   <tr>
 	<td>{{ column_refund_history }}</td>
 	<td>
+	  <div class="table-responsive">
 		<table class="table table-bordered">
 		  <thead>
 			<tr>
@@ -29,11 +31,13 @@
 			{% endif %}
 		  </tbody>
 		</table>
+	  </div>
 	</td>
   </tr>
   <tr>
 	<td>{{ column_action }}</td>
 	<td>
+	  <div class="table-responsive">
 		<table class="table table-bordered">
 		  <thead>
 			<tr>
@@ -56,9 +60,11 @@
 			</tr>
 		  </tbody>
 		</table>
+	  </div>
 	</td>
   </tr>
 </table>
+</div>
 {% else %}
 Unable to find transaction for this order.
 {% endif %}

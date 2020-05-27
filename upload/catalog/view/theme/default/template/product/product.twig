@@ -44,6 +44,7 @@
             <div class="tab-pane active" id="tab-description">{{ description }}</div>
             {% if attribute_groups %}
             <div class="tab-pane" id="tab-specification">
+             <div class="table-responsive">
               <table class="table table-bordered">
                 {% for attribute_group in attribute_groups %}
                 <thead>
@@ -61,6 +62,7 @@
                   </tbody>
                 {% endfor %}
               </table>
+             </div>
             </div>
             {% endif %}
             {% if review_status %}
@@ -551,4 +553,4 @@ $(document).ready(function() {
 	});
 });
 //--></script> 
-{{ footer }} 
+{{ footer }}

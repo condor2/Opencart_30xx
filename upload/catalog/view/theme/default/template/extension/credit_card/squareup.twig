@@ -21,10 +21,10 @@
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
         <h2>{{ heading_title }}</h2>
-
         {% if not cards %}
             <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ text_no_cards }}</div>
         {% else %}
+         <div class="table-responsive">
             <table class="table table-bordered">
                 {% for card in cards %}
                     <tr>
@@ -37,8 +37,8 @@
                     </tr>
                 {% endfor %}
             </table>
+         </div>
         {% endif %}
-
         <div class="buttons">
             <a class="btn btn-default" href="{{ back }}">{{ text_back }}</a>
         </div>

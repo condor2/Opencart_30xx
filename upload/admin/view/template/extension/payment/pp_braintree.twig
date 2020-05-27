@@ -912,6 +912,7 @@ $('#button-filter').on('click', function(event) {
 		success: function(json) {
 			var html = '';
 
+			html += '<div class="table-responsive">';
 			html += '<table class="table table-bordered">';
 			html +=   '<thead>';
 			html +=     '<tr>';
@@ -953,6 +954,7 @@ $('#button-filter').on('click', function(event) {
 
 			html +=   '</tbody>';
 			html += '</table>';
+			html += '</div>';
 
 			$('#table-action').html(html);
 		}
