@@ -343,7 +343,7 @@ class Twig_Node_Module extends Twig_Node
             }
 
             foreach ($nodes as $node) {
-                if (!count($node)) {
+                if (!isset($node) OR !count($node)) {
                     continue;
                 }
 
