@@ -29,6 +29,7 @@ $_['button_cancel']         = 'Cancel';
 $_['button_compare']        = 'Compare this Product';
 $_['button_wishlist']       = 'Add to Wish List';
 $_['button_checkout']       = 'Checkout';
+$_['button_remove_coupon']  = 'Remove Coupon';
 $_['button_confirm']        = 'Confirm Order';
 $_['button_coupon']         = 'Apply Coupon';
 $_['button_delete']         = 'Delete';
