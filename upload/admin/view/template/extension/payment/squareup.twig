@@ -20,7 +20,6 @@
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
         {% endfor %}
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;{{ text_edit_heading }}</h3>
@@ -42,14 +41,14 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <span data-toggle="tooltip" title="{{ text_disabled_connect_help_text }}">
-                                                <a id="reconnect-button" href="{{ payment_squareup_auth_link }}" class="btn btn-primary btn-lg btn-connect" >{{ button_reconnect}}</a>
+                                                <a id="reconnect-button" href="{{ payment_squareup_auth_link }}" class="btn btn-primary btn-lg btn-connect" >{{ button_reconnect }}</a>
                                             </span>
                                             
                                             <span data-toggle="tooltip" title="{{ text_disabled_connect_help_text }}">
                                                 <a id="refresh-button" href="{{ payment_squareup_refresh_link }}" class="btn btn-primary btn-lg btn-connect" >{{ button_refresh }}</a>
                                             </span>
                                             
-                                            <p>{{ text_connected_info}}</p>
+                                            <p>{{ text_connected_info }}</p>
                                         </div>
                                     </div>
                                 {% else %}
@@ -332,7 +331,6 @@
                                         <label class="checkbox-inline">
                                             <input id="checkbox_payment_squareup_cron_acknowledge" type="checkbox" value="1" {% if payment_squareup_cron_acknowledge %} checked {% endif %} name="payment_squareup_cron_acknowledge" /> {{ text_acknowledge_cron }}
                                         </label>
-
                                         {% if error_cron_acknowledge %}
                                             <div class="text-danger">{{ error_cron_acknowledge }}</div>
                                         {% endif %}
