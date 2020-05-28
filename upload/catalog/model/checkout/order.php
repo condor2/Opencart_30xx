@@ -248,7 +248,12 @@ class ModelCheckoutOrder extends Model {
 		
 		return $query->rows;
 	}
-	
+
+	public function getOrderRecurring($order_id, $product_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_recurring WHERE order_id = '" . (int)$order_id . "' AND product_id = '" . (int)$product_id . "'");
+
+		return $query->row; }
+
 	public function getOrderVouchers($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_voucher WHERE order_id = '" . (int)$order_id . "'");
 	
