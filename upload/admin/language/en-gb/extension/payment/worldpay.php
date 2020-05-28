@@ -14,6 +14,7 @@ $_['text_release_ok_order']		         = 'Release was successful, order status up
 $_['text_refund_ok']			         = 'Rebate was successful';
 $_['text_refund_ok_order']		         = 'Rebate was successful, order status updated to refund';
 $_['text_void_ok']				         = 'Void was successful, order status updated to voided';
+$_['text_refund']                        = 'Refund';
 
 // Entry
 $_['entry_service_key']			         = 'Service Key';
@@ -38,8 +39,6 @@ $_['entry_charged_back_status']			 = 'Charged Back:';
 $_['entry_information_requested_status'] = 'Information Requested Status:';
 $_['entry_information_supplied_status']	 = 'Information Supplied Status:';
 $_['entry_chargeback_reversed_status']	 = 'Chargeback Reversed Status:';
-
-
 $_['entry_reversed_status']			     = 'Reversed Status:';
 $_['entry_voided_status']			     = 'Voided Status:';
 
@@ -65,12 +64,10 @@ $_['text_refund_status']		         = 'Payment refund';
 $_['text_order_ref']			         = 'Order ref';
 $_['text_order_total']			         = 'Total authorised';
 $_['text_total_released']		         = 'Total released';
-$_['text_transactions']			         = 'Transactions';
+$_['text_transactions']			         = 'Transactions:';
 $_['text_column_amount']		         = 'Amount';
 $_['text_column_type']			         = 'Type';
 $_['text_column_date_added']	         = 'Added';
-
 $_['text_confirm_refund']		         = 'Are you sure you want to refund the payment?';
 
 $_['button_refund']				         = 'Rebate / refund';
-

@@ -49,7 +49,6 @@
                 <input type="hidden" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}" />
                 <input type="hidden" name="payment_pp_braintree_public_key" value="" />
                 <input type="hidden" name="payment_pp_braintree_private_key" value="" />
-
                 <div class="form-group">
                   <label class="col-sm-2 control-label">{{ entry_connection }}</label>
                   <div class="col-sm-10">
@@ -82,7 +81,6 @@
                   </div>
                 </div>
               {% endif %}
-
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-environment">{{ entry_environment }}</label>
                   <div class="col-sm-10">
@@ -102,16 +100,15 @@
                     {% endif %}
                   </div>
                 </div>
-
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-settlement-immediate"><span data-toggle="tooltip" title="{{ help_settlement_type }}">{{ entry_settlement_type }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_pp_braintree_settlement_immediate" id="input-settlement-immediate" class="form-control">
                     {% if payment_pp_braintree_settlement_immediate == 1 %}
-					            <option value="1" selected="selected">{{ text_immediate }}</option>
+                      <option value="1" selected="selected">{{ text_immediate }}</option>
                       <option value="0">{{ text_deferred }}</option>
                     {% else %}
-					            <option value="1">{{ text_immediate }}</option>
+                      <option value="1">{{ text_immediate }}</option>
                       <option value="0" selected="selected">{{ text_deferred }}</option>
                     {% endif %}
                   </select>
@@ -178,7 +175,7 @@
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
-					            <td class="text-left">{{ text_enabled }}</td>
+                      <td class="text-left">{{ text_enabled }}</td>
                       <td class="text-left">{{ text_currency }}</td>
                       <td class="text-center">{{ text_merchant_account_id }}</td>
                     </tr>
@@ -601,7 +598,6 @@
                   </select>
                 </div>
               </div>
-
               {% if braintree_config.paypal_enabled == 1 %}
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-vault"><span data-toggle="tooltip" title="{{ help_paypal_vault }}">{{ entry_paypal_vault }}</span></label>
@@ -655,10 +651,8 @@
                     </select>
                   </div>
                 </div>
-
                 <!-- required at a later date but must be empty -->
                 <input type="hidden" name="payment_pp_braintree_billing_agreement" value="" />
-
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-button-colour">{{ entry_paypal_button_colour }}</label>
                   <div class="col-sm-10">
@@ -719,7 +713,7 @@
                   <div class="col-sm-3">
                     <div class="form-group">
                     <label class="control-label" for="input-transaction-id">{{ entry_transaction_id }}</label>
-                    <input type="text" name="filter_transaction_id" value="" placeholder="Transaction ID" id="input-transaction-id" class="form-control" />
+                    <input type="text" name="filter_transaction_id" value="" placeholder="{{ entry_transaction_id }}" id="input-transaction-id" class="form-control" />
                     </div>
                     <div class="form-group">
                     <label class="control-label" for="input-transaction-type">{{ entry_transaction_type }}</label>

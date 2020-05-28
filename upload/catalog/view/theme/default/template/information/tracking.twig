@@ -15,7 +15,7 @@
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
       <h1>{{ heading_title }}</h1>
-      <p>Please enter your shipping tracking No. below:</p>
+      <p>{{ text_tracking_number }}</p>
       
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-code">{{ entry_code }} </label>
@@ -23,10 +23,6 @@
               <input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="form-control" />
             </div>
           </div>
-      
-      
-      
-      
       {{ content_bottom }}</div>
     {{ column_right }}</div>
     
@@ -60,6 +56,6 @@ $('#button-tracking').on('click', function() {
         }
     });
 });
-    
+
 </div>
 {{ footer }}

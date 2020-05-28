@@ -50,7 +50,6 @@
 				<span class="rebate_text">{{ text_yes }}</span>
 			{% else %}
 				<span class="rebate_text">{{ text_no }}</span>&nbsp;&nbsp;
-
 				{% if securetrading_pp_order.total_released > 0 and securetrading_pp_order.void_status == 0 %}
 					<input type="text" width="10" id="rebate_amount" />
 					<a class="button btn btn-primary" id="btn_rebate">{{ button_rebate }}</a>
@@ -60,7 +59,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>{{ text_transactions }}:</td>
+		<td>{{ text_transactions }}</td>
 		<td>
 			<table class="table table-bordered" id="securetrading_pp_transactions">
 				<thead>
@@ -102,7 +101,7 @@
 						html = '';
 						html += '<tr>';
 						html += '<td class="text-left">' + data.data.created + '</td>';
-						html += '<td class="text-left">reversed</td>';
+						html += '<td class="text-left">{{ text_reversed }}</td>';
 						html += '<td class="text-left">0.00</td>';
 						html += '</tr>';
 
@@ -143,7 +142,7 @@
 						html = '';
 						html += '<tr>';
 						html += '<td class="text-left">' + data.data.created + '</td>';
-						html += '<td class="text-left">payment</td>';
+						html += '<td class="text-left">{{ text_payment }}</td>';
 						html += '<td class="text-left">' + data.data.amount + '</td>';
 						html += '</tr>';
 
@@ -157,9 +156,9 @@
 							$('#btn_release').show();
 							$('#release_amount').val(0.00);
 
-{% if auto_settle == 2 %}
-								$('#release_amount').show();
-{% endif %}
+						{% if auto_settle == 2 %}
+							$('#release_amount').show();
+						{% endif %}
 						}
 
 						if (data.msg != '') {
@@ -198,7 +197,7 @@
 						html = '';
 						html += '<tr>';
 						html += '<td class="text-left">' + data.data.created + '</td>';
-						html += '<td class="text-left">rebate</td>';
+						html += '<td class="text-left">{{ text_rebate }}</td>';
 						html += '<td class="text-left">' + data.data.amount + '</td>';
 						html += '</tr>';
 
