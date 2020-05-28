@@ -386,15 +386,6 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
-		if (isset($data['filter_image']) && !is_null($data['filter_image'])) {
-			if ($data['filter_image'] == 1) {
-				$sql .= " AND (p.image <> '' AND p.image <> 'no_image.png' AND p.image <> 'no_image.jpg' AND p.image IS NOT NULL) ";
-			}
-			if ($data['filter_image'] == 2) {
-				$sql .= " AND (p.image = '' OR p.image = 'no_image.png' OR p.image = 'no_image.jpg' OR p.image IS NULL) ";
-			}
-		}
-
 		$sql .= " GROUP BY p.product_id";
 
 		$sort_data = array(
