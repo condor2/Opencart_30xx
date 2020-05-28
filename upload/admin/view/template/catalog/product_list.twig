@@ -53,77 +53,32 @@
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
-                
-                
-                
-                  
-                
-
                   {% if filter_status == '1' %}
-
-                
-                
-                  
-                
-                
                 <option value="1" selected="selected">{{ text_enabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% else %}
-
-                
-                
-                  
-                
-                
                 <option value="1">{{ text_enabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% endif %}
                   {% if filter_status == '0' %}
-
-                
-                
-                  
-                
-                
                 <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% else %}
-
-                
-                
-                  
-                
-                
                 <option value="0">{{ text_disabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% endif %}
-
-
-              
-              
-                
-              
-              
+              </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="input-image">{{ entry_image }}</label>
+                <select name="filter_image" id="input-image" class="form-control">
+                <option value="*"></option>
+                  {% if filter_image == '1' %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                  {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                  {% endif %}
+                  {% if filter_image == '0' %}
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                  {% else %}
+                <option value="0">{{ text_disabled }}</option>
+                  {% endif %}
               </select>
             </div>
             <div class="form-group text-right">
@@ -154,7 +109,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% if products %}
                   {% for product in products %}
                   <tr>
@@ -182,7 +136,6 @@
                   </tr>
                   {% endif %}
                     </tbody>
-                  
                 </table>
               </div>
             </form>
@@ -229,9 +182,15 @@ $('#button-filter').on('click', function() {
 		url += '&filter_status=' + encodeURIComponent(filter_status);
 	}
 
+  var filter_image = $('select[name=\'filter_image\']').val();
+
+  if (filter_image != '*') {
+    url += '&filter_image=' + encodeURIComponent(filter_image);
+  }
+
 	location = 'index.php?route=catalog/product&user_token={{ user_token }}' + url;
 });
-//--></script> 
+//--></script>
   <script type="text/javascript"><!--
 // IE and Edge fix!
 $('button[form=\'form-product\']').on('click', function(e) {
@@ -277,5 +236,6 @@ $('input[name=\'filter_model\']').autocomplete({
 		$('input[name=\'filter_model\']').val(item['label']);
 	}
 });
-//--></script></div>
-{{ footer }} 
+//--></script>
+</div>
+{{ footer }}
