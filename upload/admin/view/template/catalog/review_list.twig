@@ -44,90 +44,16 @@
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
                   {% if filter_status == '1' %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
                 <option value="1" selected="selected">{{ text_enabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
                   {% else %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
                 <option value="1">{{ text_enabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
                   {% endif %}
                   {% if filter_status == '0' %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
                 <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
                   {% else %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
                 <option value="0">{{ text_disabled }}</option>
-                
                   {% endif %}
-                
               </select>
             </div>
             <div class="form-group">
@@ -165,7 +91,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% if reviews %}
                   {% for review in reviews %}
                   <tr>
@@ -188,7 +113,6 @@
                   </tr>
                   {% endif %}
                     </tbody>
-                  
                 </table>
               </div>
             </form>
@@ -237,5 +161,6 @@ $('.date').datetimepicker({
 	language: '{{ datepicker }}',
 	pickTime: false
 });
-//--></script></div>
+//--></script>
+</div>
 {{ footer }}

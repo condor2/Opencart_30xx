@@ -24,85 +24,40 @@
       </div>
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-custom-field" class="form-horizontal">
-                      <fieldset>
-              <legend>{{ text_custom_field }}</legend>
-          
-          <div class="form-group required">
-            <label class="col-sm-2 control-label">{{ entry_name }}</label>
-            <div class="col-sm-10"> {% for language in languages %}
-              <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
-                <input type="text" name="custom_field_description[{{ language.language_id }}][name]" value="{{ custom_field_description[language.language_id] ? custom_field_description[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" />
-              </div>
-              {% if error_name[language.language_id] %}
-              <div class="text-danger">{{ error_name[language.language_id] }}</div>
-              {% endif %}
-              {% endfor %}
+          <fieldset>
+            <legend>{{ text_custom_field }}</legend>
+            <div class="form-group required">
+              <label class="col-sm-2 control-label">{{ entry_name }}</label>
+              <div class="col-sm-10">
+                {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                    <input type="text" name="custom_field_description[{{ language.language_id }}][name]" value="{{ custom_field_description[language.language_id] ? custom_field_description[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" />
+                  </div>
+                  {% if error_name[language.language_id] %}
+                    <div class="text-danger">{{ error_name[language.language_id] }}</div>
+                  {% endif %}
+                {% endfor %}
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-location">{{ entry_location }}</label>
             <div class="col-sm-10">
               <select name="location" id="input-location" class="form-control">
-                
-                
-
                 {% if location == 'account' %}
-
-                
-                
                 <option value="account" selected="selected">{{ text_account }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="account">{{ text_account }}</option>
-                
-                
-
                 {% endif %}
                 {% if location == 'address' %}
-
-                
-                
                 <option value="address" selected="selected">{{ text_address }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="address">{{ text_address }}</option>
-                
-                
-
                 {% endif %}
-
-
                 {% if location == 'affiliate' %}
-
-                
-                
                 <option value="affiliate" selected="selected">{{ text_affiliate }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="affiliate">{{ text_affiliate }}</option>
-                
-                
-
                 {% endif %}
-
-
-              
-              
               </select>
             </div>
           </div>
@@ -112,163 +67,55 @@
               <select name="type" id="input-type" class="form-control">
                 <optgroup label="{{ text_choose }}">
                 {% if type == 'select' %}
-
-                
-                
                 <option value="select" selected="selected">{{ text_select }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="select">{{ text_select }}</option>
-                
-                
-
                 {% endif %}
                 {% if type == 'radio' %}
-
-                
-                
                 <option value="radio" selected="selected">{{ text_radio }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="radio">{{ text_radio }}</option>
-                
-                
-
                 {% endif %}
                 {% if type == 'checkbox' %}
-
-                
-                
                 <option value="checkbox" selected="selected">{{ text_checkbox }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="checkbox">{{ text_checkbox }}</option>
-                
-                
-
                 {% endif %}
                 </optgroup>
                 <optgroup label="{{ text_input }}">
                 {% if type == 'text' %}
-
-                
-                
                 <option value="text" selected="selected">{{ text_text }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="text">{{ text_text }}</option>
-                
-                
-
                 {% endif %}
                 {% if type == 'textarea' %}
-
-                
-                
                 <option value="textarea" selected="selected">{{ text_textarea }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="textarea">{{ text_textarea }}</option>
-                
-                
-
                 {% endif %}
                 </optgroup>
                 <optgroup label="{{ text_file }}">
                 {% if type == 'file' %}
-
-                
-                
                 <option value="file" selected="selected">{{ text_file }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="file">{{ text_file }}</option>
-                
-                
-
                 {% endif %}
                 </optgroup>
                 <optgroup label="{{ text_date }}">
                 {% if type == 'date' %}
-
-                
-                
                 <option value="date" selected="selected">{{ text_date }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="date">{{ text_date }}</option>
-                
-                
-
                 {% endif %}
                 {% if type == 'time' %}
-
-                
-                
                 <option value="time" selected="selected">{{ text_time }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="time">{{ text_time }}</option>
-                
-                
-
                 {% endif %}
                 {% if type == 'datetime' %}
-
-                
-                
                 <option value="datetime" selected="selected">{{ text_datetime }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="datetime">{{ text_datetime }}</option>
-                
-                
-
                 {% endif %}
                 </optgroup>
               </select>
@@ -322,31 +169,13 @@
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
               <select name="status" id="input-status" class="form-control">
-                
-                
-
                 {% if status %}
-
-                
-                
                 <option value="1" selected="selected">{{ text_enabled }}</option>
                 <option value="0">{{ text_disabled }}</option>
-                
-                
-
                 {% else %}
-
-                
-                
                 <option value="1">{{ text_enabled }}</option>
                 <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                
-
                 {% endif %}
-
-              
-              
               </select>
             </div>
           </div>
@@ -370,7 +199,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                
                 {% set custom_field_value_row = 0 %}
                 {% for custom_field_value in custom_field_values %}
                 <tr id="custom-field-value-row{{ custom_field_value_row }}">
@@ -389,7 +217,6 @@
                 {% set custom_field_value_row = custom_field_value_row + 1 %}
                 {% endfor %}
                   </tbody>
-                
                 <tfoot>
                   <tr>
                     <td colspan="2"></td>
@@ -463,5 +290,6 @@ function addCustomFieldValue() {
 
 	custom_field_value_row++;
 }
-//--></script></div>
+//--></script>
+</div>
 {{ footer }} 
