@@ -31,6 +31,12 @@ class ControllerCommonColumnRight extends Controller {
 			$layout_id = $this->model_catalog_information->getInformationLayoutId($this->request->get['information_id']);
 		}
 
+		if ($route == 'product/manufacturer/info' && isset($this->request->get['manufacturer_id'])) {
+			$this->load->model('catalog/manufacturer');
+
+			$layout_id = $this->model_catalog_manufacturer->getManufacturerLayoutId($this->request->get['manufacturer_id']);
+		}
+
 		if (!$layout_id) {
 			$layout_id = $this->model_design_layout->getLayout($route);
 		}
