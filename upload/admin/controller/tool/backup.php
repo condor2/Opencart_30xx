@@ -51,29 +51,29 @@ class ControllerToolBackup extends Controller {
 		
 		if (isset($this->request->files['import']['tmp_name']) && is_uploaded_file($this->request->files['import']['tmp_name'])) {
 			$filename = tempnam(DIR_UPLOAD, 'bac');
-			
+
 			move_uploaded_file($this->request->files['import']['tmp_name'], $filename);
 		} elseif (isset($this->request->get['import'])) {
-			$filename = html_entity_decode($this->request->get['import'], ENT_QUOTES, 'UTF-8');
+			$filename = DIR_UPLOAD . basename(html_entity_decode($this->request->get['import'], ENT_QUOTES, 'UTF-8'));
 		} else {
 			$filename = '';
 		}
-		
+
 		if (!is_file($filename)) {
 			$json['error'] = $this->language->get('error_file');
 		}	
-		
+
 		if (isset($this->request->get['position'])) {
 			$position = $this->request->get['position'];
 		} else {
 			$position = 0; 	
 		}
-				
+
 		if (!$json) {
 			// We set $i so we can batch execute the queries rather than do them all at once.
 			$i = 0;
 			$start = false;
-			
+
 			$handle = fopen($filename, 'r');
 
 			fseek($handle, $position, SEEK_SET);

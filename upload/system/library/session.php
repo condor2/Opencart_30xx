@@ -73,14 +73,14 @@ class Session {
 		
 		return $session_id;
 	}
-	
+
 	/**
 	 * 
  	*/
 	public function close() {
 		$this->adaptor->write($this->session_id, $this->data);
 	}
-	
+
 	/**
 	 * 
  	*/	

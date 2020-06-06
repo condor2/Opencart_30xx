@@ -550,8 +550,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$data['user_token'] = $this->session->data['user_token'];
-		
-		$data['order_id'] = $this->request->get['order_id'];
+
+		$data['order_id'] = (int)$this->request->get['order_id'];
 
 		return $this->load->view('extension/payment/pp_braintree_order', $data);
 	}
