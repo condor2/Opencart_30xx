@@ -167,13 +167,22 @@ class ControllerCatalogManufacturer extends Controller {
 			'limit' => $this->config->get('config_limit_admin')
 		);
 
+		$this->load->model('tool/image');
+
 		$manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
 
 		$results = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 
 		foreach ($results as $result) {
+			if (is_file(DIR_IMAGE . $result['image'])) {
+				$image = $this->model_tool_image->resize($result['image'], 50, 50);
+			} else {
+				$image = $this->model_tool_image->resize('no_image.png', 50, 50);
+			}
+
 			$data['manufacturers'][] = array(
 				'manufacturer_id' => $result['manufacturer_id'],
+				'image'		      => $image,
 				'name'            => $result['name'],
 				'sort_order'      => $result['sort_order'],
 				'edit'            => $this->url->link('catalog/manufacturer/edit', 'user_token=' . $this->session->data['user_token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url, true)
