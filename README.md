@@ -14,6 +14,7 @@ This is my modified Opencart version using oficial package of Opencart 3.0.3.3 w
 - Manufacturer Layout Override
 - Ability to Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil" target="_blank">Opencart Brasil</a>
 - PHP 7.4 Support
+- Promotions removed
 
 ## Note
 

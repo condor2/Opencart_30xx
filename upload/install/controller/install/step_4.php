@@ -31,8 +31,6 @@ class ControllerInstallStep4 extends Controller {
 
 		$data['error_warning'] = $this->language->get('error_warning');
 
-		$data['promotion'] = $this->load->controller('install/promotion');
-
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 

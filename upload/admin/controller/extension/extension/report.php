@@ -97,8 +97,6 @@ class ControllerExtensionExtensionReport extends Controller {
 			}
 		}
 
-		$data['promotion'] = $this->load->controller('extension/extension/promotion');
-
 		$this->response->setOutput($this->load->view('extension/extension/report', $data));
 	}
 
