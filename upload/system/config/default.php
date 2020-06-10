@@ -2,9 +2,6 @@
 // Site
 $_['site_url']             = '';
 
-// Url
-$_['url_autostart']        = true;
-
 // Language
 $_['language_directory']   = 'en-gb';
 $_['language_autoload']    = array('en-gb');

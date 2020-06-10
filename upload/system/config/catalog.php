@@ -1,9 +1,6 @@
 <?php
 // Site
-$_['site_url']          = HTTP_SERVER;
-
-// Url
-$_['url_autostart']      = false;
+$_['site_url']           = HTTP_SERVER;
 
 // Database
 $_['db_autostart']       = true;

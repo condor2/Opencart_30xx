@@ -16,6 +16,7 @@ This is a modified version of Opencart 3.0.3.3.
 - Added Filter by image in Product List
 - Added Timezone code from Master Branch - 3.1.0.0b
 - Display Manufacturer image in Admin Manufacturer list
+- Summernote editor updated from 0.8.2 to 0.8.8
 - Promotion removed
 - Openbay removed
 - PHP 7.4 Support

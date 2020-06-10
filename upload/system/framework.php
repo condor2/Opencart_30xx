@@ -4,6 +4,8 @@ $registry = new Registry();
 
 // Config
 $config = new Config();
+
+// Load the default config
 $config->load('default');
 $config->load($application_config);
 $registry->set('config', $config);
@@ -81,6 +83,9 @@ $registry->set('response', $response);
 // Database
 if ($config->get('db_autostart')) {
 	$registry->set('db', new DB($config->get('db_engine'), $config->get('db_hostname'), $config->get('db_username'), $config->get('db_password'), $config->get('db_database'), $config->get('db_port')));
+
+	// Sync PHP and DB time zones
+	$db->query("SET time_zone = '" . $db->escape(date('P')) . "'");
 }
 
 // Session
@@ -115,9 +120,7 @@ if ($config->get('session_autostart')) {
 $registry->set('cache', new Cache($config->get('cache_engine'), $config->get('cache_expire')));
 
 // Url
-if ($config->get('url_autostart')) {
-	$registry->set('url', new Url($config->get('site_url'), $config->get('site_ssl')));
-}
+$registry->set('url', new Url($config->get('site_url')));
 
 // Language
 $language = new Language($config->get('language_directory'));
