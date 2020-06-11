@@ -3,7 +3,7 @@ class ModelUpgrade1009 extends Model {
 	public function upgrade() {
 		// Affiliate customer merge code
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate'");
-		
+
 		if ($query->num_rows) {
 			// Removing affiliate and moving to the customer account.
 			$config = new Config();
@@ -21,7 +21,7 @@ class ModelUpgrade1009 extends Model {
 				
 				if (!$customer_query->num_rows) {
 					$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$config->get('config_customer_group_id') . "', `language_id` = '" . (int)$config->get('config_customer_group_id') . "', `firstname` = '" . $this->db->escape($affiliate['firstname']) . "', `lastname` = '" . $this->db->escape($affiliate['lastname']) . "', `email` = '" . $this->db->escape($affiliate['email']) . "', `telephone` = '" . $this->db->escape($affiliate['telephone']) . "', `password` = '" . $this->db->escape($affiliate['password']) . "', `salt` = '" . $this->db->escape($affiliate['salt']) . "', `cart` = '" . $this->db->escape(json_encode(array())) . "', `wishlist` = '" . $this->db->escape(json_encode(array())) . "', `newsletter` = '0', `custom_field` = '" . $this->db->escape(json_encode(array())) . "', `ip` = '" . $this->db->escape($affiliate['ip']) . "', `status` = '" . $this->db->escape($affiliate['status']) . "', `date_added` = '" . $this->db->escape($affiliate['date_added']) . "'");
-					
+
 					$customer_id = $this->db->getLastId();
 					
 					$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($affiliate['firstname']) . "', lastname = '" . $this->db->escape($affiliate['lastname']) . "', company = '" . $this->db->escape($affiliate['company']) . "', address_1 = '" . $this->db->escape($affiliate['address_1']) . "', address_2 = '" . $this->db->escape($affiliate['address_2']) . "', city = '" . $this->db->escape($affiliate['city']) . "', postcode = '" . $this->db->escape($affiliate['postcode']) . "', zone_id = '" . (int)$affiliate['zone_id'] . "', country_id = '" . (int)$affiliate['country_id'] . "', custom_field = '" . $this->db->escape(json_encode(array())) . "'");
@@ -49,15 +49,15 @@ class ModelUpgrade1009 extends Model {
 				
 				$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `affiliate_id` = '" . (int)$customer_id . "' WHERE affiliate_id = '" . (int)$affiliate['affiliate_id'] . "'");
 			}
-			
+
 			$this->db->query("DROP TABLE `" . DB_PREFIX . "affiliate`");
-			
+
 			$affiliate_query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate_activity'");
-			
+
 			if (!$affiliate_query->num_rows) {
 				$this->db->query("DROP TABLE `" . DB_PREFIX . "affiliate_activity`");
 			}
-			
+
 			$affiliate_query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate_login'");
 			
 			if (!$affiliate_query->num_rows) {			
@@ -66,13 +66,13 @@ class ModelUpgrade1009 extends Model {
 			
 			$this->db->query("DROP TABLE `" . DB_PREFIX . "affiliate_transaction`");
 		}
-	
+
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "api' AND COLUMN_NAME = 'name'");
-		
+
 		if ($query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` CHANGE `name` `username` VARCHAR(64) NOT NULL");
 		}
-		
+
 		// Events
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'sort_order'");
 		
@@ -85,7 +85,33 @@ class ModelUpgrade1009 extends Model {
 		if ($query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` DROP COLUMN `date_added`");
 		}
-						
+
+		// Country
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
+
+		// Zone
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Bacău') . "' WHERE `name` = '" . $this->db->escape('Bacau') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Bistrița-Năsăud') . "' WHERE `name` = '" . $this->db->escape('Bistrita-Nasaud') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Botoșani') . "' WHERE `name` = '" . $this->db->escape('Botosani') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Brașov') . "' WHERE `name` = '" . $this->db->escape('Brasov') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Brăila') . "' WHERE `name` = '" . $this->db->escape('Braila') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('București') . "' WHERE `name` = '" . $this->db->escape('Bucuresti') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Buzău') . "' WHERE `name` = '" . $this->db->escape('Buzau') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Caraș-Severin') . "' WHERE `name` = '" . $this->db->escape('Caras-Severin') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Călărași') . "' WHERE `name` = '" . $this->db->escape('Calarasi') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Constanța') . "' WHERE `name` = '" . $this->db->escape('Constanta') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Dâmbovița') . "' WHERE `name` = '" . $this->db->escape('Dimbovita') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Galați') . "' WHERE `name` = '" . $this->db->escape('Galati') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Ialomița') . "' WHERE `name` = '" . $this->db->escape('Ialomita') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Iași') . "' WHERE `name` = '" . $this->db->escape('Iasi') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Maramureș') . "' WHERE `name` = '" . $this->db->escape('Maramures') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Mehedinți') . "' WHERE `name` = '" . $this->db->escape('Mehedinti') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Mureș') . "' WHERE `name` = '" . $this->db->escape('Mures') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Neamț') . "' WHERE `name` = '" . $this->db->escape('Neamt') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Sălaj') . "' WHERE `name` = '" . $this->db->escape('Salaj') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Timiș') . "' WHERE `name` = '" . $this->db->escape('Timis') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Vâlcea') . "' WHERE `name` = '" . $this->db->escape('Valcea') . "'");
+
 		// OPENCART_SERVER
 		$upgrade = true;
 		
