@@ -425,8 +425,8 @@ class ControllerCatalogManufacturer extends Controller {
 					if (!empty($keyword)) {
 						if (count(array_keys($language, $keyword)) > 1) {
 							$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_unique');
-						}							
-						
+						}
+
 						$seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
 						
 						foreach ($seo_urls as $seo_url) {
@@ -437,6 +437,10 @@ class ControllerCatalogManufacturer extends Controller {
 					}
 				}
 			}
+		}
+
+		if ($this->error && !isset($this->error['warning'])) {
+			$this->error['warning'] = $this->language->get('error_warning');
 		}
 
 		return !$this->error;
