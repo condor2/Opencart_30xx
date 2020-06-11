@@ -160,8 +160,16 @@ class Twig_Lexer implements Twig_LexerInterface
 
         // push the template text first
         $text = $textContent = substr($this->code, $this->cursor, $position[1] - $this->cursor);
-        if ($this->options['whitespace_trim'] === $this->positions[2][$this->position][0]) {
-            $text = rtrim($text);
+        // trim?
+        if (isset($this->positions[2][$this->position][0])) {
+            if ($this->options['whitespace_trim'] === $this->positions[2][$this->position][0]) {
+                // whitespace_trim detected ({%-, {{- or {#-)
+                $text = rtrim($text);
+            } elseif ($this->options['whitespace_trim'] === $this->positions[2][$this->position][0]) {
+                // whitespace_trim detected ({%~, {{~ or {#~)
+                // don't trim \r and \n
+                $text = rtrim($text, " \t\0\x0B");
+            }
         }
         $this->pushToken(Twig_Token::TEXT_TYPE, $text);
         $this->moveCursor($textContent.$position[0]);
