@@ -112,6 +112,9 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Timiș') . "' WHERE `name` = '" . $this->db->escape('Timis') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Vâlcea') . "' WHERE `name` = '" . $this->db->escape('Valcea') . "'");
 
+		// Statistics
+		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = '" . $this->db->escape('return') . "' WHERE `code` = '" . $this->db->escape('returns') . "'");
+
 		// OPENCART_SERVER
 		$upgrade = true;
 		
