@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014 Klarna AB
+ * Copyright 2019 Klarna AB
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@
 namespace Klarna\Rest;
 
 use GuzzleHttp\Exception\RequestException;
-use Klarna\Rest\Transport\Connector;
+use Klarna\Rest\Transport\ConnectorInterface;
+use Klarna\Rest\Transport\Method;
 use Klarna\Rest\Transport\Exception\ConnectorException;
 use Klarna\Rest\Transport\ResponseValidator;
 
@@ -58,9 +59,9 @@ abstract class Resource extends \ArrayObject
     /**
      * Constructs a resource instance.
      *
-     * @param Connector $connector HTTP transport instance.
+     * @param ConnectorInterface $connector HTTP transport instance.
      */
-    public function __construct(Connector $connector)
+    public function __construct(ConnectorInterface $connector)
     {
         $this->connector = $connector;
     }
@@ -100,6 +101,24 @@ abstract class Resource extends \ArrayObject
     }
 
     /**
+     * Overrides: Stores the ID KEY field in order to restore it after exchanging the array without
+     * the ID field.
+     * 
+     * @param array $array Data to be exchanged
+     */
+    public function exchangeArray($array)
+    {
+        $id = $this->getId();
+
+        if (!is_null($array)) {
+            parent::exchangeArray($array);
+        }
+        if (is_null($this->getId()) && !is_null($id)) {
+            $this->setId($id);
+        }
+    }
+
+    /**
      * Fetches the resource.
      *
      * @throws ConnectorException        When the API replies with an error response
@@ -114,6 +133,7 @@ abstract class Resource extends \ArrayObject
     public function fetch()
     {
         $data = $this->get($this->getLocation())
+            ->expectSuccessfull()
             ->status('200')
             ->contentType('application/json')
             ->getJson();
@@ -124,23 +144,86 @@ abstract class Resource extends \ArrayObject
     }
 
     /**
+     * Sets new ID KEY field.
+     *
+     * @param mixed $id ID field
+     *
+     * @return self
+     */
+    protected function setId($id)
+    {
+        $this[static::ID_FIELD] = $id;
+        return $this;
+    }
+
+    /**
      * Sends a HTTP request to the specified url.
      *
-     * @param string $method  HTTP method, e.g. 'GET'
-     * @param string $url     Request destination
-     * @param array  $options Request options
+     * @param string $method HTTP method, e.g. 'GET'
+     * @param string $url Request destination
+     * @param array $headers
+     * @param string $body
      *
      * @throws ConnectorException When the API replies with an error response
      * @throws RequestException   When an error is encountered
-     * @throws \LogicException    When Guzzle cannot populate the response
+     * @throws \LogicException    When Guzzle cannot populate the response'
+     * @return ResponseValidator When the API replies with an error response
      *
-     * @return ResponseValidator
      */
-    protected function request($method, $url, array $options = [])
+    protected function request($method, $url, array $headers = [], $body = null)
     {
-        $request = $this->connector->createRequest($url, $method, $options);
+        $debug = getenv('DEBUG_SDK') || defined('DEBUG_SDK');
 
-        return new ResponseValidator($this->connector->send($request));
+        if ($debug) {
+            $methodDebug = str_pad($method, 7, ' ', STR_PAD_LEFT);
+            $debugHeaders = json_encode($headers);
+            echo <<<DEBUG_BODY
+DEBUG MODE: Request
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+{$methodDebug} : {$url}
+Headers : $debugHeaders
+   Body : {$body}
+\n
+DEBUG_BODY;
+        }
+
+        switch ($method) {
+            case Method::GET:
+                $response = $this->connector->get($url, $headers);
+                break;
+            case Method::POST:
+                $response = $this->connector->post($url, $body, $headers);
+                break;
+            case Method::PUT:
+                $response = $this->connector->put($url, $body, $headers);
+                break;
+            case Method::DELETE:
+                $response = $this->connector->delete($url, $body, $headers);
+                break;
+            case Method::PATCH:
+                $response = $this->connector->patch($url, $body, $headers);
+                break;
+            default:
+                throw new \RuntimeException('Unknown request method ' + $method);
+        }
+
+        if ($debug) {
+            $debugHeaders = json_encode($response->getHeaders());
+            echo <<<DEBUG_BODY
+DEBUG MODE: Response
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Headers : $debugHeaders
+   Body : {$response->getBody()}
+\n
+DEBUG_BODY;
+        }
+
+        $location =  $response->getLocation();
+        if (!empty($location)) {
+            $this->setLocation($location);
+        }
+        
+        return new ResponseValidator($response);
     }
 
     /**
@@ -160,6 +243,28 @@ abstract class Resource extends \ArrayObject
     }
 
     /**
+     * Sends a HTTP DELETE request to the specified url.
+     *
+     * @param string $url  Request destination
+     * @param array  $data Data to be JSON encoded
+     *
+     * @throws ConnectorException When the API replies with an error response
+     * @throws RequestException   When an error is encountered
+     * @throws \LogicException    When Guzzle cannot populate the response
+     *
+     * @return ResponseValidator
+     */
+    protected function delete($url, array $data = null)
+    {
+        return $this->request(
+            'DELETE',
+            $url,
+            ['Content-Type' => 'application/json'],
+            $data !== null ? json_encode($data) : null
+        );
+    }
+
+    /**
      * Sends a HTTP PATCH request to the specified url.
      *
      * @param string $url  Request destination
@@ -173,7 +278,34 @@ abstract class Resource extends \ArrayObject
      */
     protected function patch($url, array $data)
     {
-        return $this->request('PATCH', $url, ['json' => $data]);
+        return $this->request(
+            'PATCH',
+            $url,
+            ['Content-Type' => 'application/json'],
+            json_encode($data)
+        );
+    }
+
+    /**
+     * Sends a HTTP PUT request to the specified url.
+     *
+     * @param string $url  Request destination
+     * @param array  $data Data to be JSON encoded
+     *
+     * @throws ConnectorException When the API replies with an error response
+     * @throws RequestException   When an error is encountered
+     * @throws \LogicException    When Guzzle cannot populate the response
+     *
+     * @return ResponseValidator
+     */
+    protected function put($url, array $data)
+    {
+        return $this->request(
+            'PUT',
+            $url,
+            ['Content-Type' => 'application/json'],
+            json_encode($data)
+        );
     }
 
     /**
@@ -190,11 +322,11 @@ abstract class Resource extends \ArrayObject
      */
     protected function post($url, array $data = null)
     {
-        $options = [];
-        if ($data !== null) {
-            $options['json'] = $data;
-        }
-
-        return $this->request('POST', $url, $options);
+        return $this->request(
+            'POST',
+            $url,
+            ['Content-Type' => 'application/json'],
+            $data !== null ? \json_encode($data) : null
+        );
     }
 }

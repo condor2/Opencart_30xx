@@ -1,15 +1,18 @@
 <?php
+namespace Braintree;
 
-class Braintree_MultipleValueNode
+use InvalidArgumentException;
+
+class MultipleValueNode
 {
-    function __construct($name, $allowedValues = array())
+    public function __construct($name, $allowedValues = [])
     {
         $this->name = $name;
-        $this->items = array();
+        $this->items = [];
 		$this->allowedValues = $allowedValues;
     }
 
-    function in($values)
+    public function in($values)
     {
 		$bad_values = array_diff($values, $this->allowedValues);
 		if (count($this->allowedValues) > 0 && count($bad_values) > 0) {
@@ -25,12 +28,12 @@ class Braintree_MultipleValueNode
         return $this;
     }
 
-    function is($value)
+    public function is($value)
     {
-        return $this->in(array($value));
+        return $this->in([$value]);
     }
 
-    function toParam()
+    public function toParam()
     {
         return $this->items;
     }

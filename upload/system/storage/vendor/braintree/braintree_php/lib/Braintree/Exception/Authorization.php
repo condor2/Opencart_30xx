@@ -1,4 +1,8 @@
 <?php
+namespace Braintree\Exception;
+
+use Braintree\Exception;
+
 /**
  * Raised when authorization fails
  * Raised when the API key being used is not authorized to perform
@@ -7,9 +11,8 @@
  *
  * @package    Braintree
  * @subpackage Exception
- * @copyright  2014 Braintree, a division of PayPal, Inc.
  */
-class Braintree_Exception_Authorization extends Braintree_Exception
+class Authorization extends Exception
 {
 
 }

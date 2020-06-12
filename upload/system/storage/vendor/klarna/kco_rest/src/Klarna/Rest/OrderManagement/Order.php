@@ -21,22 +21,23 @@ namespace Klarna\Rest\OrderManagement;
 
 use GuzzleHttp\Exception\RequestException;
 use Klarna\Rest\Resource;
-use Klarna\Rest\Transport\Connector;
+use Klarna\Rest\Transport\ConnectorInterface;
 use Klarna\Rest\Transport\Exception\ConnectorException;
 
 /**
- * Order management resource.
+ * Order management: Order resource.
  *
- * @example docs/examples/order/acknowledge_order.php
- * @example docs/examples/order/cancel_order.php
- * @example docs/examples/order/extend_authorization_time.php
- * @example docs/examples/order/fetch_order.php
- * @example docs/examples/order/fetch_capture.php
- * @example docs/examples/order/refund_order.php
- * @example docs/examples/order/release_remaining_authorization.php
- * @example docs/examples/order/update_customer_details.php
- * @example docs/examples/order/update_merchant_references.php
- * @example docs/examples/order/update_order_lines.php
+ * @example docs/examples/OrderManagementAPI/Orders/acknowledge_order.php
+ * @example docs/examples/OrderManagementAPI/Orders/cancel_order.php
+ * @example docs/examples/OrderManagementAPI/Orders/create_capture.php
+ * @example docs/examples/OrderManagementAPI/Orders/extend_authorization_time.php
+ * @example docs/examples/OrderManagementAPI/Orders/fetch_all_captures.php
+ * @example docs/examples/OrderManagementAPI/Orders/fetch_capture.php
+ * @example docs/examples/OrderManagementAPI/Orders/fetch_order.php
+ * @example docs/examples/OrderManagementAPI/Orders/release_remaining_authorization.php
+ * @example docs/examples/OrderManagementAPI/Orders/update_customer_details.php
+ * @example docs/examples/OrderManagementAPI/Orders/update_merchant_references.php
+ * @example docs/examples/OrderManagementAPI/Orders/update_order_lines.php
  */
 class Order extends Resource
 {
@@ -53,10 +54,10 @@ class Order extends Resource
     /**
      * Constructs an order instance.
      *
-     * @param Connector $connector HTTP transport connector
+     * @param ConnectorInterface $connector HTTP transport connector
      * @param string    $orderId   Order ID
      */
-    public function __construct(Connector $connector, $orderId)
+    public function __construct(ConnectorInterface $connector, $orderId)
     {
         parent::__construct($connector);
 
@@ -98,6 +99,28 @@ class Order extends Resource
 
         $this['captures'] = $captures;
 
+
+        // Convert refunds data to Refund[]
+        if (isset($this['refunds'])) {
+            $refunds = [];
+            foreach ($this['refunds'] as $refund) {
+                $refundId = null;
+                if (isset($refund[Refund::ID_FIELD])) {
+                    $refundId = $refund[Refund::ID_FIELD];
+                }
+
+                $object = new Refund(
+                    $this->connector,
+                    $this->getLocation(),
+                    $refundId
+                );
+                $object->exchangeArray($refund);
+
+                $refunds[] = $object;
+            }
+            $this['refunds'] = $refunds;
+        }
+
         return $this;
     }
 
@@ -114,6 +137,7 @@ class Order extends Resource
     public function acknowledge()
     {
         $this->post($this->getLocation() . '/acknowledge')
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -132,13 +156,14 @@ class Order extends Resource
     public function cancel()
     {
         $this->post($this->getLocation() . '/cancel')
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
     }
 
     /**
-     * Updates the authorization data.
+     * Updates the authorization data. Sets new order amount and order lines
      *
      * @param array $data Authorization data
      *
@@ -152,6 +177,7 @@ class Order extends Resource
     public function updateAuthorization(array $data)
     {
         $this->patch($this->getLocation() . '/authorization', $data)
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -170,6 +196,7 @@ class Order extends Resource
     public function extendAuthorizationTime()
     {
         $this->post($this->getLocation() . '/extend-authorization-time')
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -190,6 +217,7 @@ class Order extends Resource
     public function updateMerchantReferences(array $data)
     {
         $this->patch($this->getLocation() . '/merchant-references', $data)
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -210,6 +238,7 @@ class Order extends Resource
     public function updateCustomerDetails(array $data)
     {
         $this->patch($this->getLocation() . '/customer-details', $data)
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -225,14 +254,14 @@ class Order extends Resource
      * @throws \RuntimeException  If the API replies with an unexpected response
      * @throws \LogicException    When Guzzle cannot populate the response
      *
-     * @return self
+     * @return Refund
      */
     public function refund(array $data)
     {
-        $this->post($this->getLocation() . '/refunds', $data)
-            ->status(['201', '204']);
+        $refund = new Refund($this->connector, $this->getLocation());
+        $refund->create($data);
 
-        return $this;
+        return $refund;
     }
 
     /**
@@ -248,6 +277,7 @@ class Order extends Resource
     public function releaseRemainingAuthorization()
     {
         $this->post($this->getLocation() . '/release-remaining-authorization')
+            ->expectSuccessfull()
             ->status('204');
 
         return $this;
@@ -313,5 +343,65 @@ class Order extends Resource
         $this['captures'][] = $capture;
 
         return $capture;
+    }
+
+    /**
+     * Fetches the specified refund.
+     *
+     * @param string $refundId Refund ID
+     *
+     * @see Refund::fetch() For more information on how to fetch a refund
+     *
+     * @throws ConnectorException        When the API replies with an error response
+     * @throws RequestException          When an error is encountered
+     * @throws \RuntimeException         On an unexpected API response
+     * @throws \RuntimeException         If the response content type is not JSON
+     * @throws \InvalidArgumentException If the JSON cannot be parsed
+     * @throws \LogicException           When Guzzle cannot populate the response
+     *
+     * @return Refund
+     */
+    public function fetchRefund($refundId)
+    {
+        if ($this->offsetExists('refunds')) {
+            foreach ($this['refunds'] as $refund) {
+                if ($refund->getId() !== $refundId) {
+                    continue;
+                }
+
+                return $refund;
+            }
+        }
+
+        $refund = new Refund($this->connector, $this->getLocation(), $refundId);
+        $refund->fetch();
+
+        $this['refunds'][] = $refund;
+
+        return $refund;
+    }
+
+    /**
+     * Fetches all captures.
+     *
+     * @throws ConnectorException        When the API replies with an error response
+     * @throws RequestException          When an error is encountered
+     * @throws \RuntimeException         On an unexpected API response
+     * @throws \RuntimeException         If the response content type is not JSON
+     * @throws \InvalidArgumentException If the JSON cannot be parsed
+     * @throws \LogicException           When Guzzle cannot populate the response
+     *
+     * @return Capture[]
+     */
+    public function fetchCaptures()
+    {
+        $captures = new Capture($this->connector, $this->getLocation());
+        $captures = $captures->fetch()->getArrayCopy();
+
+        foreach ($captures as $id => $capture) {
+            $captures[$id] = new Capture($this->connector, $this->getLocation(), $capture['capture_id']);
+            $captures[$id]->exchangeArray($capture);
+        }
+        return $captures;
     }
 }

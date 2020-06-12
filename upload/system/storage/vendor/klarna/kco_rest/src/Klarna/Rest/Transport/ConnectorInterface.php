@@ -21,9 +21,8 @@ namespace Klarna\Rest\Transport;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\RequestInterface;
-use GuzzleHttp\Message\ResponseInterface;
-use Klarna\Rest\Transport\Exception\ConnectorException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * HTTP transport connector interface used to authenticate and make HTTP requests
@@ -55,40 +54,71 @@ interface ConnectorInterface
     const NA_TEST_BASE_URL = 'https://api-na.playground.klarna.com';
 
     /**
-     * Creates a request object.
-     *
-     * @param string $url     URL
-     * @param string $method  HTTP method
-     * @param array  $options Request options
-     *
-     * @return RequestInterface
+     * API base URL for Oceania.
      */
-    public function createRequest($url, $method = 'GET', array $options = []);
+    const OC_BASE_URL = 'https://api-oc.klarna.com';
 
     /**
-     * Sends the request.
-     *
-     * @param RequestInterface $request Request to send
-     *
-     * @throws ConnectorException If the API returned an error response
-     * @throws RequestException   When an error is encountered
-     * @throws \LogicException    When the adapter does not populate a response
-     *
-     * @return ResponseInterface
+     * Testing API base URL for Oceania.
      */
-    public function send(RequestInterface $request);
+    const OC_TEST_BASE_URL = 'https://api-oc.playground.klarna.com';
 
     /**
-     * Gets the HTTP transport client.
+     * Sends HTTP GET request to specified path.
      *
-     * @return ClientInterface
+     * @param string $path URL path.
+     * @param array $headers HTTP request headers
+     * @return ApiResponse Processed response
+     *
+     * @throws RuntimeException if HTTP transport failed to execute a call
      */
-    public function getClient();
+    public function get($path, $headers = []);
 
     /**
-     * Gets the user agent.
+     * Sends HTTP POST request to specified path.
      *
-     * @return UserAgentInterface
+     * @param string $path URL path.
+     * @param string $data Data to be sent to API server in a payload. Example: json-encoded string
+     * @param array $headers HTTP request headers
+     * @return ApiResponse Processed response
+     *
+     * @throws RuntimeException if HTTP transport failed to execute a call
      */
-    public function getUserAgent();
+    public function post($path, $data = null, $headers = []);
+
+    /**
+     * Sends HTTP PUT request to specified path.
+     *
+     * @param string $path URL path.
+     * @param string $data Data to be sent to API server in a payload. Example: json-encoded string
+     * @param array $headers HTTP request headers
+     * @return ApiResponse Processed response
+     *
+     * @throws RuntimeException if HTTP transport failed to execute a call
+     */
+    public function put($path, $data = null, $headers = []);
+
+    /**
+     * Sends HTTP PATCH request to specified path.
+     *
+     * @param string $path URL path.
+     * @param string $data Data to be sent to API server in a payload. Example: json-encoded string
+     * @param array $headers HTTP request headers
+     * @return ApiResponse Processed response
+     *
+     * @throws RuntimeException if HTTP transport failed to execute a call
+     */
+    public function patch($path, $data = null, $headers = []);
+
+    /**
+     * Sends HTTP DELETE request to specified path.
+     *
+     * @param string $path URL path.
+     * @param string $data Data to be sent to API server in a payload. Example: json-encoded string
+     * @param array $headers HTTP request headers
+     * @return ApiResponse Processed response
+     *
+     * @throws RuntimeException if HTTP transport failed to execute a call
+     */
+    public function delete($path, $data = null, $headers = []);
 }

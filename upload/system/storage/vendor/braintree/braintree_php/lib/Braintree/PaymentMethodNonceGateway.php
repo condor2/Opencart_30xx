@@ -1,10 +1,11 @@
 <?php
+namespace Braintree;
+
 /**
  * Braintree PaymentMethodNonceGateway module
  *
  * @package    Braintree
  * @category   Resources
- * @copyright  2014 Braintree, a division of PayPal, Inc.
  */
 
 /**
@@ -15,10 +16,8 @@
  *
  * @package    Braintree
  * @category   Resources
- * @copyright  2014 Braintree, a division of PayPal, Inc.
- *
  */
-class Braintree_PaymentMethodNonceGateway
+class PaymentMethodNonceGateway
 {
     private $_gateway;
     private $_config;
@@ -28,18 +27,30 @@ class Braintree_PaymentMethodNonceGateway
     {
         $this->_gateway = $gateway;
         $this->_config = $gateway->config;
-        $this->_http = new Braintree_Http($gateway->config);
+        $this->_http = new Http($gateway->config);
     }
 
 
-    public function create($token)
+    public function create($token, $params = [])
     {
         $subPath = '/payment_methods/' . $token . '/nonces';
         $fullPath = $this->_config->merchantPath() . $subPath;
-        $response = $this->_http->post($fullPath);
+        $schema = [[
+            'paymentMethodNonce' => [
+                'merchantAccountId',
+                'authenticationInsight',
+            ['authenticationInsightOptions' => [
+                    'amount',
+                    'recurringCustomerConsent',
+                    'recurringMaxAmount'
+                ]
+            ]]
+        ]];
+        Util::verifyKeys($schema, $params);
+        $response = $this->_http->post($fullPath, $params);
 
-        return new Braintree_Result_Successful(
-            Braintree_PaymentMethodNonce::factory($response['paymentMethodNonce']),
+        return new Result\Successful(
+            PaymentMethodNonce::factory($response['paymentMethodNonce']),
             "paymentMethodNonce"
         );
     }
@@ -53,9 +64,9 @@ class Braintree_PaymentMethodNonceGateway
         try {
             $path = $this->_config->merchantPath() . '/payment_method_nonces/' . $nonce;
             $response = $this->_http->get($path);
-            return Braintree_PaymentMethodNonce::factory($response['paymentMethodNonce']);
-        } catch (Braintree_Exception_NotFound $e) {
-            throw new Braintree_Exception_NotFound(
+            return PaymentMethodNonce::factory($response['paymentMethodNonce']);
+        } catch (Exception\NotFound $e) {
+            throw new Exception\NotFound(
             'payment method nonce with id ' . $nonce . ' not found'
             );
         }

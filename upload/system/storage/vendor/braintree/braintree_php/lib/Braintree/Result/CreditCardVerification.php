@@ -1,4 +1,11 @@
 <?php
+namespace Braintree\Result;
+
+use Braintree\RiskData;
+use Braintree\ThreeDSecureInfo;
+use Braintree\Util;
+use Braintree\Base;
+
 /**
  * Braintree Credit Card Verification Result
  *
@@ -8,16 +15,15 @@
  *
  * @package    Braintree
  * @subpackage Result
- * @copyright  2014 Braintree, a division of PayPal, Inc.
  *
- * @property-read string $avsErrorResponseCode
+ * @property-read string|null $avsErrorResponseCode
  * @property-read string $avsPostalCodeResponseCode
  * @property-read string $avsStreetAddressResponseCode
  * @property-read string $cvvResponseCode
  * @property-read string $status
  *
  */
-class Braintree_Result_CreditCardVerification
+class CreditCardVerification extends Base
 {
     // Status
     const FAILED                   = 'failed';
@@ -25,10 +31,11 @@ class Braintree_Result_CreditCardVerification
     const PROCESSOR_DECLINED       = 'processor_declined';
     const VERIFIED                 = 'verified';
 
-    private $_attributes;
+    private $_amount;
     private $_avsErrorResponseCode;
     private $_avsPostalCodeResponseCode;
     private $_avsStreetAddressResponseCode;
+    private $_currencyIsoCode;
     private $_cvvResponseCode;
     private $_gatewayRejectionReason;
     private $_status;
@@ -46,15 +53,23 @@ class Braintree_Result_CreditCardVerification
      * @ignore
      * @access protected
      * @param <type> $aAttribs array of properties to set - single level
-     * @return none
+     * @return void
      */
     private function _initializeFromArray($attributes)
     {
         if(isset($attributes['riskData']))
         {
-            $attributes['riskData'] = Braintree_RiskData::factory($attributes['riskData']);
+            $attributes['riskData'] = RiskData::factory($attributes['riskData']);
         }
 
+        if(isset($attributes['globalId']))
+        {
+            $attributes['graphQLId'] = $attributes['globalId'];
+        }
+
+        if(isset($attributes['threeDSecureInfo'])) {
+            $attributes['threeDSecureInfo'] = ThreeDSecureInfo::factory($attributes['threeDSecureInfo']);
+        }
         $this->_attributes = $attributes;
         foreach($attributes AS $name => $value) {
             $varName = "_$name";
@@ -63,7 +78,6 @@ class Braintree_Result_CreditCardVerification
     }
 
     /**
-     *
      * @ignore
      */
     public function  __get($name)
@@ -79,16 +93,16 @@ class Braintree_Result_CreditCardVerification
     public function  __toString()
     {
         return __CLASS__ . '[' .
-                Braintree_Util::attributesToString($this->_attributes) .']';
+                Util::attributesToString($this->_attributes) . ']';
     }
 
     public static function allStatuses()
     {
-        return array(
-            Braintree_Result_creditCardVerification::FAILED,
-            Braintree_Result_creditCardVerification::GATEWAY_REJECTED,
-            Braintree_Result_creditCardVerification::PROCESSOR_DECLINED,
-            Braintree_Result_creditCardVerification::VERIFIED,
-        );
+        return [
+            CreditCardVerification::FAILED,
+            CreditCardVerification::GATEWAY_REJECTED,
+            CreditCardVerification::PROCESSOR_DECLINED,
+            CreditCardVerification::VERIFIED
+        ];
     }
 }

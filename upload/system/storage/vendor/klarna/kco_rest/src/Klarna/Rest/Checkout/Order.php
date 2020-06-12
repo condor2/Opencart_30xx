@@ -21,16 +21,17 @@ namespace Klarna\Rest\Checkout;
 
 use GuzzleHttp\Exception\RequestException;
 use Klarna\Rest\Resource;
-use Klarna\Rest\Transport\Connector;
+use Klarna\Rest\Transport\ConnectorInterface;
 use Klarna\Rest\Transport\Exception\ConnectorException;
 
 /**
  * Checkout order resource.
  *
- * @example docs/examples/checkout/create_checkout.php Create the checkout order
- * @example docs/examples/checkout/create_checkout_attachment.php EMD attachment
- * @example docs/examples/checkout/fetch_checkout.php  Retrieve a checkout order
- * @example docs/examples/checkout/update_checkout.php Update a checkout order
+ * @example docs/examples/CheckoutAPI/create_checkout.php Create the checkout order
+ * @example docs/examples/CheckoutAPI/create_checkout_attachment.php EMD attachment
+ * @example docs/examples/CheckoutAPI/fetch_checkout.php  Retrieve a checkout order
+ * @example docs/examples/CheckoutAPI/update_checkout.php Update a checkout order
+ * @example docs/examples/CheckoutAPI/handling_exceptions.php Handling possible exceptions
  */
 class Order extends Resource
 {
@@ -47,10 +48,10 @@ class Order extends Resource
     /**
      * Constructs an order instance.
      *
-     * @param Connector $connector HTTP transport connector
+     * @param ConnectorInterface $connector HTTP transport connector
      * @param string    $orderId   Order ID
      */
-    public function __construct(Connector $connector, $orderId = null)
+    public function __construct(ConnectorInterface $connector, $orderId = null)
     {
         parent::__construct($connector);
 
@@ -75,11 +76,13 @@ class Order extends Resource
      */
     public function create(array $data)
     {
-        $url = $this->post(self::$path, $data)
+        $response = $this->post(self::$path, $data)
+            ->expectSuccessfull()
             ->status('201')
-            ->getLocation();
+            ->contentType('application/json');
 
-        $this->setLocation($url);
+        $this->exchangeArray($response->getJson());
+        $this->setLocation($response->getLocation());
 
         return $this;
     }
@@ -100,12 +103,13 @@ class Order extends Resource
      */
     public function update(array $data)
     {
-        $data = $this->post($this->getLocation(), $data)
+        $response = $this->post($this->getLocation(), $data)
+            ->expectSuccessfull()
             ->status('200')
             ->contentType('application/json')
             ->getJson();
 
-        $this->exchangeArray($data);
+        $this->exchangeArray($response);
 
         return $this;
     }

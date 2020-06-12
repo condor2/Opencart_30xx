@@ -1,6 +1,7 @@
 <?php
+namespace Braintree;
 
-class Braintree_EqualityNode extends Braintree_IsNode
+class EqualityNode extends IsNode
 {
     function isNot($value)
     {

@@ -1,6 +1,7 @@
 <?php
+namespace Braintree;
 
-class Braintree_SignatureService
+class SignatureService
 {
 
     public function __construct($key, $digest)
