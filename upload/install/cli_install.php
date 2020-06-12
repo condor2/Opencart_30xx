@@ -142,8 +142,8 @@ function install($options) {
 
 function check_requirements() {
 	$error = null;
-	if (phpversion() < '5.4') {
-		$error = 'Warning: You need to use PHP5.4+ or above for OpenCart to work!';
+	if (version_compare(phpversion(), '7.0.0', '<')) {
+		$error = 'Warning: You need to use PHP7+ or above for OpenCart to work!';
 	}
 
 	if (!ini_get('file_uploads')) {

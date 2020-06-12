@@ -2,12 +2,8 @@
 class ControllerStartupStartup extends Controller {
 	public function index() {
 		// Store
-		if ($this->request->server['HTTPS']) {
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`ssl`, 'www.', '') = '" . $this->db->escape('https://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
-		} else {
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape('http://' . str_replace('www.', '', $_SERVER['HTTP_HOST']) . rtrim(dirname($_SERVER['PHP_SELF']), '/.\\') . '/') . "'");
-		}
-		
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape(($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/') . "'");
+
 		if (isset($this->request->get['store_id'])) {
 			$this->config->set('config_store_id', (int)$this->request->get['store_id']);
 		} else if ($query->num_rows) {
@@ -18,7 +14,6 @@ class ControllerStartupStartup extends Controller {
 
 		if (!$query->num_rows) {
 			$this->config->set('config_url', HTTP_SERVER);
-			$this->config->set('config_ssl', HTTPS_SERVER);
 		}
 
 		// Settings
@@ -44,7 +39,7 @@ class ControllerStartupStartup extends Controller {
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 
 		// Url
-		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl')));
+		$this->registry->set('url', new Url($this->config->get('config_url')));
 
 		// Language
 		$code = '';
@@ -72,7 +67,7 @@ class ControllerStartupStartup extends Controller {
 				foreach ($languages as $key => $value) {
 					if ($value['status']) {
 						$locale = explode(',', $value['locale']);
-						
+
 						if (in_array($browser_language, $locale)) {
 							$detect = $key;
 							break 2;
@@ -86,7 +81,7 @@ class ControllerStartupStartup extends Controller {
 				foreach ($browser_languages as $browser_language) {
 					if (array_key_exists(strtolower($browser_language), $languages)) {
 						$detect = strtolower($browser_language);
-						
+
 						break;
 					}
 				}
@@ -104,7 +99,11 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-			setcookie('language', $code, ['expires' => time() + 60 * 60 * 24 * 30, 'path' => '/', 'domain' => $this->request->server['HTTP_HOST'], 'samesite' => 'None', 'secure' => true]);
+			if (version_compare(phpversion(), '7.3.0', '<')) {
+				setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+			} else {
+				setcookie('language', $code, ['expires' => time() + 60 * 60 * 24 * 30, 'path' => '/', 'domain' => $this->request->server['HTTP_HOST'], 'samesite' => 'None', 'secure' => true]);
+			}
 		}
 
 		// Overwrite the default language object
@@ -162,7 +161,11 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		if (!isset($this->request->cookie['currency']) || $this->request->cookie['currency'] != $code) {
-			setcookie('currency', $code, ['expires' => time() + 60 * 60 * 24 * 30, 'path' => '/', 'domain' => $this->request->server['HTTP_HOST'], 'samesite' => 'None', 'secure' => true]);
+			if (version_compare(phpversion(), '7.3.0', '<')) {
+				setcookie('currency', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+			} else {
+				setcookie('currency', $code, ['expires' => time() + 60 * 60 * 24 * 30, 'path' => '/', 'domain' => $this->request->server['HTTP_HOST'], 'samesite' => 'None', 'secure' => true]);
+			}
 		}
 
 		$this->registry->set('currency', new Cart\Currency($this->registry));
