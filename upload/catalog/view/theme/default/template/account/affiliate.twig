@@ -71,7 +71,8 @@
               </div>
             </div>
           </div>
-          <div class="form-group payment" id="payment-cheque">
+          <div id="payment-cheque" class="payment">
+           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-cheque">{{ entry_cheque }}</label>
             <div class="col-sm-10">
               <input type="text" name="cheque" value="{{ cheque }}" placeholder="{{ entry_cheque }}" id="input-cheque" class="form-control" />
@@ -79,8 +80,10 @@
               <div class="text-danger">{{ error_cheque }}</div>
               {% endif %}              
             </div>
+           </div>
           </div>
-          <div class="form-group payment" id="payment-paypal">
+          <div id="payment-paypal" class="payment">
+           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-paypal">{{ entry_paypal }}</label>
             <div class="col-sm-10">
               <input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_paypal }}" id="input-paypal" class="form-control" />
@@ -88,6 +91,7 @@
               <div class="text-danger">{{ error_paypal }}</div>
               {% endif %}
             </div>
+           </div>
           </div>
           <div class="payment" id="payment-bank">
             <div class="form-group">
@@ -108,7 +112,7 @@
                 <input type="text" name="bank_swift_code" value="{{ bank_swift_code }}" placeholder="{{ entry_bank_swift_code }}" id="input-bank-swift-code" class="form-control" />
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-bank-account-name">{{ entry_bank_account_name }}</label>
               <div class="col-sm-10">
                 <input type="text" name="bank_account_name" value="{{ bank_account_name }}" placeholder="{{ entry_bank_account_name }}" id="input-bank-account-name" class="form-control" />
@@ -117,7 +121,7 @@
                 {% endif %}            
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-bank-account-number">{{ entry_bank_account_number }}</label>
               <div class="col-sm-10">
                 <input type="text" name="bank_account_number" value="{{ bank_account_number }}" placeholder="{{ entry_bank_account_number }}" id="input-bank-account-number" class="form-control" />
