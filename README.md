@@ -12,7 +12,7 @@ This is a modified version of Opencart 3.0.3.3.
 - Added Currency module from Master Branch - 3.1.0.0b
 - Added Cron Job code from Master Branch - 3.1.0.0b
 - Added Manufacturer Layout Override
-- [Added Show/Hide password. Code used from Opencart Brasil](https://github.com/opencartbrasil/opencartbrasil" target="_blank)
+- Added Show/Hide password. Code used from <a href="Opencart Brasil https://github.com/opencartbrasil/opencartbrasil"></a>
 - Added Filter by image in Product List
 - Added Timezone code from Master Branch - 3.1.0.0b
 - Display Manufacturer image in Admin Manufacturer list
@@ -30,4 +30,4 @@ This version is not supported by Opencart.
 This project is open source software licensed under the [GPL v3](./LICENSE).
 
 ## Donations
-[Buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=Q7MNMGFPFUM9E&item_name=Donation+for+a+beer&currency_code=EUR&source=url" target="_blank)
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=Q7MNMGFPFUM9E&item_name=Donation+for+a+beer&currency_code=EUR&source=url">Buy me a beer</a>
