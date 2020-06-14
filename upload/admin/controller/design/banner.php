@@ -330,7 +330,7 @@ class ControllerDesignBanner extends Controller {
 
 		if (isset($this->request->post['banner_image'])) {
 			$banner_images = $this->request->post['banner_image'];
-		} elseif (isset($this->request->get['banner_id'])) {
+		} elseif (!empty($banner_info)) {
 			$banner_images = $this->model_design_banner->getBannerImages($this->request->get['banner_id']);
 		} else {
 			$banner_images = array();
@@ -340,7 +340,7 @@ class ControllerDesignBanner extends Controller {
 
 		foreach ($banner_images as $key => $value) {
 			foreach ($value as $banner_image) {
-				if (is_file(DIR_IMAGE . $banner_image['image'])) {
+				if (is_file(DIR_IMAGE . html_entity_decode($banner_image['image'], ENT_QUOTES, 'UTF-8'))) {
 					$image = $banner_image['image'];
 					$thumb = $banner_image['image'];
 				} else {
@@ -372,14 +372,14 @@ class ControllerDesignBanner extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+		if ((utf8_strlen(trim($this->request->post['name'])) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
 			$this->error['name'] = $this->language->get('error_name');
 		}
 
 		if (isset($this->request->post['banner_image'])) {
 			foreach ($this->request->post['banner_image'] as $language_id => $value) {
 				foreach ($value as $banner_image_id => $banner_image) {
-					if ((utf8_strlen($banner_image['title']) < 2) || (utf8_strlen($banner_image['title']) > 64)) {
+					if ((utf8_strlen(trim($banner_image['title'])) < 2) || (utf8_strlen($banner_image['title']) > 64)) {
 						$this->error['banner_image'][$language_id][$banner_image_id] = $this->language->get('error_title');
 					}
 				}

@@ -335,7 +335,7 @@ class ControllerCatalogInformation extends Controller {
 
 		if (isset($this->request->post['information_description'])) {
 			$data['information_description'] = $this->request->post['information_description'];
-		} elseif (isset($this->request->get['information_id'])) {
+		} elseif (!empty($information_info)) {
 			$data['information_description'] = $this->model_catalog_information->getInformationDescriptions($this->request->get['information_id']);
 		} else {
 			$data['information_description'] = array();
@@ -361,7 +361,7 @@ class ControllerCatalogInformation extends Controller {
 
 		if (isset($this->request->post['information_store'])) {
 			$data['information_store'] = $this->request->post['information_store'];
-		} elseif (isset($this->request->get['information_id'])) {
+		} elseif (!empty($information_info)) {
 			$data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
 		} else {
 			$data['information_store'] = array(0);
@@ -393,7 +393,7 @@ class ControllerCatalogInformation extends Controller {
 		
 		if (isset($this->request->post['information_seo_url'])) {
 			$data['information_seo_url'] = $this->request->post['information_seo_url'];
-		} elseif (isset($this->request->get['information_id'])) {
+		} elseif (!empty($information_info)) {
 			$data['information_seo_url'] = $this->model_catalog_information->getInformationSeoUrls($this->request->get['information_id']);
 		} else {
 			$data['information_seo_url'] = array();
@@ -401,7 +401,7 @@ class ControllerCatalogInformation extends Controller {
 		
 		if (isset($this->request->post['information_layout'])) {
 			$data['information_layout'] = $this->request->post['information_layout'];
-		} elseif (isset($this->request->get['information_id'])) {
+		} elseif (!empty($information_info)) {
 			$data['information_layout'] = $this->model_catalog_information->getInformationLayouts($this->request->get['information_id']);
 		} else {
 			$data['information_layout'] = array();
@@ -424,15 +424,15 @@ class ControllerCatalogInformation extends Controller {
 		}
 
 		foreach ($this->request->post['information_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['title']) < 1) || (utf8_strlen($value['title']) > 64)) {
+			if ((utf8_strlen(trim($value['title'])) < 1) || (utf8_strlen($value['title']) > 64)) {
 				$this->error['title'][$language_id] = $this->language->get('error_title');
 			}
 
-			if (utf8_strlen($value['description']) < 3) {
+			if (utf8_strlen(trim($value['description'])) < 3) {
 				$this->error['description'][$language_id] = $this->language->get('error_description');
 			}
 
-			if ((utf8_strlen($value['meta_title']) < 1) || (utf8_strlen($value['meta_title']) > 255)) {
+			if ((utf8_strlen(trim($value['meta_title'])) < 1) || (utf8_strlen($value['meta_title']) > 255)) {
 				$this->error['meta_title'][$language_id] = $this->language->get('error_meta_title');
 			}
 		}

@@ -312,7 +312,7 @@ class ControllerCatalogFilter extends Controller {
 
 		if (isset($this->request->post['filter_group_description'])) {
 			$data['filter_group_description'] = $this->request->post['filter_group_description'];
-		} elseif (isset($this->request->get['filter_group_id'])) {
+		} elseif (!empty($filter_group_info)) {
 			$data['filter_group_description'] = $this->model_catalog_filter->getFilterGroupDescriptions($this->request->get['filter_group_id']);
 		} else {
 			$data['filter_group_description'] = array();
@@ -328,7 +328,7 @@ class ControllerCatalogFilter extends Controller {
 
 		if (isset($this->request->post['filter'])) {
 			$data['filters'] = $this->request->post['filter'];
-		} elseif (isset($this->request->get['filter_group_id'])) {
+		} elseif (!empty($filter_group_info)) {
 			$data['filters'] = $this->model_catalog_filter->getFilterDescriptions($this->request->get['filter_group_id']);
 		} else {
 			$data['filters'] = array();
@@ -347,7 +347,7 @@ class ControllerCatalogFilter extends Controller {
 		}
 
 		foreach ($this->request->post['filter_group_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 64)) {
+			if ((utf8_strlen(trim($value['name'])) < 1) || (utf8_strlen($value['name']) > 64)) {
 				$this->error['group'][$language_id] = $this->language->get('error_group');
 			}
 		}
@@ -355,7 +355,7 @@ class ControllerCatalogFilter extends Controller {
 		if (isset($this->request->post['filter'])) {
 			foreach ($this->request->post['filter'] as $filter_id => $filter) {
 				foreach ($filter['filter_description'] as $language_id => $filter_description) {
-					if ((utf8_strlen($filter_description['name']) < 1) || (utf8_strlen($filter_description['name']) > 64)) {
+					if ((utf8_strlen(trim($filter_description['name'])) < 1) || (utf8_strlen($filter_description['name']) > 64)) {
 						$this->error['filter'][$filter_id][$language_id] = $this->language->get('error_name');
 					}
 				}

@@ -248,6 +248,8 @@ class ControllerCatalogDownload extends Controller {
 	protected function getForm() {
 		$data['text_form'] = !isset($this->request->get['download_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
@@ -324,7 +326,7 @@ class ControllerCatalogDownload extends Controller {
 
 		if (isset($this->request->post['download_description'])) {
 			$data['download_description'] = $this->request->post['download_description'];
-		} elseif (isset($this->request->get['download_id'])) {
+		} elseif (!empty($download_info)) {
 			$data['download_description'] = $this->model_catalog_download->getDownloadDescriptions($this->request->get['download_id']);
 		} else {
 			$data['download_description'] = array();
@@ -359,12 +361,12 @@ class ControllerCatalogDownload extends Controller {
 		}
 
 		foreach ($this->request->post['download_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 64)) {
+			if ((utf8_strlen(trim($value['name'])) < 3) || (utf8_strlen($value['name']) > 64)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
 
-		if ((utf8_strlen($this->request->post['filename']) < 3) || (utf8_strlen($this->request->post['filename']) > 128)) {
+		if ((utf8_strlen(trim($this->request->post['filename'])) < 3) || (utf8_strlen($this->request->post['filename']) > 128)) {
 			$this->error['filename'] = $this->language->get('error_filename');
 		}
 
@@ -372,7 +374,7 @@ class ControllerCatalogDownload extends Controller {
 			$this->error['filename'] = $this->language->get('error_exists');
 		}
 
-		if ((utf8_strlen($this->request->post['mask']) < 3) || (utf8_strlen($this->request->post['mask']) > 128)) {
+		if ((utf8_strlen(trim($this->request->post['mask'])) < 3) || (utf8_strlen($this->request->post['mask']) > 128)) {
 			$this->error['mask'] = $this->language->get('error_mask');
 		}
 
