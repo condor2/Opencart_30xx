@@ -20,6 +20,7 @@ This is a modified version of Opencart 3.0.3.3.
 - Promotion removed
 - Openbay removed
 - PHP 7.4 Support
+- TWIG updated to 2.12.5
 
 ## Note
 

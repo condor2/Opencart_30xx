@@ -148,6 +148,13 @@ if ($config->has('language_autoload')) {
 	}
 }
 
+// Helper Autoload
+if ($config->has('helper_autoload')) {
+	foreach ($config->get('helper_autoload') as $value) {
+		$loader->model($value);
+	}
+}
+
 // Library Autoload
 if ($config->has('library_autoload')) {
 	foreach ($config->get('library_autoload') as $value) {
