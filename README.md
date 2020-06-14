@@ -12,7 +12,7 @@ This is a modified version of Opencart 3.0.3.3.
 - Added Currency module from Master Branch - 3.1.0.0b
 - Added Cron Job code from Master Branch - 3.1.0.0b
 - Added Manufacturer Layout Override
-- Added Show/Hide password. Code used from <a href="Opencart Brasil https://github.com/opencartbrasil/opencartbrasil"></a>
+- Added Show/Hide password. Code used from Opencart Brasil<a href="https://github.com/opencartbrasil/opencartbrasil"></a>
 - Added Filter by image in Product List
 - Added Timezone code from Master Branch - 3.1.0.0b
 - Display Manufacturer image in Admin Manufacturer list
