@@ -15,6 +15,8 @@ final class DB {
 		$this->db = $registry->get('db');
 		
 		$this->expire = ini_get('session.gc_maxlifetime');
+
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "session` WHERE expire < DATE_SUB(NOW(), INTERVAL " . ((int)$this->expire + 86400) . " SECOND)");
 	}
 	
 	public function read($session_id) {
