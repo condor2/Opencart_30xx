@@ -347,7 +347,7 @@ class ControllerUserApi extends Controller {
 		// Session
 		$data['api_sessions'] = array();
 		
-		} elseif (!empty($api_info)) {
+		if (!empty($api_info)) {
 			$results = $this->model_user_api->getApiSessions($this->request->get['api_id']);
 			
 			foreach ($results as $result) {
