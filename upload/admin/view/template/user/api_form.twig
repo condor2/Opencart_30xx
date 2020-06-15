@@ -53,19 +53,13 @@
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
                   <select name="status" id="input-status" class="form-control">
-                    
                     {% if status %}
-                    
                     <option value="0">{{ text_disabled }}</option>
                     <option value="1" selected="selected">{{ text_enabled }}</option>
-                    
                     {% else %}
-                    
                     <option value="0" selected="selected">{{ text_disabled }}</option>
                     <option value="1">{{ text_enabled }}</option>
-                    
                     {% endif %}
-                  
                   </select>
                 </div>
               </div>
@@ -81,7 +75,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% set ip_row = 0 %}
                   {% for api_ip in api_ips %}
                   <tr id="ip-row{{ ip_row }}">
@@ -91,7 +84,6 @@
                   {% set ip_row = ip_row + 1 %}
                   {% endfor %}
                     </tbody>
-                  
                   <tfoot>
                     <tr>
                       <td></td>
@@ -114,7 +106,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% if api_sessions %}
                   {% for api_session in api_sessions %}
                   <tr>
@@ -131,7 +122,6 @@
                   </tr>
                   {% endif %}
                     </tbody>
-                  
                 </table>
               </div>
             </div>
@@ -152,7 +142,7 @@ $('#button-generate').on('click', function() {
 
 	$('#input-key').val(rand);
 });
-//--></script> 
+//--></script>
   <script type="text/javascript"><!--
 var ip_row = {{ ip_row }};
 
@@ -166,7 +156,7 @@ function addIp() {
 
 	ip_row++;
 }
-//--></script> 
+//--></script>
   <script type="text/javascript"><!--
 $('#session button').on('click', function(e) {
 	e.preventDefault();
@@ -203,4 +193,4 @@ $('#session button').on('click', function(e) {
 });
 //--></script>
 </div>
-{{ footer }} 
+{{ footer }}

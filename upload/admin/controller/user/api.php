@@ -338,7 +338,7 @@ class ControllerUserApi extends Controller {
 		// IP
 		if (isset($this->request->post['api_ip'])) {
 			$data['api_ips'] = $this->request->post['api_ip'];
-		} elseif (isset($this->request->get['api_id'])) {
+		} elseif (!empty($api_info)) {
 			$data['api_ips'] = $this->model_user_api->getApiIps($this->request->get['api_id']);
 		} else {
 			$data['api_ips'] = array();
@@ -347,7 +347,7 @@ class ControllerUserApi extends Controller {
 		// Session
 		$data['api_sessions'] = array();
 		
-		if (isset($this->request->get['api_id'])) {
+		if (!empty($api_info)) {
 			$results = $this->model_user_api->getApiSessions($this->request->get['api_id']);
 			
 			foreach ($results as $result) {
@@ -369,7 +369,7 @@ class ControllerUserApi extends Controller {
 	}
 
 	protected function validateForm() {
-		if (!$this->user->hasPermission('modify', 'user/user')) {
+		if (!$this->user->hasPermission('modify', 'user/api')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
