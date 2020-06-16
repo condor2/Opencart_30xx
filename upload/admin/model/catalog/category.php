@@ -225,6 +225,7 @@ class ModelCatalogCategory extends Model {
 		$sql .= " GROUP BY cp.category_id";
 
 		$sort_data = array(
+			'category_id',
 			'name',
 			'c1.status',
 			'sort_order'

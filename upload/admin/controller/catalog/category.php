@@ -247,6 +247,7 @@ class ControllerCatalogCategory extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['sort_id'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&sort=category_id' . $url, true);
 		$data['sort_name'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
 		$data['sort_sort_order'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url, true);
 		$data['sort_status'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&sort=c1.status' . $url, true);
