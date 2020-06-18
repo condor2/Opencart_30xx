@@ -22,11 +22,7 @@ class ControllerStartupSession extends Controller {
 
 			$this->session->start($session_id);
 
-			if (version_compare(phpversion(), '7.3.0', '<')) {
-				setcookie($this->config->get('session_name'), $this->session->getId(), ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
-			} else {
-				setcookie($this->config->get('session_name'), $this->session->getId(), ['expires' => ini_get('session.cookie_lifetime'), 'path' => ini_get('session.cookie_path'), 'domain' => ini_get('session.cookie_domain'), 'samesite' => 'None', 'secure' => true]);
-			}
+			setcookie($this->config->get('session_name'), $this->session->getId(), ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
 		}
 	}
 }
