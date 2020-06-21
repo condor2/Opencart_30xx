@@ -50,7 +50,7 @@
               {% endif %} </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-name">{{ entry_rating }}</label>
+            <label class="col-sm-2 control-label" for="input-rating">{{ entry_rating }}</label>
             <div class="col-sm-10">
               <label class="radio-inline"> {% if rating == 1 %}
                 <input type="radio" name="rating" value="1" checked="checked" />
@@ -105,19 +105,13 @@
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
               <select name="status" id="input-status" class="form-control">
-                
                 {% if status %}
-                
                 <option value="1" selected="selected">{{ text_enabled }}</option>
                 <option value="0">{{ text_disabled }}</option>
-                
                 {% else %}
-                
                 <option value="1">{{ text_enabled }}</option>
                 <option value="0" selected="selected">{{ text_disabled }}</option>
-                
                 {% endif %}
-              
               </select>
             </div>
           </div>
@@ -153,5 +147,6 @@ $('input[name=\'product\']').autocomplete({
 		$('input[name=\'product_id\']').val(item['value']);		
 	}	
 });
-//--></script></div>
+//--></script>
+</div>
 {{ footer }}
