@@ -1,4 +1,4 @@
-# OpenCart 3.0.3.3_RC
+# OpenCart 3.0.3.3
 
 ## Information
 
