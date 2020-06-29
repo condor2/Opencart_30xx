@@ -1,6 +1,6 @@
 <?php
 class ControllerDesignLayout extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('design/layout');
@@ -312,7 +312,7 @@ class ControllerDesignLayout extends Controller {
 
 		if (isset($this->request->post['layout_route'])) {
 			$data['layout_routes'] = $this->request->post['layout_route'];
-		} elseif (isset($this->request->get['layout_id'])) {
+		} elseif (!empty($layout_info)) {
 			$data['layout_routes'] = $this->model_design_layout->getLayoutRoutes($this->request->get['layout_id']);
 		} else {
 			$data['layout_routes'] = array();
@@ -354,7 +354,7 @@ class ControllerDesignLayout extends Controller {
 		// Modules layout
 		if (isset($this->request->post['layout_module'])) {
 			$layout_modules = $this->request->post['layout_module'];
-		} elseif (isset($this->request->get['layout_id'])) {
+		} elseif (!empty($layout_info)) {
 			$layout_modules = $this->model_design_layout->getLayoutModules($this->request->get['layout_id']);
 		} else {
 			$layout_modules = array();
@@ -366,7 +366,7 @@ class ControllerDesignLayout extends Controller {
 		foreach ($layout_modules as $layout_module) {
 			$part = explode('.', $layout_module['code']);
 		
-			$this->load->language('extension/module/' . $part[0]);
+			$this->load->language('extension/module/' . $part[0], $part[0]);
 
 			if (!isset($part[1])) {
 				$data['layout_modules'][] = array(

@@ -334,7 +334,7 @@ class ControllerAccountOrder extends Controller {
 
 			$this->response->setOutput($this->load->view('account/order_info', $data));
 		} else {
-			return new Action('error/not_found');
+			$this->load->controller('error/not_found');
 		}
 	}
 

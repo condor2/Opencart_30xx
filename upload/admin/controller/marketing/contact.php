@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketingContact extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('marketing/contact');
@@ -80,7 +80,7 @@ class ControllerMarketingContact extends Controller {
 				
 				$this->load->model('setting/setting');
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
-				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
+				$store_email = (isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email'));
 
 				$this->load->model('customer/customer');
 
@@ -152,6 +152,7 @@ class ControllerMarketingContact extends Controller {
 									$emails[] = $customer_info['email'];
 								}
 							}
+							$email_total = count($this->request->post['customer']);
 						}
 						break;
 					case 'affiliate_all':
@@ -179,6 +180,7 @@ class ControllerMarketingContact extends Controller {
 								}
 							}
 						}
+						$email_total = count($this->request->post['affiliate']);
 						break;
 					case 'product':
 						if (isset($this->request->post['product'])) {

@@ -1,6 +1,6 @@
 <?php
 class ControllerSaleVoucher extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('sale/voucher');
@@ -265,7 +265,7 @@ class ControllerSaleVoucher extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['voucher_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['voucher_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->request->get['voucher_id'])) {
 			$data['voucher_id'] = (int)$this->request->get['voucher_id'];
@@ -400,7 +400,7 @@ class ControllerSaleVoucher extends Controller {
 		$data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
 
 		if (isset($this->request->post['voucher_theme_id'])) {
-			$data['voucher_theme_id'] = $this->request->post['voucher_theme_id'];
+			$data['voucher_theme_id'] = (int)$this->request->post['voucher_theme_id'];
 		} elseif (!empty($voucher_info)) {
 			$data['voucher_theme_id'] = $voucher_info['voucher_theme_id'];
 		} else {
@@ -579,20 +579,20 @@ class ControllerSaleVoucher extends Controller {
 						} else {
 							$order_id = 0;
 						}
-			
+
 						$order_info = $this->model_sale_order->getOrder($order_id);
-			
+
 						// If voucher belongs to an order
 						if ($order_info) {
 							$this->load->model('localisation/language');
-			
+
 							$language = new Language($order_info['language_code']);
 							$language->load($order_info['language_code']);
 							$language->load('mail/voucher');
 			
 							// HTML Mail
 							$data['title'] = sprintf($language->get('text_subject'), $voucher_info['from_name']);
-			
+
 							$data['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher_info['amount'], (!empty($order_info['currency_code']) ? $order_info['currency_code'] : $this->config->get('config_currency')), (!empty($order_info['currency_value']) ? $order_info['currency_value'] : $this->currency->getValue($this->config->get('config_currency')))));
 							$data['text_from'] = sprintf($language->get('text_from'), $voucher_info['from_name']);
 							$data['text_message'] = $language->get('text_message');
@@ -601,8 +601,8 @@ class ControllerSaleVoucher extends Controller {
 			
 							$voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 			
-							if ($voucher_theme_info && is_file(DIR_IMAGE . $voucher_theme_info['image'])) {
-								$data['image'] = HTTP_CATALOG . 'image/' . $voucher_theme_info['image'];
+							if ($voucher_theme_info && is_file(DIR_IMAGE . html_entity_decode($voucher_theme_info['image'], ENT_QUOTES, 'UTF-8'))) {
+								$data['image'] = HTTP_CATALOG . 'image/' . html_entity_decode($voucher_theme_info['image'], ENT_QUOTES, 'UTF-8');
 							} else {
 								$data['image'] = '';
 							}
@@ -640,8 +640,8 @@ class ControllerSaleVoucher extends Controller {
 
 							$voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 
-							if ($voucher_theme_info && is_file(DIR_IMAGE . $voucher_theme_info['image'])) {
-								$data['image'] = HTTP_CATALOG . 'image/' . $voucher_theme_info['image'];
+							if ($voucher_theme_info && is_file(DIR_IMAGE . html_entity_decode($voucher_theme_info['image'], ENT_QUOTES, 'UTF-8'))) {
+								$data['image'] = HTTP_CATALOG . 'image/' . html_entity_decode($voucher_theme_info['image'], ENT_QUOTES, 'UTF-8');
 							} else {
 								$data['image'] = '';
 							}

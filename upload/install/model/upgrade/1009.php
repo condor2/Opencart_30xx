@@ -1,6 +1,13 @@
 <?php
 class ModelUpgrade1009 extends Model {
 	public function upgrade() {
+		// Address
+		$address_info = $this->db->query("SELECT CHARACTER_MAXIMUM_LENGTH FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "address' AND COLUMN_NAME = 'company'");
+		
+		if ($address_info->num_rows && $address_info->row['CHARACTER_MAXIMUM_LENGTH'] && $address_info->row['CHARACTER_MAXIMUM_LENGTH'] < 60) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "address` MODIFY COLUMN `company` VARCHAR(60)");
+		}
+
 		// Affiliate customer merge code
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate'");
 
@@ -38,7 +45,13 @@ class ModelUpgrade1009 extends Model {
 				if (!$customer_query->num_rows) {
 					$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate` SET `customer_id` = '" . (int)$customer_id . "', `company` = '" . $this->db->escape($affiliate['company']) . "', `tracking` = '" . $this->db->escape($affiliate['code']) . "', `commission` = '" . (float)$affiliate['commission'] . "', `tax` = '" . $this->db->escape($affiliate['tax']) . "', `payment` = '" . $this->db->escape($affiliate['payment']) . "', `cheque` = '" . $this->db->escape($affiliate['cheque']) . "', `paypal` = '" . $this->db->escape($affiliate['paypal']) . "', `bank_name` = '" . $this->db->escape($affiliate['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($affiliate['bank_branch_number']) . "', `bank_account_name` = '" . $this->db->escape($affiliate['bank_account_name']) . "', `bank_account_number` = '" . $this->db->escape($affiliate['bank_account_number']) . "', `status` = '" . (int)$affiliate['status'] . "', `date_added` = '" . $this->db->escape($affiliate['date_added']) . "'");
 				}
-				
+
+				$customer_query = $this->db->query("SELECT CHARACTER_MAXIMUM_LENGTH FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_affiliate' AND COLUMN_NAME = 'company'");
+		
+				if ($customer_query->num_rows && $customer_query->row['CHARACTER_MAXIMUM_LENGTH'] && $customer_query->row['CHARACTER_MAXIMUM_LENGTH'] < 60) {
+					$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_affiliate` MODIFY COLUMN `company` VARCHAR(60)");
+				}
+
 				$affiliate_transaction_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate_transaction` WHERE `affiliate_id` = '" . (int)$affiliate['affiliate_id'] . "'");
 			
 				foreach ($affiliate_transaction_query->rows as $affiliate_transaction) {
@@ -86,8 +99,20 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` DROP COLUMN `date_added`");
 		}
 
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/addAffiliate/after') . "' WHERE `code` = '" . $this->db->escape('activity_affiliate_add') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/editAffiliate/after') . "' WHERE `code` = '" . $this->db->escape('activity_affiliate_edit') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('activity_order_add') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/after') . "' WHERE `code` = '" . $this->db->escape('mail_voucher') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('mail_order_add') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('mail_order_alert') . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('statistics_order_history') . "'");		
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('admin/model/sale/return/addOrderHistory/after') . "' WHERE `code` = '" . $this->db->escape('admin_mail_return') . "'");
+
 		// Country
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
+
+		// Statistics
+		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = '" . $this->db->escape('return') . "' WHERE `code` = '" . $this->db->escape('returns') . "'");
 
 		// Zone
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Bacău') . "' WHERE `name` = '" . $this->db->escape('Bacau') . "'");
@@ -112,9 +137,6 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Timiș') . "' WHERE `name` = '" . $this->db->escape('Timis') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Vâlcea') . "' WHERE `name` = '" . $this->db->escape('Valcea') . "'");
 
-		// Statistics
-		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = '" . $this->db->escape('return') . "' WHERE `code` = '" . $this->db->escape('returns') . "'");
-
 		// OPENCART_SERVER
 		$upgrade = true;
 		
@@ -136,7 +158,7 @@ class ModelUpgrade1009 extends Model {
 			foreach ($lines as $line_id => $line) {
 				if (strpos($line, 'DB_PREFIX') !== false) {
 					$output .= $line . "\n\n";
-					$output .= 'define(\'OPENCART_SERVER\', \'http://www.opencart.com/\');' . "\n";
+					$output .= 'define(\'OPENCART_SERVER\', \'https://www.opencart.com/\');' . "\n";
 				} else {
 					$output .= $line;
 				}

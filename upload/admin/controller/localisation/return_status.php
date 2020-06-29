@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationReturnStatus extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/return_status');
@@ -244,7 +244,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['return_status_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['return_status_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

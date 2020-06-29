@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogReview extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/review');
@@ -269,7 +269,7 @@ class ControllerCatalogReview extends Controller {
 				'name'       => $result['name'],
 				'author'     => $result['author'],
 				'rating'     => $result['rating'],
-				'status'     => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'edit'       => $this->url->link('catalog/review/edit', 'user_token=' . $this->session->data['user_token'] . '&review_id=' . $result['review_id'] . $url, true)
 			);
@@ -383,7 +383,7 @@ class ControllerCatalogReview extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['review_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['review_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -474,7 +474,7 @@ class ControllerCatalogReview extends Controller {
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+			$data['product_id'] = (int)$this->request->post['product_id'];
 		} elseif (!empty($review_info)) {
 			$data['product_id'] = $review_info['product_id'];
 		} else {
@@ -482,7 +482,7 @@ class ControllerCatalogReview extends Controller {
 		}
 
 		if (isset($this->request->post['product'])) {
-			$data['product'] = $this->request->post['product'];
+			$data['product'] = (int)$this->request->post['product'];
 		} elseif (!empty($review_info)) {
 			$data['product'] = $review_info['product'];
 		} else {

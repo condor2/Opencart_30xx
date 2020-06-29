@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketingCoupon extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('marketing/coupon');
@@ -254,7 +254,7 @@ class ControllerMarketingCoupon extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['coupon_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['coupon_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -390,7 +390,7 @@ class ControllerMarketingCoupon extends Controller {
 
 		if (isset($this->request->post['coupon_product'])) {
 			$products = $this->request->post['coupon_product'];
-		} elseif (isset($this->request->get['coupon_id'])) {
+		} elseif (!empty($coupon_info)) {
 			$products = $this->model_marketing_coupon->getCouponProducts($this->request->get['coupon_id']);
 		} else {
 			$products = array();
@@ -413,7 +413,7 @@ class ControllerMarketingCoupon extends Controller {
 
 		if (isset($this->request->post['coupon_category'])) {
 			$categories = $this->request->post['coupon_category'];
-		} elseif (isset($this->request->get['coupon_id'])) {
+		} elseif (!empty($coupon_info)) {
 			$categories = $this->model_marketing_coupon->getCouponCategories($this->request->get['coupon_id']);
 		} else {
 			$categories = array();

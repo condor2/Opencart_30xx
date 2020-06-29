@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountReturn extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -211,6 +211,8 @@ class ControllerAccountReturn extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 
+			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
 	}
@@ -220,18 +222,7 @@ class ControllerAccountReturn extends Controller {
 
 		$this->load->model('account/return');
 
-		$this->load->model('account/order');
-
-		if ((!isset($this->request->server['HTTP_REFERER'])) || (!preg_match("/[?|&]route=account\/return\/info/", html_entity_decode($this->request->server['HTTP_REFERER'])) && $this->request->server['REQUEST_METHOD'] != 'POST')) {
-			$this->response->redirect($this->url->link('account/return', '', true));
-
-		} elseif ((!isset($this->request->get['order_id'])) || (isset($this->request->get['order_id']) && !$this->model_account_order->getOrder($this->request->get['order_id']))) {
-			$this->response->redirect($this->url->link('account/return', '', true));
-
-		} elseif ((!isset($this->request->get['product_id'])) || (isset($this->request->get['order_id']) && isset($this->request->get['product_id']) && !$this->model_account_order->getOrderProduct($this->request->get['order_id'], $this->request->get['product_id']))) {			
-			$this->response->redirect($this->url->link('account/return', '', true));
-
-		} elseif (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_account_return->addReturn($this->request->post);
 
 			$this->response->redirect($this->url->link('account/return/success', '', true));
@@ -315,6 +306,8 @@ class ControllerAccountReturn extends Controller {
 		}
 
 		$data['action'] = $this->url->link('account/return/add', '', true);
+
+		$this->load->model('account/order');
 
 		if (isset($this->request->get['order_id'])) {
 			$order_info = $this->model_account_order->getOrder($this->request->get['order_id']);
@@ -458,31 +451,31 @@ class ControllerAccountReturn extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->request->post['order_id']) {
+		if (!isset($this->request->post['order_id']) || !$this->request->post['order_id']) {
 			$this->error['order_id'] = $this->language->get('error_order_id');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+		if ((!isset($this->request->post['firstname'])) || (utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+		if ((!isset($this->request->post['lastname'])) || (utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
-		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
+		if ((!isset($this->request->post['telephone'])) || (utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
 
-		if ((utf8_strlen($this->request->post['product']) < 1) || (utf8_strlen($this->request->post['product']) > 255)) {
+		if ((!isset($this->request->post['product'])) || (utf8_strlen($this->request->post['product']) < 1) || (utf8_strlen($this->request->post['product']) > 255)) {
 			$this->error['product'] = $this->language->get('error_product');
 		}
 
-		if ((utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64)) {
+		if ((!isset($this->request->post['model'])) || (utf8_strlen($this->request->post['model']) < 1) || (utf8_strlen($this->request->post['model']) > 64)) {
 			$this->error['model'] = $this->language->get('error_model');
 		}
 

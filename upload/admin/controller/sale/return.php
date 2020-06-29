@@ -1,6 +1,6 @@
 <?php
 class ControllerSaleReturn extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('sale/return');
@@ -444,7 +444,7 @@ class ControllerSaleReturn extends Controller {
 		$data['sort_customer'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url, true);
 		$data['sort_product'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=r.product' . $url, true);
 		$data['sort_model'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=r.model' . $url, true);
-		$data['sort_status'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
+		$data['sort_status'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=return_status' . $url, true);
 		$data['sort_date_added'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_added' . $url, true);
 		$data['sort_date_modified'] = $this->url->link('sale/return', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_modified' . $url, true);
 
@@ -524,12 +524,12 @@ class ControllerSaleReturn extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['return_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['return_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		$data['user_token'] = $this->session->data['user_token'];
 
 		if (isset($this->request->get['return_id'])) {
-			$data['return_id'] = $this->request->get['return_id'];
+			$data['return_id'] = (int)$this->request->get['return_id'];
 		} else {
 			$data['return_id'] = 0;
 		}
@@ -653,7 +653,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->post['order_id'])) {
-			$data['order_id'] = $this->request->post['order_id'];
+			$data['order_id'] = (int)$this->request->post['order_id'];
 		} elseif (!empty($return_info)) {
 			$data['order_id'] = $return_info['order_id'];
 		} else {
@@ -677,7 +677,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->post['customer_id'])) {
-			$data['customer_id'] = $this->request->post['customer_id'];
+			$data['customer_id'] = (int)$this->request->post['customer_id'];
 		} elseif (!empty($return_info)) {
 			$data['customer_id'] = $return_info['customer_id'];
 		} else {
@@ -725,7 +725,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+			$data['product_id'] = (int)$this->request->post['product_id'];
 		} elseif (!empty($return_info)) {
 			$data['product_id'] = $return_info['product_id'];
 		} else {
@@ -757,7 +757,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->post['return_reason_id'])) {
-			$data['return_reason_id'] = $this->request->post['return_reason_id'];
+			$data['return_reason_id'] = (int)$this->request->post['return_reason_id'];
 		} elseif (!empty($return_info)) {
 			$data['return_reason_id'] = $return_info['return_reason_id'];
 		} else {
@@ -769,7 +769,7 @@ class ControllerSaleReturn extends Controller {
 		$data['return_reasons'] = $this->model_localisation_return_reason->getReturnReasons();
 
 		if (isset($this->request->post['return_action_id'])) {
-			$data['return_action_id'] = $this->request->post['return_action_id'];
+			$data['return_action_id'] = (int)$this->request->post['return_action_id'];
 		} elseif (!empty($return_info)) {
 			$data['return_action_id'] = $return_info['return_action_id'];
 		} else {
@@ -789,7 +789,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->post['return_status_id'])) {
-			$data['return_status_id'] = $this->request->post['return_status_id'];
+			$data['return_status_id'] = (int)$this->request->post['return_status_id'];
 		} elseif (!empty($return_info)) {
 			$data['return_status_id'] = $return_info['return_status_id'];
 		} else {
@@ -824,7 +824,7 @@ class ControllerSaleReturn extends Controller {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 

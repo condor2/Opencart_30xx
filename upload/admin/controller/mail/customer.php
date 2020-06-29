@@ -1,5 +1,6 @@
 <?php
 class ControllerMailCustomer extends Controller {
+	// admin/controller/mail/customer/approve/after
 	public function approve(&$route, &$args, &$output) {
 		$this->load->model('customer/customer');
 
@@ -43,11 +44,6 @@ class ControllerMailCustomer extends Controller {
 			$subject = sprintf($language->get('text_subject'), $store_name);
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-			$data['text_login'] = $language->get('text_login');
-			$data['text_service'] = $language->get('text_service');
-			$data['text_thanks'] = $language->get('text_thanks');
-
-			$data['button_login'] = $language->get('button_login');
 
 			$data['login'] = $store_url;
 			$data['store'] = $store_name;
@@ -70,6 +66,7 @@ class ControllerMailCustomer extends Controller {
 		}
 	}
 
+	// admin/controller/mail/customer/deny/after
 	public function deny(&$route, &$args, &$output) {
 		$this->load->model('customer/customer');
 

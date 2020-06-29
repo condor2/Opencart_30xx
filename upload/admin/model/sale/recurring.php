@@ -129,7 +129,7 @@ class ModelSaleRecurring extends Model {
 		return $transactions;
 	}
 
-	private function getStatus($status) {
+	protected function getStatus($status) {
 		switch ($status) {
 			case 1:
 				$result = $this->language->get('text_status_inactive');

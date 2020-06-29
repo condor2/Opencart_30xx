@@ -1,6 +1,6 @@
 <?php
 class ControllerUserApi extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('user/api');
@@ -250,7 +250,7 @@ class ControllerUserApi extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['api_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['api_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 		$data['text_ip'] = sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']);
 		
 		$data['user_token'] = $this->session->data['user_token'];

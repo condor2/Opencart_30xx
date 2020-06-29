@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonForgotten extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
@@ -60,10 +60,12 @@ class ControllerCommonForgotten extends Controller {
 	}
 
 	protected function validate() {
-		if (!isset($this->request->post['email'])) {
+		if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['warning'] = $this->language->get('error_email');
-		} elseif (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
+		} else {
+			if (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
 			$this->error['warning'] = $this->language->get('error_email');
+			}
 		}
 
 		return !$this->error;

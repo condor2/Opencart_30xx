@@ -10,11 +10,11 @@ class ModelCustomerCustomerApproval extends Model {
 		if (!empty($data['filter_email'])) {
 			$sql .= " AND c.`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
 		}
-		
+
 		if (!empty($data['filter_customer_group_id'])) {
 			$sql .= " AND c.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
 		}
-		
+
 		if (!empty($data['filter_type'])) {
 			$sql .= " AND ca.`type` = '" . $this->db->escape($data['filter_type']) . "'";
 		}
@@ -98,5 +98,5 @@ class ModelCustomerCustomerApproval extends Model {
 	
 	public function denyAffiliate($customer_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_approval` WHERE customer_id = '" . (int)$customer_id . "' AND `type` = 'affiliate'");
-	}	
+	}
 }

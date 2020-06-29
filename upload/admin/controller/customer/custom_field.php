@@ -1,6 +1,6 @@
 <?php
 class ControllerCustomerCustomField extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('customer/custom_field');
@@ -287,7 +287,7 @@ class ControllerCustomerCustomField extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['custom_field_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['custom_field_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -436,13 +436,15 @@ class ControllerCustomerCustomField extends Controller {
 		$data['custom_field_customer_group'] = array();
 
 		foreach ($custom_field_customer_groups as $custom_field_customer_group) {
-			$data['custom_field_customer_group'][] = $custom_field_customer_group['customer_group_id'];
+			if (isset($custom_field_customer_group['customer_group_id'])) {
+				$data['custom_field_customer_group'][] = $custom_field_customer_group['customer_group_id'];
+			}
 		}
 
 		$data['custom_field_required'] = array();
 
 		foreach ($custom_field_customer_groups as $custom_field_customer_group) {
-			if ($custom_field_customer_group['required']) {
+			if ($custom_field_customer_group['required'] && isset($custom_field_customer_group['customer_group_id'])) {
 				$data['custom_field_required'][] = $custom_field_customer_group['customer_group_id'];
 			}
 		}
@@ -464,7 +466,7 @@ class ControllerCustomerCustomField extends Controller {
 		}
 
 		foreach ($this->request->post['custom_field_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 128)) {
+			if ((utf8_strlen(trim($value['name'])) < 1) || (utf8_strlen($value['name']) > 128)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
@@ -477,12 +479,16 @@ class ControllerCustomerCustomField extends Controller {
 			if (isset($this->request->post['custom_field_value'])) {
 				foreach ($this->request->post['custom_field_value'] as $custom_field_value_id => $custom_field_value) {
 					foreach ($custom_field_value['custom_field_value_description'] as $language_id => $custom_field_value_description) {
-						if ((utf8_strlen($custom_field_value_description['name']) < 1) || (utf8_strlen($custom_field_value_description['name']) > 128)) {
+						if ((utf8_strlen(trim($custom_field_value_description['name'])) < 1) || (utf8_strlen($custom_field_value_description['name']) > 128)) {
 							$this->error['custom_field_value'][$custom_field_value_id][$language_id] = $this->language->get('error_custom_value');
 						}
 					}
 				}
 			}
+		}
+
+		if (@preg_match('/' . html_entity_decode($this->request->post['validation'], ENT_QUOTES, 'UTF-8') . '/', null) === false) {
+			$this->error['validation'] = $this->language->get('error_validation');
 		}
 
 		return !$this->error;

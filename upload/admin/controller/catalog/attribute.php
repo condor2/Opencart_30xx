@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogAttribute extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/attribute');
@@ -248,7 +248,7 @@ class ControllerCatalogAttribute extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -319,11 +319,11 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		if (isset($this->request->post['attribute_group_id'])) {
-			$data['attribute_group_id'] = $this->request->post['attribute_group_id'];
+			$data['attribute_group_id'] = (int)$this->request->post['attribute_group_id'];
 		} elseif (!empty($attribute_info)) {
 			$data['attribute_group_id'] = $attribute_info['attribute_group_id'];
 		} else {
-			$data['attribute_group_id'] = '';
+			$data['attribute_group_id'] = 0;
 		}
 
 		$this->load->model('catalog/attribute_group');

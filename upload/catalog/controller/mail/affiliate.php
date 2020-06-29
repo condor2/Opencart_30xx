@@ -1,13 +1,24 @@
 <?php
 class ControllerMailAffiliate extends Controller {
+	// catalog/model/account/customer/addAffiliate/after
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/affiliate');
-        
+
+		$this->load->model('tool/image');
+
+		if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+		} else {
+			$data['logo'] = '';
+		}
+
 		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 		$data['text_login'] = $this->language->get('text_login');
 		$data['text_approval'] = $this->language->get('text_approval');
 		$data['text_service'] = $this->language->get('text_service');
 		$data['text_thanks'] = $this->language->get('text_thanks');
+
+		$data['button_login'] = $this->language->get('button_login');
 
 		$this->load->model('account/customer_group');
 		
@@ -26,6 +37,7 @@ class ControllerMailAffiliate extends Controller {
 		}		
 		
 		$data['login'] = $this->url->link('affiliate/login', '', true);
+		$data['store_url'] = $this->config->get('config_url');
 		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
 		$mail = new Mail($this->config->get('config_mail_engine'));
@@ -44,8 +56,8 @@ class ControllerMailAffiliate extends Controller {
 		
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-		$mail->setSubject(sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')));
-		$mail->setText($this->load->view('mail/affiliate', $data));
+		$mail->setSubject(html_entity_decode(sprintf($this->language->get('text_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+		$mail->setHtml($this->load->view('mail/affiliate', $data));
 		$mail->send();
  	}
 	
@@ -53,7 +65,15 @@ class ControllerMailAffiliate extends Controller {
 		// Send to main admin email if new affiliate email is enabled
 		if (in_array('affiliate', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/affiliate');
-			
+
+			$this->load->model('tool/image');
+
+			if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+				$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+			} else {
+				$data['logo'] = '';
+			}
+
 			$data['text_signup'] = $this->language->get('text_signup');
 			$data['text_website'] = $this->language->get('text_website');
 			$data['text_firstname'] = $this->language->get('text_firstname');
@@ -61,7 +81,11 @@ class ControllerMailAffiliate extends Controller {
 			$data['text_customer_group'] = $this->language->get('text_customer_group');
 			$data['text_email'] = $this->language->get('text_email');
 			$data['text_telephone'] = $this->language->get('text_telephone');
-			
+
+			$data['login'] = $this->url->link('affiliate/login');
+			$data['store_url'] = $this->config->get('config_url');
+			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+
 			if ($this->customer->isLogged()) {
 				$customer_group_id = $this->customer->getGroupId();
 			
@@ -107,7 +131,7 @@ class ControllerMailAffiliate extends Controller {
 			$mail->send();
 
 			// Send to additional alert emails if new affiliate email is enabled
-			$emails = explode(',', $this->config->get('config_mail_alert_email'));
+			$emails = explode(',', trim($this->config->get('config_mail_alert_email')));
 
 			foreach ($emails as $email) {
 				if (utf8_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {

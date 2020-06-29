@@ -90,13 +90,13 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$sort_order = array();
 
-			foreach ($totals as $key => $value) {
+			foreach ($total_data['totals'] as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
 			}
 
-			array_multisort($sort_order, SORT_ASC, $totals);
+			array_multisort($sort_order, SORT_ASC, $total_data['totals']);
 
-			$order_data['totals'] = $totals;
+			$order_data['totals'] = $total_data['totals'];
 
 			$this->load->language('checkout/checkout');
 
@@ -327,6 +327,14 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$data['products'] = array();
 
+			$frequencies = array(
+				'day'        => $this->language->get('text_day'),
+				'week'       => $this->language->get('text_week'),
+				'semi_month' => $this->language->get('text_semi_month'),
+				'month'      => $this->language->get('text_month'),
+				'year'       => $this->language->get('text_year'),
+			);
+
 			foreach ($this->cart->getProducts() as $product) {
 				$option_data = array();
 
@@ -352,13 +360,6 @@ class ControllerCheckoutConfirm extends Controller {
 				$recurring = '';
 
 				if ($product['recurring']) {
-					$frequencies = array(
-						'day'        => $this->language->get('text_day'),
-						'week'       => $this->language->get('text_week'),
-						'semi_month' => $this->language->get('text_semi_month'),
-						'month'      => $this->language->get('text_month'),
-						'year'       => $this->language->get('text_year'),
-					);
 
 					if ($product['recurring']['trial']) {
 						$recurring = sprintf($this->language->get('text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
@@ -409,7 +410,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$data['payment'] = $this->load->controller('extension/payment/' . $this->session->data['payment_method']['code']);
 		} else {
-			$data['redirect'] = $redirect;
+			$data['redirect'] = str_replace('&amp;', '&', $redirect);
 		}
 
 		$this->response->setOutput($this->load->view('checkout/confirm', $data));

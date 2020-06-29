@@ -1,5 +1,6 @@
 <?php
 class ControllerMailAffiliate extends Controller {
+	// admin/model/customer/customer_approval/approveAffiliate/after
 	public function approve(&$route, &$args, &$output) {
 		$this->load->model('customer/customer');
 
@@ -43,10 +44,6 @@ class ControllerMailAffiliate extends Controller {
 			$subject = sprintf($language->get('text_subject'), $store_name);
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-			$data['text_denied'] = $language->get('text_denied');
-			$data['text_thanks'] = $language->get('text_thanks');
-
-			$data['button_contact'] = $language->get('button_contact');
 
 			$data['login'] = $store_url;
 			$data['store'] = $store_name;
@@ -69,6 +66,7 @@ class ControllerMailAffiliate extends Controller {
 		}
 	}
 
+	// admin/model/customer/customer_approval/denyAffiliate/after
 	public function deny(&$route, &$args, &$output) {
 		$this->load->model('customer/customer');
 		

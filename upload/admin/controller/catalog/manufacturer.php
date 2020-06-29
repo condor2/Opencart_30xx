@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogManufacturer extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/manufacturer');
@@ -255,7 +255,7 @@ class ControllerCatalogManufacturer extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['manufacturer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['manufacturer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -350,7 +350,7 @@ class ControllerCatalogManufacturer extends Controller {
 		}
 
 		if (isset($this->request->post['image'])) {
-			$data['image'] = $this->request->post['image'];
+			$data['image'] = html_entity_decode($this->request->post['image'], ENT_QUOTES, 'UTF-8');
 		} elseif (!empty($manufacturer_info)) {
 			$data['image'] = $manufacturer_info['image'];
 		} else {

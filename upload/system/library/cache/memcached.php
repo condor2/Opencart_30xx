@@ -8,8 +8,8 @@ class Memcached {
 
 	public function __construct($expire) {
 		$this->expire = $expire;
-		$this->memcached = new \Memcached();
 
+		$this->memcached = new \Memcached();
 		$this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
 	}
 

@@ -1,10 +1,18 @@
 <?php
 class ControllerAccountReset extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', '', true));
+		}
+
+		$this->load->language('account/reset');
+
+		if (isset($this->request->get['email'])) {
+			$email = $this->request->get['email'];
+		} else {
+			$email = '';
 		}
 
 		if (isset($this->request->get['code'])) {
@@ -15,20 +23,25 @@ class ControllerAccountReset extends Controller {
 
 		$this->load->model('account/customer');
 
-		$customer_info = $this->model_account_customer->getCustomerByCode($code);
+		$customer_info = $this->model_account_customer->getCustomerByEmail($email);
 
-		if ($customer_info) {
-			$this->load->language('account/reset');
+		if (!$customer_info || !$customer_info['code'] || $customer_info['code'] !== $code) {
+			$this->model_account_customer->editCode($email, '');
 
-			$this->document->setTitle($this->language->get('heading_title'));
+			$this->session->data['error'] = $this->language->get('error_code');
 
-			if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-				$this->model_account_customer->editPassword($customer_info['email'], $this->request->post['password']);
+			$this->response->redirect($this->url->link('account/login', '', true));
+		}
 
-				$this->session->data['success'] = $this->language->get('text_success');
+		$this->document->setTitle($this->language->get('heading_title'));
 
-				$this->response->redirect($this->url->link('account/login', '', true));
-			}
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_account_customer->editPassword($customer_info['email'], $this->request->post['password']);
+
+			$this->session->data['success'] = $this->language->get('text_success');
+
+			$this->response->redirect($this->url->link('account/login', '', true));
+		}
 
 			$data['breadcrumbs'] = array();
 
@@ -59,7 +72,7 @@ class ControllerAccountReset extends Controller {
 				$data['error_confirm'] = '';
 			}
 
-			$data['action'] = $this->url->link('account/reset', 'code=' . $code, true);
+			$data['action'] = $this->url->link('account/reset', '&email=' . urlencode($email) . '&code=' . $code, true);
 
 			$data['back'] = $this->url->link('account/login', '', true);
 
@@ -83,13 +96,6 @@ class ControllerAccountReset extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 
 			$this->response->setOutput($this->load->view('account/reset', $data));
-		} else {
-			$this->load->language('account/reset');
-
-			$this->session->data['error'] = $this->language->get('error_code');
-
-			return new Action('account/login');
-		}
 	}
 
 	protected function validate() {
@@ -97,7 +103,7 @@ class ControllerAccountReset extends Controller {
 			$this->error['password'] = $this->language->get('error_password');
 		}
 
-		if ($this->request->post['confirm'] != $this->request->post['password']) {
+		if ($this->request->post['confirm'] != html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) {
 			$this->error['confirm'] = $this->language->get('error_confirm');
 		}
 

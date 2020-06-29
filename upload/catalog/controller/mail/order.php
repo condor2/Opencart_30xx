@@ -24,7 +24,9 @@ class ControllerMailOrder extends Controller {
 		} else {
 			$notify = '';
 		}
-						
+
+		$this->load->model('checkout/order');
+
 		// We need to grab the old order status ID
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		
@@ -86,7 +88,18 @@ class ControllerMailOrder extends Controller {
 		$data['text_total'] = $language->get('text_total');
 		$data['text_footer'] = $language->get('text_footer');
 
-		$data['logo'] = $order_info['store_url'] . 'image/' . $this->config->get('config_logo');
+		$this->load->model('tool/image');
+		
+		$this->load->model('setting/setting');
+		
+		$config_info = $this->model_setting_setting->getValue('config_logo', $order_info['store_id']);
+		
+		if ($config_info && is_file(DIR_IMAGE . html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'))) {
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));			
+		} elseif (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+		}
+
 		$data['store_name'] = $order_info['store_name'];
 		$data['store_url'] = $order_info['store_url'];
 		$data['customer_id'] = $order_info['customer_id'];
@@ -275,7 +288,7 @@ class ControllerMailOrder extends Controller {
 		$mail->send();
 	}
 	
-	public function edit($order_info, $order_status_id, $comment) {
+	public function edit($order_info, $order_status_id, $comment, $notify) {
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
 		$language->load('mail/order_edit');
@@ -289,9 +302,12 @@ class ControllerMailOrder extends Controller {
 
 		$data['order_id'] = $order_info['order_id'];
 		$data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));
-		
+
+		$data['store_url'] = $this->config->get('config_url');
+		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+
 		$order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
-	
+
 		if ($order_status_query->num_rows) {
 			$data['order_status'] = $order_status_query->row['name'];
 		} else {
@@ -330,7 +346,7 @@ class ControllerMailOrder extends Controller {
 		$mail->send();
 	}
 	
-	// Admin Alert Mail
+	// catalog/model/checkout/order/addOrderHistory/before
 	public function alert(&$route, &$args) {
 		if (isset($args[0])) {
 			$order_id = $args[0];
@@ -356,6 +372,8 @@ class ControllerMailOrder extends Controller {
 			$notify = '';
 		}
 
+		$this->load->model('checkout/order');
+
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		
 		if ($order_info && !$order_info['order_status_id'] && $order_status_id && in_array('order', (array)$this->config->get('config_mail_alert'))) {	
@@ -379,6 +397,17 @@ class ControllerMailOrder extends Controller {
 				$data['order_status'] = $order_status_query->row['name'];
 			} else {
 				$data['order_status'] = '';
+			}
+
+			$data['store_url'] = $this->config->get('config_url');
+			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+			
+			$this->load->model('tool/image');
+
+			if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+				$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+			} else {
+				$data['logo'] = '';
 			}
 
 			$this->load->model('tool/upload');
@@ -460,10 +489,10 @@ class ControllerMailOrder extends Controller {
 			$mail->send();
 
 			// Send to additional alert emails
-			$emails = explode(',', $this->config->get('config_mail_alert_email'));
+			$emails = explode(',', trim($this->config->get('config_mail_alert_email')));
 
 			foreach ($emails as $email) {
-				if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				if (utf8_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					$mail->setTo($email);
 					$mail->send();
 				}

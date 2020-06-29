@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationZone extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/zone');
@@ -248,7 +248,7 @@ class ControllerLocalisationZone extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['zone_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['zone_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -325,7 +325,7 @@ class ControllerLocalisationZone extends Controller {
 		}
 
 		if (isset($this->request->post['country_id'])) {
-			$data['country_id'] = $this->request->post['country_id'];
+			$data['country_id'] = (int)$this->request->post['country_id'];
 		} elseif (!empty($zone_info)) {
 			$data['country_id'] = $zone_info['country_id'];
 		} else {

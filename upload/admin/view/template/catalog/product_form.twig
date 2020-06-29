@@ -1334,16 +1334,16 @@
   function addRecurring() {
 	  html = '<tr id="recurring-row' + recurring_row + '">';
 	  html += '  <td class="left">';
-	  html += '    <select name="product_recurring[' + recurring_row + '][recurring_id]" class="form-control">>';
+	  html += '    <select name="product_recurring[' + recurring_row + '][recurring_id]" class="form-control">';
     {% for recurring in recurrings %}
-	  html += '      <option value="{{ recurring.recurring_id }}">{{ recurring.name }}</option>';
+	  html += '      <option value="{{ recurring.recurring_id }}">{{ recurring.name|escape('js') }}</option>';
     {% endfor %}
 	  html += '    </select>';
 	  html += '  </td>';
 	  html += '  <td class="left">';
-	  html += '    <select name="product_recurring[' + recurring_row + '][customer_group_id]" class="form-control">>';
+	  html += '    <select name="product_recurring[' + recurring_row + '][customer_group_id]" class="form-control">';
     {% for customer_group in customer_groups %}
-	  html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}</option>';
+	  html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name|escape('js') }}</option>';
     {% endfor %}
 	  html += '    <select>';
 	  html += '  </td>';

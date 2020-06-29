@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogCategory extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/category');
@@ -294,7 +294,7 @@ class ControllerCatalogCategory extends Controller {
 		$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
 		$this->document->addScript('view/javascript/summernote/opencart.js');
 
-		$data['text_form'] = !isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -387,7 +387,7 @@ class ControllerCatalogCategory extends Controller {
 		}
 
 		if (isset($this->request->post['parent_id'])) {
-			$data['parent_id'] = $this->request->post['parent_id'];
+			$data['parent_id'] = (int)$this->request->post['parent_id'];
 		} elseif (!empty($category_info)) {
 			$data['parent_id'] = $category_info['parent_id'];
 		} else {
@@ -444,7 +444,7 @@ class ControllerCatalogCategory extends Controller {
 		}
 
 		if (isset($this->request->post['image'])) {
-			$data['image'] = $this->request->post['image'];
+			$data['image'] = html_entity_decode($this->request->post['image'], ENT_QUOTES, 'UTF-8');
 		} elseif (!empty($category_info)) {
 			$data['image'] = $category_info['image'];
 		} else {

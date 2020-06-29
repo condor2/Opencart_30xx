@@ -1,14 +1,24 @@
 <?php
 class ControllerCommonReset extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
 			$this->response->redirect($this->url->link('common/dashboard', '', true));
 		}
 
+		$this->load->language('common/reset');
+
 		if (!$this->config->get('config_password')) {
+			$this->session->data['error'] = $this->language->get('error_disabled');
+
 			$this->response->redirect($this->url->link('common/login', '', true));
+		}
+
+		if (isset($this->request->get['email'])) {
+			$email = $this->request->get['email'];
+		} else {
+			$email = '';
 		}
 
 		if (isset($this->request->get['code'])) {
@@ -19,10 +29,19 @@ class ControllerCommonReset extends Controller {
 
 		$this->load->model('user/user');
 
-		$user_info = $this->model_user_user->getUserByCode($code);
+		$user_info = $this->model_user_user->getUserByEmail($email);
 
-		if ($user_info) {
-			$this->load->language('common/reset');
+		if (!$user_info || !$user_info['code'] || $user_info['code'] !== $code) {
+			$this->session->data['error'] = $this->language->get('error_code');
+
+			$this->model_user_user->editCode($email, '');
+
+			$this->load->model('setting/setting');
+
+			$this->model_setting_setting->editSettingValue('config', 'config_password', '0');
+
+			$this->response->redirect($this->url->link('common/login', '', true));
+		}
 
 			$this->document->setTitle($this->language->get('heading_title'));
 
@@ -58,7 +77,7 @@ class ControllerCommonReset extends Controller {
 				$data['error_confirm'] = '';
 			}
 
-			$data['action'] = $this->url->link('common/reset', 'code=' . $code, true);
+			$data['action'] = $this->url->link('common/reset', 'email=' . urlencode($email) . '&code=' . $code, true);
 
 			$data['cancel'] = $this->url->link('common/login', '', true);
 
@@ -78,13 +97,6 @@ class ControllerCommonReset extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 
 			$this->response->setOutput($this->load->view('common/reset', $data));
-		} else {
-			$this->load->model('setting/setting');
-
-			$this->model_setting_setting->editSettingValue('config', 'config_password', '0');
-
-			return new Action('common/login');
-		}
 	}
 
 	protected function validate() {

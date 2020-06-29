@@ -9,6 +9,8 @@ class ControllerAccountAccount extends Controller {
 
 		$this->load->language('account/account');
 
+		$this->load->model('account/wishlist');
+
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$data['breadcrumbs'] = array();
@@ -53,6 +55,7 @@ class ControllerAccountAccount extends Controller {
 		}
 		
 		$data['wishlist'] = $this->url->link('account/wishlist');
+		$data['text_wishlist_total'] = sprintf($this->language->get('text_wishlist_total'), $this->model_account_wishlist->getTotalWishlist());
 		$data['order'] = $this->url->link('account/order', '', true);
 		$data['download'] = $this->url->link('account/download', '', true);
 		

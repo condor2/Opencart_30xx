@@ -1,6 +1,6 @@
 <?php
 class ControllerToolLog extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {		
 		$this->load->language('tool/log');
@@ -47,7 +47,7 @@ class ControllerToolLog extends Controller {
 		if (file_exists($file)) {
 			$size = filesize($file);
 
-			if ($size >= 5242880) {
+			if ($size >= 3145728) {
 				$suffix = array(
 					'B',
 					'KB',
@@ -68,8 +68,6 @@ class ControllerToolLog extends Controller {
 				}
 
 				$data['error_warning'] = sprintf($this->language->get('error_warning'), basename($file), round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i]);
-			} else {
-				$data['log'] = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
 			}
 		}
 

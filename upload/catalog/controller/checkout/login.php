@@ -22,11 +22,11 @@ class ControllerCheckoutLogin extends Controller {
 		$json = array();
 
 		if ($this->customer->isLogged()) {
-			$json['redirect'] = $this->url->link('checkout/checkout', '', true);
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/checkout', '', true));
 		}
 
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-			$json['redirect'] = $this->url->link('checkout/cart');
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/cart', '', true));
 		}
 
 		if (!$json) {
@@ -37,6 +37,10 @@ class ControllerCheckoutLogin extends Controller {
 
 			if ($login_info && ($login_info['total'] >= $this->config->get('config_login_attempts')) && strtotime('-1 hour') < strtotime($login_info['date_modified'])) {
 				$json['error']['warning'] = $this->language->get('error_attempts');
+			}
+
+			if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+				$json['error']['warning'] = $this->language->get('error_login');
 			}
 
 			// Check if customer has been approved.
@@ -83,7 +87,10 @@ class ControllerCheckoutLogin extends Controller {
 				}
 			}
 
-			$json['redirect'] = $this->url->link('checkout/checkout', '', true);
+			// Log the IP info
+			$this->model_account_customer->addLogin($this->customer->getId(), $this->request->server['REMOTE_ADDR']);
+
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/checkout', '', true));
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

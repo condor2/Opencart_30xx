@@ -32,10 +32,18 @@ class ControllerCheckoutPaymentMethod extends Controller {
 				if ($this->config->get('total_' . $result['code'] . '_status')) {
 					$this->load->model('extension/total/' . $result['code']);
 					
-					// We have to put the totals in an array so that they pass by reference.
+					// __call can not pass-by-reference so we get PHP to call it as an anonymous function.
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 				}
 			}
+
+			$sort_order = array();
+
+			foreach ($total_data['totals'] as $key => $value) {
+				$sort_order[$key] = $value['sort_order'];
+			}
+
+			array_multisort($sort_order, SORT_ASC, $total_data['totals']);
 
 			// Payment Methods
 			$method_data = array();
@@ -99,8 +107,6 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			$data['comment'] = '';
 		}
 
-		$data['scripts'] = $this->document->getScripts();
-
 		if ($this->config->get('config_checkout_id')) {
 			$this->load->model('catalog/information');
 
@@ -131,12 +137,12 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
 		// Validate if payment address has been set.
 		if (!isset($this->session->data['payment_address'])) {
-			$json['redirect'] = $this->url->link('checkout/checkout', '', true);
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/checkout', '', true));
 		}
 
 		// Validate cart has products and has stock.
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-			$json['redirect'] = $this->url->link('checkout/cart');
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/cart', '', true));
 		}
 
 		// Validate minimum quantity requirements.
@@ -152,7 +158,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			}
 
 			if ($product['minimum'] > $product_total) {
-				$json['redirect'] = $this->url->link('checkout/cart');
+				$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/cart', '', true));
 
 				break;
 			}

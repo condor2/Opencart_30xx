@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationTaxRate extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/tax_rate');
@@ -254,7 +254,7 @@ class ControllerLocalisationTaxRate extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = !isset($this->request->get['tax_rate_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['tax_rate_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -349,7 +349,7 @@ class ControllerLocalisationTaxRate extends Controller {
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
 		if (isset($this->request->post['geo_zone_id'])) {
-			$data['geo_zone_id'] = $this->request->post['geo_zone_id'];
+			$data['geo_zone_id'] = (int)$this->request->post['geo_zone_id'];
 		} elseif (!empty($tax_rate_info)) {
 			$data['geo_zone_id'] = $tax_rate_info['geo_zone_id'];
 		} else {

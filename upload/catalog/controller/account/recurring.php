@@ -168,8 +168,6 @@ class ControllerAccountRecurring extends Controller {
 			$data['order'] = $this->url->link('account/order/info', 'order_id=' . $recurring_info['order_id'], true);
 			$data['product'] = $this->url->link('product/product', 'product_id=' . $recurring_info['product_id'], true);
 
-			$data['recurring'] = $this->load->controller('extension/recurring/' . $recurring_info['payment_code']);
-
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
@@ -212,6 +210,7 @@ class ControllerAccountRecurring extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 
+			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
 	}

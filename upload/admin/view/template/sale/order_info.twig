@@ -292,7 +292,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                
                 {% for custom_field in payment_custom_fields %}
                 <tr>
                   <td>{{ custom_field.name }}</td>
@@ -529,7 +528,6 @@ $.ajax({
     if (json['api_token']) {
       api_token = json['api_token'];
     }
-
   },
   error: function(xhr, ajaxOptions, thrownError) {
     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -576,7 +574,6 @@ $('#button-history').on('click', function() {
 		}
 	});
 });
-
 //--></script> 
 </div>
 {{ footer }}

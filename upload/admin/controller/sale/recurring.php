@@ -1,6 +1,6 @@
 <?php
 class ControllerSaleRecurring extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('sale/recurring');
@@ -46,7 +46,7 @@ class ControllerSaleRecurring extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'order_recurring_id';
+			$sort = 'or.order_recurring_id';
 		}
 
 		if (isset($this->request->get['filter_date_added'])) {
@@ -306,7 +306,7 @@ class ControllerSaleRecurring extends Controller {
 		
 			$this->document->setTitle($this->language->get('heading_title'));
 
-			$data['user_token'] = $this->request->get['user_token'];
+			$data['user_token'] = $this->session->data['user_token'];
 			
 			$url = '';
 
@@ -426,7 +426,7 @@ class ControllerSaleRecurring extends Controller {
 
 			$this->response->setOutput($this->load->view('sale/recurring_info', $data));
 		} else {
-			return new Action('error/not_found');
+			$this->load->controller('error/not_found');
 		}
 	}
 }

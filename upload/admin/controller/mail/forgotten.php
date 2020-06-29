@@ -1,5 +1,6 @@
 <?php
 class ControllerMailForgotten extends Controller {
+	// admin/model/user/user/editCode/after
 	public function index(&$route, &$args, &$output) {			            
 		$this->load->language('mail/forgotten');
 		
