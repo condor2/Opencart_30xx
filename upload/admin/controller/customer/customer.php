@@ -398,7 +398,6 @@ class ControllerCustomerCustomer extends Controller {
 				'email'          => $result['email'],
 				'customer_group' => $result['customer_group'],
 				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
-				'ip'             => $result['ip'],
 				'date_added'     => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'unlock'         => $unlock,
 				'store'          => $store_data,
@@ -468,7 +467,6 @@ class ControllerCustomerCustomer extends Controller {
 		$data['sort_email'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.email' . $url, true);
 		$data['sort_customer_group'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=customer_group' . $url, true);
 		$data['sort_status'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.status' . $url, true);
-		$data['sort_ip'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.ip' . $url, true);
 		$data['sort_date_added'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.date_added' . $url, true);
 
 		$url = '';
@@ -1137,6 +1135,8 @@ class ControllerCustomerCustomer extends Controller {
 				$store_id = 0;
 			}
 
+			$this->load->model('setting/setting');
+
 			$this->load->model('setting/store');
 
 			$store_info = $this->model_setting_store->getStore($store_id);
@@ -1364,8 +1364,6 @@ class ControllerCustomerCustomer extends Controller {
 	public function ip() {
 		$this->load->language('customer/customer');
 
-		$this->load->model('customer/customer');
-
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = $this->request->get['customer_id'];
 		} else {
@@ -1378,15 +1376,30 @@ class ControllerCustomerCustomer extends Controller {
 			$page = 1;
 		}
 
+		$this->load->model('customer/customer');
+		$this->load->model('setting/store');
+
 		$data['ips'] = array();
 
 		$results = $this->model_customer_customer->getIps($customer_id, ($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
+			$store_info = $this->model_setting_store->getStore($result['store_id']);
+
+			if ($store_info) {
+				$store = $store_info['name'];
+			} elseif (!$result['store_id']) {
+				$store = $this->config->get('config_name');
+			} else {
+				$store = '';
+			}
+
 			$data['ips'][] = array(
 				'ip'         => $result['ip'],
-				'total'      => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
-				'date_added' => date('d/m/y', strtotime($result['date_added'])),
+				'account'    => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
+				'store'      => $store,
+				'country'    => $result['country'],
+				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
 				'filter_ip'  => $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&filter_ip=' . $result['ip'], true)
 			);
 		}
