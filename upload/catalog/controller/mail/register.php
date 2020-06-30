@@ -3,22 +3,29 @@ class ControllerMailRegister extends Controller {
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/register');
 
+		$this->load->model('tool/image');
+
+		if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+		} else {
+			$data['logo'] = '';
+		}
+
 		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 		$data['text_login'] = $this->language->get('text_login');
 		$data['text_approval'] = $this->language->get('text_approval');
 		$data['text_service'] = $this->language->get('text_service');
 		$data['text_thanks'] = $this->language->get('text_thanks');
-
 		$data['button_login'] = $this->language->get('button_login');
 
 		$this->load->model('account/customer_group');
-			
+
 		if (isset($args[0]['customer_group_id'])) {
 			$customer_group_id = $args[0]['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}
-					
+
 		$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 		
 		if ($customer_group_info) {
@@ -30,14 +37,6 @@ class ControllerMailRegister extends Controller {
 		$data['login'] = $this->url->link('account/login', '', true);
 		$data['store_url'] = $this->config->get('config_url');
 		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-
-		$this->load->model('tool/image');
-
-		if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
-			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
-		} else {
-			$data['logo'] = '';
-		}
 
 		$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
@@ -69,7 +68,19 @@ class ControllerMailRegister extends Controller {
 			
 			$data['firstname'] = $args[0]['firstname'];
 			$data['lastname'] = $args[0]['lastname'];
-			
+
+			$data['login'] = $this->url->link('account/login', '', true);
+			$data['store_url'] = $this->config->get('config_url');
+			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+
+			$this->load->model('tool/image');
+
+			if (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
+				$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
+			} else {
+				$data['logo'] = '';
+			}
+
 			$this->load->model('account/customer_group');
 			
 			if (isset($args[0]['customer_group_id'])) {
