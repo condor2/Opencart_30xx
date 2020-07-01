@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleBase extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/feed/google_base');

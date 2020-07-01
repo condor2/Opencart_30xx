@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleGoogleHangouts extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/google_hangouts');

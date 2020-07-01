@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSlideshow extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/slideshow');
@@ -90,7 +90,7 @@ class ControllerExtensionModuleSlideshow extends Controller {
 		}
 
 		if (isset($this->request->post['banner_id'])) {
-			$data['banner_id'] = $this->request->post['banner_id'];
+			$data['banner_id'] = (int)$this->request->post['banner_id'];
 		} elseif (!empty($module_info)) {
 			$data['banner_id'] = $module_info['banner_id'];
 		} else {
@@ -118,7 +118,7 @@ class ControllerExtensionModuleSlideshow extends Controller {
 		}
 
 		if (isset($this->request->post['status'])) {
-			$data['status'] = $this->request->post['status'];
+			$data['status'] = (int)$this->request->post['status'];
 		} elseif (!empty($module_info)) {
 			$data['status'] = $module_info['status'];
 		} else {

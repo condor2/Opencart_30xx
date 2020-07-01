@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSpecial extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/special');
@@ -116,7 +116,7 @@ class ControllerExtensionModuleSpecial extends Controller {
 		}
 
 		if (isset($this->request->post['status'])) {
-			$data['status'] = $this->request->post['status'];
+			$data['status'] = (int)$this->request->post['status'];
 		} elseif (!empty($module_info)) {
 			$data['status'] = $module_info['status'];
 		} else {

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleDividoCalculator extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/divido_calculator');
@@ -42,7 +42,7 @@ class ControllerExtensionModuleDividoCalculator extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
 		if (isset($this->request->post['module_divido_calculator_status'])) {
-			$data['module_divido_calculator_status'] = $this->request->post['module_divido_calculator_status'];
+			$data['module_divido_calculator_status'] = (int)$this->request->post['module_divido_calculator_status'];
 		} else {
 			$data['module_divido_calculator_status'] = $this->config->get('module_divido_calculator_status');
 		}

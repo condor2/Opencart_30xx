@@ -9,7 +9,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     use StoreLoader;
     use LibraryLoader;
 
-    private $error = array();
+    protected $error = array();
     private $store_id = 0;
 
     public function __construct($registry) {

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
-	private $error = array();
+	protected $error = array();
 	private $pclasses = array();
 
 	public function index() {

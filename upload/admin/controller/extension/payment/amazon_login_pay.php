@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	private $version = '3.2.1';
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 

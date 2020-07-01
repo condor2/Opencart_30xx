@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBankTransfer extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/bank_transfer');
@@ -73,7 +73,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 		}
 
 		if (isset($this->request->post['payment_bank_transfer_order_status_id'])) {
-			$data['payment_bank_transfer_order_status_id'] = $this->request->post['payment_bank_transfer_order_status_id'];
+			$data['payment_bank_transfer_order_status_id'] = (int)$this->request->post['payment_bank_transfer_order_status_id'];
 		} else {
 			$data['payment_bank_transfer_order_status_id'] = $this->config->get('payment_bank_transfer_order_status_id');
 		}
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_bank_transfer_geo_zone_id'])) {
-			$data['payment_bank_transfer_geo_zone_id'] = $this->request->post['payment_bank_transfer_geo_zone_id'];
+			$data['payment_bank_transfer_geo_zone_id'] = (int)$this->request->post['payment_bank_transfer_geo_zone_id'];
 		} else {
 			$data['payment_bank_transfer_geo_zone_id'] = $this->config->get('payment_bank_transfer_geo_zone_id');
 		}
@@ -93,13 +93,13 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_bank_transfer_status'])) {
-			$data['payment_bank_transfer_status'] = $this->request->post['payment_bank_transfer_status'];
+			$data['payment_bank_transfer_status'] = (int)$this->request->post['payment_bank_transfer_status'];
 		} else {
 			$data['payment_bank_transfer_status'] = $this->config->get('payment_bank_transfer_status');
 		}
 
 		if (isset($this->request->post['payment_bank_transfer_sort_order'])) {
-			$data['payment_bank_transfer_sort_order'] = $this->request->post['payment_bank_transfer_sort_order'];
+			$data['payment_bank_transfer_sort_order'] = (int)$this->request->post['payment_bank_transfer_sort_order'];
 		} else {
 			$data['payment_bank_transfer_sort_order'] = $this->config->get('payment_bank_transfer_sort_order');
 		}

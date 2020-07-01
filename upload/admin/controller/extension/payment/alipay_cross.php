@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipayCross extends Controller {
-	private $error = array();
+	protected $error = array();
 	private $currencies = array('GBP', 'HKD', 'USD', 'CHF', 'SGD', 'SEK', 'DKK', 'NOK', 'JPY', 'CAD', 'AUD', 'EUR', 'NZD', 'KRW', 'THB');
 
 	public function index() {
@@ -58,7 +58,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_alipay_cross_app_id'])) {
-			$data['payment_alipay_cross_app_id'] = $this->request->post['payment_alipay_cross_app_id'];
+			$data['payment_alipay_cross_app_id'] = (int)$this->request->post['payment_alipay_cross_app_id'];
 		} else {
 			$data['payment_alipay_cross_app_id'] = $this->config->get('payment_alipay_cross_app_id');
 		}
@@ -101,7 +101,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_order_status_id'])) {
-			$data['payment_alipay_cross_order_status_id'] = $this->request->post['payment_alipay_cross_order_status_id'];
+			$data['payment_alipay_cross_order_status_id'] = (int)$this->request->post['payment_alipay_cross_order_status_id'];
 		} else {
 			$data['payment_alipay_cross_order_status_id'] = $this->config->get('payment_alipay_cross_order_status_id');
 		}
@@ -111,7 +111,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_alipay_cross_geo_zone_id'])) {
-			$data['payment_alipay_cross_geo_zone_id'] = $this->request->post['payment_alipay_cross_geo_zone_id'];
+			$data['payment_alipay_cross_geo_zone_id'] = (int)$this->request->post['payment_alipay_cross_geo_zone_id'];
 		} else {
 			$data['payment_alipay_cross_geo_zone_id'] = $this->config->get('payment_alipay_cross_geo_zone_id');
 		}
@@ -127,7 +127,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_status'])) {
-			$data['payment_alipay_cross_status'] = $this->request->post['payment_alipay_cross_status'];
+			$data['payment_alipay_cross_status'] = (int)$this->request->post['payment_alipay_cross_status'];
 		} else {
 			$data['payment_alipay_cross_status'] = $this->config->get('payment_alipay_cross_status');
 		}

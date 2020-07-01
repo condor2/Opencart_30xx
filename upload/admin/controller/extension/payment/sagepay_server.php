@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayServer extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 

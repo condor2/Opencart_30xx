@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = array();
+	protected $error = array();
 	
 	public function index() {
 		$this->load->language('extension/payment/paypal');

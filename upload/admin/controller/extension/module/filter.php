@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModulefilter extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/filter');

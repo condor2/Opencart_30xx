@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudFraudLabsPro extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/fraud/fraudlabspro');
@@ -63,25 +63,25 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_order_status_id'])) {
-			$data['fraud_fraudlabspro_order_status_id'] = $this->request->post['fraud_fraudlabspro_order_status_id'];
+			$data['fraud_fraudlabspro_order_status_id'] = (int)$this->request->post['fraud_fraudlabspro_order_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_order_status_id'] = $this->config->get('fraud_fraudlabspro_order_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_review_status_id'])) {
-			$data['fraud_fraudlabspro_review_status_id'] = $this->request->post['fraud_fraudlabspro_review_status_id'];
+			$data['fraud_fraudlabspro_review_status_id'] = (int)$this->request->post['fraud_fraudlabspro_review_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_review_status_id'] = $this->config->get('fraud_fraudlabspro_review_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_approve_status_id'])) {
-			$data['fraud_fraudlabspro_approve_status_id'] = $this->request->post['fraud_fraudlabspro_approve_status_id'];
+			$data['fraud_fraudlabspro_approve_status_id'] = (int)$this->request->post['fraud_fraudlabspro_approve_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_approve_status_id'] = $this->config->get('fraud_fraudlabspro_approve_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_reject_status_id'])) {
-			$data['fraud_fraudlabspro_reject_status_id'] = $this->request->post['fraud_fraudlabspro_reject_status_id'];
+			$data['fraud_fraudlabspro_reject_status_id'] = (int)$this->request->post['fraud_fraudlabspro_reject_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_reject_status_id'] = $this->config->get('fraud_fraudlabspro_reject_status_id');
 		}

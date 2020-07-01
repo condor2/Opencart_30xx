@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudMaxMind extends Controller {
-	private $error = array();
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/fraud/maxmind');
@@ -63,7 +63,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		}
 
 		if (isset($this->request->post['fraud_maxmind_order_status_id'])) {
-			$data['fraud_maxmind_order_status_id'] = $this->request->post['fraud_maxmind_order_status_id'];
+			$data['fraud_maxmind_order_status_id'] = (int)$this->request->post['fraud_maxmind_order_status_id'];
 		} else {
 			$data['fraud_maxmind_order_status_id'] = $this->config->get('fraud_maxmind_order_status_id');
 		}
@@ -115,7 +115,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		$this->load->model('extension/fraud/maxmind');
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}
