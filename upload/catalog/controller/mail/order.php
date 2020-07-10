@@ -92,7 +92,7 @@ class ControllerMailOrder extends Controller {
 		
 		$this->load->model('setting/setting');
 		
-		$config_info = $this->model_setting_setting->getValue('config_logo', $order_info['store_id']);
+		$config_info = $this->model_setting_setting->getSettingValue('config_logo', $order_info['store_id']);
 		
 		if ($config_info && is_file(DIR_IMAGE . html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'))) {
 			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));			
