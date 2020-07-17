@@ -18,6 +18,7 @@ class ControllerMarketingContact extends Controller {
 		$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
 		$this->document->addScript('view/javascript/summernote/opencart.js');
 
+
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['breadcrumbs'] = array();
@@ -190,7 +191,6 @@ class ControllerMarketingContact extends Controller {
 									}
 								}
 							}
-
 						}
 
 						$email_total = count($this->request->post['affiliate']);
@@ -214,7 +214,9 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * 10;
 					$end = $start + 10;
 
-					$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
+					if ($end < $email_total) {
+						$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
+					}
 
 					if ($end < $email_total) {
 						$json['next'] = str_replace('&amp;', '&', $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true));
