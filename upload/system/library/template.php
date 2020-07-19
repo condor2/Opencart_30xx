@@ -47,7 +47,7 @@ class Template {
 	 *
 	 * @return	string
  	*/	
-	public function render($filename, $code = '') {
-		return $this->adaptor->render($filename, $code);
+	public function render($template, $cache = false) {
+		return $this->adaptor->render($template, $cache);
 	}
 }

@@ -99,47 +99,47 @@ final class Loader {
 	 *
 	 * @return	string
  	*/
-	public function view($route, $data = array(), $path = '') {
+	public function view($route, $data = array()) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
-
+		
 		// Keep the original trigger
 		$trigger = $route;
-
-		// Modified template contents. Not the output!
+		
+		// Template contents. Not the output!
 		$code = '';
-
+		
 		// Trigger the pre events
 		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', array(&$route, &$data, &$code));
-
+		
 		// Make sure its only the last event that returns an output if required.
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
 		} else {
 			$template = new Template($this->registry->get('config')->get('template_engine'));
-
+				
 			foreach ($data as $key => $value) {
 				$template->set($key, $value);
 			}
 
 			$output = $template->render($this->registry->get('config')->get('template_directory') . $route, $code);
 		}
-
+		
 		// Trigger the post events
 		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', array(&$route, &$data, &$output));
-
+		
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
 		}
-
+		
 		return $output;
 	}
 
 	/**
-	 * Library
+	 * 
 	 *
-	 * @param    string $route
-	 */
+	 * @param	string	$route
+ 	*/
 	public function library($route) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
