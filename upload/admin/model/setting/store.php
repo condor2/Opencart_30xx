@@ -1,7 +1,7 @@
 <?php
 class ModelSettingStore extends Model {
 	public function addStore($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "store SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "store SET name = '" . $this->db->escape((string)$data['config_name']) . "', `url` = '" . $this->db->escape((string)$data['config_url']) . "'");
 
 		$store_id = $this->db->getLastId();
 
@@ -18,7 +18,7 @@ class ModelSettingStore extends Model {
 	}
 
 	public function editStore($store_id, $data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "store SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "' WHERE store_id = '" . (int)$store_id . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "store SET name = '" . $this->db->escape((string)$data['config_name']) . "', `url` = '" . $this->db->escape((string)$data['config_url']) . "' WHERE store_id = '" . (int)$store_id . "'");
 
 		$this->cache->delete('store');
 	}
@@ -40,21 +40,7 @@ class ModelSettingStore extends Model {
 		$store_data = $this->cache->get('store');
 
 		if (!$store_data) {
-			$sql = "SELECT * FROM " . DB_PREFIX . "store ORDER BY url";
-			
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
-
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
-
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
-			
-			$query = $this->db->query($sql);
+			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store ORDER BY url");
 
 			$store_data = $query->rows;
 
@@ -64,22 +50,8 @@ class ModelSettingStore extends Model {
 		return $store_data;
 	}
 
-	public function getTotalStores($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "store";
-
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
-
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
-
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
-
-		$query = $this->db->query($sql);
+	public function getTotalStores() {
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "store");
 
 		return $query->row['total'];
 	}
