@@ -1,8 +1,8 @@
-# OpenCart 3.0.3.3
+# OpenCart 3.0.3.6
 
 ## Information
 
-This is a modified version of Opencart 3.0.3.3
+This is a modified version of Opencart 3.0.3.6
 
 ## Features
 
