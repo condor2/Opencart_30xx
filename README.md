@@ -2,12 +2,12 @@
 
 ## Information
 
-This is a modified version of Opencart 3.0.3.3.
+This is a modified version of Opencart 3.0.3.3
 
 ## Features
 
 - Added bug fixes.
-- Added latest version of Paypal Commerce from 3.0.3.5
+- Added latest version of Paypal Commerce
 - Added Paypal Standard
 - Added Currency module from Master Branch - 3.1.0.0b
 - Added Cron Job code from Master Branch - 3.1.0.0b
@@ -19,6 +19,7 @@ This is a modified version of Opencart 3.0.3.3.
 - Summernote editor updated from 0.8.2 to 0.8.8
 - Promotion removed
 - Openbay removed
+- Minimum PHP 7.3 is required
 - PHP 7.4 Support
 - TWIG updated to 2.12.5
 

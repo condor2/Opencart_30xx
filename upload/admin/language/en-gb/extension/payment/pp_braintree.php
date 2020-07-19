@@ -135,7 +135,6 @@ $_['entry_paypal_button_size']		 = 'Button Size';
 $_['entry_paypal_billing_agreement'] = 'Billing agreement description';
 $_['entry_3ds_status']				 = 'Enable 3-D Secure';
 $_['entry_googlepay_status']		 = 'Display Google Pay option';
-
 $_['entry_3ds_unsupported_card'] 		= 'Unsupported Card<br />Default: Accept';
 $_['entry_3ds_lookup_error'] 			= 'Lookup Error<br />Default: Accept';
 $_['entry_3ds_lookup_enrolled'] 		= 'Lookup Enrolled<br />Default: Accept';
@@ -169,7 +168,7 @@ $_['button_filter']					 	= 'Filter';
 
 // Error
 $_['error_permission']				 	= 'Warning: You do not have permission to modify payment Braintree!';
-$_['error_php_version']				 	= 'Minimum version of PHP 5.4.0 is required!';
+$_['error_php_version']				 	= 'Minimum version of PHP 7.3 is required!';
 $_['error_merchant_id']				 	= 'Merchant ID Required!';
 $_['error_public_key']				 	= 'Public Key Required!';
 $_['error_private_key']				 	= 'Private Key Required!';
