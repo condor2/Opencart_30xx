@@ -7,7 +7,7 @@ This is a modified version of Opencart 3.0.3.3.
 ## Features
 
 - Added bug fixes.
-- Added latest version of Paypal Commerce from 3.0.3.4
+- Added latest version of Paypal Commerce from 3.0.3.5
 - Added Paypal Standard
 - Added Currency module from Master Branch - 3.1.0.0b
 - Added Cron Job code from Master Branch - 3.1.0.0b
