@@ -21,7 +21,7 @@ This is a modified version of Opencart 3.0.3.6
 - Openbay removed
 - Minimum PHP 7.3 is required
 - PHP 7.4 Support
-- TWIG updated to 2.12.5
+- TWIG updated to 2.13.0
 
 ## Note
 
