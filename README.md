@@ -23,6 +23,7 @@ This is a modified version of Opencart 3.0.3.6
 - Minimum PHP 7.3 is required
 - PHP 7.4 Support
 - TWIG updated to 2.13.0
+- {% include %} support
 
 ## Note
 
