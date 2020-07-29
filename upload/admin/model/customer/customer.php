@@ -106,7 +106,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		if (!empty($data['filter_affiliate'])) {
-			$implode[] = "c.status = '" . (int)$data['filter_affiliate'] . "'";
+			$implode[] = "ca.status = '" . (int)$data['filter_affiliate'] . "'";
 		}
 		
 		if (!empty($data['filter_ip'])) {
