@@ -19,7 +19,6 @@ class Mail {
 	protected $text;
 	protected $html;
 	protected $attachments = array();
-	public $parameter;
 
 	/**
 	 * Constructor
@@ -29,15 +28,15 @@ class Mail {
  	*/
 	public function __construct($adaptor = 'mail') {
 		$class = 'Mail\\' . $adaptor;
-		
+
 		if (class_exists($class)) {
 			$this->adaptor = new $class();
 		} else {
 			trigger_error('Error: Could not load mail adaptor ' . $adaptor . '!');
 			exit();
-		}	
+		}
 	}
-	
+
 	/**
      * 
      *
@@ -138,7 +137,7 @@ class Mail {
 		foreach (get_object_vars($this) as $key => $value) {
 			$this->adaptor->$key = $value;
 		}
-		
+
 		$this->adaptor->send();
 	}
 }

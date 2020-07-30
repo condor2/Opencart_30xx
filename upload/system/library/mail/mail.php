@@ -1,6 +1,8 @@
 <?php
 namespace Mail;
 class Mail {
+	public $parameter;
+
 	public function send() {
 		if (is_array($this->to)) {
 			$to = implode(',', $this->to);
@@ -19,7 +21,7 @@ class Mail {
 		} else {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->reply_to) . '?= <' . $this->reply_to . '>' . PHP_EOL;
 		}
-		
+
 		$header .= 'Return-Path: ' . $this->from . PHP_EOL;
 		$header .= 'X-Mailer: PHP/' . phpversion() . PHP_EOL;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . PHP_EOL . PHP_EOL;
