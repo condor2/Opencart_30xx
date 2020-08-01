@@ -53,6 +53,7 @@
 {% endif %}
 <script type="text/javascript"><!--
 	$('#paypal-transaction').load('index.php?route=extension/payment/pp_express/transaction&user_token={{ user_token }}&order_id={{ order_id }}');
+
 	$('#button-capture').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/payment/pp_express/capture&user_token={{ user_token }}&order_id={{ order_id }}',
@@ -67,23 +68,31 @@
 			},
 			success: function(json) {
 				$('.alert-dismissible').remove();
+
 				if (json['error']) {
 					$('#paypal-capture').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 				}
+
 				if (json['success']) {
 					$('#paypal-capture').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
 					$('#paypal-captured').text(json['captured']);
 					$('#paypal-capture-amount').val(json['remaining']);
+
 					if (json['capture_status']) {
 						$('#capture-status').text(json['capture_status']);
+
 						$('#button-void').remove();
+
 						$('#capture-form').remove();
 					}
 				}
+
 				$('#paypal-transaction').load('index.php?route=extension/payment/pp_express/transaction&user_token={{ user_token }}&order_id={{ order_id }}');
 			}
 		});
 	});
+
 	$('#button-void').on('click', function() {
 		if (confirm('{{ text_confirm_void|escape('js') }}')) {
 			$.ajax({
@@ -97,21 +106,28 @@
 				},
 				success: function(json) {
 					$('.alert-dismissible').remove();
+
 					if (json['error']) {
 						$('#paypal-capture').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 					}
+
 					if (json['success']) {
 						$('#capture-status').text(json['capture_status']);
+
 						$('#button-void').remove();
+
 						$('#capture-form').remove();
 					}
+
 					$('#paypal-transaction').load('index.php?route=extension/payment/pp_express/transaction&user_token={{ user_token }}&order_id={{ order_id }}');
 				}
 			});
 		}
 	});
+
 	$('#paypal-transaction').delegate('button', 'click', function() {
 		var element = this;
+
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'json',
@@ -123,9 +139,11 @@
 			},
 			success: function(json) {
 				$('.alert-dismissible').remove();
+
 				if (json['error']) {
 					$('#tab-pp-express').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 				}
+
 				if (json['success']) {
 					$('#paypal-transaction').load('index.php?route=extension/payment/pp_express/transaction&user_token={{ user_token }}&order_id={{ order_id }}');
 				}
