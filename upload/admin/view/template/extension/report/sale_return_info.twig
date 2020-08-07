@@ -24,74 +24,26 @@
         <div class="form-group">
           <label class="control-label" for="input-group">{{ entry_group }}</label>
           <select name="filter_group" id="input-group" class="form-control">
-            
-          
-          {% for group in groups %}
-          {% if group.value == filter_group %}
-          
-          
-            <option value="{{ group.value }}" selected="selected">{{ group.text }}</option>
-            
-          
-          {% else %}
-          
-          
-            <option value="{{ group.value }}">{{ group.text }}</option>
-            
-          
-          {% endif %}
-          {% endfor %}
-        
-        
+            {% for group in groups %}
+              {% if group.value == filter_group %}
+                <option value="{{ group.value }}" selected="selected">{{ group.text }}</option>
+              {% else %}
+                <option value="{{ group.value }}">{{ group.text }}</option>
+              {% endif %}
+            {% endfor %}
           </select>
         </div>
         <div class="form-group">
-          <label class="control-label" for="input-status">{{ entry_status }}</label>
+          <label class="control-label" for="input-status">{{ entry_return_status }}</label>
           <select name="filter_return_status_id" id="input-status" class="form-control">
             <option value="0">{{ text_all_status }}</option>
-            
-          
-          
-          
-            
-          
-                  {% for return_status in return_statuses %}
-                  {% if return_status.return_status_id == filter_return_status_id %}
-                  
-          
-            
-          
-          
-          
-            <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
-            
-          
-          
-          
-            
-          
-                  {% else %}
-                  
-          
-            
-          
-          
-          
-            <option value="{{ return_status.return_status_id }}">{{ return_status.name }}</option>
-            
-          
-          
-          
-            
-          
-                  {% endif %}
-                  {% endfor %}
-                
-        
-          
-        
-        
-        
+            {% for return_status in return_statuses %}
+              {% if return_status.return_status_id == filter_return_status_id %}
+                <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
+              {% else %}
+                <option value="{{ return_status.return_status_id }}">{{ return_status.name }}</option>
+              {% endif %}
+            {% endfor %}
           </select>
         </div>
         <div class="form-group text-right">
@@ -116,7 +68,6 @@
               </tr>
             </thead>
             <tbody>
-            
             {% if returns %}
             {% for return in returns %}
             <tr>
@@ -131,7 +82,6 @@
             </tr>
             {% endif %}
             </tbody>
-            
           </table>
         </div>
         <div class="row">

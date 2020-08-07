@@ -12,7 +12,8 @@ $_['db_database']       = DB_DATABASE;
 $_['db_port']           = DB_PORT;
 
 // Session
-$_['session_autostart'] = true;
+$_['session_autostart'] = false;
+$_['session_engine']    = 'db'; // db or file
 
 // Template
 $_['template_cache']    = true;
