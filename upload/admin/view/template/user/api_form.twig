@@ -71,15 +71,15 @@
                   <thead>
                     <tr>
                       <td class="text-left">{{ entry_ip }}</td>
-                      <td class="text-left"></td>
+                      <td class="text-right"></td>
                     </tr>
                   </thead>
                   <tbody>
                   {% set ip_row = 0 %}
                   {% for api_ip in api_ips %}
                   <tr id="ip-row{{ ip_row }}">
-                    <td class="text-left"><input type="text" name="api_ip[]" value="{{ api_ip.ip }}" placeholder="{{ entry_ip }}" class="form-control"/></td>
-                    <td class="text-left"><button type="button" onclick="$('#ip-row{{ ip_row }}').remove()" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                    <td class="text-left"><input type="text" name="api_ip[]" value="{{ api_ip }}" placeholder="{{ entry_ip }}" class="form-control"/></td>
+                    <td class="text-right"><button type="button" onclick="$('#ip-row{{ ip_row }}').remove()" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                   </tr>
                   {% set ip_row = ip_row + 1 %}
                   {% endfor %}
@@ -87,7 +87,7 @@
                   <tfoot>
                     <tr>
                       <td></td>
-                      <td class="text-left"><button type="button" onclick="addIp()" data-toggle="tooltip" title="{{ button_ip_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                      <td class="text-right"><button type="button" id="button-ip" data-toggle="tooltip" title="{{ button_ip_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                     </tr>
                   </tfoot>
                 </table>
@@ -146,32 +146,32 @@ $('#button-generate').on('click', function() {
   <script type="text/javascript"><!--
 var ip_row = {{ ip_row }};
 
-function addIp() {
+$('#button-ip').on('click', function() {
 	html  = '<tr id="ip-row' + ip_row + '">';
     html += '  <td class="text-right"><input type="text" name="api_ip[]" value="" placeholder="{{ entry_ip }}" class="form-control" /></td>';
-	html += '  <td class="text-left"><button type="button" onclick="$(\'#ip-row' + ip_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+	html += '  <td class="text-right"><button type="button" onclick="$(\'#ip-row' + ip_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 	html += '</tr>';
 
 	$('#ip tbody').append(html);
 
 	ip_row++;
-}
+});
 //--></script>
   <script type="text/javascript"><!--
 $('#session button').on('click', function(e) {
 	e.preventDefault();
 
-	var node = this;
+	var element = this;
 
 	$.ajax({
-		url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(node).val(),
+		url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(element).val(),
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$(node).button('loading');
+			$(element).button('loading');
 		},
 		complete: function() {
-			$(node).button('reset');
+			$(element).button('reset');
 		},
 		success: function(json) {
 			$('.alert-dismissible').remove();
@@ -183,7 +183,7 @@ $('#session button').on('click', function(e) {
 			if (json['success']) {
 				$('#tab-session').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-				$(node).parent().parent().remove();
+				$(element).parent().parent().remove();
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {

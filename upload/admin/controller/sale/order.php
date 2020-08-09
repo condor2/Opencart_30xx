@@ -1238,12 +1238,8 @@ class ControllerSaleOrder extends Controller {
 				$session->data['api_id'] = $api_info['api_id'];
 
 				$data['api_token'] = $session->getId();
-
-				$data['api_key'] = $api_info['key'];
 			} else {
 				$data['api_token'] = '';
-
-				$data['api_key'] = '';
 			}
 
 			$data['header'] = $this->load->controller('common/header');
@@ -1444,7 +1440,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('sale/order');
 
-		$results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
+		$results = $this->model_sale_order->getOrderHistories($order_id, ($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
@@ -1455,7 +1451,7 @@ class ControllerSaleOrder extends Controller {
 			);
 		}
 
-		$history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
+		$history_total = $this->model_sale_order->getTotalOrderHistories($order_id);
 
 		$pagination = new Pagination();
 		$pagination->total = $history_total;

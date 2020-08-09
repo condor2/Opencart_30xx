@@ -358,7 +358,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$(document).delegate('#button-invoice', 'click', function() {
+$(document).on('click', '#button-invoice', function() {
 	$.ajax({
 		url: 'index.php?route=sale/order/createinvoiceno&user_token={{ user_token }}&order_id={{ order_id }}',
 		dataType: 'json',
@@ -387,7 +387,7 @@ $(document).delegate('#button-invoice', 'click', function() {
 	});
 });
 
-$(document).delegate('#button-reward-add', 'click', function() {
+$(document).on('click', '#button-reward-add', function() {
 	$.ajax({
 		url: 'index.php?route=sale/order/addreward&user_token={{ user_token }}&order_id={{ order_id }}',
 		type: 'post',
@@ -417,7 +417,7 @@ $(document).delegate('#button-reward-add', 'click', function() {
 	});
 });
 
-$(document).delegate('#button-reward-remove', 'click', function() {
+$(document).on('click', '#button-reward-remove', function() {
 	$.ajax({
 		url: 'index.php?route=sale/order/removereward&user_token={{ user_token }}&order_id={{ order_id }}',
 		type: 'post',
@@ -447,7 +447,7 @@ $(document).delegate('#button-reward-remove', 'click', function() {
 	});
 });
 
-$(document).delegate('#button-commission-add', 'click', function() {
+$(document).on('click', '#button-commission-add', function() {
 	$.ajax({
 		url: 'index.php?route=sale/order/addcommission&user_token={{ user_token }}&order_id={{ order_id }}',
 		type: 'post',
@@ -477,7 +477,7 @@ $(document).delegate('#button-commission-add', 'click', function() {
 	});
 });
 
-$(document).delegate('#button-commission-remove', 'click', function() {
+$(document).on('click', '#button-commission-remove', function() {
 	$.ajax({
 		url: 'index.php?route=sale/order/removecommission&user_token={{ user_token }}&order_id={{ order_id }}',
 		type: 'post',
@@ -507,34 +507,7 @@ $(document).delegate('#button-commission-remove', 'click', function() {
 	});
 });
 
-var api_token = '';
-
-$.ajax({
-  url: '{{ catalog }}index.php?route=api/login',
-  type: 'post',
-  dataType: 'json',
-  data: 'key={{ api_key }}',
-  crossDomain: true,
-  success: function(json) {
-    $('.alert').remove();
-    if (json['error']) {
-      if (json['error']['key']) {
-        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-      }
-      if (json['error']['ip']) {
-        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add }}</button></div>');
-      }
-    }
-    if (json['api_token']) {
-      api_token = json['api_token'];
-    }
-  },
-  error: function(xhr, ajaxOptions, thrownError) {
-    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-  }
-});
-
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').on('click', '.pagination a', function(e) {
 	e.preventDefault();
 
 	$('#history').load(this.href);
@@ -574,6 +547,6 @@ $('#button-history').on('click', function() {
 		}
 	});
 });
-//--></script> 
+//--></script>
 </div>
 {{ footer }}
