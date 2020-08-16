@@ -118,7 +118,7 @@
                       <input type="checkbox" name="selected[]" value="{{ customer.customer_id }}" />
                       {% endif %}
                     </td>
-                      <td class="text-left">{{ customer.name }}</td>
+                    <td class="text-left">{{ customer.name }}</td>
                     <td class="text-left">{{ customer.email }}</td>
                     <td class="text-left">{{ customer.customer_group }}</td>
                     <td class="text-left">{{ customer.status }}</td>
@@ -147,7 +147,7 @@
                   {% endfor %}
                   {% else %}
                   <tr>
-                    <td class="text-center" colspan="8">{{ text_no_results }}</td>
+                    <td class="text-center" colspan="7">{{ text_no_results }}</td>
                   </tr>
                   {% endif %}
                     </tbody>

@@ -123,7 +123,7 @@ class ControllerDesignTheme extends Controller {
 			$files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
 			if ($files) {
-				foreach($files as $file) {
+				foreach ($files as $file) {
 					if (!in_array(basename($file), $path_data))  {
 						if (is_dir($file)) {
 							$json['directory'][] = array(
@@ -231,7 +231,7 @@ class ControllerDesignTheme extends Controller {
 
 		if (substr($path, -5) != '.twig') {
 			$json['error'] = $this->language->get('error_twig');
-		} 
+		}
 
 		if (!$json) {
 			$this->load->model('design/theme');
@@ -295,7 +295,7 @@ class ControllerDesignTheme extends Controller {
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'design/theme')) {
 			$json['error'] = $this->language->get('error_permission');
-		} 
+		}
 
 		if (!$json) {
 			$this->load->model('design/theme');

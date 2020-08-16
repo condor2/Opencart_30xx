@@ -319,7 +319,7 @@ class ControllerSettingSetting extends Controller {
 
 		$timezones = timezone_identifiers_list();
 
-		foreach($timezones as $timezone) {
+		foreach ($timezones as $timezone) {
 			date_default_timezone_set($timezone);
 			$hour = ' (' . date('P', $timestamp) . ')';
 			$data['timezones'][] = array(
@@ -677,7 +677,7 @@ class ControllerSettingSetting extends Controller {
 					'value' => $code
 				);
 			}
-		}		
+		}
 
 		if (isset($this->request->post['config_captcha_page'])) {
 			$data['config_captcha_page'] = $this->request->post['config_captcha_page'];
@@ -979,7 +979,7 @@ class ControllerSettingSetting extends Controller {
 		} elseif (substr($this->request->post['config_error_filename'], strrpos($this->request->post['config_error_filename'], '.')) != '.log') {
 			$this->error['log'] = $this->language->get('error_log_extension');
 		}
-		
+
 		if ((utf8_strlen($this->request->post['config_encryption']) < 32) || (utf8_strlen($this->request->post['config_encryption']) > 1024)) {
 			$this->error['encryption'] = $this->language->get('error_encryption');
 		}
@@ -990,7 +990,7 @@ class ControllerSettingSetting extends Controller {
 
 		return !$this->error;
 	}
-	
+
 	public function theme() {
 		// This is only here for compatibility with old themes.
 		if ($this->request->get['theme'] == 'theme_default') {

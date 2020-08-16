@@ -18,7 +18,6 @@ class ControllerMarketingContact extends Controller {
 		$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
 		$this->document->addScript('view/javascript/summernote/opencart.js');
 
-
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['breadcrumbs'] = array();
@@ -85,8 +84,6 @@ class ControllerMarketingContact extends Controller {
 
 				$this->load->model('customer/customer');
 
-				$this->load->model('customer/customer_group');
-
 				$this->load->model('sale/order');
 
 				if (isset($this->request->get['page'])) {
@@ -146,18 +143,15 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'customer':
 						if (!empty($this->request->post['customer'])) {
-							$start = ($page - 1) * 10;
+							$customers = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
 
-							for ($i = 0; $i < 10; $i++) {
-								if (isset($this->request->post['customer'][($start + $i)])) {
-									$customer_id = $this->request->post['customer'][($start + $i)];
-									$customer_info = $this->model_customer_customer->getCustomer($customer_id);
+                            foreach ($customers as $customer_id) {
+                                $customer_info = $this->model_customer_customer->getCustomer($customer_id);
 
-									if ($customer_info) {
-										$emails[] = $customer_info['email'];
-									}
-								}
-							}
+                                if ($customer_info) {
+                                    $emails[] = $customer_info['email'];
+                                }
+                            }
 
 							$email_total = count($this->request->post['customer']);
 						}
@@ -179,21 +173,18 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'affiliate':
 						if (!empty($this->request->post['affiliate'])) {
-							$start = ($page - 1) * 10;
+							$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * 10, 10);
 
-							for ($i = 0; $i < 10; $i++) {
-								if (isset($this->request->post['affiliate'][($start + $i)])) {
-									$affiliate_id = $this->request->post['affiliate'][($start + $i)];
-									$affiliate_info = $this->model_customer_customer->getCustomer($affiliate_id);
+                            foreach ($affiliates as $affiliate_id) {
+                                $affiliate_info = $this->model_customer_customer->getCustomer($affiliate_id);
 
-									if ($affiliate_info) {
-										$emails[] = $affiliate_info['email'];
-									}
-								}
-							}
-						}
+                                if ($affiliate_info) {
+                                    $emails[] = $affiliate_info['email'];
+                                }
+                            }
 
 						$email_total = count($this->request->post['affiliate']);
+						}
 						break;
 					case 'product':
 						if (isset($this->request->post['product'])) {
@@ -214,9 +205,7 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * 10;
 					$end = $start + 10;
 
-					if ($end < $email_total) {
 						$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
-					}
 
 					if ($end < $email_total) {
 						$json['next'] = str_replace('&amp;', '&', $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true));
@@ -224,7 +213,7 @@ class ControllerMarketingContact extends Controller {
 						$json['next'] = '';
 					}
 
-					$message  = '<html dir="ltr" lang="en">' . "\n";
+					$message  = '<html dir="ltr" lang="' . $this->language->get('code') . '">' . "\n";
 					$message .= '  <head>' . "\n";
 					$message .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
 					$message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
@@ -250,8 +239,6 @@ class ControllerMarketingContact extends Controller {
 							$mail->send();
 						}
 					}
-				} else {
-					$json['error']['email'] = $this->language->get('error_email');
 				}
 			}
 		}
