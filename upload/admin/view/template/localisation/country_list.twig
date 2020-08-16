@@ -4,6 +4,8 @@
     <div class="container-fluid">
       <div class="pull-right"><a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
         <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-country').submit() : false;"><i class="fa fa-trash-o"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ button_enable }}" class="btn btn-success" onclick="$('#form-country').attr('action', '{{ enable }}'); $('#form-country').submit();"><i class="fa fa-plus-circle"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ button_disable }}" class="btn btn-danger" onclick="$('#form-country').attr('action', '{{ disable }}'); $('#form-country').submit();"><i class="fa fa-minus-circle"></i></button>
       </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -50,6 +52,13 @@
                     {% else %}
                     <a href="{{ sort_iso_code_3 }}">{{ column_iso_code_3 }}</a>
                     {% endif %}</td>
+                  <td class="text-left">
+                    {% if sort == 'status' %}
+                      <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+                    {% else %}
+                      <a href="{{ sort_status }}">{{ column_status }}</a>
+                    {% endif %}
+                  </td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>
@@ -65,6 +74,7 @@
                   <td class="text-left">{{ country.name }}</td>
                   <td class="text-left">{{ country.iso_code_2 }}</td>
                   <td class="text-left">{{ country.iso_code_3 }}</td>
+                  <td class="text-left">{{ country.status }}</td>
                   <td class="text-right"><a href="{{ country.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>
                 {% endfor %}

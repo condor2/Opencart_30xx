@@ -4,6 +4,8 @@ $_['heading_title']           = 'Countries';
 
 // Text
 $_['text_success']            = 'Success: You have modified countries!';
+$_['text_enable']	          = 'Success: You have enabled countries!';
+$_['text_disable']	          = 'Success: You have disabled countries!';
 $_['text_list']               = 'Country List';
 $_['text_add']                = 'Add Country';
 $_['text_edit']               = 'Edit Country';
@@ -13,6 +15,7 @@ $_['column_name']             = 'Country Name';
 $_['column_iso_code_2']       = 'ISO Code (2)';
 $_['column_iso_code_3']       = 'ISO Code (3)';
 $_['column_action']           = 'Action';
+$_['column_status']           = 'Status';
 
 // Entry
 $_['entry_name']              = 'Country Name';
