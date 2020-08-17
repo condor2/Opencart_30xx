@@ -774,15 +774,17 @@ class ControllerCustomerCustomer extends Controller {
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
-			$data['custom_fields'][] = array(
-				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
-			);
+			if ($custom_field['status']) {
+				$data['custom_fields'][] = array(
+					'custom_field_id'    => $custom_field['custom_field_id'],
+					'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
+					'name'               => $custom_field['name'],
+					'value'              => $custom_field['value'],
+					'type'               => $custom_field['type'],
+					'location'           => $custom_field['location'],
+					'sort_order'         => $custom_field['sort_order']
+				);
+			}
 		}
 
 		if (isset($this->request->post['custom_field'])) {
@@ -973,7 +975,7 @@ class ControllerCustomerCustomer extends Controller {
 		} else {
 			$data['affiliate_custom_field'] = array();
 		}
-		
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -1023,7 +1025,7 @@ class ControllerCustomerCustomer extends Controller {
 			if ($custom_field['status']) {
 				if (($custom_field['location'] == 'account') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
+				} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}			
@@ -1254,8 +1256,6 @@ class ControllerCustomerCustomer extends Controller {
 	public function transaction() {
 		$this->load->language('customer/customer');
 
-		$this->load->model('customer/customer');
-
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = $this->request->get['customer_id'];
 		} else {
@@ -1267,6 +1267,8 @@ class ControllerCustomerCustomer extends Controller {
 		} else {
 			$page = 1;
 		}
+
+		$this->load->model('customer/customer');
 
 		$data['transactions'] = array();
 

@@ -1,7 +1,6 @@
 <?php
 class ModelExtensionFraudIp extends Model {
     public function check($order_info) {
-        $this->load->model('account/customer');
 
         $status = false;
 
