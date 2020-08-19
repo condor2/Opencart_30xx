@@ -1,33 +1,39 @@
-# OpenCart 3.0.3.6
+# OpenCart
 
 ## Information
+This is a modified version of Opencart 3.0.3.6.
 
-This is a modified version of Opencart 3.0.3.6
+## About
 
-## Features
+1. Added
+- Bug fixes
+- Currency from Master Branch - 3.1.0.0b
+- Cron Job from Master Branch - 3.1.0.0b
+- Paypal Standard
+- Timezone from Master Branch - 3.1.0.0b
+- Other changes from Master Branch - 3.1.0.0b
+- New cookie function from Master Branch - 3.1.0.0b
 
-- Added bug fixes.
-- Added latest version of Paypal Commerce
-- Added Paypal Standard
-- Added Currency module from Master Branch - 3.1.0.0b
-- Added Cron Job code from Master Branch - 3.1.0.0b
-- Added Manufacturer Layout Override
-- Added Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil">Opencart Brasil</a>
-- Added Filter by image in Product List
-- Added Timezone code from Master Branch - 3.1.0.0b
+2. Removed
+- Promotion
+- Openbay
+
+3. Updates
+- Latest version of Paypal Commerce
+- Summernote 0.8.8
+- TWIG 2.13.0
+
+4. Features
+- Enable and Disable button on Country List
+- Filter by image in Product List
 - Display Manufacturer image in Admin Manufacturer list
 - Display ID in Categories, Products
-- Summernote editor updated from 0.8.2 to 0.8.8
-- Promotion removed
-- Openbay removed
-- Minimum PHP 7.3 is required
-- PHP 7.4 Support
-- TWIG updated to 2.13.0
-- {% include %} support
+- Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil">Opencart Brasil</a>
+- Manufacturer Layout Override
+- {% include %} function support
 
 ## Note
-
-This version is not supported by Opencart.
+This version is not supported by Opencart. You need to have at least PHP 7.3 to use this version.
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).
