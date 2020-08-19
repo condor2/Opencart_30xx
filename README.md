@@ -29,6 +29,7 @@ This is a modified version of Opencart 3.0.3.6.
 - Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil">Opencart Brasil</a>
 - Manufacturer Layout Override
 - {% include %} function support
+- Filter by Manufacturer in Product List
 
 ## Note
 This version is not supported by Opencart. You need to have at least PHP 7.3 to use this version.
