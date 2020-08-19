@@ -3,9 +3,7 @@
 ## Information
 This is a modified version of Opencart 3.0.3.6.
 
-## About
-
-1. Added
+## Added
 - Bug fixes
 - Currency from Master Branch - 3.1.0.0b
 - Cron Job from Master Branch - 3.1.0.0b
@@ -14,16 +12,16 @@ This is a modified version of Opencart 3.0.3.6.
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
 
-2. Removed
+## Removed
 - Promotion
 - Openbay
 
-3. Updates
+## Updates
 - Latest version of Paypal Commerce
 - Summernote 0.8.8
 - TWIG 2.13.0
 
-4. Features
+## Features
 - Enable and Disable button on Country List
 - Filter by image in Product List
 - Display Manufacturer image in Admin Manufacturer list
