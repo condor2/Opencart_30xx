@@ -51,6 +51,16 @@ set_error_handler(function($code, $message, $file, $line) use($log, $config) {
 	return true;
 });
 
+set_exception_handler(function($e) use ($log, $config) {
+	if ($config->get('error_display')) {
+		echo '<b>' . get_class($e) . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
+	}
+
+	if ($config->get('error_log')) {
+		$log->write(get_class($e) . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
+	}
+});
+
 // Event
 $event = new Event($registry);
 $registry->set('event', $event);
@@ -114,7 +124,17 @@ if ($config->get('session_autostart')) {
 
 	$session->start($session_id);
 
-	setcookie($config->get('session_name'), $session->getId(), ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
+	// Require higher security for session cookies
+	$option = array(
+		'max-age'  => time() + $config->get('session_expire'),
+		'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
+		'domain'   => $_SERVER['HTTP_HOST'],
+		'secure'   => $_SERVER['HTTPS'],
+		'httponly' => false,
+		'SameSite' => 'strict'
+	);
+
+	oc_setcookie($config->get('session_name'), $session->getId(), $option);
 }
 
 // Cache
@@ -147,7 +167,7 @@ if ($config->has('language_autoload')) {
 // Helper Autoload
 if ($config->has('helper_autoload')) {
 	foreach ($config->get('helper_autoload') as $value) {
-		$loader->model($value);
+		$loader->helper($value);
 	}
 }
 

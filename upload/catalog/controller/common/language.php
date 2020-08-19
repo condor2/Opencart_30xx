@@ -55,5 +55,14 @@ class ControllerCommonLanguage extends Controller {
 		} else {
 			$this->response->redirect($this->url->link('common/home'));
 		}
+
+		$option = array(
+			'max-age'  => time() + 60 * 60 * 24 * 30,
+			'path'     => '/',
+			'SameSite' => 'lax'
+		);
+
+		oc_setcookie('language', $code, $option);
+
 	}
 }

@@ -38,6 +38,46 @@ class ControllerStartupStartup extends Controller {
 		// Theme
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 
+		// Session
+		if (isset($this->request->get['route']) && substr((string)$this->request->get['route'], 0, 4) == 'api/') {
+			$this->load->model('setting/api');
+
+			$this->model_setting_api->cleanSessions();
+
+			// Make sure the IP is allowed
+			$api_info = $this->model_setting_api->getApiByToken($this->request->get['api_token']);
+
+			if ($api_info) {
+				$this->session->start($this->request->get['api_token']);
+
+				$this->model_setting_api->updateSession($api_info['api_session_id']);
+			}
+		} else {
+			if (isset($this->request->cookie[$this->config->get('session_name')])) {
+				$session_id = $this->request->cookie[$this->config->get('session_name')];
+			} else {
+				$session_id = '';
+			}
+
+			$this->session->start($session_id);
+
+			$option = array(
+				'max-age'  => time() + $this->config->get('session_expire'),
+				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
+				'domain'   => $this->request->server['HTTP_HOST'],
+				'secure'   => $this->request->server['HTTPS'],
+				'httponly' => false,
+				'SameSite' => 'strict'
+			);
+
+			oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
+		}
+
+		// Response output compression level
+		if ($this->config->get('config_compression')) {
+			$this->response->setCompression($this->config->get('config_compression'));
+		}
+
 		// Url
 		$this->registry->set('url', new Url($this->config->get('config_url')));
 
@@ -98,8 +138,15 @@ class ControllerStartupStartup extends Controller {
 			$this->session->data['language'] = $code;
 		}
 
+		// Set a new language cookie if the code does not match the current one
 		if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-			setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+			$option = array(
+				'max-age'  => time() + 60 * 60 * 24 * 30,
+				'path'     => '/',
+				'SameSite' => 'lax'
+			);
+
+			oc_setcookie('language', $code, $option);
 		}
 
 		// Overwrite the default language object
@@ -128,7 +175,13 @@ class ControllerStartupStartup extends Controller {
 
 		// Tracking Code
 		if (isset($this->request->get['tracking'])) {
-			setcookie('tracking', $this->request->get['tracking'], time() + 3600 * 24 * 1000, '/');
+			$option = array(
+				'max-age'  => time() + 3600 * 24 * 1000,
+				'path'     => '/',
+				'SameSite' => 'lax'
+			);
+
+			oc_setcookie('tracking', $this->request->get['tracking'], $option);
 
 			$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
 		}
@@ -156,8 +209,15 @@ class ControllerStartupStartup extends Controller {
 			$this->session->data['currency'] = $code;
 		}
 
+		// Set a new currency cookie if the code does not match the current one
 		if (!isset($this->request->cookie['currency']) || $this->request->cookie['currency'] != $code) {
-			setcookie('currency', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
+			$option = array(
+				'max-age'  => time() + 60 * 60 * 24 * 30,
+				'path'     => '/',
+				'SameSite' => 'lax'
+			);
+
+			oc_setcookie('currency', $code, $option);
 		}
 
 		$this->registry->set('currency', new Cart\Currency($this->registry));

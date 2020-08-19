@@ -20,6 +20,32 @@ class ControllerStartupStartup extends Controller {
 			$this->db->query("SET time_zone = '" . $this->db->escape(date('P')) . "'");
 		}
 
+		// Session
+		if (isset($this->request->cookie[$this->config->get('session_name')])) {
+			$session_id = $this->request->cookie[$this->config->get('session_name')];
+		} else {
+			$session_id = '';
+		}
+
+		$this->session->start($session_id);
+
+		// Require higher security for session cookies
+		$option = array(
+			'max-age'  => time() + $this->config->get('session_expire'),
+			'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
+			'domain'   => $this->request->server['HTTP_HOST'],
+			'secure'   => $this->request->server['HTTPS'],
+			'httponly' => false,
+			'SameSite' => 'strict'
+		);
+
+		oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
+
+		// Response output compression level
+		if ($this->config->get('config_compression')) {
+			$this->response->setCompression($this->config->get('config_compression'));
+		}
+
 		// Theme
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 				
@@ -64,6 +90,6 @@ class ControllerStartupStartup extends Controller {
 		$this->registry->set('cart', new Cart\Cart($this->registry));
 
 		// Encryption
-		$this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));
+		$this->registry->set('encryption', new Encryption());
 	}
 }
