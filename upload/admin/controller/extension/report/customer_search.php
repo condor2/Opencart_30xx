@@ -115,7 +115,7 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 
 		$filter_data = array(
 			'filter_date_start' => $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
+			'filter_date_end'   => $filter_date_end,
 			'filter_keyword'    => $filter_keyword,
 			'filter_customer'   => $filter_customer,
 			'filter_ip'         => $filter_ip,
