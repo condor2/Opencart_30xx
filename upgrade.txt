@@ -1,0 +1,33 @@
+///////////////////////////////////////
+///    OpenCart V3.0.x TO 3.0.3.6     ///
+///      Upgrade Instructions       ///
+///     https://www.opencart.com     ///
+///////////////////////////////////////
+
+NOTE: THIS IS FOR UPGRADE ON EXISTING INSTALLS ONLY!
+
+##########################################
+THIS IS FOR UPGRADING EXISTING OPENCART 3.0.x STORES ONLY
+##########################################
+
+1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
+ 
+2. Download this version of OpenCart and upload ALL new files on top of your current install.
+https://github.com/condor2/Opencart_3036/archive/master.zip
+
+3. After all files was uploaded, edit opencart.sql and remove oc_api creation table.
+
+DROP TABLE IF EXISTS `oc_api`;
+CREATE TABLE `oc_api` (
+  `api_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) NOT NULL,
+  `key` text NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`api_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+4. Browse to http://<yourstore.com>/install Replacing <yourstore.com> with your actual site (and subdirectory if applicable).
+ 
+5. Because in 3.0.3.6 TWIG engine was moved to storage folder you need to move all storage content to your storage folder path defined in config.php.
