@@ -68,7 +68,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		if ($this->validate()) {
 			$this->load->language('module' . '/' . $this->request->get['extension']);
-			
+
 			$this->model_setting_module->addModule($this->request->get['extension'], $this->language->get('heading_title'));
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -117,7 +117,7 @@ class ControllerExtensionExtensionModule extends Controller {
 				$this->model_setting_extension->uninstall('module', $value);
 
 				unset($extensions[$key]);
-				
+
 				$this->model_setting_module->deleteModulesByCode($value);
 			}
 		}
@@ -126,7 +126,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		// Create a new language container so we don't pollute the current one
 		$language = new Language($this->config->get('config_language'));
-		
+
 		// Compatibility code for old extension folders
 		$files = glob(DIR_APPLICATION . 'controller/extension/module/*.php');
 
@@ -134,37 +134,39 @@ class ControllerExtensionExtensionModule extends Controller {
 			foreach ($files as $file) {
 				$extension = basename($file, '.php');
 
-				$this->load->language('extension/module/' . $extension, 'extension');
+				if ($this->user->hasPermission('access', 'extension/module/' . $extension)) {
+					$this->load->language('extension/module/' . $extension, 'extension');
 
-				$module_data = array();
+					$module_data = array();
 
-				$modules = $this->model_setting_module->getModulesByCode($extension);
+					$modules = $this->model_setting_module->getModulesByCode($extension);
 
-				foreach ($modules as $module) {
-					if ($module['setting']) {
-						$setting_info = json_decode($module['setting'], true);
-					} else {
-						$setting_info = array();
-					}
-					
-					$module_data[] = array(
+					foreach ($modules as $module) {
+						if ($module['setting']) {
+							$setting_info = json_decode($module['setting'], true);
+						} else {
+							$setting_info = array();
+						}
+
+						$module_data[] = array(
 						'module_id' => $module['module_id'],
 						'name'      => $module['name'],
 						'status'    => (isset($setting_info['status']) && $setting_info['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 						'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true),
 						'delete'    => $this->url->link('extension/extension/module/delete', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true)
+						);
+					}
+
+					$data['extensions'][] = array(
+						'name'      => $this->language->get('extension')->get('heading_title'),
+						'status'    => $this->config->get('module_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+						'module'    => $module_data,
+						'install'   => $this->url->link('extension/extension/module/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'uninstall' => $this->url->link('extension/extension/module/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'installed' => in_array($extension, $extensions),
+						'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
 					);
 				}
-
-				$data['extensions'][] = array(
-					'name'      => $this->language->get('extension')->get('heading_title'),
-					'status'    => $this->config->get('module_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'module'    => $module_data,
-					'install'   => $this->url->link('extension/extension/module/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/module/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-				);
 			}
 		}
 

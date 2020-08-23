@@ -88,16 +88,18 @@ class ControllerExtensionExtensionCurrency extends Controller {
 			foreach ($files as $file) {
 				$extension = basename($file, '.php');
 
-				$this->load->language('extension/currency/' . $extension, 'extension');
+				if ($this->user->hasPermission('access', 'extension/currency/' . $extension)) {
+					$this->load->language('extension/currency/' . $extension, 'extension');
 
-				$data['extensions'][] = array(
-					'name'      => $this->language->get('extension')->get('heading_title') . (($extension == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
-					'status'    => $this->config->get('currency_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'install'   => $this->url->link('extension/extension/currency/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/currency/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/currency/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-				);
+					$data['extensions'][] = array(
+						'name'      => $this->language->get('extension')->get('heading_title') . (($extension == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
+						'status'    => $this->config->get('currency_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+						'install'   => $this->url->link('extension/extension/currency/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'uninstall' => $this->url->link('extension/extension/currency/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'installed' => in_array($extension, $extensions),
+						'edit'      => $this->url->link('extension/currency/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
+					);
+				}
 			}
 		}
 
