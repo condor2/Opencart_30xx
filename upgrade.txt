@@ -30,4 +30,4 @@ CREATE TABLE `oc_api` (
 
 4. Browse to http://<yourstore.com>/install Replacing <yourstore.com> with your actual site (and subdirectory if applicable).
  
-5. Because in 3.0.3.6 TWIG engine was moved to storage folder you need to move all storage content from to your storage folder path defined in config.php.
+5. Because in 3.0.3.6 TWIG engine was moved to storage folder you need to move all storage content from 3.0.3.6 to your storage folder path defined in config.php.
