@@ -584,11 +584,11 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		if (isset($this->request->get['order_id'])) {
 			$search = array(
-				Braintree_TransactionSearch::orderId()->is($this->request->get['order_id'])
+				Braintree\TransactionSearch::orderId()->is($this->request->get['order_id'])
 			);
 		} elseif (isset($this->request->get['transaction_id'])) {
 			$search = array(
-				Braintree_TransactionSearch::id()->is($this->request->get['transaction_id'])
+				Braintree\TransactionSearch::id()->is($this->request->get['transaction_id'])
 			);
 		}
 
@@ -853,17 +853,17 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$search = array();
 
 		if ($filter_transaction_id) {
-			$search[] = Braintree_TransactionSearch::id()->is($filter_transaction_id);
+			$search[] = Braintree\TransactionSearch::id()->is($filter_transaction_id);
 		}
 
 		if ($filter_transaction_type) {
 			if ($filter_transaction_type == 'sale') {
-				$transaction_type = Braintree_Transaction::SALE;
+				$transaction_type = Braintree\Transaction::SALE;
 			} elseif ($filter_transaction_type == 'credit') {
-				$transaction_type = Braintree_Transaction::CREDIT;
+				$transaction_type = Braintree\Transaction::CREDIT;
 			}
 
-			$search[] = Braintree_TransactionSearch::type()->is($transaction_type);
+			$search[] = Braintree\TransactionSearch::type()->is($transaction_type);
 		}
 
 		if ($filter_payment_type) {
@@ -873,40 +873,40 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$payment_type = 'PayPalDetail';
 			}
 
-			$search[] = Braintree_TransactionSearch::paymentInstrumentType()->is($payment_type);
+			$search[] = Braintree\TransactionSearch::paymentInstrumentType()->is($payment_type);
 		}
 
 		if ($filter_card_type) {
 			switch ($filter_card_type) {
 				case 'Visa':
-					$card_type = Braintree_CreditCard::VISA;
+					$card_type = Braintree\CreditCard::VISA;
 					break;
 				case 'MasterCard':
-					$card_type = Braintree_CreditCard::MASTER_CARD;
+					$card_type = Braintree\CreditCard::MASTER_CARD;
 					break;
 				case 'American Express':
-					$card_type = Braintree_CreditCard::AMEX;
+					$card_type = Braintree\CreditCard::AMEX;
 					break;
 				case 'Discover':
-					$card_type = Braintree_CreditCard::DISCOVER;
+					$card_type = Braintree\CreditCard::DISCOVER;
 					break;
 				case 'JCB':
-					$card_type = Braintree_CreditCard::JCB;
+					$card_type = Braintree\CreditCard::JCB;
 					break;
 				case 'Maestro':
-					$card_type = Braintree_CreditCard::MAESTRO;
+					$card_type = Braintree\CreditCard::MAESTRO;
 					break;
 			}
 
-			$search[] = Braintree_TransactionSearch::creditCardCardType()->is($card_type);
+			$search[] = Braintree\TransactionSearch::creditCardCardType()->is($card_type);
 		}
 
 		if ($filter_merchant_account_id) {
-			$search[] = Braintree_TransactionSearch::merchantAccountId()->is($filter_merchant_account_id);
+			$search[] = Braintree\TransactionSearch::merchantAccountId()->is($filter_merchant_account_id);
 		}
 
 		if ($filter_transaction_status) {
-			$search[] = Braintree_TransactionSearch::status()->in($filter_transaction_status);
+			$search[] = Braintree\TransactionSearch::status()->in($filter_transaction_status);
 		}
 
 		if ($filter_date_from || $filter_date_to) {
@@ -922,7 +922,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$date_to = new DateTime('tomorrow -1 minute');
 			}
 
-			$search[] = Braintree_TransactionSearch::createdAt()->between($date_from, $date_to);
+			$search[] = Braintree\TransactionSearch::createdAt()->between($date_from, $date_to);
 		}
 
 		if ($filter_amount_from) {
@@ -937,7 +937,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$amount_to = 9999999;
 		}
 
-		$search[] = Braintree_TransactionSearch::amount()->between((float)$amount_from, (float)$amount_to);
+		$search[] = Braintree\TransactionSearch::amount()->between((float)$amount_from, (float)$amount_to);
 
 		$transactions = $this->model_extension_payment_pp_braintree->getTransactions($this->gateway, $search);
 
@@ -1132,10 +1132,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		if ($access_token != '') {
 			$this->gateway = $this->model_extension_payment_pp_braintree->setGateway($access_token);
 		} else {
-			Braintree_Configuration::environment(isset($credentials['payment_pp_braintree_environment']) ? $credentials['payment_pp_braintree_environment'] : '');
-			Braintree_Configuration::merchantId(isset($credentials['payment_pp_braintree_merchant_id']) ? $credentials['payment_pp_braintree_merchant_id'] : '');
-			Braintree_Configuration::publicKey(isset($credentials['payment_pp_braintree_public_key']) ? $credentials['payment_pp_braintree_public_key'] : '');
-			Braintree_Configuration::privateKey(isset($credentials['payment_pp_braintree_private_key']) ? $credentials['payment_pp_braintree_private_key'] : '');
+			Braintree\Configuration::environment(isset($credentials['payment_pp_braintree_environment']) ? $credentials['payment_pp_braintree_environment'] : '');
+			Braintree\Configuration::merchantId(isset($credentials['payment_pp_braintree_merchant_id']) ? $credentials['payment_pp_braintree_merchant_id'] : '');
+			Braintree\Configuration::publicKey(isset($credentials['payment_pp_braintree_public_key']) ? $credentials['payment_pp_braintree_public_key'] : '');
+			Braintree\Configuration::privateKey(isset($credentials['payment_pp_braintree_private_key']) ? $credentials['payment_pp_braintree_private_key'] : '');
 		}
 	}
 }
