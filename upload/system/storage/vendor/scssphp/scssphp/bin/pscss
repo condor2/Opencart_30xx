@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-
 /**
  * SCSSPHP
  *
@@ -25,11 +24,13 @@ use ScssPhp\ScssPhp\Version;
 
 $style = null;
 $loadPaths = null;
+$precision = null;
 $dumpTree = false;
 $inputFile = null;
 $changeDir = false;
 $debugInfo = false;
 $lineNumbers = false;
+$ignoreErrors = false;
 $encoding = false;
 $sourceMap = false;
 
@@ -70,13 +71,13 @@ Usage: $exe [options] [input-file]
 Options include:
 
     --help              Show this message [-h, -?]
-    --continue-on-error [deprecated] Ignored
+    --continue-on-error Continue compilation (as best as possible) when error encountered
     --debug-info        Annotate selectors with CSS referring to the source file and line number [-g]
     --dump-tree         Dump formatted parse tree [-T]
     --iso8859-1         Use iso8859-1 encoding instead of default utf-8
     --line-numbers      Annotate selectors with comments referring to the source file and line number [--line-comments]
     --load-path=PATH    Set import path [-I]
-    --precision=N       [deprecated] Ignored. (default 10) [-p]
+    --precision=N       Set decimal number precision (default 10) [-p]
     --sourcemap         Create source map file
     --style=FORMAT      Set the output format (compact, compressed, crunched, expanded, or nested) [-s, -t]
     --version           Print the version [-v]
@@ -89,9 +90,8 @@ EOT;
         exit(Version::VERSION . "\n");
     }
 
-    // Keep parsing --continue-on-error to avoid BC breaks for scripts using it
     if ($argv[$i] === '--continue-on-error') {
-        // TODO report it as a warning ?
+        $ignoreErrors = true;
         continue;
     }
 
@@ -134,11 +134,10 @@ EOT;
         continue;
     }
 
-    // Keep parsing --precision to avoid BC breaks for scripts using it
     $value = parseArgument($i, array('-p', '--precision'));
 
     if (isset($value)) {
-        // TODO report it as a warning ?
+        $precision = $value;
         continue;
     }
 
@@ -185,8 +184,16 @@ if ($lineNumbers) {
     $scss->setLineNumberStyle(Compiler::LINE_COMMENTS);
 }
 
+if ($ignoreErrors) {
+    $scss->setIgnoreErrors($ignoreErrors);
+}
+
 if ($loadPaths) {
     $scss->setImportPaths(explode(PATH_SEPARATOR, $loadPaths));
+}
+
+if ($precision) {
+    $scss->setNumberPrecision($precision);
 }
 
 if ($style) {
