@@ -15,11 +15,12 @@ This is a modified version of Opencart 3.0.3.6.
 ## Removed
 - Promotion
 - Openbay
+- Klarna Payment
 
 ## Updates
 - Latest version of Paypal Commerce
 - Summernote 0.8.8
-- TWIG 2.13.0
+- TWIG 2.13.1
 
 ## Features
 - Enable and Disable button on Country List
