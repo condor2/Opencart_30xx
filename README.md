@@ -20,7 +20,7 @@ This is a modified version of Opencart 3.0.3.6.
 ## Updates
 - Latest version of Paypal Commerce
 - Summernote 0.8.8
-- TWIG 2.13.1
+- TWIG v3.0.5
 
 ## Features
 - Enable and Disable button on Country List

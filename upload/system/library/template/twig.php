@@ -21,6 +21,7 @@ final class Twig {
 
 		// initialize Twig environment
 		$config = array(
+			'charset'     => 'utf-8',
 			'autoescape'  => false,
 			'debug'       => false,
 			'auto_reload' => true,

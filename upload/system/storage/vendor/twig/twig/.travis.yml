@@ -26,7 +26,7 @@ install:
     - (cd extra/intl-extra && travis_retry composer install)
     - ([[ $TRAVIS_PHP_VERSION = nightly ]] && (cd extra/markdown-extra && composer config platform.php 7.4.99) || true)
     - (cd extra/markdown-extra && travis_retry composer install)
-    - ([[ $TRAVIS_PHP_VERSION = 7.1 ]] || (cd extra/string-extra && travis_retry composer install))
+    - (cd extra/string-extra && travis_retry composer install)
 
 script:
     - $PHPUNIT
@@ -35,16 +35,16 @@ script:
     - (cd extra/inky-extra && $PHPUNIT)
     - (cd extra/intl-extra && $PHPUNIT)
     - (cd extra/markdown-extra && $PHPUNIT)
-    - ([[ $TRAVIS_PHP_VERSION = 7.1 ]] || (cd extra/string-extra && $PHPUNIT))
+    - (cd extra/string-extra && $PHPUNIT)
 
 jobs:
     fast_finish: true
     include:
-        - php: 7.1
         - php: 7.2
         - php: 7.3
         - php: 7.4
         - php: nightly
-        - stage: integration tests
-          php: 7.3
-          script: ./drupal_test.sh
+        # Drupal does not support 3.x yet
+        #- stage: integration tests
+        #  php: 7.3
+        #  script: ./drupal_test.sh

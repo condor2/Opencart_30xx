@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6ce00198816b72e6de1f06725e47a90d
+class ComposerStaticInita9e42a83546c4e041b4125b1ecd2bd88
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -137,13 +137,6 @@ class ComposerStaticInit6ce00198816b72e6de1f06725e47a90d
     );
 
     public static $prefixesPsr0 = array (
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
         'D' => 
         array (
             'Divido' => 
@@ -167,10 +160,10 @@ class ComposerStaticInit6ce00198816b72e6de1f06725e47a90d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6ce00198816b72e6de1f06725e47a90d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6ce00198816b72e6de1f06725e47a90d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit6ce00198816b72e6de1f06725e47a90d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit6ce00198816b72e6de1f06725e47a90d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita9e42a83546c4e041b4125b1ecd2bd88::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita9e42a83546c4e041b4125b1ecd2bd88::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita9e42a83546c4e041b4125b1ecd2bd88::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita9e42a83546c4e041b4125b1ecd2bd88::$classMap;
 
         }, null, ClassLoader::class);
     }
