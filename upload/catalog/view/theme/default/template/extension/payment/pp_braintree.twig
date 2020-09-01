@@ -1,15 +1,5 @@
 <div id="braintree-alert" class="alert alert-danger" style="display:none;"></div>
 <div id="braintree-loading" style="text-align: center"><i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i> <span>{{ text_loading }}</span></div>
-{% if googlepay_enabled %}
-  <div id="braintree-google-pay" class="form-horizontal">
-    <div class="form-group">
-      <div class="col-sm-12 center-block">
-        <div id="googlepay-container" class="pull-left"></div>
-      </div>
-    </div>
-  </div>
-  <hr />
-{% endif %}
 <div id="braintree-choose" style="display: none;" class="form-horizontal">
   {% if vaulted_payment_count > 0 %}
   <input type="hidden" name="payment_type" value="saved" id="tab-option" />
@@ -138,11 +128,10 @@
   <div class="col-sm-0 col-md-0 col-lg-3"></div>
 </div>
 
-{% if googlepay_enabled %}{{ googlepay_output }}{% endif %}
-
 <script type="text/javascript">
   $('body').on('click', '.braintree-tab-link', function(event) {
     event.preventDefault();
+
     if ($(this).attr('id') == 'saved-link') {
       $('#tab-option').val('saved');
       $('#tab-saved').addClass('active');
@@ -157,17 +146,18 @@
       $('#braintree-new').show();
     }
   });
+
   var device_data_value = '';
   var data_collector_instance;
   var hosted_instance;
   var threed_secure_instance;
   var client_instance;
   var paypal_instance;
-  var googlepay_instance;
   var cvv_instance = [];
   var bank_frame = document.querySelector('#braintree-3ds-body');
   var vault_card_payment = {{ payment_pp_braintree_card_check_vault }};
   var vault_paypal_payment = {{ payment_pp_braintree_paypal_check_vault }};
+
   {% if payment_pp_braintree_card_vault == 1 and guest != true %}
     $('body').on('change', '#vault-method-card', function (event) {
        if ($(this).prop("checked"))  {
@@ -177,6 +167,7 @@
        }
     });
   {% endif %}
+
   {% if payment_pp_braintree_paypal_vault == 1 and guest != true %}
     $('body').on('change', '#vault-method-paypal', function (event) {
        if ($(this).prop("checked"))  {
@@ -186,21 +177,25 @@
        }
     });
   {% endif %}
-  $.getScript('https://js.braintreegateway.com/web/3.42.0/js/client.min.js', function() {
-    $.getScript('https://js.braintreegateway.com/web/3.42.0/js/hosted-fields.min.js');
-    $.getScript('https://js.braintreegateway.com/web/3.42.0/js/data-collector.min.js');
-    {% if payment_pp_braintree_paypal_option %}$.getScript('https://js.braintreegateway.com/web/3.42.0/js/paypal.min.js');{% endif %}
-    {% if googlepay_enabled %}$.getScript('https://js.braintreegateway.com/web/3.42.0/js/google-payment.min.js');{% endif %}
-    {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}$.getScript('https://js.braintreegateway.com/web/3.42.0/js/three-d-secure.min.js');{% endif %}
+
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
+    $.getScript('https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js');
+    $.getScript('https://js.braintreegateway.com/web/3.6.3/js/data-collector.min.js');
+    {% if payment_pp_braintree_paypal_option %}$.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');{% endif %}
+    {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}$.getScript('https://js.braintreegateway.com/web/3.6.3/js/three-d-secure.min.js');{% endif %}
+
     braintree.client.create({
       authorization: '{{ client_token }}'
     }, function (client_error, braintree_client) {
       console.log("Create Client");
+
       if (client_error) {
         console.error(client_error);
         return;
       }
+
       client_instance = braintree_client;
+
       {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}
         braintree.threeDSecure.create({
             client: braintree_client
@@ -209,24 +204,14 @@
               console.error(error);
               return;
           }
+
           threed_secure_instance = instance;
         });
       {% endif %}
+
       braintree.hostedFields.create({
         client: braintree_client,
-        styles: {
-          'input': {
-            'font-size': '12px',
-            'font-family': 'Source Sans Pro, sans-serif',
-            'color': '#7A8494'
-          },
-          '.invalid': {
-            'color': 'red'
-          },
-          '.valid': {
-            'color': 'green'
-          }
-        },
+        styles: {{ form_styles }},
         fields: {
           number: {
             selector: '#input-card-number',
@@ -249,39 +234,34 @@
           }
         }
       }, hostedCallback);
+
       braintree.dataCollector.create({
         client: braintree_client,
-        kount: false,
+        kount: true,
         paypal: true
       }, dataCollectorCallback);
+
       {% if payment_pp_braintree_paypal_option %}
-        braintree.paypal.create({
-          client: braintree_client
-        }, paypalCallback);
-      {% endif %}
-      {% if googlepay_enabled %}
-        $.getScript('https://pay.google.com/gp/p/js/pay.js', function() { onGooglePayLoaded(); });
-        braintree.googlePayment.create({
-          client: braintree_client,
-          googlePayVersion: 2,
-          googleMerchantId: '{{ merchant_id }}'
-        }, function(googlepay_error, googlepay_client) {
-          googlepay_instance = googlepay_client;
-        });
+      braintree.paypal.create({
+        client: braintree_client
+      }, paypalCallback);
       {% endif %}
     });
   });
+
   {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}
   // 3D Secure
   $('body').on('click', '#braintree-3ds-close', function (event) {
     event.preventDefault();
     threed_secure_instance.cancelVerifyCard(removeFrame());
   });
+
   function addFrame(err, iframe) {
     bank_frame.appendChild(iframe);
     $('#braintree-loading').hide();
     $('#braintree-3d-secure').show();
   }
+
   function removeFrame() {
     var iframe = bank_frame.querySelector('iframe');
     $('#braintree-3d-secure').hide();
@@ -289,18 +269,19 @@
     $('#submit-new').prop('disabled', false).button('reset');
     $('#submit-vaulted').prop('disabled', false).button('reset');
     $('#braintree-choose').show();
+
     if ($('#tab-option').val() == 'saved') {
       $('#braintree-vaulted').show();
     } else {
       $('#braintree-new').show();
     }
-    {% if googlepay_enabled %}$('#braintree-google-pay').show();{% endif %}
   }
+
   function verifyNew3DSecure(nonce) {
     $('#braintree-loading').show();
     $('#braintree-choose').hide();
     $('#braintree-new').hide();
-    {% if googlepay_enabled %}$('#braintree-google-pay').hide();{% endif %}
+
     threed_secure_instance.verifyCard({
       amount: {{ total }},
       nonce: nonce,
@@ -308,11 +289,6 @@
       removeFrame: removeFrame
     }, function(error, payload) {
       if (error) {
-        console.error(error);
-        $('#braintree-loading').hide();
-        $('#braintree-choose').show();
-        $('#braintree-new').show();
-        {% if googlepay_enabled %}$('#braintree-google-pay').show();{% endif %}
         $('#submit-new').prop('disabled', false).button('reset');
         return;
       } else {
@@ -320,11 +296,12 @@
       }
     });
   }
+
   function verifyVaulted3DSecure(nonce) {
     $('#braintree-loading').show();
     $('#braintree-choose').hide();
     $('#braintree-vaulted').hide();
-    {% if googlepay_enabled %}$('#braintree-google-pay').hide();{% endif %}
+
     threed_secure_instance.verifyCard({
       amount: {{ total }},
       nonce: nonce,
@@ -332,7 +309,7 @@
       removeFrame: removeFrame
     }, function(error, payload) {
       if (error) {
-        console.error(error);
+        console.log('3ds error: ' + error.code);
         $('#submit-vaulted').prop('disabled', false).button('reset');
         return;
       } else {
@@ -340,40 +317,49 @@
       }
     });
   }
+
   {% endif %}
+
   function dataCollectorCallback(error, instance) {
-    if (error) {
-      console.error("dataCollectorCallback failed to init");
-      console.error(error);
-      return;
-    } else {
-      console.log("dataCollectorCallback instance created");
-    }
-    data_collector_instance = instance;
-    device_data_value = instance.deviceData;
-    console.log("Data Collector instance created");
+      if (error) {
+          console.error(error);
+          return;
+      }
+
+      data_collector_instance = instance;
+
+      device_data_value = instance.deviceData;
   }
+
   function hostedCallback(error, instance) {
     if (error) {
-      console.error("hostedCallback failed to init");
-      console.error(error);
+      console.log("Error code: " + error.code);
+      console.log("Error details: " + error.details);
+      console.log("Error message: " + error.message);
+      console.log("Error type: " + error.type);
       return;
-    } else {
-      console.log("hostedCallback instance created");
     }
+
     hosted_instance = instance;
-    {% if vaulted_payment_count > 0 %}
-      $('#braintree-choose').show();
-      $('#braintree-vaulted').show();
-    {% else %}
-      $('#braintree-new').show();
-    {% endif %}
-    {% if googlepay_enabled %}$('#braintree-google-pay').show();{% endif %}
-    $('#braintree-loading').hide();
+
+    instance.on('ready', function (event) {
+      {% if vaulted_payment_count > 0 %}
+        $('#braintree-choose').show();
+        $('#braintree-vaulted').show();
+      {% else %}
+        $('#braintree-new').show();
+      {% endif %}
+
+      $('#braintree-loading').hide();
+    });
+
     $('body').on('click', '#submit-new', function (event) {
       event.preventDefault();
+
       $('#braintree-alert').text('').hide();
+
       $('#submit-new').prop('disabled', true ).button('loading');
+
       instance.tokenize(function (tokenize_error, payload) {
         if (tokenize_error) {
           switch (tokenize_error.code) {
@@ -392,9 +378,12 @@
             default:
               $('#braintree-alert').text('{{ error_alert_unknown }}').show();
           }
+
           $('#submit-new').prop('disabled', false).button('reset');
+
           return;
         }
+
         {% if payment_pp_braintree_3ds_status %}
           verifyNew3DSecure(payload.nonce);
         {% else %}
@@ -403,26 +392,31 @@
       });
     });
   }
+
   {% if payment_pp_braintree_paypal_option %}
   function paypalCallback(error, instance) {
-    if (error) {
-      console.error("paypalCallback failed to init");
-      console.error(error);
-      return;
-    } else {
-      console.log("paypalCallback instance created");
-    }
-    paypal_instance = instance;
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      paypal_instance = instance;
+
     $('#paypal-button').prop('disabled', false);
+
     $('body').on('click', '#paypal-button', function (event) {
       event.preventDefault();
+
       $('#paypal-button').attr('disabled', true);
+
       var flow = "checkout";
+
       {% if payment_pp_braintree_paypal_vault == 1 and guest != true %}
         if (vault_paypal_payment == 1) {
           flow = "vault";
         }
       {% endif %}
+
       instance.tokenize({
         flow: flow,
         {% if payment_pp_braintree_settlement_immediate == 1 %}
@@ -453,6 +447,7 @@
       }, function (tokenize_error, payload) {
         if (tokenize_error) {
           $('#paypal-button').prop('disabled', false);
+
           switch (tokenize_error.code) {
             case 'PAYPAL_POPUP_CLOSED':
               console.error('Customer closed PayPal popup.');
@@ -466,6 +461,7 @@
             default:
               console.error('Error!', tokenize_error);
           }
+
           return;
         } else {
           submitOrder(payload.nonce, vault_paypal_payment);
@@ -474,59 +470,14 @@
     });
   }
   {% endif %}
-  function processGooglePayPayment(paymentData) {
-      googlepay_instance.parseResponse(paymentData, function (error, parsedResponse) {
-          if (error) {
-              console.error(error);
-              return;
-          } else {
-              if (parsedResponse.nonce) {
-                // default card vaults to null
-                vault_paypal_payment = 0;
-                vault_card_payment = 0;
-                submitOrder(parsedResponse.nonce, 0);
-              } else {
-                  // Should never happen but handle in case of network issue
-                  $('#braintree-alert').text('{{ error_alert_unknown }}').show();
-                  return;
-              }
-          }
-      });
-  }
-  function handleGooglePayPaymentError(paymentError) {
-      if (paymentError.statusCode) {
-          // show error in developer console for debugging
-          console.error(paymentError.statusCode);
-          console.error(paymentError);
-          switch (paymentError.statusCode) {
-              case 'BUYER_ACCOUNT_ERROR':
-                  $('#braintree-alert').text('{{ error_alert_google_pay_account }}').show();
-                  break;
-              case 'DEVELOPER_ERROR':
-                  $('#braintree-alert').text('{{ error_alert_google_pay_input }}').show();
-                  break;
-              case 'MERCHANT_ACCOUNT_ERROR':
-                  $('#braintree-alert').text('{{ error_alert_google_pay_merchant }}').show();
-                  break;
-              case 'INTERNAL_ERROR':
-                  $('#braintree-alert').text('{{ error_alert_google_pay_network }}').show();
-                  break;
-              case 'CANCELED':
-                  $('#braintree-alert').text('{{ error_alert_google_pay_cancel }}').show();
-                  break;
-              default:
-                  $('#braintree-alert').text('{{ error_alert_unknown }}').show();
-          }
-          return;
-      } else {
-          console.error("Payment error but no error passed");
-      }
-  }
+
   {% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}
   $('body').on('change', 'input[name=\'vaulted_payment_method\']', function (event) {
     $('.input-vaulted-cvv').hide();
+
     if ($(this).hasClass('vaulted-card')) {
       var payment_token = $(this).val();
+
       if (typeof cvv_instance[payment_token] !== 'undefined') {
         // instance already initailised
         $('#input-vaulted-cvv-' + payment_token).show();
@@ -543,6 +494,7 @@
           }
         }, function (error, instance) {
           cvv_instance[payment_token] = instance;
+
           instance.on('ready', function (event) {
             $('#input-vaulted-cvv-' + payment_token).show();
           });
@@ -551,10 +503,13 @@
     }
   });
   {% endif %}
+
   $('body').on('click', '.remove-vault-method', function (event) {
     event.preventDefault();
+
     // get this id/var
     var vaulted_payment_token = $(this).attr('id');
+
     if (confirm('{{ text_remove_confirm }}')) {
       $.ajax({
         url: 'index.php?route=extension/payment/pp_braintree/remove',
@@ -565,8 +520,10 @@
           if (json.error) {
             alert(json.error);
           }
+
           if (json.success) {
             alert(json.success);
+
             if (json.vaulted_payment_count > 0) {
               $('#vaulted-method-' + vaulted_payment_token).remove();
             } else {
@@ -579,11 +536,16 @@
       });
     }
   });
+
   $('body').on('click', '#submit-vaulted', function (event) {
     event.preventDefault();
+
     $('#braintree-alert').text('').hide();
+
     $('#submit-vaulted').prop('disabled', true).button('loading');
+
     var vaulted_payment_token = $('input[name=\'vaulted_payment_method\']:checked').val();
+
     if ($('input[name=\'vaulted_payment_method\']:checked').hasClass('vaulted-card')) {
       {% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}
         cvv_instance[vaulted_payment_token].tokenize(function (error, payload) {
@@ -604,7 +566,9 @@
                     default:
                         $('#braintree-alert').text('{{ error_alert_unknown }}').show();
                 }
+
                 $('#submit-vaulted').prop('disabled', false).button('reset');
+
                 return;
             } else {
               submitVaultOrder(vaulted_payment_token, payload.nonce);
@@ -641,60 +605,76 @@
       submitVaultOrder(vaulted_payment_token, false);
     }
   });
+
   function submitVaultOrder(token, nonce) {
     $('#braintree-choose').hide();
-    {% if googlepay_enabled %}$('#braintree-google-pay').hide();{% endif %}
     $('#braintree-loading').show();
     $('#braintree-vaulted').empty();
+
     if (token != false) {
       var token_input = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_token').val(token);
       $('#braintree-vaulted').append($(token_input));
     }
+
     if (nonce != false) {
       var nonce_input = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_nonce').val(nonce);
       $('#braintree-vaulted').append($(nonce_input));
     }
+
     var device_data = $('<input>').attr('type', 'hidden').attr('name', 'device_data').val(device_data_value);
     $('#braintree-vaulted').append($(device_data));
+
     $('#braintree-vaulted').submit();
   }
+
   function submitOrder(nonce, vault_payment) {
     $('#braintree-choose').hide();
-    {% if googlepay_enabled %}$('#braintree-google-pay').hide();{% endif %}
     $('#braintree-loading').show();
+
     $('#braintree-new').empty();
+
       //Collect form data
     var payment_method_nonce = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_nonce').val(nonce);
     $('#braintree-new').append($(payment_method_nonce));
+
     {% if (payment_pp_braintree_paypal_vault == 1 or payment_pp_braintree_card_vault == 1) and guest != true %}
       var vault_method;
+
       if (vault_payment == 1) {
-        vault_method = $('<input>').attr('type', 'hidden').attr('name', 'vault_method').val('1');
+        var vault_method = $('<input>').attr('type', 'hidden').attr('name', 'vault_method').val('1');
       } else {
-        vault_method = $('<input>').attr('type', 'hidden').attr('name', 'vault_method').val('0');
+        var vault_method = $('<input>').attr('type', 'hidden').attr('name', 'vault_method').val('0');
       }
+
       $('#braintree-new').append($(vault_method));
     {% endif %}
+
     var device_data = $('<input>').attr('type', 'hidden').attr('name', 'device_data').val(device_data_value);
-    $('#braintree-new').append($(device_data)).submit();
+    $('#braintree-new').append($(device_data));
+
+    $('#braintree-new').submit();
   }
+
   $(document).delegate('#button-payment-method', 'click', function() {
     console.log("Teardown!");
+
     $('#collapse-checkout-confirm .panel-body').empty();
+
     {% if payment_pp_braintree_paypal_option %}
       paypal_instance.teardown();
     {% endif %}
-    {% if googlepay_enabled %}
-      googlepay_instance.teardown();
-    {% endif %}
+
     {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}
       threed_secure_instance.teardown();
     {% endif %}
+
     data_collector_instance.teardown();
     hosted_instance.teardown();
+
     $.each(cvv_instance, function (instance_object) {
       instance_object.teardown();
     });
+
     $('body').off('click', '.braintree-button');
     $('body').off('click', '#paypal-button');
   });

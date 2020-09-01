@@ -5,7 +5,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$client_token = $gateway->clientToken()->generate($data);
 			} else {
-				$client_token = Braintree_ClientToken::generate($data);
+				$client_token = Braintree\ClientToken::generate($data);
 			}
 
 			return $client_token;
@@ -21,7 +21,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$transaction = $gateway->transaction()->sale($data);
 			} else {
-				$transaction = Braintree_Transaction::sale($data);
+				$transaction = Braintree\Transaction::sale($data);
 			}
 
 			return $transaction;
@@ -37,7 +37,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$customer = $gateway->customer()->find($customer_id);
 			} else {
-				$customer = Braintree_Customer::find($customer_id);
+				$customer = Braintree\Customer::find($customer_id);
 			}
 
 			return $customer;
@@ -55,7 +55,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$payment_method = $gateway->paymentMethod()->find($token);
 			} else {
-				$payment_method = Braintree_PaymentMethod::find($token);
+				$payment_method = Braintree\PaymentMethod::find($token);
 			}
 
 			return $payment_method;
@@ -71,7 +71,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$payment_method = $gateway->paymentMethod()->create($data);
 			} else {
-				$payment_method = Braintree_PaymentMethod::create($data);
+				$payment_method = Braintree\PaymentMethod::create($data);
 			}
 
 			return $payment_method;
@@ -87,7 +87,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$gateway->paymentMethod()->delete($token);
 			} else {
-				Braintree_PaymentMethod::delete($token);
+				Braintree\PaymentMethod::delete($token);
 			}
 
 			return true;
@@ -103,7 +103,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$response = $gateway->paymentMethodNonce()->find($token);
 			} else {
-				$response = Braintree_PaymentMethodNonce::find($token);
+				$response = Braintree\PaymentMethodNonce::find($token);
 			}
 
 			return $response;
@@ -119,7 +119,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			if ($gateway != null) {
 				$response = $gateway->paymentMethodNonce()->create($token);
 			} else {
-				$response = Braintree_PaymentMethodNonce::create($token);
+				$response = Braintree\PaymentMethodNonce::create($token);
 			}
 
 			return $response;
@@ -131,10 +131,10 @@ class ModelExtensionPaymentPPBraintree extends Model {
 	}
 
 	public function setCredentials() {
-		Braintree_Configuration::environment($this->config->get('payment_pp_braintree_environment'));
-		Braintree_Configuration::merchantId($this->config->get('payment_pp_braintree_merchant_id'));
-		Braintree_Configuration::publicKey($this->config->get('payment_pp_braintree_public_key'));
-		Braintree_Configuration::privateKey($this->config->get('payment_pp_braintree_private_key'));
+		Braintree\Configuration::environment($this->config->get('payment_pp_braintree_environment'));
+		Braintree\Configuration::merchantId($this->config->get('payment_pp_braintree_merchant_id'));
+		Braintree\Configuration::publicKey($this->config->get('payment_pp_braintree_public_key'));
+		Braintree\Configuration::privateKey($this->config->get('payment_pp_braintree_private_key'));
 	}
 
 	public function setGateway($access_token) {
@@ -156,30 +156,12 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			$status = false;
 		}
 
-		// Add PayPal and Google Pay options to title if they will be offered
-		$gateway_addon_options = array();
-
-		if ($this->config->get('payment_pp_braintree_paypal_option') == 1) {
-			$gateway_addon_options[] = $this->language->get('text_paypal');
-		}
-		if ($this->config->get('payment_pp_braintree_googlepay_status') == 1 && $this->config->get('payment_google_pay_status') == 1 && $this->config->get('payment_google_pay_merchant_gateway') == 'braintree') {
-			$gateway_addon_options[] = $this->language->get('text_google_pay');
-		}
-
-		$gateway_addon_text = '';
-
-		if (count($gateway_addon_options) > 0) {
-			$gateway_addon_text = ', ' . implode($gateway_addon_options, ", ");
-		}
-
-		$gateway_text = sprintf($this->language->get('text_title'), $gateway_addon_text);
-
 		$method_data = array();
 
 		if ($status) {
 			$method_data = array(
 				'code'		 => 'pp_braintree',
-				'title'		 => $gateway_text,
+				'title'		 => $this->language->get('text_title'),
 				'terms'		 => '',
 				'sort_order' => $this->config->get('payment_pp_braintree_sort_order')
 			);
