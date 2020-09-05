@@ -9,7 +9,11 @@ final class Twig {
 	
 	public function render($filename, $code = '') {
 		if (!$code) {
-			$file = DIR_TEMPLATE . $filename . '.twig';
+			$file = modification( DIR_TEMPLATE . $filename . '.twig' );
+
+			if( class_exists('VQMod') ) {
+				$file = \VQMod::modCheck($file);
+			}
 
 			if (is_file($file)) {
 				$code = file_get_contents($file);

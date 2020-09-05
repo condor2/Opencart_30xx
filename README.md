@@ -11,6 +11,7 @@ This is a modified version of Opencart 3.0.3.6.
 - Timezone from Master Branch - 3.1.0.0b
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
+- <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39911">vQMmod modifications fix</a>
 
 ## Removed
 - Promotion
