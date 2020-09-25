@@ -86,7 +86,7 @@ class ModelUpgrade1009 extends Model {
 		if ($api_query->num_rows) {
 		    $this->db->query("ALTER TABLE `" . DB_PREFIX . "api` DROP COLUMN `username`");
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` CHANGE COLUMN `name` `username` VARCHAR(64) NOT NULL");
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` MODIFY `username` VARCHAR(64) NOT NULL AFTER `api_id`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` MODIFY COLUMN `username` VARCHAR(64) NOT NULL AFTER `api_id`");
 		}
 
 		// Events
