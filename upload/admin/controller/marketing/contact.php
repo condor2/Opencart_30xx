@@ -238,6 +238,8 @@ class ControllerMarketingContact extends Controller {
 							$mail->send();
 						}
 					}
+				} else {
+					$json['error']['email'] = $this->language->get('error_email');
 				}
 			}
 		}
