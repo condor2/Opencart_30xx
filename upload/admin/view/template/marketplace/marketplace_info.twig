@@ -371,7 +371,7 @@ $('#tab-download').on('click', ' .btn-danger', function(e) {
 	});
 });
 
-$('#comment').delegate('.pagination a', 'click', function(e) {
+$('#comment').on('click', '.pagination a', function(e) {
 	e.preventDefault();
 
 	$('#comment').load(this.href);
@@ -488,9 +488,9 @@ $('#comment').on('click', '.btn-primary', function(e) {
 // Refresh
 $('#comment').on('click', '.reply-refresh', function(e) {
 	e.preventDefault();
-	
+
 	var element = this;
-	
+
 	$.ajax({
 		url: $(element).attr('href'),
 		dataType: 'html',
@@ -519,6 +519,6 @@ $(document).ready(function() {
 		}
 	});
 });
-//--></script> 
+//--></script>
 </div>
-{{ footer }} 
+{{ footer }}

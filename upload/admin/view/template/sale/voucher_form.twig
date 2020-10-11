@@ -169,7 +169,7 @@ $('#button-send').on('click', function() {
 })
 //--></script> 
   <script type="text/javascript"><!--
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').on('click', '.pagination a', function(e) {
 	e.preventDefault();
 
 	$('#history').load(this.href);

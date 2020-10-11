@@ -134,7 +134,7 @@ $('#button-quote').on('click', function() {
 	});
 });
 
-$(document).delegate('#button-shipping', 'click', function() {
+$(document).on('click', '#button-shipping', function() {
 	$.ajax({
 		url: 'index.php?route=extension/total/shipping/shipping',
 		type: 'post',

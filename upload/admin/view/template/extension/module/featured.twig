@@ -113,8 +113,8 @@ $('input[name=\'product_name\']').autocomplete({
 		$('#featured-product').append('<div id="featured-product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '" /></div>');	
 	}
 });
-	
-$('#featured-product').delegate('.fa-minus-circle', 'click', function() {
+
+$('#featured-product').on('click', '.fa-minus-circle', function() {
 	$(this).parent().remove();
 });
 //--></script></div>

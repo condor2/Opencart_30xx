@@ -304,7 +304,7 @@ $('.tab-content').on('click', '.btn-danger', function(e) {
 	}
 });
 
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').on('click', '.pagination a', function(e) {
 	e.preventDefault();
 
 	$('#history').load(this.href);
@@ -407,6 +407,6 @@ $('#history').on('click', '.btn-danger', function(e) {
 		});
 	}
 });
-//--></script> 
+//--></script>
 </div>
-{{ footer }} 
+{{ footer }}

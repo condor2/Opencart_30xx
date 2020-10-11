@@ -655,7 +655,7 @@
     $('#braintree-new').submit();
   }
 
-  $(document).delegate('#button-payment-method', 'click', function() {
+  $(document).on('click', '#button-payment-method', function() {
     console.log("Teardown!");
 
     $('#collapse-checkout-confirm .panel-body').empty();

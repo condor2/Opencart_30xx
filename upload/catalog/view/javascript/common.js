@@ -331,7 +331,7 @@ var compare = {
 }
 
 /* Agree to Terms */
-$(document).delegate('.agree', 'click', function(e) {
+$(document).on('click', '.agree', function(e) {
 	e.preventDefault();
 
 	$('#modal-agree').remove();

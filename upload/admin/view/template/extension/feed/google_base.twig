@@ -116,7 +116,7 @@ $('input[name=\'category\']').autocomplete({
     }
 });
 
-$('#category').delegate('.pagination a', 'click', function(e) {
+$('#category').on('click', '.pagination a', function(e) {
 	e.preventDefault();
 
 	$('#category').load(this.href);
@@ -160,7 +160,7 @@ $('#button-category-add').on('click', function() {
 	});
 });
 
-$('#category').delegate('.btn-danger', 'click', function() {
+$('#category').on('click', '.btn-danger', function() {
 	var node = this;
 
 	$.ajax({

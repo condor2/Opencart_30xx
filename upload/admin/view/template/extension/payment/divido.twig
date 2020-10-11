@@ -1,4 +1,4 @@
-{{ header }} {{ column_left }}
+{{ header }}{{ column_left }}
 <div id="content">
     <div class="page-header">
         <div class="container-fluid">
@@ -24,14 +24,12 @@
             </div>
             <div class="panel-body">
                 <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="api_key"><span data-toggle="tooltip" title="{{ help_api_key }}">{{ entry_api_key }}</span></label>
                         <div class="col-sm-10">
                             <input id="api_key" class="form-control" type="text" name="payment_divido_api_key" value="{{ payment_divido_api_key }}" size="60">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="divido_status"><span data-toggle="tooltip" title="{{ help_status }}">{{ entry_status }}</span></label>
                         <div class="col-sm-10">
@@ -46,7 +44,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="divido_order_status_id"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
                         <div class="col-sm-10">
@@ -61,14 +58,12 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="divido_title"><span data-toggle="tooltip" title="{{ help_title }}">{{ entry_title }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" id="divido_title" name="payment_divido_title" value="{{ payment_divido_title }}" class="form-control">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="divido_planselection"><span data-toggle="tooltip" title="{{ help_planselection }}">{{ entry_planselection }}</span></label>
                         <div class="col-sm-10">
@@ -83,7 +78,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div id="plan-list" class="form-group">
                         <label class="col-sm-2 control-label">{{ entry_planlist }}</label>
                         <div class="col-sm-10">
@@ -102,7 +96,6 @@
                             {% endfor %}
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="payment_divido_productselection"><span data-toggle="tooltip" title="{{ help_productselection }}">{{ entry_productselection }}</span></label>
                         <div class="col-sm-10">
@@ -117,28 +110,24 @@
                             </select>
                         </div>
                     </div>
-
                     <div id="threshold" class="form-group">
                         <label class="col-sm-2 control-label" for="divido_price_threshold">{{ entry_price_threshold }}</label>
                         <div class="col-sm-10">
                             <input type="text" name="payment_divido_price_threshold" value="{{ payment_divido_price_threshold }}" class="form-control" id="divido_price_threshold">
                         </div>
                     </div>
-
                     <div id="cart-threshold" class="form-group">
                         <label class="col-sm-2 control-label" for="divido_cart_threshold"><span data-toggle="tooltip" title="{{ help_cart_threshold }}">{{ entry_cart_threshold }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="payment_divido_cart_threshold" value="{{ payment_divido_cart_threshold }}" class="form-control" id="divido_cart_threshold">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="sort_order">{{ entry_sort_order }}</label>
                         <div class="col-sm-10">
                             <input type="text" id="payment_divido_sort_order" class="form-control" name="payment_divido_sort_order" value="{{ payment_divido_sort_order }}" size="1">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
                         <div class="col-sm-10">
@@ -152,13 +141,12 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript"><!--
 (function($) {
     var divido = {
         initialize: function () {
@@ -223,10 +211,10 @@
 		}
 	});
 
-	$('#divido-category').delegate('.fa-minus-circle', 'click', function() {
+	$('#divido-category').on('click', '.fa-minus-circle', function() {
 		$(this).parent().remove();
 	});
 
 })(jQuery);
-</script>
+//--></script>
 {{ footer }}
