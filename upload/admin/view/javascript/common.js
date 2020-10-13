@@ -113,6 +113,7 @@ $(document).ready(function() {
 
 		$element.popover({
 			html: true,
+			sanitize: false,
 			placement: 'right',
 			trigger: 'manual',
 			content: function() {
