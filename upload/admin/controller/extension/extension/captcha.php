@@ -87,7 +87,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 			foreach ($files as $file) {
 				$extension = basename($file, '.php');
 
-				if ($this->user->hasPermission('access', 'extension/analytics/' . $extension)) {
+				if ($this->user->hasPermission('access', 'extension/captcha/' . $extension)) {
 					$this->load->language('extension/captcha/' . $extension, 'extension');
 
 					$data['extensions'][] = array(

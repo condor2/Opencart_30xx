@@ -63,7 +63,7 @@
     {{ column_right }}</div>
 </div>
 <script type="text/javascript"><!--
-$('#button-add-card').bind('click', function () {
+$('#button-add-card').on('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
 		dataType: 'json',

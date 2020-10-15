@@ -82,7 +82,7 @@ $(document).ready(function() {
 	});
 
 	// Product List
-	$('#list-view').click(function() {
+	$('#list-view').on('click', function() {
 		$('#content .product-grid > .clearfix').remove();
 
 		$('#content .row > .product-grid').attr('class', 'product-layout product-list col-xs-12');
@@ -93,7 +93,7 @@ $(document).ready(function() {
 	});
 
 	// Product Grid
-	$('#grid-view').click(function() {
+	$('#grid-view').on('click', function() {
 		// What a shame bootstrap does not take into account dynamically loaded columns
 		var cols = $('#column-right, #column-left').length;
 

@@ -36,7 +36,7 @@
 		}
 	}
 
-	$('#button-confirm').bind('click', function() {
+	$('#button-confirm').on('click', function() {
 		$('#button-confirm').button('loading');
 		eCrypt.showModalPayment(eWAYConfig, resultCallback);
 	});

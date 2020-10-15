@@ -163,7 +163,7 @@
     {{ column_right }}</div>
 </div>
 <script type="text/javascript"><!--
-$('#button-search').bind('click', function() {
+$('#button-search').on('click', function() {
 	url = 'index.php?route=product/search';
 
 	var search = $('#content input[name=\'search\']').prop('value');
@@ -193,7 +193,7 @@ $('#button-search').bind('click', function() {
 	location = url;
 });
 
-$('#content input[name=\'search\']').bind('keydown', function(e) {
+$('#content input[name=\'search\']').on('keydown', function(e) {
 	if (e.keyCode == 13) {
 		$('#button-search').trigger('click');
 	}

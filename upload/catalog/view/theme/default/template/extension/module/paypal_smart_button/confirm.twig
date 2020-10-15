@@ -236,13 +236,13 @@ $(document).on('click', '.button-shipping-address', function(event) {
 	$('#shipping_address').modal('show');
 });
 
-$('input[name=\'next\']').bind('change', function() {
+$('input[name=\'next\']').on('change', function() {
 	$('.cart-discounts > div').hide();
 
 	$('#' + this.value).show();
 });
 
-$('#paypal_confirm').bind('click', function() {
+$('#paypal_confirm').on('click', function() {
     $('#paypal_confirm').prop('disabled', true).button('loading');
 });
 

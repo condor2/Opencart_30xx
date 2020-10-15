@@ -74,7 +74,7 @@
 {% if googlepay_enabled %}{{ googlepay_output }}{% endif %}
 
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
+$('#button-confirm').on('click', function() {
   $.ajax({
     url: 'index.php?route=extension/payment/globalpay_remote/send',
     type: 'post',

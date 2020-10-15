@@ -112,7 +112,7 @@ $(document).ready(function() {
 	});
 //--></script>
 <script type="text/javascript">
-	$('#button-confirm').bind('click', function() {
+	$('#button-confirm').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/payment/bluepay_redirect/send',
 			type: 'post',

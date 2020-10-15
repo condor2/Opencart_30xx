@@ -41,7 +41,7 @@
 
         amazon.Login.setClientId('{{ client_id }}');
 
-        $('#continue-button').click(function() {
+        $('#continue-button').on('click', function() {
             $('#continue-button').button('loading');
             $('div.alert').remove();
 

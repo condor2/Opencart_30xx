@@ -140,7 +140,7 @@ $('input[name=\'next\']').bind('change', function() {
 	$('#' + this.value).show();
 });
 
-$('#paypal-confirm').bind('click', function() {
+$('#paypal-confirm').on('click', function() {
     $('#paypal-confirm').prop('disabled', true).button('loading');
 });
 //--></script>
