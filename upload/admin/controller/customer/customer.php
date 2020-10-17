@@ -252,15 +252,15 @@ class ControllerCustomerCustomer extends Controller {
 		}
 
 		if (isset($this->request->get['filter_customer_group_id'])) {
-			$filter_customer_group_id = $this->request->get['filter_customer_group_id'];
+			$filter_customer_group_id = (int)$this->request->get['filter_customer_group_id'];
 		} else {
-			$filter_customer_group_id = 0;
+			$filter_customer_group_id = '';
 		}
 
 		if (isset($this->request->get['filter_status'])) {
-			$filter_status = $this->request->get['filter_status'];
+			$filter_status = (int)$this->request->get['filter_status'];
 		} else {
-			$filter_status = 1;
+			$filter_status = '';
 		}
 
 		if (isset($this->request->get['filter_ip'])) {
@@ -1148,7 +1148,7 @@ class ControllerCustomerCustomer extends Controller {
 
 	public function login() {
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1164,7 +1164,7 @@ class ControllerCustomerCustomer extends Controller {
 			$this->model_customer_customer->editToken($customer_id, $token);
 
 			if (isset($this->request->get['store_id'])) {
-				$store_id = $this->request->get['store_id'];
+				$store_id = (int)$this->request->get['store_id'];
 			} else {
 				$store_id = 0;
 			}
@@ -1176,12 +1176,32 @@ class ControllerCustomerCustomer extends Controller {
 			$store_info = $this->model_setting_store->getStore($store_id);
 
 			if ($store_info) {
-				$this->response->redirect($store_info['url'] . 'index.php?route=account/login&token=' . $token);
+				$this->response->redirect($store_info['url'] . 'index.php?route=account/login/token&email=' . urlencode($customer_info['email']). '&login_token=' . $token);
 			} else {
-				$this->response->redirect(HTTP_CATALOG . 'index.php?route=account/login&token=' . $token);
+				$this->response->redirect(HTTP_CATALOG . 'index.php?route=account/login/token&email=' . urlencode($customer_info['email']) . '&login_token=' . $token);
 			}
 		} else {
-			$this->load->controller('error/not_found');
+			$this->load->language('error/not_found');
+
+			$this->document->setTitle($this->language->get('heading_title'));
+
+			$data['breadcrumbs'] = [];
+
+			$data['breadcrumbs'][] = [
+				'text' => $this->language->get('text_home'),
+				'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+			];
+
+			$data['breadcrumbs'][] = [
+				'text' => $this->language->get('heading_title'),
+				'href' => $this->url->link('error/not_found', 'user_token=' . $this->session->data['user_token'], true)
+			];
+
+			$data['header'] = $this->load->controller('common/header');
+			$data['column_left'] = $this->load->controller('common/column_left');
+			$data['footer'] = $this->load->controller('common/footer');
+
+			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
 	}
 
@@ -1191,7 +1211,7 @@ class ControllerCustomerCustomer extends Controller {
 		$this->load->model('customer/customer');
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1234,7 +1254,7 @@ class ControllerCustomerCustomer extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1257,7 +1277,7 @@ class ControllerCustomerCustomer extends Controller {
 		$this->load->language('customer/customer');
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1305,7 +1325,7 @@ class ControllerCustomerCustomer extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 		$customer_id = 0;
 		}
@@ -1327,10 +1347,8 @@ class ControllerCustomerCustomer extends Controller {
 	public function reward() {
 		$this->load->language('customer/customer');
 
-		$this->load->model('customer/customer');
-
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1340,6 +1358,8 @@ class ControllerCustomerCustomer extends Controller {
 		} else {
 			$page = 1;
 		}
+
+		$this->load->model('customer/customer');
 
 		$data['rewards'] = array();
 
@@ -1376,7 +1396,7 @@ class ControllerCustomerCustomer extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1399,7 +1419,7 @@ class ControllerCustomerCustomer extends Controller {
 		$this->load->language('customer/customer');
 
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}
@@ -1522,7 +1542,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		// Customer Group
 		if (isset($this->request->get['customer_group_id'])) {
-			$customer_group_id = $this->request->get['customer_group_id'];
+			$customer_group_id = (int)$this->request->get['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}
