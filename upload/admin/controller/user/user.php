@@ -341,7 +341,7 @@ class ControllerUserUser extends Controller {
 		if (isset($this->request->post['user_group_id'])) {
 			$data['user_group_id'] = (int)$this->request->post['user_group_id'];
 		} elseif (!empty($user_info)) {
-			$data['user_group_id'] = $user_info['user_group_id'];
+			$data['user_group_id'] = (int)$user_info['user_group_id'];
 		} else {
 			$data['user_group_id'] = '';
 		}
