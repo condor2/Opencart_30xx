@@ -577,7 +577,13 @@ class ControllerCustomerCustomer extends Controller {
 		} else {
 			$data['error_telephone'] = '';
 		}
-		
+
+		if (isset($this->error['tracking'])) {
+			$data['error_tracking'] = $this->error['tracking'];
+		} else {
+			$data['error_tracking'] = '';
+		}
+
 		if (isset($this->error['cheque'])) {
 			$data['error_cheque'] = $this->error['cheque'];
 		} else {
