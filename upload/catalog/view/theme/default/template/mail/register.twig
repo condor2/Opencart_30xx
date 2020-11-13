@@ -25,19 +25,16 @@
 		  <tr>
 			<td style="line-height: 1.8;">
 			  {% if not approval %}
-				<p style="text-align: center;"><a href="{{ login }}" style="border-radius:4px; color:#fff; text-decoration: none; background-color: #01b3e8; padding-left:18px; padding-right:18px; padding-top:10px; padding-bottom:10px; font-size:18px; font-weight: bold;">
-				  {{ button_login }}
-				</a></p>
+				<p style="text-align: center;">
+				  <a href="{{ login }}" style="border-radius:4px; color:#fff; text-decoration: none; background-color: #01b3e8; padding-left:18px; padding-right:18px; padding-top:10px; padding-bottom:10px; font-size:18px; font-weight: bold;">{{ button_login }}</a>
+				</p>
 				<p>{{ text_service }}</p>
-
 				<p>{{ store }}</p>
 			  {% else %}
 				<p>{{ text_approval }}</p>
-
-				<p style="text-align: center;"><a href="{{ login }}" style="border-radius:4px; color:#fff; text-decoration: none; background-color: #01b3e8; padding-left:18px; padding-right:18px; padding-top:10px; padding-bottom:10px; font-size:18px; font-weight: bold;">
-				  {{ button_login }}
-				</a></p>
-			  {% endif %}			  
+				<p style="text-align: center;">
+				 <a href="{{ login }}" style="border-radius:4px; color:#fff; text-decoration: none; background-color: #01b3e8; padding-left:18px; padding-right:18px; padding-top:10px; padding-bottom:10px; font-size:18px; font-weight: bold;">{{ button_login }}</a>
+				</p>			  
 			  <p>
 				<br/>
 			  </p>			  
@@ -50,6 +47,7 @@
 				<br/>
 				<strong>{{ store }}</strong>
 			  </p>
+			  {% endif %}
 			</td>
 		  </tr>
 		</tbody>
