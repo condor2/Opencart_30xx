@@ -96,7 +96,7 @@ class ControllerDesignTheme extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
-			$store_id = $this->request->get['store_id'];
+			$store_id = (int)$this->request->get['store_id'];
 		} else {
 			$store_id = 0;
 		}
@@ -106,7 +106,7 @@ class ControllerDesignTheme extends Controller {
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
 
 		// This is only here for compatibility with old themes.
-		if ($theme == 'theme_default') {
+		if ($theme == 'default') {
 			$theme = $this->model_setting_setting->getSettingValue('theme_default_directory', $store_id);
 		}
 
@@ -162,7 +162,7 @@ class ControllerDesignTheme extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
-			$store_id = $this->request->get['store_id'];
+			$store_id = (int)$this->request->get['store_id'];
 		} else {
 			$store_id = 0;
 		}
@@ -172,7 +172,7 @@ class ControllerDesignTheme extends Controller {
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
 
 		// This is only here for compatibility with old themes.
-		if ($theme == 'theme_default') {
+		if ($theme == 'default') {
 			$theme = $this->model_setting_setting->getSettingValue('theme_default_directory', $store_id);
 		}
 
@@ -204,7 +204,7 @@ class ControllerDesignTheme extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
-			$store_id = $this->request->get['store_id'];
+			$store_id = (int)$this->request->get['store_id'];
 		} else {
 			$store_id = 0;
 		}
@@ -214,7 +214,7 @@ class ControllerDesignTheme extends Controller {
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
 
 		// This is only here for compatibility with old themes.
-		if ($theme == 'theme_default') {
+		if ($theme == 'default') {
 			$theme = $this->model_setting_setting->getSettingValue('theme_default_directory', $store_id);
 		}
 
@@ -253,7 +253,7 @@ class ControllerDesignTheme extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
-			$store_id = $this->request->get['store_id'];
+			$store_id = (int)$this->request->get['store_id'];
 		} else {
 			$store_id = 0;
 		}
@@ -263,7 +263,7 @@ class ControllerDesignTheme extends Controller {
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
 		
 		// This is only here for compatibility with old themes.
-		if ($theme == 'theme_default') {
+		if ($theme == 'default') {
 			$theme = $this->model_setting_setting->getSettingValue('theme_default_directory', $store_id);
 		}
 
@@ -287,7 +287,7 @@ class ControllerDesignTheme extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['theme_id'])) {
-			$theme_id = $this->request->get['theme_id'];
+			$theme_id = (int)$this->request->get['theme_id'];
 		} else {
 			$theme_id = 0;
 		}
