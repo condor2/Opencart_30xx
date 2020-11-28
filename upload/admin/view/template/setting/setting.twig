@@ -977,9 +977,10 @@
                       <option value="smtp">{{ text_smtp }}</option>
                       {% endif %}
                       {% if config_mail_engine == 'phpmailer' %}
-                      <option value='phpmailer' selected='selected'>{{ text_phpmailer }}</option>
+                      <option value="phpmailer" selected="selected">{{ text_phpmailer }}</option>
                       {% else %}
-                      <option value='phpmailer'>{{ text_phpmailer }}</option>
+                      <option value="phpmailer">{{ text_phpmailer }}</option>
+                      {% endif %}
                     </select>
                   </div>
                 </div>
