@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class UrlValidator extends ConstraintValidator
 {
-    const PATTERN = '~^
+    public const PATTERN = '~^
             (%s)://                                 # protocol
             (((?:[\_\.\pL\pN-]|%%[0-9A-Fa-f]{2})+:)?((?:[\_\.\pL\pN-]|%%[0-9A-Fa-f]{2})+)@)?  # basic auth
             (
@@ -96,7 +96,7 @@ class UrlValidator extends ConstraintValidator
                 throw new InvalidOptionsException(sprintf('Invalid value for option "checkDNS" in constraint "%s".', \get_class($constraint)), ['checkDNS']);
             }
 
-            $host = parse_url($value, PHP_URL_HOST);
+            $host = parse_url($value, \PHP_URL_HOST);
 
             if (!\is_string($host) || !checkdnsrr($host, $constraint->checkDNS)) {
                 $this->context->buildViolation($constraint->dnsMessage)

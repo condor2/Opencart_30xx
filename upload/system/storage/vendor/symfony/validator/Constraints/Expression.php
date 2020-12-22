@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Exception\LogicException;
  */
 class Expression extends Constraint
 {
-    const EXPRESSION_FAILED_ERROR = '6b3befbc-2f01-4ddf-be21-b57898905284';
+    public const EXPRESSION_FAILED_ERROR = '6b3befbc-2f01-4ddf-be21-b57898905284';
 
     protected static $errorNames = [
         self::EXPRESSION_FAILED_ERROR => 'EXPRESSION_FAILED_ERROR',
@@ -38,7 +38,7 @@ class Expression extends Constraint
     {
         if (!class_exists(ExpressionLanguage::class)) {
             // throw new LogicException(sprintf('The "symfony/expression-language" component is required to use the "%s" constraint.', __CLASS__));
-            @trigger_error(sprintf('Using the "%s" constraint without the "symfony/expression-language" component installed is deprecated since Symfony 4.2.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s" constraint without the "symfony/expression-language" component installed is deprecated since Symfony 4.2.', __CLASS__), \E_USER_DEPRECATED);
         }
 
         parent::__construct($options);

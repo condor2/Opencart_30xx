@@ -25,12 +25,12 @@ use Symfony\Component\Validator\Exception\LogicException;
  */
 class Bic extends Constraint
 {
-    const INVALID_LENGTH_ERROR = '66dad313-af0b-4214-8566-6c799be9789c';
-    const INVALID_CHARACTERS_ERROR = 'f424c529-7add-4417-8f2d-4b656e4833e2';
-    const INVALID_BANK_CODE_ERROR = '00559357-6170-4f29-aebd-d19330aa19cf';
-    const INVALID_COUNTRY_CODE_ERROR = '1ce76f8d-3c1f-451c-9e62-fe9c3ed486ae';
-    const INVALID_CASE_ERROR = '11884038-3312-4ae5-9d04-699f782130c7';
-    const INVALID_IBAN_COUNTRY_CODE_ERROR = '29a2c3bb-587b-4996-b6f5-53081364cea5';
+    public const INVALID_LENGTH_ERROR = '66dad313-af0b-4214-8566-6c799be9789c';
+    public const INVALID_CHARACTERS_ERROR = 'f424c529-7add-4417-8f2d-4b656e4833e2';
+    public const INVALID_BANK_CODE_ERROR = '00559357-6170-4f29-aebd-d19330aa19cf';
+    public const INVALID_COUNTRY_CODE_ERROR = '1ce76f8d-3c1f-451c-9e62-fe9c3ed486ae';
+    public const INVALID_CASE_ERROR = '11884038-3312-4ae5-9d04-699f782130c7';
+    public const INVALID_IBAN_COUNTRY_CODE_ERROR = '29a2c3bb-587b-4996-b6f5-53081364cea5';
 
     protected static $errorNames = [
         self::INVALID_LENGTH_ERROR => 'INVALID_LENGTH_ERROR',
@@ -49,7 +49,7 @@ class Bic extends Constraint
     {
         if (!class_exists(Countries::class)) {
             // throw new LogicException('The Intl component is required to use the Bic constraint. Try running "composer require symfony/intl".');
-            @trigger_error(sprintf('Using the "%s" constraint without the "symfony/intl" component installed is deprecated since Symfony 4.2.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s" constraint without the "symfony/intl" component installed is deprecated since Symfony 4.2.', __CLASS__), \E_USER_DEPRECATED);
         }
 
         if (isset($options['iban']) && isset($options['ibanPropertyPath'])) {
