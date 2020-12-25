@@ -5,9 +5,9 @@ class ControllerCommonFileManager extends Controller {
 
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
-			$directory = DIR_IMAGE . 'catalog/' . html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8') . '/';
+			$directory = DIR_IMAGE . 'catalog/' . html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8');
 		} else {
-			$directory = DIR_IMAGE . 'catalog/';
+			$directory = DIR_IMAGE . 'catalog';
 		}
 
 		if (isset($this->request->get['filter_name'])) {
