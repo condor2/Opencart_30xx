@@ -31,12 +31,12 @@ class ControllerStartupStartup extends Controller {
 
 		// Require higher security for session cookies
 		$option = array(
-			'max-age'  => time() + $this->config->get('session_expire'),
+			'expires'  => time() + $this->config->get('session_expire'),
 			'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
 			'domain'   => $this->request->server['HTTP_HOST'],
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
-			'SameSite' => 'strict'
+			'SameSite' => 'Strict'
 		);
 
 		oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);

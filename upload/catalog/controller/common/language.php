@@ -57,9 +57,9 @@ class ControllerCommonLanguage extends Controller {
 		}
 
 		$option = array(
-			'max-age'  => time() + 60 * 60 * 24 * 30,
+			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
-			'SameSite' => 'lax'
+			'SameSite' => 'Lax'
 		);
 
 		oc_setcookie('language', $code, $option);
