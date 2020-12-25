@@ -31,7 +31,7 @@ class Session {
 				$this->adaptor = new $class();
 			}	
 			
-			register_shutdown_function([$this, 'close']);
+			register_shutdown_function(array($this, 'close'));
 		} else {
 			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
 		}
