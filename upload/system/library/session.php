@@ -31,15 +31,14 @@ class Session {
 				$this->adaptor = new $class();
 			}	
 			
-			register_shutdown_function(array($this, 'close'));
+			register_shutdown_function([$this, 'close']);
 		} else {
-			trigger_error('Error: Could not load session adaptor ' . $adaptor . ' session!');
-			exit();
-		}	
+			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
+		}
 	}
 	
 	/**
-	 * 
+	 * Get Session ID
 	 *
 	 * @return	string
  	*/	
@@ -48,7 +47,7 @@ class Session {
 	}
 
 	/**
-	 *
+	 * Start
 	 *
 	 * @param	string	$session_id
 	 *
@@ -66,25 +65,31 @@ class Session {
 		if (preg_match('/^[a-zA-Z0-9,\-]{22,52}$/', $session_id)) {
 			$this->session_id = $session_id;
 		} else {
-			exit('Error: Invalid session ID!');
+			error_log('Error: Invalid session ID!');
 		}
 		
 		$this->data = $this->adaptor->read($session_id);
 		
 		return $session_id;
 	}
-
+	
 	/**
-	 * 
+	 * Close
+	 *
+	 * Writes the session data to storage
  	*/
 	public function close() {
 		$this->adaptor->write($this->session_id, $this->data);
 	}
-
+	
 	/**
-	 * 
+	 * Destroy
+	 *
+	 * Deletes the current session from storage
  	*/	
 	public function destroy() {
+		$this->data = array();
+
 		$this->adaptor->destroy($this->session_id);
 	}
 }

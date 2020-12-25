@@ -24,18 +24,22 @@ class DB {
 	 * @param	int		$port
 	 *
  	*/
-	public function __construct($adaptor, $hostname, $username, $password, $database, $port = NULL) {
+	public function __construct($adaptor, $hostname, $username, $password, $database, $port = '') {
 		$class = 'DB\\' . $adaptor;
 
 		if (class_exists($class)) {
-			$this->adaptor = new $class($hostname, $username, $password, $database, $port);
+			try {
+				$this->adaptor = new $class($hostname, $username, $password, $database, $port);
+			} catch (\Exception $e) {
+				throw new \Exception('Error: Could not load database adaptor ' . $adaptor . '!');
+			}
 		} else {
 			throw new \Exception('Error: Could not load database adaptor ' . $adaptor . '!');
 		}
 	}
 
 	/**
-     * 
+     * Query
      *
      * @param	string	$sql
 	 * 
@@ -46,7 +50,7 @@ class DB {
 	}
 
 	/**
-     * 
+     * Escape
      *
      * @param	string	$value
 	 * 
@@ -57,29 +61,46 @@ class DB {
 	}
 
 	/**
-     * 
-	 * 
-	 * @return	int
+     * Count Affected
+	 *
+	 *
+	 *
+	 * @return	int	returns the total number of affected rows.
      */
 	public function countAffected() {
 		return $this->adaptor->countAffected();
 	}
 
 	/**
-     * 
-	 * 
-	 * @return	int
+     * Get Last ID
+	 *
+	 * Get the last ID gets the primary key that was returned after creating a row in a table.
+	 *
+	 * @return	int returns last ID
      */
 	public function getLastId() {
 		return $this->adaptor->getLastId();
 	}
 	
 	/**
-     * 
-	 * 
+     * IsConnected
+	 *
+	 * Checks if a DB connection is active.
+	 *
 	 * @return	bool
      */	
-	public function connected() {
-		return $this->adaptor->connected();
+	public function isConnected() {
+		return $this->adaptor->isConnected();
+	}
+
+	/**
+	 * Close
+	 *
+	 * Closes the DB connection
+	 *
+	 * @return	bool
+	 */
+	public function close() {
+		return $this->adaptor->close();
 	}
 }
