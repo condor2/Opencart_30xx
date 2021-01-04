@@ -88,7 +88,8 @@ $loader = new Loader($registry);
 $registry->set('load', $loader);
 
 // Request
-$registry->set('request', new Request());
+$request = new Request();
+$registry->set('request', $request);
 
 // Response
 $response = new Response();
