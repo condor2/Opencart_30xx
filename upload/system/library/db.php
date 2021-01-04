@@ -8,7 +8,7 @@
 */
 
 /**
-* DB class
+* DB
 */
 class DB {
 	private $adaptor;
@@ -28,11 +28,7 @@ class DB {
 		$class = 'DB\\' . $adaptor;
 
 		if (class_exists($class)) {
-			try {
-				$this->adaptor = new $class($hostname, $username, $password, $database, $port);
-			} catch (\Exception $e) {
-				throw new \Exception('Error: Could not load database adaptor ' . $adaptor . '!');
-			}
+			$this->adaptor = new $class($hostname, $username, $password, $database, $port);
 		} else {
 			throw new \Exception('Error: Could not load database adaptor ' . $adaptor . '!');
 		}
@@ -63,7 +59,7 @@ class DB {
 	/**
      * Count Affected
 	 *
-	 *
+	 * Gets the total number of affected rows from the last query
 	 *
 	 * @return	int	returns the total number of affected rows.
      */
@@ -83,7 +79,7 @@ class DB {
 	}
 	
 	/**
-     * IsConnected
+     * Is Connected
 	 *
 	 * Checks if a DB connection is active.
 	 *
@@ -91,16 +87,5 @@ class DB {
      */	
 	public function isConnected() {
 		return $this->adaptor->isConnected();
-	}
-
-	/**
-	 * Close
-	 *
-	 * Closes the DB connection
-	 *
-	 * @return	bool
-	 */
-	public function close() {
-		return $this->adaptor->close();
 	}
 }

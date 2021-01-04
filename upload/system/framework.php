@@ -10,15 +10,17 @@ $config->load('default');
 $config->load($application_config);
 $registry->set('config', $config);
 
+// Set the default time zone
+date_default_timezone_set($config->get('date_timezone'));
+
 // Log
 $log = new Log($config->get('error_filename'));
 $registry->set('log', $log);
 
-date_default_timezone_set($config->get('date_timezone'));
-
-set_error_handler(function($code, $message, $file, $line) use($log, $config) {
+// Error Handler
+set_error_handler(function($code, $message, $file, $line) use ($log, $config) {
 	// error suppressed with @
-	if (error_reporting() === 0) {
+	if (@error_reporting() === 0) {
 		return false;
 	}
 
@@ -40,24 +42,31 @@ set_error_handler(function($code, $message, $file, $line) use($log, $config) {
 			break;
 	}
 
-	if ($config->get('error_display')) {
-		echo '<b>' . $error . '</b>: ' . $message . ' in <b>' . $file . '</b> on line <b>' . $line . '</b>';
-	}
-
 	if ($config->get('error_log')) {
 		$log->write('PHP ' . $error . ':  ' . $message . ' in ' . $file . ' on line ' . $line);
+	}
+
+	if ($config->get('error_display')) {
+		echo '<b>' . $error . '</b>: ' . $message . ' in <b>' . $file . '</b> on line <b>' . $line . '</b>';
+	} else {
+		header('Location: ' . $config->get('error_page'));
+		exit();
 	}
 
 	return true;
 });
 
-set_exception_handler(function($e) use ($log, $config) {
-	if ($config->get('error_display')) {
-		echo '<b>' . get_class($e) . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
-	}
-
+// Exception Handler
+set_exception_handler(function($e) use ($log, $config)  {
 	if ($config->get('error_log')) {
 		$log->write(get_class($e) . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
+	}
+
+	if ($config->get('error_display')) {
+		echo '<b>' . get_class($e) . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
+	} else {
+		header('Location: ' . $config->get('error_page'));
+		exit();
 	}
 });
 
@@ -100,38 +109,31 @@ if ($config->get('db_autostart')) {
 }
 
 // Session
+if ($config->get('session_autostart')) {
 $session = new Session($config->get('session_engine'), $registry);
 $registry->set('session', $session);
 
-if ($config->get('session_autostart')) {
-	/*
-	We are adding the session cookie outside of the session class as I believe
-	PHP messed up in a big way handling sessions. Why in the hell is it so hard to
-	have more than one concurrent session using cookies!
-
-	Is it not better to have multiple cookies when accessing parts of the system
-	that requires different cookie sessions for security reasons.
-
-	Also cookies can be accessed via the URL parameters. So why force only one cookie
-	for all sessions!
-	*/
-
-	if (isset($_COOKIE[$config->get('session_name')])) {
-		$session_id = $_COOKIE[$config->get('session_name')];
+	if (isset($request->cookie[$config->get('session_name')])) {
+		$session_id = $request->cookie[$config->get('session_name')];
 	} else {
 		$session_id = '';
 	}
 
 	$session->start($session_id);
 
+	// Setting the cookie path to the store front so admin users can login to cutomers accounts.
+	$path = dirname($_SERVER['PHP_SELF']);
+
+	$path = substr($path, 0, strrpos($path, '/')) . '/';
+
 	// Require higher security for session cookies
 	$option = array(
-		'max-age'  => time() + $config->get('session_expire'),
-		'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '',
-		'domain'   => $_SERVER['HTTP_HOST'],
-		'secure'   => $_SERVER['HTTPS'],
+		'expires'  => time() + $config->get('session_expire'),
+		'path'     => $config->get('session_path'),
+		'domain'   => $config->get('session_domain'),
+		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
-		'SameSite' => 'strict'
+		'SameSite' => 'Strict'
 	);
 
 	oc_setcookie($config->get('session_name'), $session->getId(), $option);

@@ -8,7 +8,7 @@
 */
 
 /**
-* Session class
+* Session
 */
 class Session {
 	protected $adaptor;
@@ -29,9 +29,10 @@ class Session {
 				$this->adaptor = new $class($registry);
 			} else {
 				$this->adaptor = new $class();
-			}	
-			
+			}
+
 			register_shutdown_function(array($this, 'close'));
+			register_shutdown_function(array($this, 'gc'));
 		} else {
 			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
 		}
@@ -49,9 +50,11 @@ class Session {
 	/**
 	 * Start
 	 *
+	 * Starts a session.
+	 *
 	 * @param	string	$session_id
 	 *
-	 * @return	string
+	 * @return	string	Returns the current session ID.
  	*/	
 	public function start($session_id = '') {
 		if (!$session_id) {
@@ -91,5 +94,14 @@ class Session {
 		$this->data = array();
 
 		$this->adaptor->destroy($this->session_id);
+	}
+
+	/**
+	 * GC
+	 *
+	 * Garbage Collection
+	 */
+	public function gc() {
+		$this->adaptor->gc($this->session_id);
 	}
 }
