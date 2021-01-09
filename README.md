@@ -22,7 +22,7 @@ This is a modified version of Opencart 3.0.3.6.
 ## Updates
 - Latest version of Paypal Commerce
 - Summernote 0.8.8
-- TWIG v3.1.1
+- TWIG v3.2.1
 - Bootstrap 3.4.1
 - Jquery 3.5.1
 
