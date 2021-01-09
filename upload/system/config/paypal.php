@@ -71,72 +71,193 @@ $_['paypal_setting'] = array(
 				'unavailable' => 0,
 				'card_ineligible' => 1
 			)
+		),
+		'message' => array(
+			'status' => true,
+			'message_align' => 'right',
+			'message_size' => 'large',
+			'message_layout' => 'text',
+			'message_text_color' => 'black',
+			'message_text_size' => '12',
+			'message_flex_color' => 'blue',
+			'message_flex_ratio' => '8x1'
 		)
 	),
 	'currency' => array(
 		'AUD' => array(
 			'code' => 'AUD',
-			'name' => 'text_currency_aud'
+			'name' => 'text_currency_aud',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'BRL' => array(
+			'code' => 'BRL',
+			'name' => 'text_currency_brl',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'CAD' => array(
 			'code' => 'CAD',
-			'name' => 'text_currency_cad'
-		),
-		'CHF' => array(
-			'code' => 'CHF',
-			'name' => 'text_currency_chf'
+			'name' => 'text_currency_cad',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
 		'CZK' => array(
 			'code' => 'CZK',
-			'name' => 'text_currency_czk'
+			'name' => 'text_currency_czk',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
 		'DKK' => array(
 			'code' => 'DKK',
-			'name' => 'text_currency_dkk'
+			'name' => 'text_currency_dkk',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
 		'EUR' => array(
 			'code' => 'EUR',
-			'name' => 'text_currency_eur'
-		),
-		'GBP' => array(
-			'code' => 'GBP',
-			'name' => 'text_currency_gbp'
+			'name' => 'text_currency_eur',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
 		'HKD' => array(
 			'code' => 'HKD',
-			'name' => 'text_currency_hkd'
+			'name' => 'text_currency_hkd',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
 		'HUF' => array(
 			'code' => 'HUF',
-			'name' => 'text_currency_huf'
+			'name' => 'text_currency_huf',
+			'decimal_place' => 0,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'INR' => array(
+			'code' => 'INR',
+			'name' => 'text_currency_inr',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
+		),
+		'ILS' => array(
+			'code' => 'ILS',
+			'name' => 'text_currency_ils',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'JPY' => array(
 			'code' => 'JPY',
-			'name' => 'text_currency_jpy'
+			'name' => 'text_currency_jpy',
+			'decimal_place' => 0,
+			'express_status' => true,
+			'card_status' => true
 		),
-		'NOK' => array(
-			'code' => 'NOK',
-			'name' => 'text_currency_nok'
+		'MYR' => array(
+			'code' => 'MYR',
+			'name' => 'text_currency_myr',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
+		),
+		'MXN' => array(
+			'code' => 'MXN',
+			'name' => 'text_currency_mxn',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
+		),
+		'TWD' => array(
+			'code' => 'TWD',
+			'name' => 'text_currency_twd',
+			'decimal_place' => 0,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'NZD' => array(
 			'code' => 'NZD',
-			'name' => 'text_currency_nzd'
+			'name' => 'text_currency_nzd',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'NOK' => array(
+			'code' => 'NOK',
+			'name' => 'text_currency_nok',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'PHP' => array(
+			'code' => 'PHP',
+			'name' => 'text_currency_php',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'PLN' => array(
 			'code' => 'PLN',
-			'name' => 'text_currency_pln'
+			'name' => 'text_currency_pln',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		),
-		'SEK' => array(
-			'code' => 'SEK',
-			'name' => 'text_currency_sek'
+		'GBP' => array(
+			'code' => 'GBP',
+			'name' => 'text_currency_gbp',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'RUB' => array(
+			'code' => 'RUB',
+			'name' => 'text_currency_rub',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'SGD' => array(
 			'code' => 'SGD',
-			'name' => 'text_currency_sgd'
+			'name' => 'text_currency_sgd',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'SEK' => array(
+			'code' => 'SEK',
+			'name' => 'text_currency_sek',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'CHF' => array(
+			'code' => 'CHF',
+			'name' => 'text_currency_chf',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
+		),
+		'THB' => array(
+			'code' => 'THB',
+			'name' => 'text_currency_thb',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => false
 		),
 		'USD' => array(
 			'code' => 'USD',
-			'name' => 'text_currency_usd'
+			'name' => 'text_currency_usd',
+			'decimal_place' => 2,
+			'express_status' => true,
+			'card_status' => true
 		)
 	),
 	'button_align' => array(
@@ -313,6 +434,80 @@ $_['paypal_setting'] = array(
 			'error' => 'error_3ds_card_ineligible',
 			'recommended' => 1
 		)
-	)
+	),
+	'message_align' => array(
+		'left' => array(
+			'code' => 'left',
+			'name' => 'text_align_left'
+		),
+		'center' => array(
+			'code' => 'center',
+			'name' => 'text_align_center'
+		),
+		'right' => array(
+			'code' => 'right',
+			'name' => 'text_align_right'
+		)
+	),
+	'message_size' => array(
+		'small' => array(
+			'code' => 'small',
+			'name' => 'text_small'
+		),
+		'medium' => array(
+			'code' => 'medium',
+			'name' => 'text_medium'
+		),
+		'large' => array(
+			'code' => 'large',
+			'name' => 'text_large'
+		),
+		'responsive' => array(
+			'code' => 'responsive',
+			'name' => 'text_responsive'
+		)
+	),
+	'message_width' => array(
+		'small' => '200px',
+		'medium' => '250px',
+		'large' => '350px',
+		'responsive' => ''
+	),
+	'message_layout' => array(
+		'text' => array(
+			'code' => 'text',
+			'name' => 'text_text'
+		),
+		'flex' => array(
+			'code' => 'flex',
+			'name' => 'text_flex'
+		)
+	),
+	'message_text_color' => array(
+		'black' => array(
+			'code' => 'black',
+			'name' => 'text_black'
+		),
+		'white' => array(
+			'code' => 'white',
+			'name' => 'text_white'
+		)
+	),
+	'message_text_size' => array('10', '11', '12', '13', '14', '15', '16'),
+	'message_flex_color' => array(
+		'blue' => array(
+			'code' => 'blue',
+			'name' => 'text_blue'
+		),
+		'black' => array(
+			'code' => 'black',
+			'name' => 'text_black'
+		),
+		'white' => array(
+			'code' => 'white',
+			'name' => 'text_white'
+		)
+	),
+	'message_flex_ratio' => array('1x1', '1x4', '8x1', '20x1')
 );
 ?>

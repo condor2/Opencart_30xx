@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModulePayPalSmartButton extends Controller {
-	protected $error = array();
+	private $error = array();
 	
 	public function index() {
 		$this->load->language('extension/module/paypal_smart_button');
