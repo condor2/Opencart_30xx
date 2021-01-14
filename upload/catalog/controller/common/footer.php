@@ -19,7 +19,6 @@ class ControllerCommonFooter extends Controller {
 		$data['contact'] = $this->url->link('information/contact');
 		$data['return'] = $this->url->link('account/return/add', '', true);
 		$data['sitemap'] = $this->url->link('information/sitemap');
-		$data['tracking'] = $this->url->link('information/tracking');
 		$data['manufacturer'] = $this->url->link('product/manufacturer');
 		$data['voucher'] = $this->url->link('account/voucher', '', true);
 		$data['affiliate'] = $this->url->link('affiliate/login', '', true);
