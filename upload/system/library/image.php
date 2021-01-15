@@ -158,7 +158,7 @@ class Image {
 			$scale = min($scale_w, $scale_h);
 		}
 
-		if ($scale == 1 && $scale_h == $scale_w && $this->mime != 'image/png') {
+		if ($scale == 1 && $scale_h == $scale_w && ($this->mime != 'image/png' || $this->mime != 'image/webp')) {
 			return;
 		}
 
@@ -170,7 +170,7 @@ class Image {
 		$image_old = $this->image;
 		$this->image = imagecreatetruecolor($width, $height);
 
-		if ($this->mime == 'image/png') {
+		if ($this->mime == 'image/png' || $this->mime == 'image/webp') {
 			imagealphablending($this->image, false);
 			imagesavealpha($this->image, true);
 			$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
