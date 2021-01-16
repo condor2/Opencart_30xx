@@ -13,15 +13,16 @@ This is a modified version of Opencart 3.0.3.6.
 - New cookie function from Master Branch - 3.1.0.0b
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39911">vQmod modifications fix</a>
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39538">PHPMailer Integration - by @cansei_vendi</a>
+- <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.15.1</a>
 
 ## Removed
 - Promotion
 - Openbay
 - Klarna Payment
+- Summernote
 
 ## Updates
 - Latest version of Paypal Commerce
-- Summernote 0.8.8
 - TWIG v3.2.1
 - Bootstrap 3.4.1
 - Jquery 3.5.1
