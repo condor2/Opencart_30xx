@@ -102,7 +102,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$time = time();
 		
 		// We create a hash from the data in a similar method to how amazon does things.
-		$string  = 'api/marketplace/list' . "\n";
+		$string = 'api/marketplace/list' . "\n";
 		$string .= $this->config->get('opencart_username') . "\n";
 		$string .= $this->request->server['HTTP_HOST'] . "\n";
 		$string .= VERSION . "\n";
@@ -137,7 +137,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		}
 
 		if (isset($this->request->get['filter_member'])) {
-			$url .= '&filter_member=' . $this->request->get['filter_member'];
+			$url .= '&filter_member=' . urlencode($this->request->get['filter_member']);
 		}
 
 		if (isset($this->request->get['sort'])) {
@@ -166,7 +166,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 		$extension_total = $response_info['extension_total'];
 
-		$url  = '';
+		$url = '';
 
 		if (isset($this->request->get['filter_search'])) {
 			$url .= '&filter_search=' . $this->request->get['filter_search'];
@@ -205,8 +205,8 @@ class ControllerMarketplaceMarketplace extends Controller {
 		if ($response_info['promotions'] && $page == 1) {
 			foreach ($response_info['promotions'] as $result) {
 				$data['promotions'][] = array(
-					'name'         => $result['name'],
-					'description'  => $result['description'],
+					'name'         => utf8_decode($result['name']),
+					'description'  => utf8_decode($result['description']),
 					'image'        => $result['image'],
 					'license'      => $result['license'],
 					'price'        => $result['price'],
@@ -920,7 +920,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$json['error'] = $this->language->get('error_opencart');
 		}
 					
-		if (!$json) {	
+		if (!$json) {
 			$time = time();
 
 			// We create a hash from the data in a similar method to how amazon does things.

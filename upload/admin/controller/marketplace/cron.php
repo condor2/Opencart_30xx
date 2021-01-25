@@ -90,7 +90,6 @@ class ControllerMarketplaceCron extends Controller {
 		);
 
 		$data['delete'] = $this->url->link('marketplace/cron/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-
 		$data['cron'] = $this->url->link('common/cron');
 
 		$data['crons'] = array();
@@ -201,7 +200,7 @@ class ControllerMarketplaceCron extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['cron_id'])) {
-			$cron_id = $this->request->get['cron_id'];
+			$cron_id = (int)$this->request->get['cron_id'];
 		} else {
 			$cron_id = 0;
 		}
@@ -228,7 +227,7 @@ class ControllerMarketplaceCron extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['cron_id'])) {
-			$cron_id = $this->request->get['cron_id'];
+			$cron_id = (int)$this->request->get['cron_id'];
 		} else {
 			$cron_id = 0;
 		}
@@ -251,7 +250,7 @@ class ControllerMarketplaceCron extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['cron_id'])) {
-			$cron_id = $this->request->get['cron_id'];
+			$cron_id = (int)$this->request->get['cron_id'];
 		} else {
 			$cron_id = 0;
 		}
@@ -260,7 +259,9 @@ class ControllerMarketplaceCron extends Controller {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
 			$this->load->model('setting/cron');
+
 			$this->model_setting_cron->editStatus($cron_id, 0);
+
 			$json['success'] = $this->language->get('text_success');
 		}
 

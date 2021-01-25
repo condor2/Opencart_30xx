@@ -6,7 +6,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
-			$extension_install_id = $this->request->get['extension_install_id'];
+			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
 			$extension_install_id = 0;
 		}
@@ -38,7 +38,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
-			$extension_install_id = $this->request->get['extension_install_id'];
+			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
 			$extension_install_id = 0;
 		}
@@ -85,7 +85,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
-			$extension_install_id = $this->request->get['extension_install_id'];
+			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
 			$extension_install_id = 0;
 		}
@@ -240,7 +240,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$json = array();
 		
 		if (isset($this->request->get['extension_install_id'])) {
-			$extension_install_id = $this->request->get['extension_install_id'];
+			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
 			$extension_install_id = 0;
 		}
@@ -420,7 +420,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
-			$extension_install_id = $this->request->get['extension_install_id'];
+			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
 			$extension_install_id = 0;
 		}
