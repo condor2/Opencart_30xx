@@ -98,6 +98,9 @@ foreach ($config->get('response_header') as $header) {
 	$response->addHeader($header);
 }
 
+$response->setCompression($config->get('config_compression'));
+$registry->set('response', $response);
+
 // Database
 if ($config->get('db_autostart')) {
 	$db = new DB($config->get('db_engine'), $config->get('db_hostname'), $config->get('db_username'), $config->get('db_password'), $config->get('db_database'), $config->get('db_port'));
