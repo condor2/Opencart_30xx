@@ -64,7 +64,6 @@ class ControllerStartupStartup extends Controller {
 			$option = array(
 				'expires'  => time() + $this->config->get('session_expire'),
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '',
-				'domain'   => $this->request->server['HTTP_HOST'],
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
 				'SameSite' => 'Strict'

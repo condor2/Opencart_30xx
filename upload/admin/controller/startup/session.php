@@ -10,11 +10,15 @@ class ControllerStartupSession extends Controller {
 
 		$this->session->start($session_id);
 
+		// Setting the cookie path to the store front so admin users can login to cutomers accounts.
+		$path = dirname($_SERVER['PHP_SELF']);
+
+		$path = substr($path, 0, strrpos($path, '/')) . '/';
+
 		// Require higher security for session cookies
 		$option = array(
 			'expires'  => time() + $this->config->get('session_expire'),
-			'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
-			'domain'   => $this->request->server['HTTP_HOST'],
+			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => 'Strict'

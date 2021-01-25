@@ -63,6 +63,5 @@ class ControllerCommonLanguage extends Controller {
 		);
 
 		oc_setcookie('language', $code, $option);
-
 	}
 }

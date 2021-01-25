@@ -9,6 +9,9 @@
 
 /**
 * Response class
+ *
+ * Stores the response so the correct headers can go out before the response output is shown.
+ *
 */
 class Response {
 	private $headers = array();
@@ -26,7 +29,7 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Redirect
 	 *
 	 * @param	string	$url
 	 * @param	int		$status
@@ -38,7 +41,7 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Set Compression
 	 *
 	 * @param	int		$level
  	*/
@@ -47,7 +50,7 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Get Output
 	 *
 	 * @return	array
  	*/
@@ -56,7 +59,7 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Set Output
 	 *
 	 * @param	string	$output
  	*/	
@@ -65,7 +68,7 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Compress
 	 *
 	 * @param	string	$data
 	 * @param	int		$level
@@ -103,7 +106,9 @@ class Response {
 	}
 	
 	/**
-	 * 
+	 * Output
+	 *
+	 * Displays the set HTML output
  	*/
 	public function output() {
 		if ($this->output) {

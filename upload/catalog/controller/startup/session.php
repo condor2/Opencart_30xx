@@ -21,8 +21,10 @@ class ControllerStartupSession extends Controller {
 			We are adding the session cookie outside of the session class as I believe
 			PHP messed up in a big way handling sessions. Why in the hell is it so hard to
 			have more than one concurrent session using cookies!
+
 			Is it not better to have multiple cookies when accessing parts of the system
 			that requires different cookie sessions for security reasons.
+
 			Also cookies can be accessed via the URL parameters. So why force only one cookie
 			for all sessions!
 			*/
@@ -38,12 +40,12 @@ class ControllerStartupSession extends Controller {
 			$option = array(
 				'expires'  => 0,
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
-				'domain'   => $this->request->server['HTTP_HOST'],
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
 				'SameSite' => 'Strict'
 			);
 
+			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			oc_setcookie($this->config->get('session_name'), $session->getId(), $option);
 		}
 	}
