@@ -1,4 +1,4 @@
 <?php
 // Text
 $_['text_all'] = 'All products';
-$_['text_category'] = 'All Categories';
+$_['text_category'] = 'Categories';
