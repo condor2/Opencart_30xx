@@ -45,6 +45,10 @@ class ControllerSaleOrder extends Controller {
 			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 		}
 
+		if (isset($this->request->get['filter_customer_id'])) {
+			$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
+		}
+
 		if (isset($this->request->get['filter_customer'])) {
 			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -89,6 +93,12 @@ class ControllerSaleOrder extends Controller {
 			$filter_order_id = (int)$this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
+		}
+
+		if (isset($this->request->get['filter_customer_id'])) {
+			$filter_customer_id = (int)$this->request->get['filter_customer_id'];
+		} else {
+			$filter_customer_id = '';
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -148,7 +158,11 @@ class ControllerSaleOrder extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+			$url .= '&filter_order_id=' . (int)$this->request->get['filter_order_id'];
+		}
+
+		if (isset($this->request->get['filter_customer_id'])) {
+			$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -160,7 +174,7 @@ class ControllerSaleOrder extends Controller {
 		}
 	
 		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
+			$url .= '&filter_order_status_id=' . (int)$this->request->get['filter_order_status_id'];
 		}
 			
 		if (isset($this->request->get['filter_total'])) {
@@ -208,6 +222,7 @@ class ControllerSaleOrder extends Controller {
 
 		$filter_data = array(
 			'filter_order_id'        => $filter_order_id,
+			'filter_customer_id'     => $filter_customer_id,
 			'filter_customer'	     => $filter_customer,
 			'filter_order_status'    => $filter_order_status,
 			'filter_order_status_id' => $filter_order_status_id,
@@ -263,7 +278,11 @@ class ControllerSaleOrder extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+			$url .= '&filter_order_id=' . (int)$this->request->get['filter_order_id'];
+		}
+
+		if (isset($this->request->get['filter_customer_id'])) {
+			$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -275,7 +294,7 @@ class ControllerSaleOrder extends Controller {
 		}
 		
 		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
+			$url .= '&filter_order_status_id=' . (int)$this->request->get['filter_order_status_id'];
 		}
 			
 		if (isset($this->request->get['filter_total'])) {
@@ -310,7 +329,11 @@ class ControllerSaleOrder extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+			$url .= '&filter_order_id=' . (int)$this->request->get['filter_order_id'];
+		}
+
+		if (isset($this->request->get['filter_customer_id'])) {
+			$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -322,7 +345,7 @@ class ControllerSaleOrder extends Controller {
 		}
 		
 		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
+			$url .= '&filter_order_status_id=' . (int)$this->request->get['filter_order_status_id'];
 		}
 			
 		if (isset($this->request->get['filter_total'])) {
@@ -356,6 +379,7 @@ class ControllerSaleOrder extends Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($order_total - $this->config->get('config_limit_admin'))) ? $order_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $order_total, ceil($order_total / $this->config->get('config_limit_admin')));
 
 		$data['filter_order_id'] = $filter_order_id;
+		$data['filter_customer_id'] = $filter_customer_id;
 		$data['filter_customer'] = $filter_customer;
 		$data['filter_order_status'] = $filter_order_status;
 		$data['filter_order_status_id'] = $filter_order_status_id;
@@ -411,7 +435,11 @@ class ControllerSaleOrder extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+			$url .= '&filter_order_id=' . (int)$this->request->get['filter_order_id'];
+		}
+
+		if (isset($this->request->get['filter_customer_id'])) {
+			$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -423,7 +451,7 @@ class ControllerSaleOrder extends Controller {
 		}
 		
 		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
+			$url .= '&filter_order_status_id=' . (int)$this->request->get['filter_order_status_id'];
 		}
 			
 		if (isset($this->request->get['filter_total'])) {
@@ -734,7 +762,11 @@ class ControllerSaleOrder extends Controller {
 			$url = '';
 
 			if (isset($this->request->get['filter_order_id'])) {
-				$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+				$url .= '&filter_order_id=' . (int)$this->request->get['filter_order_id'];
+			}
+
+			if (isset($this->request->get['filter_customer_id'])) {
+				$url .= '&filter_customer_id=' . (int)$this->request->get['filter_customer_id'];
 			}
 
 			if (isset($this->request->get['filter_customer'])) {
@@ -746,7 +778,7 @@ class ControllerSaleOrder extends Controller {
 			}
 			
 			if (isset($this->request->get['filter_order_status_id'])) {
-				$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
+				$url .= '&filter_order_status_id=' . (int)$this->request->get['filter_order_status_id'];
 			}
 			
 			if (isset($this->request->get['filter_total'])) {

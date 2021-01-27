@@ -715,6 +715,12 @@ class ControllerCustomerCustomer extends Controller {
 			$data['store_id'] = array(0);
 		}
 
+		if (isset($this->request->get['customer_id'])) {
+			$data['orders'] = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&filter_customer_id=' . $this->request->get['customer_id'])
+		} else {
+			$data['orders'] = '';
+		}
+
 		if (!isset($this->request->get['customer_id'])) {
 			$data['action'] = $this->url->link('customer/customer/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
