@@ -219,6 +219,12 @@ class ControllerAccountAddress extends Controller {
 	}
 
 	protected function getForm() {
+		$data['text_address'] = !isset($this->request->get['address_id']) ? $this->language->get('text_address_add') : $this->language->get('text_address_edit');
+
+		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
+
+		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -247,8 +253,6 @@ class ControllerAccountAddress extends Controller {
 				'href' => $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true)
 			);
 		}
-
-		$data['text_address'] = !isset($this->request->get['address_id']) ? $this->language->get('text_address_add') : $this->language->get('text_address_edit');
 
 		if (isset($this->error['firstname'])) {
 			$data['error_firstname'] = $this->error['firstname'];
