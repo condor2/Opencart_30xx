@@ -716,7 +716,7 @@ class ControllerCustomerCustomer extends Controller {
 		}
 
 		if (isset($this->request->get['customer_id'])) {
-			$data['orders'] = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&filter_customer_id=' . $this->request->get['customer_id'])
+			$data['orders'] = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&filter_customer_id=' . $this->request->get['customer_id']);
 		} else {
 			$data['orders'] = '';
 		}
