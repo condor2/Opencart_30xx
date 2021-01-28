@@ -870,7 +870,7 @@ class ControllerSaleReturn extends Controller {
 
 		$data['histories'] = array();
 
-		$this->load->model('sale/returns');
+		$this->load->model('sale/return');
 
 		$results = $this->model_sale_return->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
 
