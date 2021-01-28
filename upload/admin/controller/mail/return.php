@@ -55,7 +55,7 @@ class ControllerMailReturn extends Controller {
 				}
 
 				$this->language->load($language_code, 'mail', $language_code);
-				$this->language->load('mail/returns', 'mail', $language_code);
+				$this->language->load('mail/return', 'mail', $language_code);
 
 				$subject = sprintf($this->language->get('text_subject'), $store_name, $return_id);
 
