@@ -281,7 +281,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			`transaction` int(11) NOT NULL DEFAULT '2',
 			`paypal_profile_id` varchar(250) NOT NULL DEFAULT '',
 			`laybuy_ref_no` int(11) NOT NULL DEFAULT '0',
-			`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`date_added` datetime NULL DEFAULT NULL,
 			PRIMARY KEY (`laybuy_transaction_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
