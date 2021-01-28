@@ -407,7 +407,7 @@ class ControllerProductProduct extends Controller {
 					$tax_price = (float)$result['special'];
 				} else {
 					$special = false;
-					$tax_price = (float)$result['price']
+					$tax_price = (float)$result['price'];
 				}
 
 				if ($this->config->get('config_tax')) {

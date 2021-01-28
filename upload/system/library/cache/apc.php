@@ -6,7 +6,6 @@ class APC {
 
 	public function __construct($expire) {
 		$this->expire = $expire;
-
 		$this->active = function_exists('apc_cache_info') && ini_get('apc.enabled');
 	}
 
@@ -14,8 +13,12 @@ class APC {
 		return $this->active ? apc_fetch(CACHE_PREFIX . $key) : false;
 	}
 
-	public function set($key, $value) {
-		return $this->active ? apc_store(CACHE_PREFIX . $key, $value, $this->expire) : false;
+	public function set($key, $value, $expire = '') {
+		if (!$expire) {
+			$expire = $this->expire;
+		}
+
+		return $this->active ? apc_store(CACHE_PREFIX . $key, $value, $expire) : false;
 	}
 
 	public function delete($key) {
