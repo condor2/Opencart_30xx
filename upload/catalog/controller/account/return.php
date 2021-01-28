@@ -36,8 +36,6 @@ class ControllerAccountReturn extends Controller {
 			'href' => $this->url->link('account/return', $url, true)
 		);
 
-		$this->load->model('account/return');
-
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -87,7 +85,7 @@ class ControllerAccountReturn extends Controller {
 		$this->load->language('account/return');
 
 		if (isset($this->request->get['return_id'])) {
-			$return_id = $this->request->get['return_id'];
+			$return_id = (int)$this->request->get['return_id'];
 		} else {
 			$return_id = 0;
 		}
@@ -327,8 +325,8 @@ class ControllerAccountReturn extends Controller {
 			$data['order_id'] = '';
 		}
 
-		if (isset($this->request->get['product_id'])) {
-			$data['product_id'] = $this->request->get['product_id'];
+		if (isset($this->request->post['product_id'])) {
+			$data['product_id'] = $this->request->post['product_id'];
 		} elseif (!empty($product_info)) {
 			$data['product_id'] = $product_info['product_id'];
 		} else {
@@ -420,8 +418,12 @@ class ControllerAccountReturn extends Controller {
 		}
 
 		// Captcha
-		if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
-			$data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
+		$this->load->model('setting/extension');
+
+		$extension_info = $this->model_setting_extension->getExtensionByCode('captcha', $this->config->get('config_captcha'));
+
+		if ($extension_info && $this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
+			$data['captcha'] = $this->load->controller('extension/'  . $extension_info['extension'] . '/captcha/' . $extension_info['code'], $this->error);
 		} else {
 			$data['captcha'] = '';
 		}
@@ -459,6 +461,24 @@ class ControllerAccountReturn extends Controller {
 	}
 
 	protected function validate() {
+		$keys = array(
+			'order_id',
+			'firstname',
+			'lastname',
+			'email',
+			'telephone',
+			'product',
+			'model',
+			'reason',
+			'agree'
+		);
+
+		foreach ($keys as $key) {
+			if (!isset($this->request->post[$key])) {
+				$this->request->post[$key] = '';
+			}
+		}
+
 		if (!isset($this->request->post['order_id']) || !$this->request->post['order_id']) {
 			$this->error['order_id'] = $this->language->get('error_order_id');
 		}
@@ -491,8 +511,13 @@ class ControllerAccountReturn extends Controller {
 			$this->error['reason'] = $this->language->get('error_reason');
 		}
 
-		if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
-			$captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
+		// Captcha
+		$this->load->model('setting/extension');
+
+		$extension_info = $this->model_setting_extension->getExtensionByCode('captcha', $this->config->get('config_captcha'));
+
+		if ($extension_info && $this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
+			$captcha = $this->load->controller('extension/'  . $extension_info['extension'] . '/captcha/' . $extension_info['code'] . '|validate');
 
 			if ($captcha) {
 				$this->error['captcha'] = $captcha;

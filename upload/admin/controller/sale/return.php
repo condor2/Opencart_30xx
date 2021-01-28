@@ -208,13 +208,13 @@ class ControllerSaleReturn extends Controller {
 
 	protected function getList() {
 		if (isset($this->request->get['filter_return_id'])) {
-			$filter_return_id = $this->request->get['filter_return_id'];
+			$filter_return_id = (int)$this->request->get['filter_return_id'];
 		} else {
 			$filter_return_id = '';
 		}
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$filter_order_id = $this->request->get['filter_order_id'];
+			$filter_order_id = (int)$this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
 		}
@@ -238,7 +238,7 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->get['filter_return_status_id'])) {
-			$filter_return_status_id = $this->request->get['filter_return_status_id'];
+			$filter_return_status_id = (int)$this->request->get['filter_return_status_id'];
 		} else {
 			$filter_return_status_id = '';
 		}
@@ -862,8 +862,6 @@ class ControllerSaleReturn extends Controller {
 	public function history() {
 		$this->load->language('sale/return');
 
-		$this->load->model('sale/return');
-
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -871,6 +869,8 @@ class ControllerSaleReturn extends Controller {
 		}
 
 		$data['histories'] = array();
+
+		$this->load->model('sale/returns');
 
 		$results = $this->model_sale_return->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
 
