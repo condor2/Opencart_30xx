@@ -56,61 +56,13 @@
               <label class="control-label" for="input-return-status">{{ entry_return_status }}</label>
               <select name="filter_return_status_id" id="input-return-status" class="form-control">
                 <option value=""></option>
-                
-                  
-                
-                
-                
-                
-            
-                  
                   {% for return_status in return_statuses %}
                   {% if return_status.return_status_id == filter_return_status_id %}
-                  
-                  
-            
-                
-                
-                
-                
-                  
                 <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
-                
-                  
-                
-                
-                
-                
-            
-                  
                   {% else %}
-                  
-                  
-            
-                
-                
-                
-                
-                  
                 <option value="{{ return_status.return_status_id }}">{{ return_status.name }}</option>
-                
-                  
-                
-                
-                
-                
-            
-                  
                   {% endif %}
                   {% endfor %}
-                
-                
-          
-              
-              
-              
-              
-                
               </select>
             </div>
             <div class="form-group">
@@ -159,7 +111,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% if returns %}
                   {% for return in returns %}
                   <tr>
@@ -185,7 +136,6 @@
                   </tr>
                   {% endif %}
                     </tbody>
-                  
                 </table>
               </div>
             </form>
