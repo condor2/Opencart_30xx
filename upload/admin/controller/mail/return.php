@@ -61,7 +61,7 @@ class ControllerMailReturn extends Controller {
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 				$mail->setSubject(sprintf($language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $return_id));
-				$mail->setText($this->load->view('mail/return', $data));
+				$mail->setHtml($this->load->view('mail/return', $data));
 				$mail->send();
 			}
 		}

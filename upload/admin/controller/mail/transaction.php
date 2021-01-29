@@ -72,7 +72,7 @@ class ControllerMailTransaction extends Controller {
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
 			$mail->setSubject(sprintf($language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')));
-			$mail->setText($this->load->view('mail/transaction', $data));
+			$mail->setHtml($this->load->view('mail/transaction', $data));
 			$mail->send();
 		}
 	}
