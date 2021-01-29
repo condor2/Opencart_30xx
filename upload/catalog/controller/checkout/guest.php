@@ -3,6 +3,10 @@ class ControllerCheckoutGuest extends Controller {
 	public function index() {
 		$this->load->language('checkout/checkout');
 
+		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
+
+		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
+
 		$data['customer_groups'] = array();
 
 		if (is_array($this->config->get('config_customer_group_display'))) {
