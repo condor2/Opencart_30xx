@@ -658,13 +658,15 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			$data['menus'][] = array(
-				'id'       => 'menu-report',
-				'icon'	   => 'fa-bar-chart-o', 
-				'name'	   => $this->language->get('text_reports'),
-				'href'     => '',
-				'children' => $report
-			);
+			if ($report) {
+				$data['menus'][] = array(
+					'id'       => 'menu-report',
+					'icon'	   => 'fa-bar-chart-o', 
+					'name'	   => $this->language->get('text_reports'),
+					'href'     => '',
+					'children' => $report
+				);
+			}
 
 			// Stats
 			if ($this->user->hasPermission('access', 'report/statistics')) {
@@ -675,7 +677,7 @@ class ControllerCommonColumnLeft extends Controller {
 				$this->load->model('report/statistics');
 
 				$complete_total = (float)$this->model_report_statistics->getValue('order_complete');
-			
+
 				if ($complete_total && $order_total) {
 					$data['complete_status'] = round(($complete_total / $order_total) * 100);
 				} else {
@@ -683,7 +685,7 @@ class ControllerCommonColumnLeft extends Controller {
 				}
 
 				$processing_total = (float)$this->model_report_statistics->getValue('order_processing');
-	
+
 				if ($processing_total && $order_total) {
 					$data['processing_status'] = round(($processing_total / $order_total) * 100);
 				} else {
