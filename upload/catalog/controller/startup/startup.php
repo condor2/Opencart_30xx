@@ -155,7 +155,7 @@ class ControllerStartupStartup extends Controller {
 		$this->registry->set('language', $language);
 
 		// Set the config language_id
-		$this->config->set('config_language_id', $languages[$code]['language_id']);	
+		$this->config->set('config_language_id', $languages[$code]['language_id']);
 
 		// Customer
 		$customer = new Cart\Customer($this->registry);
