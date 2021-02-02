@@ -1125,11 +1125,17 @@ class ControllerCustomerCustomer extends Controller {
 			}
 
 			$affiliate_info = $this->model_customer_customer->getAffiliateByTracking($this->request->post['tracking']);
-		
-			if ($affiliate_info && (!isset($this->request->get['customer_id']) || ($this->request->get['customer_id'] != $affiliate_info['customer_id']))) {
-				$this->error['tracking'] = $this->language->get('error_tracking_exists');
+
+			if (!isset($this->request->get['customer_id'])) {
+				if ($affiliate_info) {
+					$this->error['tracking'] = $this->language->get('error_tracking_exists');
+				}
+			} else {
+				if ($affiliate_info && ($this->request->get['customer_id'] != $affiliate_info['customer_id'])) {
+					$this->error['tracking'] = $this->language->get('error_tracking_exists');
+				}
 			}
-			
+
 			foreach ($custom_fields as $custom_field) {
 				if (($custom_field['location'] == 'affiliate') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
@@ -1138,7 +1144,7 @@ class ControllerCustomerCustomer extends Controller {
 				}
 			}			
 		}
-		
+
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
 		}
