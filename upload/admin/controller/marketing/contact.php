@@ -78,9 +78,9 @@ class ControllerMarketingContact extends Controller {
 				} else {
 					$store_name = $this->config->get('config_name');
 				}
-				
+
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
-				
+
 				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
 
 				if (isset($this->request->get['page'])) {
@@ -140,17 +140,17 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'customer':
 						if (!empty($this->request->post['customer'])) {
+							$email_total = count($this->request->post['customer']);
+
 							$customers = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
 
-                            foreach ($customers as $customer_id) {
-                                $customer_info = $this->model_customer_customer->getCustomer($customer_id);
+							foreach ($customers as $customer_id) {
+								$customer_info = $this->model_customer_customer->getCustomer($customer_id);
 
-                                if ($customer_info) {
-                                    $emails[] = $customer_info['email'];
-                                }
-                            }
-
-							$email_total = count($this->request->post['customer']);
+								if ($customer_info) {
+									$emails[] = $customer_info['email'];
+								}
+							}
 						}
 						break;
 					case 'affiliate_all':
@@ -228,7 +228,7 @@ class ControllerMarketingContact extends Controller {
 
 					foreach ($emails as $email) {
 						if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-							$mail->setTo($email);
+							$mail->setTo(trim($email));
 							$mail->setFrom($store_email);
 							$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
 							$mail->setSubject(html_entity_decode($this->request->post['subject'], ENT_QUOTES, 'UTF-8'));
