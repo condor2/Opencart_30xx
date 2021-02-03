@@ -461,23 +461,6 @@ class ControllerAccountReturn extends Controller {
 	}
 
 	protected function validate() {
-		$keys = array(
-			'order_id',
-			'firstname',
-			'lastname',
-			'email',
-			'telephone',
-			'product',
-			'model',
-			'reason',
-			'agree'
-		);
-
-		foreach ($keys as $key) {
-			if (!isset($this->request->post[$key])) {
-				$this->request->post[$key] = '';
-			}
-		}
 
 		if (!isset($this->request->post['order_id']) || !$this->request->post['order_id']) {
 			$this->error['order_id'] = $this->language->get('error_order_id');
