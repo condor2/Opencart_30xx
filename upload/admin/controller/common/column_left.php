@@ -93,7 +93,7 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()
 				);
 			}
-			
+
 			if ($this->user->hasPermission('access', 'catalog/download')) {
 				$catalog[] = array(
 					'name'	   => $this->language->get('text_download'),
@@ -121,7 +121,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($catalog) {
 				$data['menus'][] = array(
 					'id'       => 'menu-catalog',
-					'icon'	   => 'fa-tags', 
+					'icon'	   => 'fa-tags',
 					'name'	   => $this->language->get('text_catalog'),
 					'href'     => '',
 					'children' => $catalog
@@ -182,7 +182,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($marketplace) {
 				$data['menus'][] = array(
 					'id'       => 'menu-extension',
-					'icon'	   => 'fa-puzzle-piece', 
+					'icon'	   => 'fa-puzzle-piece',
 					'name'	   => $this->language->get('text_extension'),
 					'href'     => '',
 					'children' => $marketplace
@@ -200,7 +200,7 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'design/theme')) {	
+			if ($this->user->hasPermission('access', 'design/theme')) {
 				$design[] = array(
 					'name'	   => $this->language->get('text_theme'),
 					'href'     => $this->url->link('design/theme', 'user_token=' . $this->session->data['user_token'], true),
@@ -235,7 +235,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($design) {
 				$data['menus'][] = array(
 					'id'       => 'menu-design',
-					'icon'	   => 'fa-television', 
+					'icon'	   => 'fa-television',
 					'name'	   => $this->language->get('text_design'),
 					'href'     => '',
 					'children' => $design
@@ -255,7 +255,7 @@ class ControllerCommonColumnLeft extends Controller {
 
 			if ($this->user->hasPermission('access', 'sale/recurring')) {
 				$sale[] = array(
-					'name'	   => $this->language->get('text_recurring'),
+					'name'	   => $this->language->get('text_order_recurring'),
 					'href'     => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
@@ -299,7 +299,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($sale) {
 				$data['menus'][] = array(
 					'id'       => 'menu-sale',
-					'icon'	   => 'fa-shopping-cart', 
+					'icon'	   => 'fa-shopping-cart',
 					'name'	   => $this->language->get('text_sale'),
 					'href'     => '',
 					'children' => $sale
@@ -344,7 +344,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($customer) {
 				$data['menus'][] = array(
 					'id'       => 'menu-customer',
-					'icon'	   => 'fa-user', 
+					'icon'	   => 'fa-user',
 					'name'	   => $this->language->get('text_customer'),
 					'href'     => '',
 					'children' => $customer
@@ -362,7 +362,7 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'marketing/coupon')) {	
+			if ($this->user->hasPermission('access', 'marketing/coupon')) {
 				$marketing[] = array(
 					'name'	   => $this->language->get('text_coupon'),
 					'href'     => $this->url->link('marketing/coupon', 'user_token=' . $this->session->data['user_token'], true),
@@ -381,7 +381,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($marketing) {
 				$data['menus'][] = array(
 					'id'       => 'menu-marketing',
-					'icon'	   => 'fa-share-alt', 
+					'icon'	   => 'fa-share-alt',
 					'name'	   => $this->language->get('text_marketing'),
 					'href'     => '',
 					'children' => $marketing
@@ -430,7 +430,7 @@ class ControllerCommonColumnLeft extends Controller {
 				$system[] = array(
 					'name'	   => $this->language->get('text_users'),
 					'href'     => '',
-					'children' => $user	
+					'children' => $user
 				);
 			}
 
@@ -504,7 +504,7 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			if ($return) {	
+			if ($return) {
 				$localisation[] = array(
 					'name'	   => $this->language->get('text_return'),
 					'href'     => '',
@@ -583,7 +583,7 @@ class ControllerCommonColumnLeft extends Controller {
 				$system[] = array(
 					'name'	   => $this->language->get('text_localisation'),
 					'href'     => '',
-					'children' => $localisation	
+					'children' => $localisation
 				);
 			}
 
@@ -625,7 +625,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($system) {
 				$data['menus'][] = array(
 					'id'       => 'menu-system',
-					'icon'	   => 'fa-cog', 
+					'icon'	   => 'fa-cog',
 					'name'	   => $this->language->get('text_system'),
 					'href'     => '',
 					'children' => $system
@@ -661,7 +661,7 @@ class ControllerCommonColumnLeft extends Controller {
 			if ($report) {
 				$data['menus'][] = array(
 					'id'       => 'menu-report',
-					'icon'	   => 'fa-bar-chart-o', 
+					'icon'	   => 'fa-bar-chart',
 					'name'	   => $this->language->get('text_reports'),
 					'href'     => '',
 					'children' => $report
