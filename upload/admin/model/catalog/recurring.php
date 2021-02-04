@@ -13,7 +13,7 @@ class ModelCatalogRecurring extends Model {
 	}
 
 	public function editRecurring($recurring_id, $data) {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring_description` WHERE recurring_id = '" . (int)$recurring_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring_description` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "recurring` SET `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape((string)$data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape((string)$data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "' WHERE recurring_id = '" . (int)$recurring_id . "'");
 
@@ -35,14 +35,14 @@ class ModelCatalogRecurring extends Model {
 	}
 
 	public function deleteRecurring($recurring_id) {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring` WHERE recurring_id = '" . (int)$recurring_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring_description` WHERE recurring_id = '" . (int)$recurring_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE recurring_id = '" . (int)$recurring_id . "'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `recurring_id` = 0 WHERE `recurring_id` = '" . (int)$recurring_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "recurring_description` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `recurring_id` = '0' WHERE `recurring_id` = '" . (int)$recurring_id . "'");
 	}
 
 	public function getRecurring($recurring_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "recurring` WHERE recurring_id = '" . (int)$recurring_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "recurring` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
 
 		return $query->row;
 	}
@@ -60,21 +60,21 @@ class ModelCatalogRecurring extends Model {
 	}
 
 	public function getRecurrings($data = array()) {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN " . DB_PREFIX . "recurring_description rd ON (r.recurring_id = rd.recurring_id) WHERE rd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND rd.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+			$sql .= " AND rd.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
 		$sort_data = array(
-			'rd.name',
-			'r.sort_order'
+			'rd.`name`',
+			'r.`sort_order`'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY rd.name";
+			$sql .= " ORDER BY rd.`name`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -101,7 +101,7 @@ class ModelCatalogRecurring extends Model {
 	}
 
 	public function getTotalRecurrings() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "recurring`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "recurring`");
 
 		return $query->row['total'];
 	}
