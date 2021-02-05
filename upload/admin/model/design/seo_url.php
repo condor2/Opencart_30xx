@@ -1,7 +1,7 @@
 <?php
 class ModelDesignSeoUrl extends Model {
 	public function addSeoUrl($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET store_id = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `query` = '" . $this->db->escape(html_entity_decode((string)$data['query'], ENT_QUOTES, 'UTF-8')) . "', `keyword` = '" . $this->db->escape((string)$data['keyword']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `query` = '" . $this->db->escape(html_entity_decode((string)$data['query'], ENT_QUOTES, 'UTF-8')) . "', `keyword` = '" . $this->db->escape((string)$data['keyword']) . "'");
 	}
 
 	public function editSeoUrl($seo_url_id, $data) {
@@ -9,7 +9,7 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	public function deleteSeoUrl($seo_url_id) {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE seo_url_id = '" . (int)$seo_url_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 	}
 	
 	public function getSeoUrl($seo_url_id) {
@@ -19,7 +19,7 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	public function getSeoUrls($data = array()) {
-		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = su.`store_id`) AS store, (SELECT `name` FROM `" . DB_PREFIX . "language` l WHERE l.`language_id` = su.`language_id`) AS language FROM `" . DB_PREFIX . "seo_url` su";
+		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = su.`store_id`) AS `store`, (SELECT `name` FROM `" . DB_PREFIX . "language` l WHERE l.`language_id` = su.`language_id`) AS `language` FROM `" . DB_PREFIX . "seo_url` su";
 
 		$implode = array();
 
@@ -44,10 +44,10 @@ class ModelDesignSeoUrl extends Model {
 		}	
 
 		$sort_data = array(
-			'query',
-			'keyword',
-			'store_id',
-			'language_id'
+			'`query`',
+			'`keyword`',
+			'`store_id`',
+			'`language_id`'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
@@ -80,7 +80,7 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	public function getTotalSeoUrls($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "seo_url`";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "seo_url`";
 		
 		$implode = array();
 
