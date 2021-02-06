@@ -7356,7 +7356,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3503, 220, 'Zakarpats''ka Oblast''', '21', 1),
 (3504, 220, 'Zaporiz''ka Oblast''', '23', 1),
 (3505, 220, 'Zhytomyrs''ka oblast''', '18', 1),
-(3506, 221, 'Abū Z̧aby', 'ADH', 1),
+(3506, 221, 'Abū Z̧aby', 'AZ', 1),
 (3507, 221, '‘Ajmān', 'AJ', 1),
 (3508, 221, 'Al Fujayrah', 'FU', 1),
 (3509, 221, 'Ash Shāriqah', 'SH', 1),
