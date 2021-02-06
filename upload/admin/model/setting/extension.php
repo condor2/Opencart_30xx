@@ -44,7 +44,7 @@ class ModelSettingExtension extends Model {
 			$limit = 10;
 		}		
 		
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` ORDER BY date_added ASC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` ORDER BY `date_added` ASC LIMIT " . (int)$start . "," . (int)$limit);
 	
 		return $query->rows;
 	}
@@ -56,7 +56,7 @@ class ModelSettingExtension extends Model {
 	}
 		
 	public function getTotalExtensionInstalls() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "extension_install`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_install`");
 
 		return $query->row['total'];
 	}
