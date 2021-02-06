@@ -222,19 +222,19 @@ class ModelCatalogCategory extends Model {
 			$sql .= " AND cd2.`name` LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
-		$sql .= " GROUP BY cp.category_id";
+		$sql .= " GROUP BY cp.`category_id`";
 
 		$sort_data = array(
-			'category_id',
-			'name',
+			'`category_id`',
+			'`name`',
 			'c1.`status`',
-			'sort_order'
+			'`sort_order`'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
 		} else {
-			$sql .= " ORDER BY sort_order";
+			$sql .= " ORDER BY `sort_order`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -342,5 +342,5 @@ class ModelCatalogCategory extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "category_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
 
 		return $query->row['total'];
-	}	
+	}
 }

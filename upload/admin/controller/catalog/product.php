@@ -342,17 +342,17 @@ class ControllerCatalogProduct extends Controller {
 		$data['products'] = array();
 
 		$filter_data = array(
-			'filter_name'	  => $filter_name,
-			'filter_manufacturer'   => $filter_manufacturer,
-			'filter_model'	  => $filter_model,
-			'filter_price'	  => $filter_price,
-			'filter_quantity' => $filter_quantity,
-			'filter_status'   => $filter_status,
-			'filter_image'    => $filter_image,
-			'sort'            => $sort,
-			'order'           => $order,
-			'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'           => $this->config->get('config_limit_admin')
+			'filter_name'	      => $filter_name,
+			'filter_manufacturer' => $filter_manufacturer,
+			'filter_model'	      => $filter_model,
+			'filter_price'	      => $filter_price,
+			'filter_quantity'     => $filter_quantity,
+			'filter_status'       => $filter_status,
+			'filter_image'        => $filter_image,
+			'sort'                => $sort,
+			'order'               => $order,
+			'start'               => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'               => $this->config->get('config_limit_admin')
 		);
 
 		$this->load->model('tool/image');

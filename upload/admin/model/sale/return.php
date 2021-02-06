@@ -112,19 +112,19 @@ class ModelSaleReturn extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$implode[] = "CONCAT(r.`firstname`, ' ', r.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
+			$implode[] = "CONCAT(r.`firstname`, ' ', r.`lastname`) LIKE '" . $this->db->escape((string)$data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "r.`order_id` = '" . $this->db->escape($data['filter_order_id']) . "'";
+			$implode[] = "r.`order_id` = '" . $this->db->escape((string)$data['filter_order_id']) . "'";
 		}
 
 		if (!empty($data['filter_product'])) {
-			$implode[] = "r.`product` = '" . $this->db->escape($data['filter_product']) . "'";
+			$implode[] = "r.`product` = '" . $this->db->escape((string)$data['filter_product']) . "'";
 		}
 
 		if (!empty($data['filter_model'])) {
-			$implode[] = "r.`model` = '" . $this->db->escape($data['filter_model']) . "'";
+			$implode[] = "r.`model` = '" . $this->db->escape((string)$data['filter_model']) . "'";
 		}
 
 		if (!empty($data['filter_return_status_id'])) {
@@ -132,11 +132,11 @@ class ModelSaleReturn extends Model {
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(r.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+			$implode[] = "DATE(r.`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
 		}
 
 		if (!empty($data['filter_date_modified'])) {
-			$implode[] = "DATE(r.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
+			$implode[] = "DATE(r.`date_modified`) = DATE('" . $this->db->escape((string)$data['filter_date_modified']) . "')";
 		}
 
 		if ($implode) {

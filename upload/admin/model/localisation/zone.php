@@ -1,15 +1,15 @@
 <?php
 class ModelLocalisationZone extends Model {
 	public function addZone($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape((string)$data['name']) . "', `code` = '" . $this->db->escape((string)$data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
 
 		$this->cache->delete('zone');
-		
+
 		return $this->db->getLastId();
 	}
 
 	public function editZone($zone_id, $data) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape((string)$data['name']) . "', `code` = '" . $this->db->escape((string)$data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
 
 		$this->cache->delete('zone');
 	}
@@ -28,6 +28,24 @@ class ModelLocalisationZone extends Model {
 
 	public function getZones($data = array()) {
 		$sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
+
+		$implode = array();
+
+		if (!empty($data['filter_name'])) {
+			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_country'])) {
+			$implode[] = "c.`name` LIKE '" . $this->db->escape((string)$data['filter_country']) . "%'";
+		}
+
+		if (!empty($data['filter_code'])) {
+			$implode[] = "z.`code` LIKE '" . $this->db->escape((string)$data['filter_code']) . "%'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
 
 		$sort_data = array(
 			'c.`name`',
@@ -78,8 +96,32 @@ class ModelLocalisationZone extends Model {
 		return $zone_data;
 	}
 
-	public function getTotalZones() {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
+	public function getTotalZones($data = array()) {
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` z";
+
+		if (!empty($data['filter_country'])) {
+			$sql .= " LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
+		}
+
+		$implode = array();
+
+		if (!empty($data['filter_name'])) {
+			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_country'])) {
+			$implode[] = "c.`name` LIKE '" . $this->db->escape((string)$data['filter_country']) . "%'";
+		}
+
+		if (!empty($data['filter_code'])) {
+			$implode[] = "z.`code` LIKE '" . $this->db->escape((string)$data['filter_code']) . "%'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
 
 		return $query->row['total'];
 	}

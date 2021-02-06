@@ -11,6 +11,7 @@ class ControllerMarketplaceCron extends Controller {
 
 		$this->getList();
 	}
+
 	public function delete() {
 		$this->load->language('marketplace/cron');
 
@@ -41,6 +42,7 @@ class ControllerMarketplaceCron extends Controller {
 
 			$this->response->redirect($this->url->link('marketplace/cron', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
+
 		$this->getList();
 	}
 
@@ -128,6 +130,7 @@ class ControllerMarketplaceCron extends Controller {
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
+
 			unset($this->session->data['success']);
 		} else {
 			$data['success'] = '';
@@ -191,6 +194,7 @@ class ControllerMarketplaceCron extends Controller {
 		if (!$this->user->hasPermission('modify', 'marketplace/cron')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
+
 		return !$this->error;
 	}
 
@@ -209,11 +213,15 @@ class ControllerMarketplaceCron extends Controller {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
 			$this->load->model('setting/cron');
+
 			$cron_info = $this->model_setting_cron->getCron($cron_id);
+
 			if ($cron_info) {
 				$this->load->controller($cron_info['action'], $cron_id, $cron_info['code'], $cron_info['cycle'], $cron_info['date_added'], $cron_info['date_modified']);
+
 				$this->model_setting_cron->editCron($cron_info['cron_id']);
 			}
+
 			$json['success'] = $this->language->get('text_success');
 		}
 
@@ -236,7 +244,9 @@ class ControllerMarketplaceCron extends Controller {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
 			$this->load->model('setting/cron');
+
 			$this->model_setting_cron->editStatus($cron_id, 1);
+
 			$json['success'] = $this->language->get('text_success');
 		}
 

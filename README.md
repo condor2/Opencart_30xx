@@ -39,6 +39,8 @@ This is a modified version of Opencart 3.0.3.6.
 - Orders button when you edit a customer. Code used from 4.0.0.0_b
 - Display Store name in Sales-->Orders. Code used from 4.0.0.0_b
 - SameSite cookie code from 4.0.0.0_b.
+- Admin Country filter code from 4.0.0.0_b.
+- Admin Zone filter code from 4.0.0.0_b.
 
 ## Note
 This version is not supported by Opencart. You need to have at least PHP 7.3 to use this version.

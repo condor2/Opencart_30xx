@@ -28,7 +28,7 @@ class ModelCustomerCustomField extends Model {
 				}
 			}
 		}
-		
+
 		return $custom_field_id;
 	}
 
@@ -57,7 +57,7 @@ class ModelCustomerCustomField extends Model {
 		if (isset($data['custom_field_value'])) {
 			foreach ($data['custom_field_value'] as $custom_field_value) {
 				if ($custom_field_value['custom_field_value_id']) {
-					$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field_value` SET `custom_field_value_id` = '" . (int)$custom_field_value['custom_field_value_id'] . "', custom_field_id = '" . (int)$custom_field_id . "', sort_order = '" . (int)$custom_field_value['sort_order'] . "'");
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field_value` SET `custom_field_value_id` = '" . (int)$custom_field_value['custom_field_value_id'] . "', `custom_field_id` = '" . (int)$custom_field_id . "', `sort_order` = '" . (int)$custom_field_value['sort_order'] . "'");
 				} else {
 					$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field_value` SET `custom_field_id` = '" . (int)$custom_field_id . "', `sort_order` = '" . (int)$custom_field_value['sort_order'] . "'");
 				}
@@ -156,13 +156,13 @@ class ModelCustomerCustomField extends Model {
 
 		return $custom_field_data;
 	}
-	
+
 	public function getCustomFieldValue($custom_field_value_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` cfv LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` cfvd ON (cfv.`custom_field_value_id` = cfvd.`custom_field_value_id`) WHERE cfv.`custom_field_value_id` = '" . (int)$custom_field_value_id . "' AND cfvd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
-	
+
 	public function getCustomFieldValues($custom_field_id) {
 		$custom_field_value_data = array();
 
