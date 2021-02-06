@@ -7,7 +7,7 @@ class ModelToolUpload extends Model {
 
 		return $code;
 	}
-		
+
 	public function deleteUpload($upload_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
 	}
@@ -52,7 +52,7 @@ class ModelToolUpload extends Model {
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
+			$sql .= " ORDER BY `" . $data['sort'] . "`";
 		} else {
 			$sql .= " ORDER BY `date_added`";
 		}
