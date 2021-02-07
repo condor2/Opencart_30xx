@@ -11,7 +11,7 @@ $_['text_affiliate']        = 'Affiliate';
 $_['text_filter']           = 'Filter';
 
 // Column
-$_['column_name']           = 'Customer Name';
+$_['column_customer']       = 'Customer';
 $_['column_email']          = 'E-Mail';
 $_['column_customer_group'] = 'Customer Group';
 $_['column_type']           = 'Type';
@@ -19,7 +19,7 @@ $_['column_date_added']     = 'Date Added';
 $_['column_action']         = 'Action';
 
 // Entry
-$_['entry_name']            = 'Customer Name';
+$_['entry_customer']        = 'Customer';
 $_['entry_email']           = 'E-Mail';
 $_['entry_customer_group']  = 'Customer Group';
 $_['entry_type']            = 'Type';
