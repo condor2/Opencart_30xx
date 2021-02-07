@@ -9,6 +9,7 @@ $_['text_disable']	          = 'Success: You have disabled countries!';
 $_['text_list']               = 'Country List';
 $_['text_add']                = 'Add Country';
 $_['text_edit']               = 'Edit Country';
+$_['text_filter']             = 'Filter';
 
 // Column
 $_['column_name']             = 'Country Name';
