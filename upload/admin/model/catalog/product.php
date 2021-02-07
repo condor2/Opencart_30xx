@@ -676,7 +676,7 @@ class ModelCatalogProduct extends Model {
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-			$sql .= " AND p`.status` = '" . (int)$data['filter_status'] . "'";
+			$sql .= " AND p.`status` = '" . (int)$data['filter_status'] . "'";
 		}
 
 		if (isset($data['filter_image']) && $data['filter_image'] !== '') {
