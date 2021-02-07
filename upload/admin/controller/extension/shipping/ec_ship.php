@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionShippingECShip extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('extension/shipping/ec_ship');
@@ -41,7 +41,7 @@ class ControllerExtensionShippingECShip extends Controller {
 			$data['error_api_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

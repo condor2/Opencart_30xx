@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleBanner extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/module/banner');
@@ -45,7 +45,7 @@ class ControllerExtensionModuleBanner extends Controller {
 			$data['error_height'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

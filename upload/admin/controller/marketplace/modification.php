@@ -5,7 +5,7 @@
  * https://github.com/opencart/opencart/wiki/Modification-System
  */
 class ControllerMarketplaceModification extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('marketplace/modification');
@@ -51,7 +51,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function refresh($data = array()) {
+	public function refresh($data = []) {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -67,10 +67,10 @@ class ControllerMarketplaceModification extends Controller {
 			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
 			//Log
-			$log = array();
+			$log = [];
 
 			// Clear all modification files
-			$files = array();
+			$files = [];
 
 			// Make path into an array
 			$path = array(DIR_MODIFICATION . '*');
@@ -108,7 +108,7 @@ class ControllerMarketplaceModification extends Controller {
 			}
 
 			// Begin
-			$xml = array();
+			$xml = [];
 
 			// Load the default modification XML
 			$xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
@@ -131,7 +131,7 @@ class ControllerMarketplaceModification extends Controller {
 				}
 			}
 
-			$modification = array();
+			$modification = [];
 
 			foreach ($xml as $xml) {
 				if (empty($xml)){
@@ -146,7 +146,7 @@ class ControllerMarketplaceModification extends Controller {
 				$log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
 
 				// Wipe the past modification store in the backup array
-				$recovery = array();
+				$recovery = [];
 
 				// Set the a recovery of the modification code in case we need to use it if an abort attribute is used.
 				if (isset($modification)) {
@@ -259,7 +259,7 @@ class ControllerMarketplaceModification extends Controller {
 											if ($index !== '') {
 												$indexes = explode(',', $index);
 											} else {
-												$indexes = array();
+												$indexes = [];
 											}
 
 											// Get all the matches
@@ -335,7 +335,7 @@ class ControllerMarketplaceModification extends Controller {
 											}
 
 											// Log
-											$match = array();
+											$match = [];
 
 											preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
 
@@ -452,7 +452,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->load->model('setting/modification');
 
 		if ($this->validate()) {
-			$files = array();
+			$files = [];
 
 			// Make path into an array
 			$path = array(DIR_MODIFICATION . '*');
@@ -642,7 +642,7 @@ class ControllerMarketplaceModification extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -658,7 +658,7 @@ class ControllerMarketplaceModification extends Controller {
 		$data['clear'] = $this->url->link('marketplace/modification/clear', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('marketplace/modification/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['modifications'] = array();
+		$data['modifications'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -705,7 +705,7 @@ class ControllerMarketplaceModification extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';

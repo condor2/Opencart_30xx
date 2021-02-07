@@ -5,7 +5,7 @@ class ControllerReportReport extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -26,7 +26,7 @@ class ControllerReportReport extends Controller {
 		}
 
 		// Reports
-		$data['reports'] = array();
+		$data['reports'] = [];
 		
 		$this->load->model('setting/extension');
 
@@ -47,7 +47,7 @@ class ControllerReportReport extends Controller {
 			}
 		}
 		
-		$sort_order = array();
+		$sort_order = [];
 
 		foreach ($data['reports'] as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];

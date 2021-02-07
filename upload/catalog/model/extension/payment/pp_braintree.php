@@ -156,7 +156,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -171,7 +171,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 	}
 
 	public function getSupportedCurrencies() {
-		$currencies = array();
+		$currencies = [];
 
 		foreach ($this->config->get('payment_pp_braintree_account') as $currency => $account) {
 			if ($account['status']) {

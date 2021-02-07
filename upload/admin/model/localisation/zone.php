@@ -26,10 +26,10 @@ class ModelLocalisationZone extends Model {
 		return $query->row;
 	}
 
-	public function getZones($data = array()) {
+	public function getZones($data = []) {
 		$sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -96,14 +96,14 @@ class ModelLocalisationZone extends Model {
 		return $zone_data;
 	}
 
-	public function getTotalZones($data = array()) {
+	public function getTotalZones($data = []) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` z";
 
 		if (!empty($data['filter_country'])) {
 			$sql .= " LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 		}
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";

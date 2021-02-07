@@ -15,7 +15,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -47,7 +47,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 		return $order->row;
 	}
 
-	public function addTransaction($fd_order_id, $type, $order_info = array()) {
+	public function addTransaction($fd_order_id, $type, $order_info = []) {
 		if (!empty($order_info)) {
 			$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 		} else {

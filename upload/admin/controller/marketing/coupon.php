@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketingCoupon extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('marketing/coupon');
@@ -143,7 +143,7 @@ class ControllerMarketingCoupon extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -158,7 +158,7 @@ class ControllerMarketingCoupon extends Controller {
 		$data['add'] = $this->url->link('marketing/coupon/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('marketing/coupon/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['coupons'] = array();
+		$data['coupons'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -201,7 +201,7 @@ class ControllerMarketingCoupon extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -308,7 +308,7 @@ class ControllerMarketingCoupon extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -393,12 +393,12 @@ class ControllerMarketingCoupon extends Controller {
 		} elseif (!empty($coupon_info)) {
 			$products = $this->model_marketing_coupon->getCouponProducts($this->request->get['coupon_id']);
 		} else {
-			$products = array();
+			$products = [];
 		}
 
 		$this->load->model('catalog/product');
 
-		$data['coupon_product'] = array();
+		$data['coupon_product'] = [];
 
 		foreach ($products as $product_id) {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
@@ -416,12 +416,12 @@ class ControllerMarketingCoupon extends Controller {
 		} elseif (!empty($coupon_info)) {
 			$categories = $this->model_marketing_coupon->getCouponCategories($this->request->get['coupon_id']);
 		} else {
-			$categories = array();
+			$categories = [];
 		}
 
 		$this->load->model('catalog/category');
 
-		$data['coupon_category'] = array();
+		$data['coupon_category'] = [];
 
 		foreach ($categories as $category_id) {
 			$category_info = $this->model_catalog_category->getCategory($category_id);
@@ -526,7 +526,7 @@ class ControllerMarketingCoupon extends Controller {
 			$page = 1;
 		}
 
-		$data['histories'] = array();
+		$data['histories'] = [];
 
 		$results = $this->model_marketing_coupon->getCouponHistories($this->request->get['coupon_id'], ($page - 1) * 10, 10);
 

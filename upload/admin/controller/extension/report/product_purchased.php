@@ -21,7 +21,7 @@ class ControllerExtensionReportProductPurchased extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -98,7 +98,7 @@ class ControllerExtensionReportProductPurchased extends Controller {
 
 		$this->load->model('extension/report/product');
 
-		$data['products'] = array();
+		$data['products'] = [];
 
 		$filter_data = array(
 			'filter_date_start'	     => $filter_date_start,

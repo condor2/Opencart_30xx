@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentLaybuy extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->model('setting/setting');
@@ -21,7 +21,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -87,10 +87,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		} elseif ($this->config->get('payment_laybuy_category')) {
 			$data['payment_laybuy_category'] = $this->config->get('payment_laybuy_category');
 		} else {
-			$data['payment_laybuy_category'] = array();
+			$data['payment_laybuy_category'] = [];
 		}
 
-		$data['categories'] = array();
+		$data['categories'] = [];
 
 		$this->load->model('catalog/category');
 
@@ -116,10 +116,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		} elseif ($this->config->get('payment_laybuy_customer_group')) {
 			$data['payment_laybuy_customer_group'] = $this->config->get('payment_laybuy_customer_group');
 		} else {
-			$data['payment_laybuy_customer_group'] = array();
+			$data['payment_laybuy_customer_group'] = [];
 		}
 
-		$data['customer_groups'] = array();
+		$data['customer_groups'] = [];
 
 		$this->load->model('customer/customer_group');
 
@@ -299,7 +299,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$page = 1;
 		}
 
-		$data['reports'] = array();
+		$data['reports'] = [];
 
 		$filter_data = array(
 			'filter_order_id'	=> $filter_order_id,
@@ -348,7 +348,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -486,7 +486,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if ($this->user->hasPermission('modify', 'extension/payment/laybuy')) {
 			$this->load->language('extension/payment/laybuy');
 
-			$json = array();
+			$json = [];
 
 			$fetched = 0;
 
@@ -531,7 +531,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 						$report = $reports['report'];
 
-						$transaction = array();
+						$transaction = [];
 
 						$transaction = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
 
@@ -541,7 +541,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 						$months = $transaction['months'];
 
-						$report_content = array();
+						$report_content = [];
 
 						$pending_flag = false;
 
@@ -672,7 +672,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$this->document->setTitle($this->language->get('heading_transaction_title'));
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -750,7 +750,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				'report'        	 => json_decode($transaction_info['report'], true)
 			);
 		} else {
-			$data['transaction'] = array();
+			$data['transaction'] = [];
 
 			$data['text_not_found'] = $this->language->get('text_not_found');
 		}
@@ -798,7 +798,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if ($this->user->hasPermission('modify', 'extension/payment/laybuy')) {
 			$this->load->language('extension/payment/laybuy');
 
-			$json = array();
+			$json = [];
 
 			$id = (int)$this->request->get['id'];
 
@@ -894,7 +894,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 				$this->load->language('extension/payment/laybuy');
 
-				$json = array();
+				$json = [];
 
 				$payment_type = $this->request->post['payment_type'];
 
@@ -966,7 +966,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 					$pplan = '0';
 				}
 
-				$data = array();
+				$data = [];
 
 				$data['mid']       = $this->config->get('payment_laybuys_membership_id');
 				$data['eml']       = $revised_transaction['email'];
@@ -1036,7 +1036,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	public function autocomplete() {
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['filter_customer_group'])) {
 			$this->load->model('customer/customer_group');

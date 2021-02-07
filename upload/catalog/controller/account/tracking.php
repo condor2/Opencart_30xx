@@ -16,7 +16,7 @@ class ControllerAccountTracking extends Controller {
 	
 			$this->document->setTitle($this->language->get('heading_title'));
 	
-			$data['breadcrumbs'] = array();
+			$data['breadcrumbs'] = [];
 	
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
@@ -53,7 +53,7 @@ class ControllerAccountTracking extends Controller {
 	}
 
 	public function autocomplete() {
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['filter_name'])) {
 			if (isset($this->request->get['tracking'])) {

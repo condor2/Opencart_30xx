@@ -43,7 +43,7 @@ class ModelUpgrade1000 extends Model {
 			}
 		}
 
-		$table_new_data = array();
+		$table_new_data = [];
 
 		// Trim any spaces
 		$string = trim($string);
@@ -56,7 +56,7 @@ class ModelUpgrade1000 extends Model {
 
 		foreach ($statements as $sql) {
 			// Get all fields
-			$field_data = array();
+			$field_data = [];
 
 			preg_match_all('#`(\w[\w\d]*)`\s+((tinyint|smallint|mediumint|bigint|int|tinytext|text|mediumtext|longtext|tinyblob|blob|mediumblob|longblob|varchar|char|datetime|date|float|double|decimal|timestamp|time|year|enum|set|binary|varbinary)(\((.*)\))?){1}\s*(collate (\w+)\s*)?(unsigned\s*)?((NOT\s*NULL\s*)|(NULL\s*))?(auto_increment\s*)?(default \'([^\']*)\'\s*)?#i', $sql, $match);
 
@@ -75,14 +75,14 @@ class ModelUpgrade1000 extends Model {
 			}
 
 			// Get primary keys
-			$primary_data = array();
+			$primary_data = [];
 
 			preg_match('#primary\s*key\s*\([^)]+\)#i', $sql, $match);
 
 			if (isset($match[0])) {
 				preg_match_all('#`(\w[\w\d]*)`#', $match[0], $match);
 			} else{
-				$match = array();
+				$match = [];
 			}
 
 			if ($match) {
@@ -92,9 +92,9 @@ class ModelUpgrade1000 extends Model {
 			}
 
 			// Get indexes
-			$index_data = array();
+			$index_data = [];
 
-			$indexes = array();
+			$indexes = [];
 
 			preg_match_all('#key\s*`\w[\w\d]*`\s*\(.*\)#i', $sql, $match);
 
@@ -117,7 +117,7 @@ class ModelUpgrade1000 extends Model {
 			}
 
 			// Table options
-			$option_data = array();
+			$option_data = [];
 
 			preg_match_all('#(\w+)=\'?(\w+\~?\w+)\'?#', $sql, $option);
 
@@ -141,14 +141,14 @@ class ModelUpgrade1000 extends Model {
 		}
 
 		// Get all current tables, fields, type, size, etc..
-		$table_old_data = array();
+		$table_old_data = [];
 
 		$table_query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
 		foreach ($table_query->rows as $table) {
 			if (utf8_substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX) {
-				$field_data = array();
-				$extended_field_data = array();
+				$field_data = [];
+				$extended_field_data = [];
 
 				$field_query = $this->db->query("SHOW COLUMNS FROM `" . $table['Tables_in_' . DB_DATABASE] . "`");
 
@@ -283,7 +283,7 @@ class ModelUpgrade1000 extends Model {
 				}
 
 				// Add a new primary key.
-				$primary_data = array();
+				$primary_data = [];
 
 				foreach ($table['primary'] as $primary) {
 					$primary_data[] = "`" . $primary . "`";
@@ -295,7 +295,7 @@ class ModelUpgrade1000 extends Model {
 
 				// Add the new indexes
 				foreach ($table['index'] as $name => $index) {
-					$index_data = array();
+					$index_data = [];
 
 					foreach ($index as $key) {
 						$index_data[] = '`' . $key . '`';

@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleAmazonLogin extends Controller {
 	private $version = '3.2.1';
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 
@@ -32,7 +32,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 
 		$data['heading_title'] = $this->language->get('heading_title') . ' ' . $this->version;
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

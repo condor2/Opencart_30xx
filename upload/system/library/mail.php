@@ -18,8 +18,8 @@ class Mail {
 	protected $subject;
 	protected $text;
 	protected $html;
-	protected $attachments = array();
-	protected $bccs = array();
+	protected $attachments = [];
+	protected $bccs = [];
 
 	/**
 	 * Constructor

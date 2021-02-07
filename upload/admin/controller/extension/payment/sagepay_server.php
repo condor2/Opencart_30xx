@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayServer extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 
@@ -30,7 +30,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$data['error_vendor'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -187,7 +187,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/sagepay_server');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/sagepay_server');
@@ -204,7 +204,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 				$json['msg'] = $this->language->get('text_void_ok');
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['error'] = false;
 			} else {
@@ -222,7 +222,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/sagepay_server');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/sagepay_server');
@@ -247,7 +247,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['release_status'] = $release_status;
@@ -268,7 +268,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/sagepay_server');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/sagepay_server');
@@ -294,7 +294,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_released'] = (float)$total_released;

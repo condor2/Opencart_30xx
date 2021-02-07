@@ -1,6 +1,6 @@
 <?php
 class ControllerSaleReturn extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('sale/return');
@@ -319,7 +319,7 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -334,7 +334,7 @@ class ControllerSaleReturn extends Controller {
 		$data['add'] = $this->url->link('sale/return/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('sale/return/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['returns'] = array();
+		$data['returns'] = [];
 
 		$filter_data = array(
 			'filter_return_id'        => $filter_return_id,
@@ -392,7 +392,7 @@ class ControllerSaleReturn extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -628,7 +628,7 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -868,7 +868,7 @@ class ControllerSaleReturn extends Controller {
 			$page = 1;
 		}
 
-		$data['histories'] = array();
+		$data['histories'] = [];
 
 		$this->load->model('sale/return');
 
@@ -901,7 +901,7 @@ class ControllerSaleReturn extends Controller {
 	public function addHistory() {
 		$this->load->language('sale/return');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'sale/return')) {
 			$json['error'] = $this->language->get('error_permission');

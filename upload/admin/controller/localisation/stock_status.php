@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationStockStatus extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('localisation/stock_status');
@@ -143,7 +143,7 @@ class ControllerLocalisationStockStatus extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -158,7 +158,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		$data['add'] = $this->url->link('localisation/stock_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/stock_status/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['stock_statuses'] = array();
+		$data['stock_statuses'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -196,7 +196,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -255,7 +255,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
 		} else {
-			$data['error_name'] = array();
+			$data['error_name'] = [];
 		}
 
 		$url = '';
@@ -272,7 +272,7 @@ class ControllerLocalisationStockStatus extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -301,7 +301,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		} elseif (isset($this->request->get['stock_status_id'])) {
 			$data['stock_status'] = $this->model_localisation_stock_status->getStockStatusDescriptions($this->request->get['stock_status_id']);
 		} else {
-			$data['stock_status'] = array();
+			$data['stock_status'] = [];
 		}
 
 		$data['header'] = $this->load->controller('common/header');

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentLaybuy extends Model {
-	public function addRevisedTransaction($data = array()) {
+	public function addRevisedTransaction($data = []) {
 		$query = $this->db->query("INSERT INTO `" . DB_PREFIX . "laybuy_revise_request` SET `laybuy_transaction_id` = '" . (int)$data['transaction_id'] . "', `type` = '" . $this->db->escape($data['type']) . "', `order_id` = '" . (int)$data['order_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `address` = '" . $this->db->escape($data['address']) . "', `suburb` = '" . $this->db->escape($data['suburb']) . "', `state` = '" . $this->db->escape($data['state']) . "', `country` = '" . $this->db->escape($data['country']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `email` = '" . $this->db->escape($data['email']) . "', `amount` = '" . (float)$data['amount'] . "', `currency` = '" . $this->db->escape($data['currency']) . "', `downpayment` = '" . $this->db->escape($data['downpayment']) . "', `months` = '" . (int)$data['months'] . "', `downpayment_amount` = '" . (float)$data['downpayment_amount'] . "', `payment_amounts` = '" . (float)$data['payment_amounts'] . "', `first_payment_due` = '" . $this->db->escape($data['first_payment_due']) . "', `last_payment_due` = '" . $this->db->escape($data['last_payment_due']) . "', `store_id` = '" . (int)$data['store_id'] . "', `status` = '" . (int)$data['status'] . "', `report` = '" . $this->db->escape($data['report']) . "', `transaction` = '" . (int)$data['transaction'] . "', `paypal_profile_id` = '" . $this->db->escape($data['paypal_profile_id']) . "', `laybuy_ref_no` = '" . (int)$data['laybuy_ref_no'] . "', `payment_type` = '" . (int)$data['payment_type'] . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();
@@ -21,7 +21,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
 
-		$initial_payments = array();
+		$initial_payments = [];
 
 		for ($i = $minimum; $i <= $maximum; $i += 10) {
 			$initial_payments[] = $i;
@@ -43,7 +43,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$max_months = 1;
 		}
 
-		$months = array();
+		$months = [];
 
 		for ($i = 1; $i <= $max_months; $i++) {
 			$months[] = array(
@@ -97,10 +97,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 		return $query->row;
 	}
 
-	public function getTransactions($data = array()) {
+	public function getTransactions($data = []) {
 		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_order_id'])) {
 			$implode[] = "`lt`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
@@ -176,10 +176,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalTransactions($data = array()) {
+	public function getTotalTransactions($data = []) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_order_id'])) {
 			$implode[] = "`lt`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
@@ -348,7 +348,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
 	}
 
-	public function updateRevisedTransaction($id, $data = array()) {
+	public function updateRevisedTransaction($id, $data = []) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "laybuy_revise_request` SET `laybuy_transaction_id` = '" . (int)$data['transaction_id'] . "', `type` = '" . $this->db->escape($data['type']) . "', `order_id` = '" . (int)$data['order_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `address` = '" . $this->db->escape($data['address']) . "', `suburb` = '" . $this->db->escape($data['suburb']) . "', `state` = '" . $this->db->escape($data['state']) . "', `country` = '" . $this->db->escape($data['country']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `email` = '" . $this->db->escape($data['email']) . "', `amount` = '" . (float)$data['amount'] . "', `currency` = '" . $this->db->escape($data['currency']) . "', `downpayment` = '" . $this->db->escape($data['downpayment']) . "', `months` = '" . (int)$data['months'] . "', `downpayment_amount` = '" . (float)$data['downpayment_amount'] . "', `payment_amounts` = '" . (float)$data['payment_amounts'] . "', `first_payment_due` = '" . $this->db->escape($data['first_payment_due']) . "', `last_payment_due` = '" . $this->db->escape($data['last_payment_due']) . "', `store_id` = '" . (int)$data['store_id'] . "', `status` = '" . (int)$data['status'] . "', `report` = '" . $this->db->escape($data['report']) . "', `transaction` = '" . (int)$data['transaction'] . "', `paypal_profile_id` = '" . $this->db->escape($data['paypal_profile_id']) . "', `laybuy_ref_no` = '" . (int)$data['laybuy_ref_no'] . "', `payment_type` = '" . (int)$data['payment_type'] . "', `date_added` = NOW() WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
 	}
 

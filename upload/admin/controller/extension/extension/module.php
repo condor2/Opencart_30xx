@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionModule extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('extension/extension/module');
@@ -122,7 +122,7 @@ class ControllerExtensionExtensionModule extends Controller {
 			}
 		}
 
-		$data['extensions'] = array();
+		$data['extensions'] = [];
 
 		// Create a new language container so we don't pollute the current one
 		$language = new Language($this->config->get('config_language'));
@@ -137,7 +137,7 @@ class ControllerExtensionExtensionModule extends Controller {
 				if ($this->user->hasPermission('access', 'extension/module/' . $extension)) {
 					$this->load->language('extension/module/' . $extension, 'extension');
 
-					$module_data = array();
+					$module_data = [];
 
 					$modules = $this->model_setting_module->getModulesByCode($extension);
 
@@ -145,7 +145,7 @@ class ControllerExtensionExtensionModule extends Controller {
 						if ($module['setting']) {
 							$setting_info = json_decode($module['setting'], true);
 						} else {
-							$setting_info = array();
+							$setting_info = [];
 						}
 
 						$module_data[] = array(
@@ -170,7 +170,7 @@ class ControllerExtensionExtensionModule extends Controller {
 			}
 		}
 
-		$sort_order = array();
+		$sort_order = [];
 
 		foreach ($data['extensions'] as $key => $value) {
 			$sort_order[$key] = $value['name'];

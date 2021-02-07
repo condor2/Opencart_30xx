@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentGlobalpay extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/globalpay');
@@ -49,7 +49,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 			$data['error_demo_url'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -254,7 +254,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/globalpay');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/globalpay');
@@ -270,7 +270,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 				$this->model_extension_payment_globalpay->updateVoidStatus($globalpay_order['globalpay_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['error'] = false;
 			} else {
@@ -288,7 +288,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/globalpay');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/globalpay');
@@ -315,7 +315,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$this->model_extension_payment_globalpay->updateForRebate($globalpay_order['globalpay_order_id'], $capture_response->pasref, $capture_response->orderid);
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['capture_status'] = $capture_status;
@@ -336,7 +336,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/globalpay');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/globalpay');
@@ -362,7 +362,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount']*-1;
 				$json['data']['total_captured'] = (float)$total_captured;

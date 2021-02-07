@@ -22,7 +22,7 @@ $_['template_directory'] = '';
 $_['template_cache']     = true;
 
 // Autoload Libraries
-$_['library_autoload']   = array();
+$_['library_autoload']   = [];
 
 // Actions
 $_['action_pre_action']  = array(

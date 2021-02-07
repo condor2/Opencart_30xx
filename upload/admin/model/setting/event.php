@@ -39,7 +39,7 @@ class ModelSettingEvent extends Model {
 		return $query->row;
 	}
 
-	public function getEvents($data = array()) {
+	public function getEvents($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
 
 		$sort_data = array(

@@ -126,7 +126,7 @@ class ModelUpgrade1004 extends Model {
 			if ($result['serialized']) {
 				$value = json_decode($result['value'], true);
 
-				$module_data = array();
+				$module_data = [];
 
 				if (in_array($result['code'], array('latest', 'bestseller', 'special', 'featured'))) {
 					if ($value) {

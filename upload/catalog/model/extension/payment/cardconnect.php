@@ -15,7 +15,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -30,7 +30,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	public function getCardTypes() {
-		$cards = array();
+		$cards = [];
 
 		$cards[] = array(
 			'text'  => 'Visa',
@@ -56,7 +56,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	public function getMonths() {
-		$months = array();
+		$months = [];
 
 		for ($i = 1; $i <= 12; $i++) {
 			$months[] = array(
@@ -69,7 +69,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	public function getYears() {
-		$years = array();
+		$years = [];
 
 		$today = getdate();
 
@@ -122,7 +122,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/settlestat?merchid=' . $merchant_id . '&date=' . $date;
 
-		$header = array();
+		$header = [];
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));

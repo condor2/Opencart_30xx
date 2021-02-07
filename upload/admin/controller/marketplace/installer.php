@@ -5,7 +5,7 @@ class ControllerMarketplaceInstaller extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -39,7 +39,7 @@ class ControllerMarketplaceInstaller extends Controller {
 			$page = 1;
 		}
 					
-		$data['histories'] = array();
+		$data['histories'] = [];
 		
 		$this->load->model('setting/extension');
 		
@@ -71,7 +71,7 @@ class ControllerMarketplaceInstaller extends Controller {
 	public function upload() {
 		$this->load->language('marketplace/installer');
 
-		$json = array();
+		$json = [];
 
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'marketplace/installer')) {
@@ -99,7 +99,7 @@ class ControllerMarketplaceInstaller extends Controller {
 		foreach ($directories as $directory) {
 			if (is_dir($directory) && (filectime($directory) < (time() - 5))) {
 				// Get a list of files ready to upload
-				$files = array();
+				$files = [];
 	
 				$path = array($directory);
 	

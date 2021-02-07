@@ -1,13 +1,13 @@
 <?php
 class ControllerMarketplaceExtension extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('marketplace/extension');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -27,7 +27,7 @@ class ControllerMarketplaceExtension extends Controller {
 			$data['type'] = '';
 		}
 		
-		$data['categories'] = array();
+		$data['categories'] = [];
 		
 		$files = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
 		

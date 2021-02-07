@@ -100,7 +100,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function getTotals(&$total_data) {
         $this->load->model('setting/extension');
 
-        $sort_order = array();
+        $sort_order = [];
 
         $results = $this->model_setting_extension->getExtensions('total');
 
@@ -119,7 +119,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             }
         }
 
-        $sort_order = array();
+        $sort_order = [];
 
         foreach ($total_data['totals'] as $key => &$value) {
             $value['text'] = $this->currency->format($value['value'], $this->session->data['currency']);
@@ -132,7 +132,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function isTotalPositive() {
         // Totals
-        $totals = array();
+        $totals = [];
         $taxes = $this->cart->getTaxes();
         $total = 0;
 
@@ -151,7 +151,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function makeOrder() {
         $this->verifyOrderSessionData();
 
-        $totals = array();
+        $totals = [];
         $taxes = $this->cart->getTaxes();
         $total = 0;
 
@@ -192,7 +192,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $order_data['lastname'] = $profile['lastname'];
         $order_data['email'] = $profile['email'];
         $order_data['telephone'] = !empty($address['telephone']) ? $address['telephone'] : '';
-        $order_data['custom_field'] = array();
+        $order_data['custom_field'] = [];
 
         // The payment address details are empty, and shall be provided later when the order gets authorized
         $order_data['payment_firstname'] = ""; //$address['firstname'];
@@ -209,7 +209,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $order_data['payment_country'] = ""; //$address['country'];
         $order_data['payment_country_id'] = 0; //$address['country_id'];
         $order_data['payment_address_format'] = ""; //$address['address_format'];
-        $order_data['payment_custom_field'] = array();
+        $order_data['payment_custom_field'] = [];
 
         $order_data['payment_method'] = $this->language->get('text_lpa');
         $order_data['payment_code'] = 'amazon_login_pay';
@@ -234,10 +234,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             $order_data['shipping_code'] = '';
         }
 
-        $order_data['products'] = array();
+        $order_data['products'] = [];
 
         foreach ($this->cart->getProducts() as $product) {
-            $option_data = array();
+            $option_data = [];
 
             foreach ($product['option'] as $option) {
                 $option_data[] = array(
@@ -269,7 +269,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
 
         // Gift Voucher
-        $order_data['vouchers'] = array();
+        $order_data['vouchers'] = [];
 
         if (!empty($this->session->data['vouchers'])) {
             foreach ($this->session->data['vouchers'] as $voucher) {
@@ -465,7 +465,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ));
     }
 
-    public function isOrderInState($order_reference_id, $states = array()) {
+    public function isOrderInState($order_reference_id, $states = []) {
         return in_array((string)$this->fetchOrder($order_reference_id)->OrderReferenceStatus->State, $states);
     }
 
@@ -493,7 +493,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             'total' => (float)$order->OrderTotal->Amount
         );
 
-        $row = array();
+        $row = [];
 
         foreach ($insert as $key => $value) {
             $row[] = "`" . $key . "`=" . $value;
@@ -569,7 +569,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             'amount' => (float)$data['amount']
         );
 
-        $row = array();
+        $row = [];
 
         foreach ($insert as $key => $value) {
             $row[] = "`" . $key . "`=" . $value;
@@ -692,7 +692,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             'payment_custom_field' => "'[]'"
         );
 
-        $update = array();
+        $update = [];
 
         foreach ($data as $key => $value) {
             $update[] = "`" . $key . "`=" . $value;
@@ -852,8 +852,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $data;
     }
 
-    public function makePost($url, $action, $extra = array()) {
-        $params = array();
+    public function makePost($url, $action, $extra = []) {
+        $params = [];
 
         $params['AWSAccessKeyId'] = $this->config->get('payment_amazon_login_pay_access_key');
         $params['Action'] = $action;
@@ -874,7 +874,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return http_build_query($params);
     }
 
-    public function postCurl($action, $params = array()) {
+    public function postCurl($action, $params = []) {
         $url = $this->getCurlUrl();
 
         $post = $this->makePost($url, $action, $params);

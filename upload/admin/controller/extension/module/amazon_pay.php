@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleAmazonPay extends Controller {
 	private $version = '3.2.1';
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/module/amazon_pay');
@@ -31,7 +31,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 		$data['heading_title'] = $this->language->get('heading_title') . ' ' . $this->version;
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

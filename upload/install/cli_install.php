@@ -88,7 +88,7 @@ function get_options($argv) {
 		'username' => 'admin',
 	);
 
-	$options = array();
+	$options = [];
 	$total = count($argv);
 	for ($i=0; $i < $total; $i=$i+2) {
 		$is_flag = preg_match('/^--(.*)$/', $argv[$i], $match);
@@ -114,7 +114,7 @@ function valid($options) {
 		'email',
 		'http_server',
 	);
-	$missing = array();
+	$missing = [];
 	foreach ($required as $r) {
 		if (!array_key_exists($r, $options)) {
 			$missing[] = $r;

@@ -93,7 +93,7 @@ class ModelUpgrade1006 extends Model {
 			DIR_SYSTEM . 'cache/',
 		);
 
-        $files = array();
+        $files = [];
 
         foreach ($directories as $dir) {
 			if (is_dir($dir)){

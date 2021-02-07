@@ -40,7 +40,7 @@ class ModelLocalisationCurrency extends Model {
 		return $query->row;
 	}
 
-	public function getCurrencies($data = array()) {
+	public function getCurrencies($data = []) {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "currency`";
 
@@ -82,7 +82,7 @@ class ModelLocalisationCurrency extends Model {
 			$currency_data = $this->cache->get('currency');
 
 			if (!$currency_data) {
-				$currency_data = array();
+				$currency_data = [];
 
 				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` ORDER BY `title` ASC");
 

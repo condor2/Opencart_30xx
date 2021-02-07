@@ -5,7 +5,7 @@ class ControllerCommonDashboard extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -27,7 +27,7 @@ class ControllerCommonDashboard extends Controller {
 		}
 		
 		// Dashboard Extensions
-		$dashboards = array();
+		$dashboards = [];
 
 		$this->load->model('setting/extension');
 
@@ -50,7 +50,7 @@ class ControllerCommonDashboard extends Controller {
 			}
 		}
 
-		$sort_order = array();
+		$sort_order = [];
 
 		foreach ($dashboards as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -60,8 +60,8 @@ class ControllerCommonDashboard extends Controller {
 
 		// Split the array so the columns width is not more than 12 on each row.
 		$width = 0;
-		$column = array();
-		$data['rows'] = array();
+		$column = [];
+		$data['rows'] = [];
 
 		foreach ($dashboards as $dashboard) {
 			$column[] = $dashboard;
@@ -72,7 +72,7 @@ class ControllerCommonDashboard extends Controller {
 				$data['rows'][] = $column;
 
 				$width = 0;
-				$column = array();
+				$column = [];
 			}
 		}
 

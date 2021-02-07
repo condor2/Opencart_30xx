@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionAdvertise extends Controller {
-    protected $error = array();
+    protected $error = [];
 
     public function index() {
         $this->load->language('extension/extension/advertise');
@@ -83,7 +83,7 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 
         $stores = $this->model_setting_store->getStores();
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
         $files = glob(DIR_APPLICATION . 'controller/extension/advertise/*.php');
@@ -96,7 +96,7 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 					// Compatibility code for old extension folders
 					$this->load->language('extension/advertise/' . $extension, 'extension');
 
-					$store_data = array();
+					$store_data = [];
 
 					$store_data[] = array(
 						'name'   => $this->config->get('config_name'),

@@ -93,7 +93,7 @@ class Squareup {
         }
 
         // handle headers
-        $added_headers = array();
+        $added_headers = [];
 
         if (!empty($request_data['auth_type'])) {
             if (empty($request_data['token'])) {

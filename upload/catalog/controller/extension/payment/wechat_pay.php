@@ -22,7 +22,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		$this->document->addScript('catalog/view/javascript/qrcode.js');
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -87,7 +87,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	}
 
 	public function isOrderPaid() {
-		$json = array();
+		$json = [];
 
 		$json['result'] = false;
 

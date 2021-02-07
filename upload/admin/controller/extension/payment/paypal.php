@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = array();
+	private $error = [];
 	
 	public function index() {
 		$this->load->language('extension/payment/paypal');
@@ -18,7 +18,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 			
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -106,7 +106,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 		
 			if ($paypal->hasErrors()) {
-				$error_messages = array();
+				$error_messages = [];
 				
 				$errors = $paypal->getErrors();
 								
@@ -277,7 +277,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['client_token'] = $paypal->getClientToken();
 									
 			if ($paypal->hasErrors()) {
-				$error_messages = array();
+				$error_messages = [];
 				
 				$errors = $paypal->getErrors();
 								
@@ -355,7 +355,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$paypal->setAccessToken($token_info);
 				
 		if ($paypal->hasErrors()) {
-			$error_messages = array();
+			$error_messages = [];
 				
 			$errors = $paypal->getErrors();
 								

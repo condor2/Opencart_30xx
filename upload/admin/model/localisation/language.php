@@ -226,7 +226,7 @@ class ModelLocalisationLanguage extends Model {
 		return $query->row;
 	}
 
-	public function getLanguages($data = array()) {
+	public function getLanguages($data = []) {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "language`";
 
@@ -267,7 +267,7 @@ class ModelLocalisationLanguage extends Model {
 			$language_data = $this->cache->get('admin.language');
 
 			if (!$language_data) {
-				$language_data = array();
+				$language_data = [];
 
 				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` ORDER BY `sort_order`, `name`");
 

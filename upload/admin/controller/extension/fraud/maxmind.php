@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudMaxMind extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/fraud/maxmind');
@@ -29,7 +29,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 			$data['error_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

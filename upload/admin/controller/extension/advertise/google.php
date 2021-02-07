@@ -9,7 +9,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     use StoreLoader;
     use LibraryLoader;
 
-    protected $error = array();
+    protected $error = [];
     private $store_id = 0;
 
     public function __construct($registry) {
@@ -99,7 +99,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data = array();
+        $data = [];
 
         $data['text_connected'] = sprintf($this->language->get('text_connected'), $this->setting->get('advertise_google_gmc_account_id'));
 
@@ -137,7 +137,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $data['warning'] = sprintf($this->language->get("warning_last_cron_executed"), $this->language->get("text_tutorial_cron"));
         }
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -194,7 +194,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['advertise_google_cron_url'] = 'https://' . rtrim($host_and_uri, '/') . '/index.php?route=extension/advertise/google/cron&cron_token={CRON_TOKEN}';
 
-        $data['reporting_intervals'] = array();
+        $data['reporting_intervals'] = [];
 
         foreach ($reporting_intervals as $interval) {
             $data['reporting_intervals'][$interval] = $this->language->get('text_reporting_interval_' . $interval);
@@ -255,8 +255,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if ($this->validatePermission()) {
             $this->load->model('extension/advertise/google');
 
-            $select = array();
-            $filter_data = array();
+            $select = [];
+            $filter_data = [];
 
             if (!empty($this->request->post['all_pages'])) {
                 $filter_data = $this->getFilter($this->request->post['filter']);
@@ -265,7 +265,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
 
             if (!empty($select) || !empty($filter_data)) {
-                $target_ids = !empty($this->request->post['target_ids']) ? $this->request->post['target_ids'] : array();
+                $target_ids = !empty($this->request->post['target_ids']) ? $this->request->post['target_ids'] : [];
 
                 if (!empty($select)) {
                     $this->model_extension_advertise_google->setAdvertisingBySelect($select, $target_ids, $this->store_id);
@@ -302,11 +302,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     public function list_ads() {
-        $json = array();
+        $json = [];
 
         $this->load->model('extension/advertise/google');
 
-        $this->model_extension_advertise_google->insertNewProducts(array(), $this->store_id);
+        $this->model_extension_advertise_google->insertNewProducts([], $this->store_id);
 
         $this->load->language('extension/advertise/google');
 
@@ -377,7 +377,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -395,7 +395,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             unset($this->session->data['success']);
         }
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -461,7 +461,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $available_carriers = array();
+        $available_carriers = [];
 
         try {
             $available_carriers = $this->googleshopping->getAvailableCarriers();
@@ -473,7 +473,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->error['warning'] = $e->getMessage();
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -529,7 +529,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['from_dashboard'] = isset($this->request->get['from_dashboard']);
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -618,7 +618,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -638,7 +638,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['from_dashboard'] = isset($this->request->get['from_dashboard']);
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -661,7 +661,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->config('googleshopping/googleshopping');
 
-        $data['mapping'] = array();
+        $data['mapping'] = [];
 
         foreach ($this->config->get('advertise_google_google_product_categories') as $google_product_category_id => $google_product_category_name) {
             if ($google_product_category_id == 0) continue;
@@ -718,7 +718,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->model('extension/advertise/google');
         
-        $data = array();
+        $data = [];
 
         $json = array(
             'submit_directly' => !$this->model_extension_advertise_google->isAnyProductCategoryModified($this->store_id),
@@ -775,7 +775,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -801,7 +801,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['from_dashboard'] = isset($this->request->get['from_dashboard']);
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -1211,7 +1211,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->response->redirect($url);
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -1246,7 +1246,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             unset($this->session->data['success']);
         }
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -1348,7 +1348,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
         }
 
-        $data = array();
+        $data = [];
 
         $data['error'] = '';
 
@@ -1359,7 +1359,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $data['error'] = $this->error['warning'];
         }
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -1401,7 +1401,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $operand_info = NULL;
         $form_data = NULL;
         $filter_data = NULL;
-        $product_ids = array();
+        $product_ids = [];
 
         if ($this->request->post['operand']['type'] == 'single') {
             $product_advertise_google_id = $this->request->post['operand']['data'];
@@ -1689,20 +1689,20 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         foreach ($data['menus'] as &$menu) {
             if ($menu['id'] == 'menu-marketing') {
-                $children = array();
+                $children = [];
 
                 $this->load->model('setting/store');
 
                 $children[] = array(
                     'name' => $this->config->get('config_name'),
-                    'children' => array(),
+                    'children' => [],
                     'href' => $this->url->link('extension/advertise/google', 'store_id=0&user_token=' . $this->session->data['user_token'], true)
                 );
 
                 foreach ($this->model_setting_store->getStores() as $store) {
                     $children[] = array(
                         'name' => $store['name'],
-                        'children' => array(),
+                        'children' => [],
                         'href' => $this->url->link('extension/advertise/google', 'store_id=' . $store['store_id'] . '&user_token=' . $this->session->data['user_token'], true)
                     );
                 }
@@ -1761,7 +1761,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     public function category_autocomplete() {
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['filter_name'])) {
             $this->load->model('extension/advertise/google');
@@ -1784,7 +1784,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $sort_order = array();
+        $sort_order = [];
 
         foreach ($json as $key => $value) {
             $sort_order[$key] = $value['name'];

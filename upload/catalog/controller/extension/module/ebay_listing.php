@@ -9,7 +9,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 			$data['heading_title'] = $this->language->get('heading_title');
 
-			$data['products'] = array();
+			$data['products'] = [];
 
 			$products = $this->cache->get('ebay_listing.' . md5(serialize($products)));
 

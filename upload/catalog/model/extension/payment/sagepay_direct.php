@@ -15,7 +15,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -33,7 +33,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "sagepay_direct_card WHERE customer_id = '" . (int)$customer_id . "' ORDER BY card_id");
 
-		$card_data = array();
+		$card_data = [];
 
 		$this->load->model('account/address');
 
@@ -259,7 +259,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 		$this->load->model('account/order');
 		$recurrings = $this->getProfiles();
-		$cron_data = array();
+		$cron_data = [];
 		$i = 0;
 
 		foreach ($recurrings as $recurring) {
@@ -371,7 +371,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 		$qry = $this->db->query($sql);
 
-		$order_recurring = array();
+		$order_recurring = [];
 
 		foreach ($qry->rows as $recurring) {
 			$order_recurring[] = $this->getProfile($recurring['order_recurring_id']);

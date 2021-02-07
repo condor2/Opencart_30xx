@@ -1,6 +1,6 @@
 <?php
 /* Compatibility function Due to PHP 7.3 only being the PHP version to be able to use samesite attribute */
-function oc_setcookie(string $key, string $value, $option = array()) {
+function oc_setcookie(string $key, string $value, $option = []) {
 	if (version_compare(phpversion(), '7.3.0', '>=')) {
 		// PHP needs to update their setcookie function.
 		setcookie($key, $value, $option);

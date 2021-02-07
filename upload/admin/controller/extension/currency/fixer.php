@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCurrencyFixer extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/currency/fixer');
@@ -29,7 +29,7 @@ class ControllerExtensionCurrencyFixer extends Controller {
 			$data['error_api'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -100,7 +100,7 @@ class ControllerExtensionCurrencyFixer extends Controller {
 
 			if (is_array($response_info) && isset($response_info['rates'])) {
 				// Compile all the rates into an array
-				$currencies = array();
+				$currencies = [];
 
 				$currencies['EUR'] = 1.0000;
 

@@ -36,7 +36,7 @@ class ModelUpgrade1005 extends Model {
 		}
 
 		// product_image
-		$index_data = array();
+		$index_data = [];
 
 		$query = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "product_image` WHERE Key_name != 'PRIMARY'");
 
@@ -49,7 +49,7 @@ class ModelUpgrade1005 extends Model {
 		}
 
 		// product_to_category
-		$index_data = array();
+		$index_data = [];
 
 		$query = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "product_to_category` WHERE Key_name != 'PRIMARY'");
 

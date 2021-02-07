@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudIp extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/fraud/ip');
@@ -25,7 +25,7 @@ class ControllerExtensionFraudIp extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -101,7 +101,7 @@ class ControllerExtensionFraudIp extends Controller {
 			$page = 1;
 		}
 
-		$data['ips'] = array();
+		$data['ips'] = [];
 
 		$results = $this->model_extension_fraud_ip->getIps(($page - 1) * 10, 10);
 
@@ -132,7 +132,7 @@ class ControllerExtensionFraudIp extends Controller {
 	public function addIp() {
 		$this->load->language('extension/fraud/ip');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -153,7 +153,7 @@ class ControllerExtensionFraudIp extends Controller {
 	public function removeIp() {
 		$this->load->language('extension/fraud/ip');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
 			$json['error'] = $this->language->get('error_permission');

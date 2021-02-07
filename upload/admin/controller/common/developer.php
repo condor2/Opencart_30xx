@@ -30,7 +30,7 @@ class ControllerCommonDeveloper extends Controller {
 	public function edit() {
 		$this->load->language('common/developer');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -49,7 +49,7 @@ class ControllerCommonDeveloper extends Controller {
 	public function theme() {
 		$this->load->language('common/developer');
 		
-		$json = array();
+		$json = [];
 		
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -82,7 +82,7 @@ class ControllerCommonDeveloper extends Controller {
 	public function sass() {
 		$this->load->language('common/developer');
 		
-		$json = array();
+		$json = [];
 		
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');

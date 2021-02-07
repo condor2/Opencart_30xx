@@ -31,7 +31,7 @@ class ModelSettingCron extends Model {
 		return $query->row;
 	}
 
-	public function getCrons($data = array()) {
+	public function getCrons($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "cron`";
 
 		$sort_data = array(

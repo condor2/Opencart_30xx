@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleSitemap extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/feed/google_sitemap');
@@ -23,7 +23,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

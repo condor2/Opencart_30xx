@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentLaybuy extends Model {
-	public function addTransaction($data = array(), $status) {
+	public function addTransaction($data = [], $status) {
 		$this->log('Report: ' . print_r($data, true), '1');
 
 		$this->log('Status: ' . $status, '1');
@@ -23,7 +23,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
 
-		$initial_payments = array();
+		$initial_payments = [];
 
 		for ($i = $minimum; $i <= $maximum; $i += 10) {
 			$initial_payments[] = $i;
@@ -77,7 +77,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$cart_products = $this->cart->getProducts();
 
 			foreach ($cart_products as $cart_product) {
-				$product = array();
+				$product = [];
 
 				if ($xproducts && in_array($cart_product['product_id'], $xproducts)) {
 					$status = false;
@@ -97,7 +97,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			}
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -124,7 +124,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$max_months = 1;
 		}
 
-		$months = array();
+		$months = [];
 
 		for ($i = 1; $i <= $max_months; $i++) {
 			$months[] = array(
@@ -193,7 +193,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$months = (int)$data['months'];
 
-		$report_content = array();
+		$report_content = [];
 
 		$report_content[] = array(
 			'instalment'	=> 0,

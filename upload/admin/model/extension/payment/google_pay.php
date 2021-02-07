@@ -16,7 +16,7 @@ class ModelExtensionPaymentGooglePay extends Model {
 			'payment_google_pay_allow_auth_methods'		=> array('PAN_ONLY', 'CRYPTOGRAM_3DS'),
 			'payment_google_pay_bill_require_phone'		=> 0,
 			'payment_google_pay_ship_require_phone'		=> 0,
-			'payment_google_pay_ship_allow_countries' 	=> array(),
+			'payment_google_pay_ship_allow_countries' 	=> [],
 		);
 
 		$this->model_setting_setting->editSetting('payment_google_pay', $default_settings);

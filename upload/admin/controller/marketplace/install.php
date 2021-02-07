@@ -3,7 +3,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function install() {
 		$this->load->language('marketplace/install');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -35,7 +35,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function unzip() {
 		$this->load->language('marketplace/install');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -82,7 +82,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function move() {
 		$this->load->language('marketplace/install');
 		
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -104,7 +104,7 @@ class ControllerMarketplaceInstall extends Controller {
 			$directory = DIR_UPLOAD . 'tmp-' . $this->session->data['install'] . '/';
 
 			if (is_dir($directory . 'upload/')) {
-				$files = array();
+				$files = [];
 
 				// Get a list of files ready to upload
 				$path = array($directory . 'upload/*');
@@ -237,7 +237,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function xml() {
 		$this->load->language('marketplace/install');
 
-		$json = array();
+		$json = [];
 		
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -352,7 +352,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function remove() {
 		$this->load->language('marketplace/install');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'marketplace/install')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -367,7 +367,7 @@ class ControllerMarketplaceInstall extends Controller {
 			
 			if (is_dir($directory)) {
 				// Get a list of files ready to upload
-				$files = array();
+				$files = [];
 
 				$path = array($directory);
 
@@ -417,7 +417,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function uninstall() {
 		$this->load->language('marketplace/install');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -462,7 +462,7 @@ class ControllerMarketplaceInstall extends Controller {
 
 				if (is_dir($source)) {
 					// Get a list of files ready to upload
-					$files = array();
+					$files = [];
 
 					$path = array($source);
 

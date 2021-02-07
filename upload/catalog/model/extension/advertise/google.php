@@ -67,7 +67,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getRemarketingProductIds($products, $store_id) {
-        $ecomm_prodid = array();
+        $ecomm_prodid = [];
 
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {
@@ -79,7 +79,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getRemarketingItems($products, $store_id) {
-        $items = array();
+        $items = [];
 
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {

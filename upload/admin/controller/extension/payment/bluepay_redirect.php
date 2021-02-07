@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluepayRedirect extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 
@@ -36,7 +36,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 			$data['error_secret_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -178,7 +178,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/bluepay_redirect');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/bluepay_redirect');
@@ -194,7 +194,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 				$this->model_extension_payment_bluepay_redirect->updateVoidStatus($bluepay_redirect_order['bluepay_redirect_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['total'] = $bluepay_redirect_order['total'];
 				$json['error'] = false;
@@ -213,7 +213,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/bluepay_redirect');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/bluepay_redirect');
@@ -240,7 +240,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['release_status'] = $release_status;
@@ -261,7 +261,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/bluepay_redirect');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/bluepay_redirect');
@@ -287,7 +287,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_released'] = (float)$total_released;

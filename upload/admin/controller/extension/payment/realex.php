@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentRealex extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/realex');
@@ -49,7 +49,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 			$data['error_demo_url'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -254,7 +254,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/realex');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/realex');
@@ -270,7 +270,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 				$this->model_extension_payment_realex->updateVoidStatus($realex_order['realex_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['error'] = false;
 			} else {
@@ -288,7 +288,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/realex');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/realex');
@@ -315,7 +315,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 				$this->model_extension_payment_realex->updateForRebate($realex_order['realex_order_id'], $capture_response->pasref, $capture_response->orderid);
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['capture_status'] = $capture_status;
@@ -336,7 +336,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/realex');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/realex');
@@ -362,7 +362,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount']*-1;
 				$json['data']['total_captured'] = (float)$total_captured;

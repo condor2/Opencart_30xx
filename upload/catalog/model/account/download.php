@@ -1,7 +1,7 @@
 <?php
 class ModelAccountDownload extends Model {
 	public function getDownload($download_id) {
-		$implode = array();
+		$implode = [];
 
 		$order_statuses = $this->config->get('config_complete_status');
 
@@ -27,7 +27,7 @@ class ModelAccountDownload extends Model {
 			$limit = 20;
 		}
 
-		$implode = array();
+		$implode = [];
 
 		$order_statuses = $this->config->get('config_complete_status');
 
@@ -40,12 +40,12 @@ class ModelAccountDownload extends Model {
 
 			return $query->rows;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
 	public function getTotalDownloads() {
-		$implode = array();
+		$implode = [];
 
 		$order_statuses = $this->config->get('config_complete_status');
 

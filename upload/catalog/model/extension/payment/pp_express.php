@@ -15,7 +15,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -142,7 +142,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		// Totals
 		$this->load->model('setting/extension');
 
-		$totals = array();
+		$totals = [];
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 
@@ -155,7 +155,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-			$sort_order = array();
+			$sort_order = [];
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -173,7 +173,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 				}
 
-				$sort_order = array();
+				$sort_order = [];
 
 				foreach ($totals as $key => $value) {
 					$sort_order[$key] = $value['sort_order'];
@@ -342,7 +342,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 	public function cleanReturn($data) {
 		$data = explode('&', $data);
 
-		$arr = array();
+		$arr = [];
 
 		foreach ($data as $k=>$v) {
 			$tmp = explode('=', $v);

@@ -21,7 +21,7 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -104,7 +104,7 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 
 		$this->load->model('extension/report/customer');
 
-		$data['customers'] = array();
+		$data['customers'] = [];
 
 		$filter_data = array(
 			'filter_date_start'			=> $filter_date_start,

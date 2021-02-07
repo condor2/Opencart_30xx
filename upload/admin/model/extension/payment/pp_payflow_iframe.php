@@ -107,7 +107,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 			$url = 'https://payflowpro.paypal.com';
 		}
 
-		$query_params = array();
+		$query_params = [];
 
 		foreach ($call_parameters as $key => $value) {
 			$query_params[] = $key . '=' . utf8_decode($value);
@@ -128,7 +128,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 
 		$this->log('Response data: ' . $response);
 
-		$response_params = array();
+		$response_params = [];
 		parse_str($response, $response_params);
 
 		return $response_params;

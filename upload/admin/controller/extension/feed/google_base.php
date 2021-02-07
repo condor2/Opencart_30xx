@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleBase extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/feed/google_base');
@@ -23,7 +23,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -84,7 +84,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function import() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = array();
+		$json = [];
 
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
@@ -141,7 +141,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			$page = 1;
 		}
 
-		$data['google_base_categories'] = array();
+		$data['google_base_categories'] = [];
 
 		$this->load->model('extension/feed/google_base');
 
@@ -174,7 +174,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function addCategory() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -193,7 +193,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function removeCategory() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -210,7 +210,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	}
 
 	public function autocomplete() {
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['filter_name'])) {
 			$this->load->model('extension/feed/google_base');

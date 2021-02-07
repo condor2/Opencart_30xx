@@ -9,7 +9,7 @@ class ControllerCheckoutRegister extends Controller {
 
 		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
 
-		$data['customer_groups'] = array();
+		$data['customer_groups'] = [];
 
 		if (is_array($this->config->get('config_customer_group_display'))) {
 			$this->load->model('account/customer_group');
@@ -81,7 +81,7 @@ class ControllerCheckoutRegister extends Controller {
 	public function save() {
 		$this->load->language('checkout/checkout');
 
-		$json = array();
+		$json = [];
 
 		// Validate if customer is already logged out.
 		if ($this->customer->isLogged()) {

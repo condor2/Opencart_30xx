@@ -85,7 +85,7 @@ class ModelAccountAddress extends Model {
 	}
 
 	public function getAddresses() {
-		$address_data = array();
+		$address_data = [];
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 

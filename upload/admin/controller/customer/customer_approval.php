@@ -5,7 +5,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -69,7 +69,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 			$page = 1;
 		}		
 
-		$data['customer_approvals'] = array();
+		$data['customer_approvals'] = [];
 
 		$filter_data = array(
 			'filter_customer'          => $filter_customer,
@@ -139,7 +139,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 	public function approve() {
 		$this->load->language('customer/customer_approval');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -162,7 +162,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 	public function deny() {
 		$this->load->language('customer/customer_approval');
 
-		$json = array();
+		$json = [];
 				
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');

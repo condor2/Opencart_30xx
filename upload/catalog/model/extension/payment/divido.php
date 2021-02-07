@@ -13,20 +13,20 @@ class ModelExtensionPaymentDivido extends Model {
 		$this->load->model('localisation/currency');
 
 		if (!$this->isEnabled()) {
-			return array();
+			return [];
 		}
 
 		if ($this->session->data['currency'] != 'GBP') {
-			return array();
+			return [];
 		}
 
 		if ($payment_address['iso_code_2'] != 'GB') {
-			return array();
+			return [];
 		}
 
 		$cart_threshold = $this->config->get('payment_divido_cart_threshold');
 		if ($cart_threshold > $total) {
-			return array();
+			return [];
 		}
 
 		$plans = $this->getCartPlans($this->cart);
@@ -41,7 +41,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		if (!$has_plan) {
-			return array();
+			return [];
 		}
 
 		$title = $this->language->get('text_checkout_title');
@@ -124,10 +124,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 		$selected_plans = $this->config->get('payment_divido_plans_selected');
 		if (!$selected_plans) {
-			return array();
+			return [];
 		}
 
-		$plans = array();
+		$plans = [];
 		foreach ($all_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;
@@ -164,7 +164,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		// OpenCart 2.1 switched to json for their file storage cache, so
 		// we need to convert to a simple object.
-		$plans_plain = array();
+		$plans_plain = [];
 		foreach ($plans as $plan) {
 			$plan_copy = new stdClass();
 			$plan_copy->id                 = $plan->id;
@@ -186,7 +186,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	public function getCartPlans($cart)	{
-		$plans = array();
+		$plans = [];
 		$products = $cart->getProducts();
 		foreach ($products as $product) {
 			$product_plans = $this->getProductPlans($product['product_id']);
@@ -209,7 +209,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	public function getOrderTotals() {
-		$totals = array();
+		$totals = [];
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 
@@ -222,7 +222,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		$this->load->model('setting/extension');
 
-		$sort_order = array();
+		$sort_order = [];
 
 		$results = $this->model_setting_extension->getExtensions('total');
 
@@ -241,7 +241,7 @@ class ModelExtensionPaymentDivido extends Model {
 			}
 		}
 
-		$sort_order = array();
+		$sort_order = [];
 
 		foreach ($totals as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -264,7 +264,7 @@ class ModelExtensionPaymentDivido extends Model {
 		if ($divido_categories) {
 			$product_categories = $this->model_catalog_product->getCategories($product_id);
 
-			$all_categories = array();
+			$all_categories = [];
 			foreach ($product_categories as $product_category) {
 				$all_categories[] = $product_category['category_id'];
 			}
@@ -305,7 +305,7 @@ class ModelExtensionPaymentDivido extends Model {
 		$available_plans = $this->getPlans(false);
 		$selected_plans  = explode(',', $settings['plans']);
 
-		$plans = array();
+		$plans = [];
 		foreach ($available_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;

@@ -47,7 +47,7 @@ class ModelLocalisationGeoZone extends Model {
 		return $query->row;
 	}
 
-	public function getGeoZones($data = array()) {
+	public function getGeoZones($data = []) {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "geo_zone`";
 

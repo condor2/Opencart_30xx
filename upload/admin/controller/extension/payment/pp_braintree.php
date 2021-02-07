@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
-	protected $error = array();
+	protected $error = [];
 	private $gateway = null;
 	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
 	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
@@ -51,10 +51,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		if (isset($this->error['account'])) {
 			$data['error_account'] = $this->error['account'];
 		} else {
-			$data['error_account'] = array();
+			$data['error_account'] = [];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -458,7 +458,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 		}
 
-		$data['braintree_config'] = array();
+		$data['braintree_config'] = [];
 		$data['braintree_config']['three_d_secure_enabled'] = 0;
 		$data['braintree_config']['paypal_enabled'] = 0;
 
@@ -501,7 +501,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 	public function install() {
 		$this->load->model('setting/setting');
 
-		$defaults = array();
+		$defaults = [];
 
 		// 3D secure defaults
 		$defaults['payment_pp_braintree_3ds_unsupported_card'] = 1;
@@ -585,13 +585,13 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		$search_transactions = $this->model_extension_payment_pp_braintree->getTransactions($this->gateway, $search);
 
-		$transaction = array();
+		$transaction = [];
 
 		foreach ($search_transactions as $search_transaction) {
 			$transaction = $search_transaction;
 		}
 
-		$data['transaction'] = array();
+		$data['transaction'] = [];
 
 		if ($transaction) {
 			$data['transaction_id'] = $transaction->id;
@@ -616,7 +616,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					break;
 			}
 
-			$statuses = array();
+			$statuses = [];
 
 			foreach ($transaction->statusHistory as $status_history) {
 				$created_at = $status_history->timestamp;
@@ -633,7 +633,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$max_refund_amount = $transaction->amount;
 
-			$data['refunds'] = array();
+			$data['refunds'] = [];
 
 			foreach (array_reverse($transaction->refundIds) as $refund_id) {
 				$refund = $this->model_extension_payment_pp_braintree->getTransaction($this->gateway, $refund_id);
@@ -732,7 +732,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
 		));
 
-		$json = array();
+		$json = [];
 
 		$success = $error = '';
 
@@ -775,7 +775,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
 		));
 
-		$json = array();
+		$json = [];
 
 		$success = $error = '';
 
@@ -839,9 +839,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$filter_amount_to = null;
 		}
 
-		$json['transactions'] = array();
+		$json['transactions'] = [];
 
-		$search = array();
+		$search = [];
 
 		if ($filter_transaction_id) {
 			$search[] = Braintree\TransactionSearch::id()->is($filter_transaction_id);
@@ -1117,7 +1117,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		return !$this->error;
 	}
 
-	private function initialise($access_token = '', $credentials = array()) {
+	private function initialise($access_token = '', $credentials = []) {
 		$this->load->model('extension/payment/pp_braintree');
 
 		if ($access_token != '') {

@@ -9,7 +9,7 @@ class ModelExtensionPaymentFreeCheckout extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(

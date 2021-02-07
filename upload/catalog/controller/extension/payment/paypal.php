@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = array();
+	private $error = [];
 		
 	public function __construct($registry) {
 		parent::__construct($registry);
@@ -100,7 +100,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$data['client_token'] = $paypal->getClientToken();
 						
 		if ($paypal->hasErrors()) {
-			$error_messages = array();
+			$error_messages = [];
 				
 			$errors = $paypal->getErrors();
 								
@@ -167,7 +167,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$paypal->setAccessToken($token_info);
 		
-		$shipping_info = array();
+		$shipping_info = [];
 
 		if ($this->cart->hasShipping()) {
 			$shipping_info['name']['full_name'] = $order_info['shipping_firstname'];
@@ -193,7 +193,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$shipping_preference = 'NO_SHIPPING';
 		}
 		
-		$item_info = array();
+		$item_info = [];
 		
 		$item_total = 0;
 				
@@ -309,7 +309,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 		
 		if ($paypal->hasErrors()) {
-			$error_messages = array();
+			$error_messages = [];
 				
 			$errors = $paypal->getErrors();
 								
@@ -415,7 +415,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 			
 			if ($paypal->hasErrors()) {
-				$error_messages = array();
+				$error_messages = [];
 				
 				$errors = $paypal->getErrors();
 								

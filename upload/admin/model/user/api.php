@@ -40,7 +40,7 @@ class ModelUserApi extends Model {
 		return $query->row;
 	}
 
-	public function getApis($data = array()) {
+	public function getApis($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "api`";
 
 		$sort_data = array(
@@ -90,7 +90,7 @@ class ModelUserApi extends Model {
 	}
 
 	public function getApiIps($api_id) {
-		$ip_data = array();
+		$ip_data = [];
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
 

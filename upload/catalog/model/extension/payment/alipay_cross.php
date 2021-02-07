@@ -19,7 +19,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -127,7 +127,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	function paraFilter($para) {
-		$para_filter = array();
+		$para_filter = [];
 		while (list ($key, $val) = each ($para)) {
 			if($key == "sign" || $key == "sign_type" || $val == "")continue;
 			else	$para_filter[$key] = $para[$key];

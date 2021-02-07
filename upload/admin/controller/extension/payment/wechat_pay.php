@@ -8,7 +8,7 @@
  */
 
 class ControllerExtensionPaymentWechatPay extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/wechat_pay');
@@ -55,7 +55,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 			$data['error_api_secret'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

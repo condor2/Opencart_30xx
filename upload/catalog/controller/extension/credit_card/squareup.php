@@ -14,7 +14,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
@@ -49,7 +49,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $data['back'] = $this->url->link('account/account', '', true);
 
-        $data['cards'] = array();
+        $data['cards'] = [];
 
         foreach ($this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox')) as $card) {
             $data['cards'][] = array(

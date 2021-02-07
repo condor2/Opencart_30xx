@@ -9,12 +9,12 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			$data['stored_cards'] = $this->model_extension_payment_firstdata_remote->getStoredCards();
 		} else {
 			$data['card_storage'] = 0;
-			$data['stored_cards'] = array();
+			$data['stored_cards'] = [];
 		}
 
 		$data['accepted_cards'] = $this->config->get('payment_firstdata_remote_cards_accepted');
 
-		$data['months'] = array();
+		$data['months'] = [];
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -25,7 +25,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 		$today = getdate();
 
-		$data['year_expire'] = array();
+		$data['year_expire'] = [];
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(

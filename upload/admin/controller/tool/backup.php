@@ -13,7 +13,7 @@ class ControllerToolBackup extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -43,7 +43,7 @@ class ControllerToolBackup extends Controller {
 	public function import() {
 		$this->load->language('tool/backup');
 		
-		$json = array();
+		$json = [];
 		
 		if (!$this->user->hasPermission('modify', 'tool/backup')) {
 			$json['error'] = $this->language->get('error_permission');

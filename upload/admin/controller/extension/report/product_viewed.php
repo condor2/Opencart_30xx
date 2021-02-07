@@ -21,7 +21,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -87,7 +87,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 			'limit' => $this->config->get('config_limit_admin')
 		);
 
-		$data['products'] = array();
+		$data['products'] = [];
 
 		$product_viewed_total = $this->model_extension_report_product->getTotalProductViews();
 

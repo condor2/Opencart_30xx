@@ -16,7 +16,7 @@ class ModelExtensionPaymentEway extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -51,7 +51,7 @@ class ModelExtensionPaymentEway extends Model {
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "eway_card WHERE customer_id = '" . (int)$customer_id . "'");
 
-		$card_data = array();
+		$card_data = [];
 
 		$this->load->model('account/address');
 

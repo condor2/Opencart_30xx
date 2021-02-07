@@ -43,7 +43,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 			$today = getdate();
 
-			$data['year_expire'] = array();
+			$data['year_expire'] = [];
 
 			for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 				$data['year_expire'][] = array(
@@ -52,7 +52,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 				);
 			}
 
-			$data['cards'] = array();
+			$data['cards'] = [];
 
 			foreach ($this->config->get('payment_securetrading_ws_cards_accepted') as $card_type) {
 				$data['cards'][$card_type] = $cards[$card_type];
@@ -173,7 +173,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			} else {
 				$country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
 
-				$json = array();
+				$json = [];
 
 				$requestblock_xml = new SimpleXMLElement('<requestblock></requestblock>');
 				$requestblock_xml->addAttribute('version', '3.67');
@@ -311,7 +311,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	}
 
 	private function processAuthResponse($response, $order_id) {
-		$json = array();
+		$json = [];
 
 		if ($response !== false) {
 			$response_xml = simplexml_load_string($response);

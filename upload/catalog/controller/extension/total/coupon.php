@@ -17,7 +17,7 @@ class ControllerExtensionTotalCoupon extends Controller {
 	public function coupon() {
 		$this->load->language('extension/total/coupon');
 
-		$json = array();
+		$json = [];
 
 		$this->load->model('extension/total/coupon');
 
@@ -48,7 +48,7 @@ class ControllerExtensionTotalCoupon extends Controller {
 	}
 
 	public function remove() {
-		$json = array();
+		$json = [];
 		
 		if (isset($this->session->data['coupon'])) {
 			unset($this->session->data['coupon']);

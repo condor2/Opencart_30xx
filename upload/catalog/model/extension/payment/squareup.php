@@ -46,7 +46,7 @@ class ModelExtensionPaymentSquareup extends Model {
             $status = false;
         }
 
-        $method_data = array();
+        $method_data = [];
 
         if ($status) {
             $method_data = array(
@@ -63,7 +63,7 @@ class ModelExtensionPaymentSquareup extends Model {
     public function addTransaction($transaction, $merchant_id, $address, $order_id, $user_agent, $ip) {
         $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET transaction_id='" . $this->db->escape($transaction['id']) . "', merchant_id='" . $this->db->escape($merchant_id) . "', location_id='" . $this->db->escape($transaction['location_id']) . "', order_id='" . (int)$order_id . "', transaction_type='" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', transaction_amount='" . (float)$amount . "', transaction_currency='" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', billing_address_city='" . $this->db->escape($address['locality']) . "', billing_address_country='" . $this->db->escape($address['country']) . "', billing_address_postcode='" . $this->db->escape($address['postal_code']) . "', billing_address_province='" . $this->db->escape($address['sublocality']) . "', billing_address_street_1='" . $this->db->escape($address['address_line_1']) . "', billing_address_street_2='" . $this->db->escape($address['address_line_2']) . "', device_browser='" . $this->db->escape($user_agent) . "', device_ip='" . $this->db->escape($ip) . "', created_at='" . $this->db->escape($transaction['created_at']) . "', is_refunded='" . (int)(!empty($transaction['refunds'])) . "', refunded_at='" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', tenders='" . $this->db->escape(json_encode($transaction['tenders'])) . "', refunds='" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : array())) . "'");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET transaction_id='" . $this->db->escape($transaction['id']) . "', merchant_id='" . $this->db->escape($merchant_id) . "', location_id='" . $this->db->escape($transaction['location_id']) . "', order_id='" . (int)$order_id . "', transaction_type='" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', transaction_amount='" . (float)$amount . "', transaction_currency='" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', billing_address_city='" . $this->db->escape($address['locality']) . "', billing_address_country='" . $this->db->escape($address['country']) . "', billing_address_postcode='" . $this->db->escape($address['postal_code']) . "', billing_address_province='" . $this->db->escape($address['sublocality']) . "', billing_address_street_1='" . $this->db->escape($address['address_line_1']) . "', billing_address_street_2='" . $this->db->escape($address['address_line_2']) . "', device_browser='" . $this->db->escape($user_agent) . "', device_ip='" . $this->db->escape($ip) . "', created_at='" . $this->db->escape($transaction['created_at']) . "', is_refunded='" . (int)(!empty($transaction['refunds'])) . "', refunded_at='" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', tenders='" . $this->db->escape(json_encode($transaction['tenders'])) . "', refunds='" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : [])) . "'");
     }
 
     public function tokenExpiredEmail() {
@@ -227,7 +227,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function nextRecurringPayments() {
-        $payments = array();
+        $payments = [];
 
         $this->load->library('squareup');
 

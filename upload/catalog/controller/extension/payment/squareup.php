@@ -23,7 +23,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $data['sandbox_message'] = '';
         }
 
-        $data['cards'] = array();
+        $data['cards'] = [];
 
         if ($this->customer->isLogged()) {
             $data['is_logged'] = true;
@@ -78,7 +78,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 'organization' => $order_info['payment_company']
             );
         } else {
-            $billing_address = array();
+            $billing_address = [];
         }
 
         if (!empty($shipping_country_info)) {
@@ -94,10 +94,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 'organization' => $order_info['shipping_company']
             );
         } else {
-            $shipping_address = array();
+            $shipping_address = [];
         }
 
-        $json = array();
+        $json = [];
 
         try {
             // Ensure we have registered the customer with Square

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionDashboardActivity extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/dashboard/activity');
@@ -23,7 +23,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 			$data['error_warning'] = ''; 
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -50,7 +50,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 			$data['dashboard_activity_width'] = $this->config->get('dashboard_activity_width');
 		}
 		
-		$data['columns'] = array();
+		$data['columns'] = [];
 		
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
@@ -88,7 +88,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 
 		$data['user_token'] = $this->session->data['user_token'];
 
-		$data['activities'] = array();
+		$data['activities'] = [];
 
 		$this->load->model('extension/dashboard/activity');
 

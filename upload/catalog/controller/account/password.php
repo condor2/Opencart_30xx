@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountPassword extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -23,7 +23,7 @@ class ControllerAccountPassword extends Controller {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

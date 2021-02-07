@@ -1,6 +1,6 @@
 <?php
 class ControllerInstallStep3 extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('install/step_3');
@@ -188,7 +188,7 @@ class ControllerInstallStep3 extends Controller {
 			'pgsql'
 		);
 
-		$data['drivers'] = array();
+		$data['drivers'] = [];
 
 		foreach ($db_drivers as $db_driver) {
 			if (extension_loaded($db_driver)) {

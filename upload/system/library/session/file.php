@@ -24,11 +24,11 @@ class File {
 
 				return json_decode($data, true);
 			} else {
-				return array();
+				return [];
 			}
 		}
 
-		return array();
+		return [];
 	}
 
 	public function write($session_id, $data) {

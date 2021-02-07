@@ -15,7 +15,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			$status = false;
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($status) {
 			$method_data = array(
@@ -235,7 +235,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		return $this->db->getLastId();
 	}
 
-	public function addTransaction($firstdata_remote_order_id, $type, $order_info = array()) {
+	public function addTransaction($firstdata_remote_order_id, $type, $order_info = []) {
 		if (!empty($order_info)) {
 			$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 		} else {

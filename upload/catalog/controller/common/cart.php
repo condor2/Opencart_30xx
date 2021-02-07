@@ -6,7 +6,7 @@ class ControllerCommonCart extends Controller {
 		// Totals
 		$this->load->model('setting/extension');
 
-		$totals = array();
+		$totals = [];
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 
@@ -19,7 +19,7 @@ class ControllerCommonCart extends Controller {
 			
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-			$sort_order = array();
+			$sort_order = [];
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -38,7 +38,7 @@ class ControllerCommonCart extends Controller {
 				}
 			}
 
-			$sort_order = array();
+			$sort_order = [];
 
 			foreach ($total_data['totals'] as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -52,7 +52,7 @@ class ControllerCommonCart extends Controller {
 		$this->load->model('tool/image');
 		$this->load->model('tool/upload');
 
-		$data['products'] = array();
+		$data['products'] = [];
 
 		foreach ($this->cart->getProducts() as $product) {
 			if ($product['image']) {
@@ -61,7 +61,7 @@ class ControllerCommonCart extends Controller {
 				$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_height'));
 			}
 
-			$option_data = array();
+			$option_data = [];
 
 			foreach ($product['option'] as $option) {
 				if ($option['type'] != 'file') {
@@ -109,7 +109,7 @@ class ControllerCommonCart extends Controller {
 		}
 
 		// Gift Voucher
-		$data['vouchers'] = array();
+		$data['vouchers'] = [];
 
 		if (!empty($this->session->data['vouchers'])) {
 			foreach ($this->session->data['vouchers'] as $key => $voucher) {
@@ -121,7 +121,7 @@ class ControllerCommonCart extends Controller {
 			}
 		}
 
-		$data['totals'] = array();
+		$data['totals'] = [];
 
 		foreach ($totals as $total) {
 			$data['totals'][] = array(

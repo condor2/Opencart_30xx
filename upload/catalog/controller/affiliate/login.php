@@ -1,6 +1,6 @@
 <?php
 class ControllerAffiliateLogin extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		if ($this->customer->isLogged()) {
@@ -50,7 +50,7 @@ class ControllerAffiliateLogin extends Controller {
 			}
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

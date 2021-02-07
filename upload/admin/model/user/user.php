@@ -50,7 +50,7 @@ class ModelUserUser extends Model {
 		return $query->row;
 	}
 
-	public function getUsers($data = array()) {
+	public function getUsers($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user`";
 
 		$sort_data = array(

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentCardinity extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/cardinity');
@@ -35,7 +35,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			$data['error_secret'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -154,7 +154,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$data['payment'] = false;
 
-		$data['refunds'] = array();
+		$data['refunds'] = [];
 
 		if ($order && $order['payment_id']) {
 			$data['payment'] = true;
@@ -213,7 +213,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$this->load->model('extension/payment/cardinity');
 
-		$json = array();
+		$json = [];
 
 		$success = $error = '';
 

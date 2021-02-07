@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountReturn extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -13,7 +13,7 @@ class ControllerAccountReturn extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -42,7 +42,7 @@ class ControllerAccountReturn extends Controller {
 			$page = 1;
 		}
 
-		$data['returns'] = array();
+		$data['returns'] = [];
 
 		$return_total = $this->model_account_return->getTotalReturns();
 
@@ -103,7 +103,7 @@ class ControllerAccountReturn extends Controller {
 		if ($return_info) {
 			$this->document->setTitle($this->language->get('text_return'));
 
-			$data['breadcrumbs'] = array();
+			$data['breadcrumbs'] = [];
 
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
@@ -147,7 +147,7 @@ class ControllerAccountReturn extends Controller {
 			$data['comment'] = nl2br($return_info['comment']);
 			$data['action'] = $return_info['action'];
 
-			$data['histories'] = array();
+			$data['histories'] = [];
 
 			$results = $this->model_account_return->getReturnHistories($this->request->get['return_id']);
 
@@ -172,7 +172,7 @@ class ControllerAccountReturn extends Controller {
 		} else {
 			$this->document->setTitle($this->language->get('text_return'));
 
-			$data['breadcrumbs'] = array();
+			$data['breadcrumbs'] = [];
 
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
@@ -232,7 +232,7 @@ class ControllerAccountReturn extends Controller {
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -525,7 +525,7 @@ class ControllerAccountReturn extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

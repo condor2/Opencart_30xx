@@ -1,13 +1,13 @@
 <?php
 class ModelExtensionDashboardChart extends Model {
 	public function getTotalOrdersByDay() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$order_data = array();
+		$order_data = [];
 
 		for ($i = 0; $i < 24; $i++) {
 			$order_data[$i] = array(
@@ -29,13 +29,13 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalOrdersByWeek() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$order_data = array();
+		$order_data = [];
 
 		$date_start = strtotime('-' . date('w') . ' days');
 
@@ -61,13 +61,13 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalOrdersByMonth() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$order_data = array();
+		$order_data = [];
 
 		for ($i = 1; $i <= date('t'); $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
@@ -91,13 +91,13 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalOrdersByYear() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$order_data = array();
+		$order_data = [];
 
 		for ($i = 1; $i <= 12; $i++) {
 			$order_data[$i] = array(
@@ -119,7 +119,7 @@ class ModelExtensionDashboardChart extends Model {
 	}
 	
 	public function getTotalCustomersByDay() {
-		$customer_data = array();
+		$customer_data = [];
 
 		for ($i = 0; $i < 24; $i++) {
 			$customer_data[$i] = array(
@@ -141,7 +141,7 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalCustomersByWeek() {
-		$customer_data = array();
+		$customer_data = [];
 
 		$date_start = strtotime('-' . date('w') . ' days');
 
@@ -167,7 +167,7 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalCustomersByMonth() {
-		$customer_data = array();
+		$customer_data = [];
 
 		for ($i = 1; $i <= date('t'); $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
@@ -191,7 +191,7 @@ class ModelExtensionDashboardChart extends Model {
 	}
 
 	public function getTotalCustomersByYear() {
-		$customer_data = array();
+		$customer_data = [];
 
 		for ($i = 1; $i <= 12; $i++) {
 			$customer_data[$i] = array(

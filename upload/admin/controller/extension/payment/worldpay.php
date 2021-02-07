@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentWorldpay extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/worldpay');
@@ -29,7 +29,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$data['error_client_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -230,7 +230,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/worldpay');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/worldpay');
@@ -250,7 +250,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 				$this->model_extension_payment_worldpay->updateRefundStatus($worldpay_order['payment_worldpay_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_refund_ok_order');
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $worldpay_order['currency_code'], false);
 				$json['data']['total_released'] = $this->currency->format($total_released, $worldpay_order['currency_code'], false);

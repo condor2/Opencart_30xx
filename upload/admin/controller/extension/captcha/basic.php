@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCaptchaBasic extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/captcha/basic');
@@ -23,7 +23,7 @@ class ControllerExtensionCaptchaBasic extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

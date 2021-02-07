@@ -13,7 +13,7 @@
 class Session {
 	protected $adaptor;
 	protected $session_id;
-	public $data = array();
+	public $data = [];
 
 	/**
 	 * Constructor
@@ -31,8 +31,8 @@ class Session {
 				$this->adaptor = new $class();
 			}
 
-			register_shutdown_function(array($this, 'close'));
-			register_shutdown_function(array($this, 'gc'));
+			register_shutdown_function([$this, 'close']);
+			register_shutdown_function([$this, 'gc']);
 		} else {
 			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
 		}
@@ -91,7 +91,7 @@ class Session {
 	 * Deletes the current session from storage
  	*/	
 	public function destroy() {
-		$this->data = array();
+		$this->data = [];
 
 		$this->adaptor->destroy($this->session_id);
 	}

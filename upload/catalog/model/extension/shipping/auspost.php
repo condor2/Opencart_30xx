@@ -23,7 +23,7 @@ class ModelExtensionShippingAusPost extends Model {
 
 		$api_key = $this->config->get('shipping_auspost_api');
 
-		$quote_data = array();
+		$quote_data = [];
 
 		if ($status) {
 			$weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_auspost_weight_class_id'));
@@ -59,7 +59,7 @@ class ModelExtensionShippingAusPost extends Model {
 				curl_close($curl);
 
 				if ($response) {
-					$response_info = array();
+					$response_info = [];
 
 					$response_parts = json_decode($response, true);
 
@@ -93,7 +93,7 @@ class ModelExtensionShippingAusPost extends Model {
 				curl_close($curl);
 
 				if ($response) {
-					$response_info = array();
+					$response_info = [];
 
 					$response_parts = json_decode($response, true);
 
@@ -116,7 +116,7 @@ class ModelExtensionShippingAusPost extends Model {
 			}
 		}
 
-		$method_data = array();
+		$method_data = [];
 
 		if ($quote_data) {
 			$method_data = array(

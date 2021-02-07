@@ -5,7 +5,7 @@ class ControllerExtensionPaymentFreeCheckout extends Controller {
 	}
 
 	public function confirm() {
-		$json = array();
+		$json = [];
 
 		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'free_checkout') {
 			$this->load->model('checkout/order');

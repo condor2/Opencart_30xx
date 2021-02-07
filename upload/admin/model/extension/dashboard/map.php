@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionDashboardMap extends Model {
 	public function getTotalOrdersByCountry() {
-		$implode = array();
+		$implode = [];
 
 		if (is_array($this->config->get('config_complete_status'))) {
 			foreach ($this->config->get('config_complete_status') as $order_status_id) {
@@ -14,7 +14,7 @@ class ModelExtensionDashboardMap extends Model {
 
 			return $query->rows;
 		} else {
-			return array();
+			return [];
 		}
 	}
 }

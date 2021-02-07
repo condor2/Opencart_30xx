@@ -180,7 +180,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
     }
 
-    public function curlGet($url, $headers = array()) {
+    public function curlGet($url, $headers = []) {
         $this->debugLog("URL", $url);
 
         $ch = curl_init($url);

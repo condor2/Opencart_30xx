@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketplaceCron extends Controller {
-	private $error = array();
+	private $error = [];
 	
 	public function index() {
 		$this->load->language('marketplace/cron');
@@ -79,7 +79,7 @@ class ControllerMarketplaceCron extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -94,7 +94,7 @@ class ControllerMarketplaceCron extends Controller {
 		$data['delete'] = $this->url->link('marketplace/cron/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['cron'] = $this->url->link('common/cron');
 
-		$data['crons'] = array();
+		$data['crons'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -139,7 +139,7 @@ class ControllerMarketplaceCron extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -201,7 +201,7 @@ class ControllerMarketplaceCron extends Controller {
 	public function run() {
 		$this->load->language('marketplace/cron');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['cron_id'])) {
 			$cron_id = (int)$this->request->get['cron_id'];
@@ -232,7 +232,7 @@ class ControllerMarketplaceCron extends Controller {
 	public function enable() {
 		$this->load->language('marketplace/cron');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['cron_id'])) {
 			$cron_id = (int)$this->request->get['cron_id'];
@@ -257,7 +257,7 @@ class ControllerMarketplaceCron extends Controller {
 	public function disable() {
 		$this->load->language('marketplace/cron');
 
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->get['cron_id'])) {
 			$cron_id = (int)$this->request->get['cron_id'];

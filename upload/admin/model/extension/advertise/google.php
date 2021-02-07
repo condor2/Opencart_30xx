@@ -199,7 +199,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getRequiredFieldsByProductIds($product_ids, $store_id) {
         $this->load->config('googleshopping/googleshopping');
 
-        $result = array();
+        $result = [];
         $countries = $this->getTargetCountriesByProductIds($product_ids, $store_id);
 
         foreach ($countries as $country) {
@@ -220,7 +220,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getRequiredFieldsByFilter($data, $store_id) {
         $this->load->config('googleshopping/googleshopping');
 
-        $result = array();
+        $result = [];
         $countries = $this->getTargetCountriesByFilter($data, $store_id);
 
         foreach ($countries as $country) {
@@ -301,7 +301,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             if (!empty($post_target_ids)) {
                 $target_ids = array_map(array($this->googleshopping, 'integer'), $post_target_ids);
 
-                $values = array();
+                $values = [];
 
                 foreach ($product_ids as $product_id) {
                     foreach ($target_ids as $target_id) {
@@ -338,7 +338,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         }
     }
 
-    public function insertNewProducts($product_ids = array(), $store_id) {
+    public function insertNewProducts($product_ids = [], $store_id) {
         $sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`) SELECT p.product_id, p2s.store_id, (SELECT c2gpc.google_product_category FROM `" . DB_PREFIX . "product_to_category` p2c LEFT JOIN `" . DB_PREFIX . "category_path` cp ON (p2c.category_id = cp.category_id) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` c2gpc ON (c2gpc.category_id = cp.path_id AND c2gpc.store_id = " . (int)$store_id . ") WHERE p2c.product_id = p.product_id AND c2gpc.google_product_category IS NOT NULL ORDER BY cp.level DESC LIMIT 0,1) as `google_product_category` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.product_id = p.product_id AND p2s.store_id = " . (int)$store_id . ") LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.product_id = p.product_id AND pag.store_id=p2s.store_id) WHERE pag.product_id IS NULL AND p2s.store_id IS NOT NULL";
 
         if (!empty($product_ids)) {
@@ -355,9 +355,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function updateSingleProductFields($data) {
-        $values = array();
+        $values = [];
 
-        $entry = array();
+        $entry = [];
         $entry['product_id'] = (int)$data['product_id'];
         $entry = array_merge($entry, $this->makeInsertData($data));
 
@@ -373,7 +373,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $this->googleshopping->applyFilter($insert_sql, $filter_data);
 
-        $insert_data = array();
+        $insert_data = [];
         $keys[] = "`product_id`";
 
         foreach ($this->makeInsertData($data) as $key => $value) {
@@ -387,7 +387,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     protected function makeInsertData($data) {
-        $insert_data = array();
+        $insert_data = [];
 
         $insert_data['store_id'] = (int)$data['store_id'];
         $insert_data['google_product_category'] = "'" . $this->db->escape($data['google_product_category']) . "'";
@@ -410,7 +410,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         return "`google_product_category`=VALUES(`google_product_category`), `condition`=VALUES(`condition`), `adult`=VALUES(`adult`), `multipack`=VALUES(`multipack`), `is_bundle`=VALUES(`is_bundle`), `age_group`=VALUES(`age_group`), `color`=VALUES(`color`), `gender`=VALUES(`gender`), `size_type`=VALUES(`size_type`), `size_system`=VALUES(`size_system`), `size`=VALUES(`size`), `is_modified`=VALUES(`is_modified`)";
     }
 
-    public function getCategories($data = array(), $store_id) {
+    public function getCategories($data = [], $store_id) {
         $sql = "SELECT cp.category_id AS category_id, GROUP_CONCAT(cd1.name ORDER BY cp.level SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS name, c1.parent_id, c1.sort_order FROM " . DB_PREFIX . "category_path cp LEFT JOIN `" . DB_PREFIX . "category_to_store` c2s ON (c2s.category_id = cp.category_id AND c2s.store_id=" . (int)$store_id . ") LEFT JOIN " . DB_PREFIX . "category c1 ON (cp.category_id = c1.category_id) LEFT JOIN " . DB_PREFIX . "category c2 ON (cp.path_id = c2.category_id) LEFT JOIN " . DB_PREFIX . "category_description cd1 ON (cp.path_id = cd1.category_id) LEFT JOIN " . DB_PREFIX . "category_description cd2 ON (cp.category_id = cd2.category_id) WHERE c2s.store_id IS NOT NULL AND cd1.language_id = '" . (int)$this->config->get('config_language_id') . "' AND cd2.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
@@ -467,10 +467,10 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $product_info = $this->db->query($sql)->row;
 
         if (!empty($product_info)) {
-            $result = array();
+            $result = [];
             $result['name'] = $product_info['name'];
             $result['model'] = $product_info['model'];
-            $result['entries'] = array();
+            $result['entries'] = [];
 
             foreach ($this->model_localisation_language->getLanguages() as $language) {
                 $language_id = $language['language_id'];
@@ -478,15 +478,15 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
                 $result['entries'][$language_id] = array(
                     'language_name' => $language['name'],
-                    'issues' => array()
+                    'issues' => []
                 );
 
                 foreach ($groups as $id => $group) {
                     $issues = $this->db->query("SELECT * FROM `" . DB_PREFIX . "googleshopping_product_status` WHERE product_id=" . (int)$product_id . " AND store_id=" . (int)$store_id . " AND product_variation_id='" . $this->db->escape($id) . "'")->row;
 
-                    $destination_statuses = !empty($issues['destination_statuses']) ? json_decode($issues['destination_statuses'], true) : array();
-                    $data_quality_issues = !empty($issues['data_quality_issues']) ? json_decode($issues['data_quality_issues'], true) : array();
-                    $item_level_issues = !empty($issues['item_level_issues']) ? json_decode($issues['item_level_issues'], true) : array();
+                    $destination_statuses = !empty($issues['destination_statuses']) ? json_decode($issues['destination_statuses'], true) : [];
+                    $data_quality_issues = !empty($issues['data_quality_issues']) ? json_decode($issues['data_quality_issues'], true) : [];
+                    $item_level_issues = !empty($issues['item_level_issues']) ? json_decode($issues['item_level_issues'], true) : [];
                     $google_expiration_date = !empty($issues['google_expiration_date']) ? date($this->language->get('datetime_format'), $issues['google_expiration_date']) : $this->language->get('text_na');
 
                     $result['entries'][$language_id]['issues'][] = array(
@@ -675,7 +675,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getAllowedTargets() {
         $this->load->config('googleshopping/googleshopping');
 
-        $result = array();
+        $result = [];
 
         foreach ($this->config->get('advertise_google_targets') as $target) {
             $result[] = array(

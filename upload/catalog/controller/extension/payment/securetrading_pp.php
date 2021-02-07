@@ -67,7 +67,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				'PAYPAL' => 'PayPal',
 			);
 
-			$data['cards'] = array();
+			$data['cards'] = [];
 
 			foreach ($cards as $key => $value) {
 				if (in_array($key, $this->config->get('payment_securetrading_pp_cards_accepted'))) {

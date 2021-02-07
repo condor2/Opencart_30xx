@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationTaxClass extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('localisation/tax_class');
@@ -143,7 +143,7 @@ class ControllerLocalisationTaxClass extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -158,7 +158,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		$data['add'] = $this->url->link('localisation/tax_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/tax_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['tax_classes'] = array();
+		$data['tax_classes'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -196,7 +196,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -278,7 +278,7 @@ class ControllerLocalisationTaxClass extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -327,7 +327,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		} elseif (isset($this->request->get['tax_class_id'])) {
 			$data['tax_rules'] = $this->model_localisation_tax_class->getTaxRules($this->request->get['tax_class_id']);
 		} else {
-			$data['tax_rules'] = array();
+			$data['tax_rules'] = [];
 		}
 
 		$data['header'] = $this->load->controller('common/header');

@@ -46,7 +46,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 			$data['ship_country'] = $order_info['payment_country'];
 		}
 
-		$data['products'] = array();
+		$data['products'] = [];
 
 		$products = $this->cart->getProducts();
 

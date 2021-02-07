@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountAffiliate extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function add() {
 		if (!$this->customer->isLogged()) {
@@ -60,7 +60,7 @@ class ControllerAccountAffiliate extends Controller {
 
 		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -117,7 +117,7 @@ class ControllerAccountAffiliate extends Controller {
 		if (isset($this->error['custom_field'])) {
 			$data['error_custom_field'] = $this->error['custom_field'];
 		} else {
-			$data['error_custom_field'] = array();
+			$data['error_custom_field'] = [];
 		}
 				
 		$data['action'] = $this->url->link($this->request->get['route'], '', true);
@@ -230,7 +230,7 @@ class ControllerAccountAffiliate extends Controller {
 		} elseif (isset($affiliate_info)) {
 			$data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
 		} else {
-			$data['affiliate_custom_field'] = array();
+			$data['affiliate_custom_field'] = [];
 		}
 
 		$affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());

@@ -57,7 +57,7 @@ class Action {
 	 * @param    object $registry
 	 * @param    array $args
 	 */
-	public function execute($registry, array &$args = array()) {
+	public function execute($registry, array &$args = []) {
 		// Stop any magical methods being called
 		if (substr($this->method, 0, 2) == '__') {
 			return new \Exception('Error: Calls to magic methods are not allowed!');

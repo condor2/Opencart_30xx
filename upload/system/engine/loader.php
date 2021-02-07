@@ -104,7 +104,7 @@ final class Loader {
 	 *
 	 * @return   string
 	 */
-	public function view($route, $data = array()) {
+	public function view($route, $data = []) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
@@ -145,7 +145,7 @@ final class Loader {
 	 *
 	 * @param    string $route
 	 */
-	public function library($route, $config = array()) {
+	public function library($route, $config = []) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 

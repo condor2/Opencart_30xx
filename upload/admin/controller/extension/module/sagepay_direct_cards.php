@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/module/sagepay_direct_cards');
@@ -23,7 +23,7 @@ class ControllerExtensionModuleSagepayDirectCards extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->model('setting/setting');
@@ -64,7 +64,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$data['payment_securetrading_ws_cards_accepted'] = $this->config->get('payment_securetrading_ws_cards_accepted');
 
 			if ($data['payment_securetrading_ws_cards_accepted'] == null) {
-				$data['payment_securetrading_ws_cards_accepted'] = array();
+				$data['payment_securetrading_ws_cards_accepted'] = [];
 			}
 		}
 
@@ -176,7 +176,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$data['error_cards_accepted'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -221,13 +221,13 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		$data['myst_status'] = !empty($data['securetrading_ws_csv_username']) && !empty($data['securetrading_ws_csv_password']);
-		$data['hours'] = array();
+		$data['hours'] = [];
 
 		for ($i = 0; $i < 24; $i++) {
 			$data['hours'][] = str_pad($i, 2, '0', STR_PAD_LEFT);
 		}
 
-		$data['minutes'] = array();
+		$data['minutes'] = [];
 
 		for ($i = 0; $i < 60; $i++) {
 			$data['minutes'][] = str_pad($i, 2, '0', STR_PAD_LEFT);
@@ -282,7 +282,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 		$response = $this->model_extension_payment_securetrading_ws->getCsv($csv_data);
 
-		$data['transactions'] = array();
+		$data['transactions'] = [];
 
 		$status_mapping = array(
 			'0' => $this->language->get('text_ok'),
@@ -301,7 +301,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		if ($response) {
 			$lines = array_filter(explode("\n", $response));
 
-			$csv = array();
+			$csv = [];
 			$keys = str_getcsv($lines[0]);
 
 			for ($i = 1; $i < count($lines); $i++) {
@@ -357,7 +357,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/securetrading_ws');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/securetrading_ws');
@@ -407,7 +407,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/securetrading_ws');
-		$json = array();
+		$json = [];
 
 		$amount = number_format($this->request->post['amount'], 2);
 
@@ -438,7 +438,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$this->load->model('sale/order');
 
-						$history = array();
+						$history = [];
 						$history['order_status_id'] = $this->config->get('securetrading_ws_order_status_success_settled_id');
 						$history['comment'] = '';
 						$history['notify'] = '';
@@ -449,7 +449,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$json['msg'] = $this->language->get('text_release_ok');
 					}
 
-					$json['data'] = array();
+					$json['data'] = [];
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount;
 					$json['data']['release_status'] = $release_status;
@@ -470,7 +470,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/securetrading_ws');
-		$json = array();
+		$json = [];
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/securetrading_ws');
@@ -505,7 +505,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$this->load->model('sale/order');
 
-						$history = array();
+						$history = [];
 						$history['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_order_status_id');
 						$history['comment'] = '';
 						$history['notify'] = '';
@@ -516,7 +516,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$json['msg'] = $this->language->get('text_rebate_ok');
 					}
 
-					$json['data'] = array();
+					$json['data'] = [];
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount * -1;
 					$json['data']['total_released'] = (double)$total_released;

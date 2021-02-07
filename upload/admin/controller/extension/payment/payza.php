@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayza extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/payza');
@@ -35,7 +35,7 @@ class ControllerExtensionPaymentPayza extends Controller {
 			$data['error_security'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

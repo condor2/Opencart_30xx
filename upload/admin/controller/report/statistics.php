@@ -1,6 +1,6 @@
 <?php
 class ControllerReportStatistics extends Controller {
-	protected $error = array();
+	protected $error = [];
 	
 	public function index() {
 		$this->load->language('report/statistics');
@@ -82,7 +82,7 @@ class ControllerReportStatistics extends Controller {
 		if ($this->validate()) {
 			$this->load->model('localisation/order_status');
 
-			$order_status_data = array();
+			$order_status_data = [];
 
 			$results = $this->model_localisation_order_status->getOrderStatuses();
 
@@ -205,7 +205,7 @@ class ControllerReportStatistics extends Controller {
 	}
 
 	public function getList() {
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -217,7 +217,7 @@ class ControllerReportStatistics extends Controller {
 			'href' => $this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
-		$data['statistics'] = array();
+		$data['statistics'] = [];
 
 		$this->load->model('report/statistics');
 

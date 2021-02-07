@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudFraudLabsPro extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/fraud/fraudlabspro');
@@ -29,7 +29,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			$data['error_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

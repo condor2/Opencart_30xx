@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipayCross extends Controller {
-	protected $error = array();
+	protected $error = [];
 	private $currencies = array('GBP', 'HKD', 'USD', 'CHF', 'SGD', 'SEK', 'DKK', 'NOK', 'JPY', 'CAD', 'AUD', 'EUR', 'NZD', 'KRW', 'THB');
 
 	public function index() {
@@ -36,7 +36,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 			$data['error_merchant_private_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -78,7 +78,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$this->load->model('localisation/currency');
 
 		$currencies = $this->model_localisation_currency->getCurrencies();
-		$data['currencies'] = array();
+		$data['currencies'] = [];
 		foreach ($currencies as $currency) {
 			if (in_array($currency['code'], $this->currencies)) {
 				$data['currencies'][] = array(

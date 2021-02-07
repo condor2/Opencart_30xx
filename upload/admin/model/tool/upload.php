@@ -24,10 +24,10 @@ class ModelToolUpload extends Model {
 		return $query->row;
 	}
 
-	public function getUploads($data = array()) {
+	public function getUploads($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -83,7 +83,7 @@ class ModelToolUpload extends Model {
 	public function getTotalUploads() {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";

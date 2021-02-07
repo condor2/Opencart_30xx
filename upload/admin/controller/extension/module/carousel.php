@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleCarousel extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/module/carousel');
@@ -45,7 +45,7 @@ class ControllerExtensionModuleCarousel extends Controller {
 			$data['error_height'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

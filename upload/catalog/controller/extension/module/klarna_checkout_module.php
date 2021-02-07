@@ -101,7 +101,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 		if (isset($this->session->data['shipping_address'])) {
 			// Shipping Methods
-			$method_data = array();
+			$method_data = [];
 
 			$this->load->model('setting/extension');
 
@@ -124,7 +124,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 				}
 			}
 
-			$sort_order = array();
+			$sort_order = [];
 
 			foreach ($method_data as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];

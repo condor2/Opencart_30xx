@@ -204,10 +204,10 @@ class ControllerMailOrder extends Controller {
 		$this->load->model('tool/upload');
 
 		// Products
-		$data['products'] = array();
+		$data['products'] = [];
 
 		foreach ($order_products as $order_product) {
-			$option_data = array();
+			$option_data = [];
 
 			$order_options = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
 
@@ -241,7 +241,7 @@ class ControllerMailOrder extends Controller {
 		}
 
 		// Vouchers
-		$data['vouchers'] = array();
+		$data['vouchers'] = [];
 
 		$order_vouchers = $this->model_checkout_order->getOrderVouchers($order_info['order_id']);
 
@@ -253,7 +253,7 @@ class ControllerMailOrder extends Controller {
 		}
 
 		// Order Totals
-		$data['totals'] = array();
+		$data['totals'] = [];
 		
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
@@ -412,12 +412,12 @@ class ControllerMailOrder extends Controller {
 
 			$this->load->model('tool/upload');
 			
-			$data['products'] = array();
+			$data['products'] = [];
 
 			$order_products = $this->model_checkout_order->getOrderProducts($order_id);
 
 			foreach ($order_products as $order_product) {
-				$option_data = array();
+				$option_data = [];
 				
 				$order_options = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
 				
@@ -449,7 +449,7 @@ class ControllerMailOrder extends Controller {
 				);
 			}
 			
-			$data['vouchers'] = array();
+			$data['vouchers'] = [];
 			
 			$order_vouchers = $this->model_checkout_order->getOrderVouchers($order_id);
 
@@ -460,7 +460,7 @@ class ControllerMailOrder extends Controller {
 				);					
 			}
 
-			$data['totals'] = array();
+			$data['totals'] = [];
 			
 			$order_totals = $this->model_checkout_order->getOrderTotals($order_id);
 

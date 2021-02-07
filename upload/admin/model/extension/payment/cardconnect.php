@@ -71,7 +71,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -88,7 +88,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/inquire/' . $retref . '/' . $this->config->get('payment_cardconnect_merchant_id');
 
-		$header = array();
+		$header = [];
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
@@ -138,7 +138,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
 
-		$items = array();
+		$items = [];
 
 		$i = 1;
 
@@ -179,7 +179,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/capture';
 
-		$header = array();
+		$header = [];
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Content-length: ' . strlen($data_json);
@@ -228,7 +228,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
 
-		$header = array();
+		$header = [];
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Content-length: ' . strlen($data_json);
@@ -277,7 +277,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
 
-		$header = array();
+		$header = [];
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Content-length: ' . strlen($data_json);

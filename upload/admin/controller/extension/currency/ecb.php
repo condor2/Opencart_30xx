@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCurrencyECB extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/currency/ecb');
@@ -23,7 +23,7 @@ class ControllerExtensionCurrencyECB extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -86,7 +86,7 @@ class ControllerExtensionCurrencyECB extends Controller {
 
 				$cube = $dom->getElementsByTagName('Cube')->item(0);
 
-				$currencies = array();
+				$currencies = [];
 
 				$currencies['EUR'] = 1.0000;
 

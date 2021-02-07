@@ -1,6 +1,6 @@
 <?php
 class ControllerToolLog extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {		
 		$this->load->language('tool/log');
@@ -25,7 +25,7 @@ class ControllerToolLog extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

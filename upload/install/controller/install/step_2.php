@@ -1,6 +1,6 @@
 <?php
 class ControllerInstallStep2 extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('install/step_2');

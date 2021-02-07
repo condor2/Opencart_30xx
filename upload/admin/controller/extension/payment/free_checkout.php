@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentFreeCheckout extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/free_checkout');
@@ -23,7 +23,7 @@ class ControllerExtensionPaymentFreeCheckout extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),

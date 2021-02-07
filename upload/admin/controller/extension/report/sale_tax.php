@@ -21,7 +21,7 @@ class ControllerExtensionReportSaleTax extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -104,7 +104,7 @@ class ControllerExtensionReportSaleTax extends Controller {
 
 		$this->load->model('extension/report/sale');
 
-		$data['orders'] = array();
+		$data['orders'] = [];
 
 		$filter_data = array(
 			'filter_date_start'	     => $filter_date_start,
@@ -117,7 +117,7 @@ class ControllerExtensionReportSaleTax extends Controller {
 
 		$order_total = $this->model_extension_report_sale->getTotalTaxes($filter_data);
 
-		$data['orders'] = array();
+		$data['orders'] = [];
 
 		$results = $this->model_extension_report_sale->getTaxes($filter_data);
 
@@ -137,7 +137,7 @@ class ControllerExtensionReportSaleTax extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		$data['groups'] = array();
+		$data['groups'] = [];
 
 		$data['groups'][] = array(
 			'text'  => $this->language->get('text_year'),

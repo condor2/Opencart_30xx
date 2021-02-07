@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentEway extends Controller {
 
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('extension/payment/eway');
@@ -50,7 +50,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			$data['error_payment_type'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -275,7 +275,7 @@ class ControllerExtensionPaymentEway extends Controller {
 					$this->model_extension_payment_eway->updateRefundStatus($eway_order['eway_order_id'], $refund_status);
 				}
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['transactionid'] = $result->TransactionID;
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = number_format($refund_amount, 2, '.', '');
@@ -332,7 +332,7 @@ class ControllerExtensionPaymentEway extends Controller {
 				$this->model_extension_payment_eway->updateCaptureStatus($eway_order['eway_order_id'], 1);
 				$this->model_extension_payment_eway->updateTransactionId($eway_order['eway_order_id'], $result->TransactionID);
 
-				$json['data'] = array();
+				$json['data'] = [];
 				$json['data']['transactionid'] = $result->TransactionID;
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = number_format($capture_amount, 2, '.', '');

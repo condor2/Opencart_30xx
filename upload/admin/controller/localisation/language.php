@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationLanguage extends Controller {
-	protected $error = array();
+	protected $error = [];
 
 	public function index() {
 		$this->load->language('localisation/language');
@@ -143,7 +143,7 @@ class ControllerLocalisationLanguage extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -158,7 +158,7 @@ class ControllerLocalisationLanguage extends Controller {
 		$data['add'] = $this->url->link('localisation/language/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/language/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['languages'] = array();
+		$data['languages'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -198,7 +198,7 @@ class ControllerLocalisationLanguage extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -288,7 +288,7 @@ class ControllerLocalisationLanguage extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -328,7 +328,7 @@ class ControllerLocalisationLanguage extends Controller {
 			$data['code'] = '';
 		}
 		
-		$data['languages'] = array();
+		$data['languages'] = [];
 		
 		$folders = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
 

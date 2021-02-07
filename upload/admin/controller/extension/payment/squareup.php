@@ -1,7 +1,7 @@
 <?php
 
 class ControllerExtensionPaymentSquareup extends Controller {
-    protected $error = array();
+    protected $error = [];
 
     public function index() {
         $this->load->language('extension/payment/squareup');
@@ -214,7 +214,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $data['tab'] = $tabs[1];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
@@ -237,7 +237,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/squareup/transactions', 'user_token=' . $this->session->data['user_token'] . '&page={PAGE}', true));
 
         $this->load->model('localisation/language');
-        $data['languages'] = array();
+        $data['languages'] = [];
         foreach ($this->model_localisation_language->getLanguages() as $language) {
             $data['languages'][] = array(
                 'language_id' => $language['language_id'],
@@ -366,7 +366,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         if ($data['has_refunds']) {
             $refunds = @json_decode($transaction_info['refunds'], true);
 
-            $data['refunds'] = array();
+            $data['refunds'] = [];
 
             $data['text_refunds'] = sprintf($this->language->get('text_refunds'), count($refunds));
 
@@ -397,7 +397,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
@@ -461,7 +461,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         $result = array(
-            'transactions' => array(),
+            'transactions' => [],
             'pagination' => ''
         );
 
@@ -745,7 +745,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $status = $updated_transaction['tenders'][0]['card_details']['status'];
 
-            $refunds = array();
+            $refunds = [];
 
             if (!empty($updated_transaction['refunds'])) {
                 $refunds = $updated_transaction['refunds'];
@@ -891,7 +891,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
     public function recurringCancel() {
         $this->load->language('extension/payment/squareup');
 
-        $json = array();
+        $json = [];
         
         if (!$this->user->hasPermission('modify', 'sale/recurring')) {
             $json['error'] = $this->language->get('error_permission_recurring');
@@ -989,7 +989,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->load->library('squareup');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
             $json['error'] = $this->language->get('error_permission');
@@ -1043,7 +1043,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         if (isset($this->session->data['payment_squareup_alerts'])) {
             return $this->session->data['payment_squareup_alerts'];
         } else {
-            return array();
+            return [];
         }
     }
 

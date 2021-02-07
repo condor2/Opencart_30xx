@@ -38,7 +38,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$this->load->model('setting/setting');
 
-		$defaults = array();
+		$defaults = [];
 
 		// Order Status defaults
 		$defaults['payment_pp_express_canceled_reversal_status_id'] = 9;
@@ -79,7 +79,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order` SET `capture_status` = '" . $this->db->escape($capture_status) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
-	public function addTransaction($transaction_data, $request_data = array()) {
+	public function addTransaction($transaction_data, $request_data = []) {
 		if ($request_data) {
 			$serialized_data = json_encode($request_data);
 
@@ -182,7 +182,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 	public function cleanReturn($data) {
 		$data = explode('&', $data);
 
-		$arr = array();
+		$arr = [];
 
 		foreach ($data as $k => $v) {
 			$tmp = explode('=', $v);
@@ -261,7 +261,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$endpoint1 = $endpoint . '?tracking_id=' . $merchant_id;
 
-		$header = array();
+		$header = [];
 		$header[] = 'Content-Type: application/json';
 		$header[] = 'Authorization: Bearer ' . $access_token;
 		$header[] = 'PAYPAL_SERVICE_VERSION:1.2.0';
@@ -348,7 +348,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		return $this->cleanReturn($result);
 	}
 
-	private function curl($endpoint, $additional_opts = array()) {
+	private function curl($endpoint, $additional_opts = []) {
 		$default_opts = array(
 			CURLOPT_PORT => 443,
 			CURLOPT_HEADER => 0,

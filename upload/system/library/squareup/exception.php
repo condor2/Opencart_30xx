@@ -78,7 +78,7 @@ class Exception extends \Exception {
     }
 
     protected function concatErrors() {
-        $messages = array();
+        $messages = [];
 
         if (is_array($this->errors)) {
             foreach ($this->errors as $error) {
