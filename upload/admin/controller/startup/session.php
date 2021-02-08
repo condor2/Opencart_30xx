@@ -16,13 +16,13 @@ class ControllerStartupSession extends Controller {
 		$path = substr($path, 0, strrpos($path, '/')) . '/';
 
 		// Require higher security for session cookies
-		$option = array(
+		$option = [
 			'expires'  => time() + $this->config->get('session_expire'),
 			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => 'Strict'
-		);
+		];
 
 		oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
 	}

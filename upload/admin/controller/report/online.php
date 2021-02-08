@@ -39,15 +39,15 @@ class ControllerReportOnline extends Controller {
 			
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('report/online', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 		
 		$data['refresh'] = $this->url->link('report/online', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
@@ -56,12 +56,12 @@ class ControllerReportOnline extends Controller {
 
 		$data['customers'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'filter_ip'       => $filter_ip,
 			'filter_customer' => $filter_customer,
 			'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'           => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$customer_total = $this->model_report_online->getTotalOnline($filter_data);
 
@@ -76,7 +76,7 @@ class ControllerReportOnline extends Controller {
 				$customer = $this->language->get('text_guest');
 			}
 
-			$data['customers'][] = array(
+			$data['customers'][] = [
 				'customer_id' => $result['customer_id'],
 				'ip'          => $result['ip'],
 				'customer'    => $customer,
@@ -84,7 +84,7 @@ class ControllerReportOnline extends Controller {
 				'referer'     => $result['referer'],
 				'date_added'  => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
 				'edit'        => $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'], true)
-			);
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

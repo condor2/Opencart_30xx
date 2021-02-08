@@ -107,7 +107,7 @@ class ControllerMarketplaceInstall extends Controller {
 				$files = [];
 
 				// Get a list of files ready to upload
-				$path = array($directory . 'upload/*');
+				$path = [$directory . 'upload/*'];
 
 				while (count($path) != 0) {
 					$next = array_shift($path);
@@ -122,7 +122,7 @@ class ControllerMarketplaceInstall extends Controller {
 				}
 
 				// A list of allowed directories to be written to
-				$allowed = array(
+				$allowed = [
 					'admin/controller/extension/',
 					'admin/language/',
 					'admin/model/extension/',
@@ -138,7 +138,7 @@ class ControllerMarketplaceInstall extends Controller {
 					'system/config/',
 					'system/library/',
 					'image/catalog/'
-				);
+				];
 
 				// First we need to do some checks
 				foreach ($files as $file) {
@@ -319,7 +319,7 @@ class ControllerMarketplaceInstall extends Controller {
 						if (!$json) {
 							
 							
-							$modification_data = array(
+							$modification_data = [
 								'extension_install_id' => $extension_install_id,
 								'name'                 => $name,
 								'code'                 => $code,
@@ -328,7 +328,7 @@ class ControllerMarketplaceInstall extends Controller {
 								'link'                 => $link,
 								'xml'                  => $xml,
 								'status'               => 1
-							);
+							];
 
 							$this->model_setting_modification->addModification($modification_data);
 						}
@@ -369,13 +369,13 @@ class ControllerMarketplaceInstall extends Controller {
 				// Get a list of files ready to upload
 				$files = [];
 
-				$path = array($directory);
+				$path = [$directory];
 
 				while (count($path) != 0) {
 					$next = array_shift($path);
 
 					// We have to use scandir function because glob will not pick up dot files.
-					foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+					foreach (array_diff(scandir($next), ['.', '..']) as $file) {
 						$file = $next . '/' . $file;
 	
 						if (is_dir($file)) {
@@ -464,13 +464,13 @@ class ControllerMarketplaceInstall extends Controller {
 					// Get a list of files ready to upload
 					$files = [];
 
-					$path = array($source);
+					$path = [$source];
 
 					while (count($path) != 0) {
 						$next = array_shift($path);
 
 						// We have to use scandir function because glob will not pick up dot files.
-						foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+						foreach (array_diff(scandir($next), ['.', '..']) as $file) {
 							$file = $next . '/' . $file;
 
 							if (is_dir($file)) {

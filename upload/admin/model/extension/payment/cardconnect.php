@@ -143,7 +143,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$i = 1;
 
 		foreach ($products as $product) {
-			$items[] = array(
+			$items[] = [
 				'lineno'      => $i,
 				'material'    => '',
 				'description' => $product['name'],
@@ -154,12 +154,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 				'netamnt'     => $product['total'],
 				'taxamnt'     => $product['tax'],
 				'discamnt'    => ''
-			);
+			];
 
 			$i++;
 		}
 
-		$data = array(
+		$data = [
 			'merchid'       => $this->config->get('payment_cardconnect_merchant_id'),
 			'retref'        => $order_info['retref'],
 			'authcode'      => $order_info['authcode'],
@@ -173,7 +173,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			'shipfromzip'   => '',
 			'shiptocountry' => $order['shipping_iso_code_2'],
 			'Items'         => $items
-		);
+		];
 
 		$data_json = json_encode($data);
 
@@ -217,12 +217,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$this->log('Order ID: ' . $order_info['order_id']);
 
-		$data = array(
+		$data = [
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
 			'currency'  => $order_info['currency_code'],
 			'retref'    => $order_info['retref']
-		);
+		];
 
 		$data_json = json_encode($data);
 
@@ -266,12 +266,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$this->log('Order ID: ' . $order_info['order_id']);
 
-		$data = array(
+		$data = [
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => 0,
 			'currency'  => $order_info['currency_code'],
 			'retref'    => $retref
-		);
+		];
 
 		$data_json = json_encode($data);
 

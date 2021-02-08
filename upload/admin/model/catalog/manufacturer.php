@@ -98,10 +98,10 @@ class ModelCatalogManufacturer extends Model {
 			$sql .= " WHERE `name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'name',
 			'sort_order'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";

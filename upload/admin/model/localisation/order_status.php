@@ -86,7 +86,7 @@ class ModelLocalisationOrderStatus extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$order_status_data[$result['language_id']] = array('name' => $result['name']);
+			$order_status_data[$result['language_id']] = ['name' => $result['name']];
 		}
 
 		return $order_status_data;

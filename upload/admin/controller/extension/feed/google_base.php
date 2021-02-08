@@ -25,20 +25,20 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=feed', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/feed/google_base', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/feed/google_base', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -148,12 +148,12 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		$results = $this->model_extension_feed_google_base->getCategories(($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
-			$data['google_base_categories'][] = array(
+			$data['google_base_categories'][] = [
 				'google_base_category_id' => $result['google_base_category_id'],
 				'google_base_category'    => $result['google_base_category'],
 				'category_id'             => $result['category_id'],
 				'category'                => $result['category']
-			);
+			];
 		}
 
 		$category_total = $this->model_extension_feed_google_base->getTotalCategories();
@@ -221,19 +221,19 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 				$filter_name = '';
 			}
 
-			$filter_data = array(
+			$filter_data = [
 				'filter_name' => html_entity_decode($filter_name, ENT_QUOTES, 'UTF-8'),
 				'start'       => 0,
 				'limit'       => 5
-			);
+			];
 
 			$results = $this->model_extension_feed_google_base->getGoogleBaseCategories($filter_data);
 
 			foreach ($results as $result) {
-				$json[] = array(
+				$json[] = [
 					'google_base_category_id' => $result['google_base_category_id'],
 					'name'                    => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
-				);
+				];
 			}
 		}
 

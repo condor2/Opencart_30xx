@@ -75,20 +75,20 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/firstdata_remote', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/payment/firstdata_remote', 'user_token=' . $this->session->data['user_token'], true);
 		
@@ -223,30 +223,30 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 		$data['cards'] = [];
 
-		$data['cards'][] = array(
+		$data['cards'][] = [
 			'text'  => $this->language->get('text_mastercard'),
 			'value' => 'mastercard'
-		);
+		];
 
-		$data['cards'][] = array(
+		$data['cards'][] = [
 			'text'  => $this->language->get('text_visa'),
 			'value' => 'visa'
-		);
+		];
 
-		$data['cards'][] = array(
+		$data['cards'][] = [
 			'text'  => $this->language->get('text_diners'),
 			'value' => 'diners'
-		);
+		];
 
-		$data['cards'][] = array(
+		$data['cards'][] = [
 			'text'  => $this->language->get('text_amex'),
 			'value' => 'amex'
-		);
+		];
 
-		$data['cards'][] = array(
+		$data['cards'][] = [
 			'text'  => $this->language->get('text_maestro'),
 			'value' => 'maestro'
-		);
+		];
 
 		if (isset($this->request->post['payment_firstdata_remote_cards_accepted'])) {
 			$data['payment_firstdata_remote_cards_accepted'] = $this->request->post['payment_firstdata_remote_cards_accepted'];

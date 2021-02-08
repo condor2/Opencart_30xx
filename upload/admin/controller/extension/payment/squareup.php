@@ -45,11 +45,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $this->model_setting_setting->editSetting('payment_squareup', $previous_setting);
         } catch (\Squareup\Exception $e) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => sprintf($this->language->get('text_location_error'), $e->getMessage())
-            ));
+            ]);
         }
 
         $previous_config = new Config();
@@ -121,26 +121,26 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $expiration_date_formatted = $expiration_time->format('l, F jS, Y h:i:s A, e');
 
             if ($delta < 0) {
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'danger',
                     'icon' => 'exclamation-circle',
                     'text' => sprintf($this->language->get('text_token_expired'), $this->url->link('extension/payment/squareup/refresh_token', 'user_token=' . $this->session->data['user_token'], true))
-                ));
+                ]);
             } else if ($delta < (5 * 24 * 60 * 60)) { // token is valid, just about to expire
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'warning',
                     'icon' => 'exclamation-circle',
                     'text' => sprintf($this->language->get('text_token_expiry_warning'), $expiration_date_formatted, $this->url->link('extension/payment/squareup/refresh_token', 'user_token=' . $this->session->data['user_token'], true))
-                ));
+                ]);
             }
 
             $data['access_token_expires_time'] = $expiration_date_formatted;
         } else if ($previous_config->get('payment_squareup_client_id')) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => sprintf($this->language->get('text_token_revoked'), $this->squareup->authLink($previous_config->get('payment_squareup_client_id')))
-            ));
+            ]);
 
             $data['access_token_expires_time'] = $this->language->get('text_na');
         }
@@ -155,54 +155,54 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $data['payment_squareup_refresh_link'] = $this->url->link('extension/payment/squareup/refresh_token', 'user_token=' . $this->session->data['user_token'], true);
 
         if ($this->config->get('payment_squareup_enable_sandbox')) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'warning',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('text_sandbox_enabled')
-            ));
+            ]);
         }
 
         if (isset($this->error['warning'])) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->error['warning']
-            ));
+            ]);
         }
 
         // Insert success message from the session
         if (isset($this->session->data['success'])) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'success',
                 'icon' => 'exclamation-circle',
                 'text' => $this->session->data['success']
-            ));
+            ]);
 
             unset($this->session->data['success']);
         }
 
         if ($this->request->server['HTTPS']) {
             // Push the SSL reminder alert
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'info',
                 'icon' => 'lock',
                 'text' => $this->language->get('text_notification_ssl')
-            ));
+            ]);
         } else {
             // Push the SSL reminder alert
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('error_no_ssl')
-            ));
+            ]);
         }
 
-        $tabs = array(
+        $tabs = [
             'tab-transaction',
             'tab-setting',
             'tab-recurring',
             'tab-cron'
-        );
+        ];
 
         if (isset($this->request->get['tab']) && in_array($this->request->get['tab'], $tabs)) {
             $data['tab'] = $this->request->get['tab'];
@@ -216,20 +216,20 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = html_entity_decode($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         $data['action_save_auth'] = html_entity_decode($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'] . '&save_and_auth=1', true));
@@ -239,11 +239,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->model('localisation/language');
         $data['languages'] = [];
         foreach ($this->model_localisation_language->getLanguages() as $language) {
-            $data['languages'][] = array(
+            $data['languages'][] = [
                 'language_id' => $language['language_id'],
                 'name' => $language['name'] . ($language['code'] == $this->config->get('config_language') ? $this->language->get('text_default') : ''),
                 'image' => 'language/' . $language['code'] . '/'. $language['code'] . '.png'
-            );
+            ];
         }
 
         $this->load->model('localisation/order_status');
@@ -358,8 +358,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $transaction_info['location_id']
         );
 
-        $data['is_authorized'] = in_array($transaction_info['transaction_type'], array('AUTHORIZED'));
-        $data['is_captured'] = in_array($transaction_info['transaction_type'], array('CAPTURED'));
+        $data['is_authorized'] = in_array($transaction_info['transaction_type'], ['AUTHORIZED']);
+        $data['is_captured'] = in_array($transaction_info['transaction_type'], ['CAPTURED']);
 
         $data['has_refunds'] = (bool)$transaction_info['is_refunded'];
 
@@ -387,37 +387,37 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     $refund['processing_fee_money']['currency']
                 );
 
-                $data['refunds'][] = array(
+                $data['refunds'][] = [
                     'date_created' => date($this->language->get('datetime_format'), strtotime($refund['created_at'])),
                     'reason' => $refund['reason'],
                     'status' => $refund['status'],
                     'amount' => $amount,
                     'fee' => $fee
-                );
+                ];
             }
         }
 
         $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => sprintf($this->language->get('heading_title_transaction'), $transaction_info['squareup_transaction_id']),
             'href' => $this->url->link('extension/payment/squareup/transaction_info', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $squareup_transaction_id, true)
-        );
+        ];
 
         $data['catalog'] = HTTP_CATALOG;
 
@@ -460,15 +460,15 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $page = 1;
         }
 
-        $result = array(
+        $result = [
             'transactions' => [],
             'pagination' => ''
-        );
+        ];
 
-        $filter_data = array(
+        $filter_data = [
             'start' => ($page - 1) * (int)$this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         if (isset($this->request->get['order_id'])) {
             $filter_data['order_id'] = $this->request->get['order_id'];
@@ -484,7 +484,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $order_info = $this->model_sale_order->getOrder($transaction['order_id']);
             
-            $result['transactions'][] = array(
+            $result['transactions'][] = [
                 'squareup_transaction_id' => $transaction['squareup_transaction_id'],
                 'transaction_id' => $transaction['transaction_id'],
                 'url_order' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $transaction['order_id'], true),
@@ -503,7 +503,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 'ip' => $transaction['device_ip'],
                 'date_created' => date($this->language->get('datetime_format'), strtotime($transaction['created_at'])),
                 'url_info' => $this->url->link('extension/payment/squareup/transaction_info', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true)
-            );
+            ];
         }
 
         $pagination = new Pagination();
@@ -522,11 +522,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->language('extension/payment/squareup');
 
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('error_permission')
-            ));
+            ]);
 
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
@@ -540,11 +540,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             if (!isset($response['access_token']) || !isset($response['token_type']) || !isset($response['expires_at']) || !isset($response['merchant_id']) ||
                 $response['merchant_id'] != $this->config->get('payment_squareup_merchant_id')) {
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'danger',
                     'icon' => 'exclamation-circle',
                     'text' => $this->language->get('error_refresh_access_token') 
-                ));
+                ]);
             } else {
                 $settings = $this->model_setting_setting->getSetting('payment_squareup');
 
@@ -553,18 +553,18 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 $this->model_setting_setting->editSetting('payment_squareup', $settings); 
 
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'success',
                     'icon' => 'exclamation-circle',
                     'text' => $this->language->get('text_refresh_access_token_success')
-                ));
+                ]);
             }
         } catch (\Squareup\Exception $e) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => sprintf($this->language->get('error_token'), $e->getMessage())
-            ));
+            ]);
         }
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
@@ -574,11 +574,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->language('extension/payment/squareup');
 
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('error_permission')
-            ));
+            ]);
 
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
@@ -591,11 +591,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
             // auth error
             if ($this->request->get['error'] == 'access_denied' && $this->request->get['error_description'] == 'user_denied') {
                 // user rejected giving auth permissions to his store
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'warning',
                     'icon' => 'exclamation-circle',
                     'text' => $this->language->get('error_user_rejected_connect_attempt')
-                ));
+                ]);
             }
 
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
@@ -604,11 +604,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // verify parameters for the redirect from Square (against random url crawling)
         if (!isset($this->request->get['state']) || !isset($this->request->get['code']) || !isset($this->request->get['response_type'])) {
             // missing or wrong info
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('error_possible_xss')
-            ));
+            ]);
 
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
@@ -616,11 +616,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // verify the state (against cross site requests)
         if (!isset($this->session->data['payment_squareup_oauth_state']) || $this->session->data['payment_squareup_oauth_state'] != $this->request->get['state']) {
             // state mismatch
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('error_possible_xss')
-            ));
+            ]);
 
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
@@ -662,17 +662,17 @@ class ControllerExtensionPaymentSquareup extends Controller {
             unset($this->session->data['payment_squareup_oauth_state']);
             unset($this->session->data['payment_squareup_oauth_redirect']);
 
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'success',
                 'icon' => 'exclamation-circle',
                 'text' => $this->language->get('text_refresh_access_token_success')
-            ));
+            ]);
         } catch (\Squareup\Exception $e) {
-            $this->pushAlert(array(
+            $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
                 'text' => sprintf($this->language->get('error_token'), $e->getMessage())
-            ));
+            ]);
         }
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
@@ -686,12 +686,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $this->model_extension_payment_squareup->updateTransaction($transaction_info['squareup_transaction_id'], $status);
 
-            $json['order_history_data'] = array(
+            $json['order_history_data'] = [
                 'notify' => 1,
                 'order_id' => $transaction_info['order_id'],
                 'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
                 'comment' => $this->language->get('squareup_status_comment_' . strtolower($status)),
-            );
+            ];
 
             $json['success'] = $this->language->get('text_success_capture');
         });
@@ -705,12 +705,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $this->model_extension_payment_squareup->updateTransaction($transaction_info['squareup_transaction_id'], $status);
 
-            $json['order_history_data'] = array(
+            $json['order_history_data'] = [
                 'notify' => 1,
                 'order_id' => $transaction_info['order_id'],
                 'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
                 'comment' => $this->language->get('squareup_status_comment_' . strtolower($status)),
-            );
+            ];
 
             $json['success'] = $this->language->get('text_success_void');
         });
@@ -766,12 +766,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 $comment = sprintf($this->language->get('text_refunded_amount'), $refunded_amount, $last_refund['status'], $last_refund['reason']);
 
-                $json['order_history_data'] = array(
+                $json['order_history_data'] = [
                     'notify' => 1,
                     'order_id' => $transaction_info['order_id'],
                     'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id']),
                     'comment' => $comment,
-                );
+                ];
 
                 $json['success'] = $this->language->get('text_success_refund');
             } else {
@@ -1015,19 +1015,19 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (isset($this->request->get['preserve_alert'])) {
             if (!empty($json['error'])) {
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'danger',
                     'icon' => 'exclamation-circle',
                     'text' => $json['error']
-                ));
+                ]);
             }
 
             if (!empty($json['success'])) {
-                $this->pushAlert(array(
+                $this->pushAlert([
                     'type' => 'success',
                     'icon' => 'exclamation-circle',
                     'text' => $json['success']
-                ));
+                ]);
             }
         }
 

@@ -40,10 +40,10 @@ class ModelCatalogDownload extends Model {
 			$sql .= " AND dd.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
-		$sort_data = array(
+		$sort_data = ]
 			'dd.`name`',
 			'd.`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -80,7 +80,7 @@ class ModelCatalogDownload extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "download_description` WHERE `download_id` = '" . (int)$download_id . "'");
 
 		foreach ($query->rows as $result) {
-			$download_description_data[$result['language_id']] = array('name' => $result['name']);
+			$download_description_data[$result['language_id']] = ['name' => $result['name']];
 		}
 
 		return $download_description_data;

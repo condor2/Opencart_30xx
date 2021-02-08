@@ -255,9 +255,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function fetchOrder($order_reference_id) {
-    	$order = $this->offAmazon("GetOrderReferenceDetails", array(
+    	$order = $this->offAmazon("GetOrderReferenceDetails", [
             'AmazonOrderReferenceId' => $order_reference_id
-        ));
+        )];
 
     	$responseBody = $order['ResponseBody'];
 
@@ -406,7 +406,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$other = preg_split("/\r\n|\n|\r/", $other);
 
 		list($protocol, $code, $text) = explode(' ', trim(array_shift($other)), 3);
-		return array('status' => (int)$code, 'ResponseBody' => $responseBody);
+		return ['status' => (int)$code, 'ResponseBody' => $responseBody];
 	}
 
 	private function getParametersAsString(array $parameters) {
@@ -427,7 +427,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		if (!isset($uri)) {
 			$uri = "/";
 		}
-		$uriencoded = implode("/", array_map(array($this, "urlencode"), explode("/", $uri)));
+		$uriencoded = implode("/", array_map([$this, "urlencode"], explode("/", $uri)));
 		$data .= $uriencoded;
 		$data .= "\n";
 		uksort($parameters, 'strcmp');

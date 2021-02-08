@@ -86,7 +86,7 @@ class ControllerExtensionExtensionTotal extends Controller {
 				if ($this->user->hasPermission('access', 'extension/total/' . $extension)) {
 					$this->load->language('extension/total/' . $extension, 'extension');
 
-					$data['extensions'][] = array(
+					$data['extensions'][] = [
 						'name'       => $this->language->get('extension')->get('heading_title'),
 						'status'     => $this->config->get('total_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 						'sort_order' => $this->config->get('total_' . $extension . '_sort_order'),
@@ -94,7 +94,7 @@ class ControllerExtensionExtensionTotal extends Controller {
 						'uninstall'  => $this->url->link('extension/extension/total/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
 						'installed'  => in_array($extension, $extensions),
 						'edit'       => $this->url->link('extension/total/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-					);
+					];
 				}
 			}
 		}

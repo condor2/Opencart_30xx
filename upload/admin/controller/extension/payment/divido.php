@@ -18,16 +18,16 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
-		$data['entry_plans_options'] = array(
+		$data['entry_plans_options'] = [
 			'all'		=> $this->language->get('entry_plans_options_all'),
 			'selected'	=> $this->language->get('entry_plans_options_selected'),
-		);
+		];
 
-		$data['entry_products_options']= array(
+		$data['entry_products_options']= [
 			'all'		=> $this->language->get('entry_products_options_all'),
 			'selected'	=> $this->language->get('entry_products_options_selected'),
 			'threshold'	=> $this->language->get('entry_products_options_threshold'),
-		);
+		];
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -44,20 +44,20 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/divido', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/payment/divido', 'user_token=' . $this->session->data['user_token'], 'SSL');
 		
@@ -143,10 +143,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$category_info = $this->model_catalog_category->getCategory($category_id);
 
 			if ($category_info) {
-				$data['categories'][] = array(
+				$data['categories'][] = [
 					'category_id' 	=> $category_info['category_id'],
 					'name' 			=> ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
-				);
+				];
 			}
 		}
 

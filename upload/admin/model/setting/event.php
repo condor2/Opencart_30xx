@@ -42,14 +42,14 @@ class ModelSettingEvent extends Model {
 	public function getEvents($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
 
-		$sort_data = array(
+		$sort_data = [
 			'`code`',
 			'`trigger`',
 			'`action`',
 			'`sort_order`',
 			'`status`',
 			'`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";

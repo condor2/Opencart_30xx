@@ -33,14 +33,14 @@ class ModelSaleRecurring extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		} 
 
-		$sort_data = array(
+		$sort_data = [
 			'or.`order_recurring_id`',
 			'or.`order_id`',
 			'or.`reference`',
 			'`customer`',
 			'or.`status`',
 			'or.`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -119,11 +119,11 @@ class ModelSaleRecurring extends Model {
 					break;
 			}
 
-			$transactions[] = array(
+			$transactions[] = [
 				'date_added' => $result['date_added'],
 				'amount'     => $result['amount'],
 				'type'       => $type
-			);
+			];
 		}
 
 		return $transactions;

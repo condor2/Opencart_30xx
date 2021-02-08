@@ -3,7 +3,7 @@ class ModelExtensionPaymentGooglePay extends Model {
 	public function install() {
 		$this->load->model('setting/setting');
 
-		$default_settings = array(
+		$default_settings = [
 			'payment_google_pay_environment' 			=> 'TEST',
 			'payment_google_pay_total' 					=> 0,
 			'payment_google_pay_sort_order' 			=> 0,
@@ -12,12 +12,12 @@ class ModelExtensionPaymentGooglePay extends Model {
 			'payment_google_pay_button_color' 			=> 'default',
 			'payment_google_pay_button_type' 			=> 'long',
 			'payment_google_pay_accept_prepay_cards'	=> 1,
-			'payment_google_pay_allow_card_networks'	=> array('AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA'),
-			'payment_google_pay_allow_auth_methods'		=> array('PAN_ONLY', 'CRYPTOGRAM_3DS'),
+			'payment_google_pay_allow_card_networks'	=> ['AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA'],
+			'payment_google_pay_allow_auth_methods'		=> ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
 			'payment_google_pay_bill_require_phone'		=> 0,
 			'payment_google_pay_ship_require_phone'		=> 0,
 			'payment_google_pay_ship_allow_countries' 	=> [],
-		);
+		];
 
 		$this->model_setting_setting->editSetting('payment_google_pay', $default_settings);
 

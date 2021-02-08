@@ -119,14 +119,14 @@ class ModelCustomerCustomer extends Model {
 			$sql .= " AND DATE(c.`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'`name`',
 			'c.`email`',
 			'`customer_group`',
 			'c.`status`',
 			'c.`ip`',
 			'c.`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -185,7 +185,7 @@ class ModelCustomerCustomer extends Model {
 				$zone_code = '';
 			}
 
-			return array(
+			return [
 				'address_id'     => $address_query->row['address_id'],
 				'customer_id'    => $address_query->row['customer_id'],
 				'firstname'      => $address_query->row['firstname'],
@@ -204,7 +204,7 @@ class ModelCustomerCustomer extends Model {
 				'iso_code_3'     => $iso_code_3,
 				'address_format' => $address_format,
 				'custom_field'   => json_decode($address_query->row['custom_field'], true)
-			);
+			];
 		}
 	}
 

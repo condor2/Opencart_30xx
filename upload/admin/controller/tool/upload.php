@@ -116,41 +116,41 @@ class ControllerToolUpload extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['delete'] = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['uploads'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'filter_name'	    => $filter_name,
 			'filter_date_added'	=> $filter_date_added,
 			'sort'              => $sort,
 			'order'             => $order,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
 
 		$results = $this->model_tool_upload->getUploads($filter_data);
 
 		foreach ($results as $result) {
-			$data['uploads'][] = array(
+			$data['uploads'][] = [
 				'upload_id'  => $result['upload_id'],
 				'name'       => $result['name'],
 				'filename'   => $result['filename'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'download'   => $this->url->link('tool/upload/download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $result['code'] . $url, true)
-			);
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

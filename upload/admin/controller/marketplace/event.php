@@ -145,33 +145,33 @@ class ControllerMarketplaceEvent extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('marketplace/event', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['delete'] = $this->url->link('marketplace/event/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['events'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$event_total = $this->model_setting_event->getTotalEvents();
 
 		$results = $this->model_setting_event->getEvents($filter_data);
 
 		foreach ($results as $result) {
-			$data['events'][] = array(
+			$data['events'][] = [
 				'event_id'   => $result['event_id'],
 				'code'       => $result['code'],
 				'trigger'    => $result['trigger'],
@@ -181,7 +181,7 @@ class ControllerMarketplaceEvent extends Controller {
 				'enable'     => $this->url->link('marketplace/event/enable', 'user_token=' . $this->session->data['user_token'] . '&event_id=' . $result['event_id'] . $url, true),
 				'disable'    => $this->url->link('marketplace/event/disable', 'user_token=' . $this->session->data['user_token'] . '&event_id=' . $result['event_id'] . $url, true),
 				'enabled'    => $result['status']
-			);
+			];
 		}
 
 		if (isset($this->error['warning'])) {

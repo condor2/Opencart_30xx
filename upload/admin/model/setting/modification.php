@@ -29,13 +29,13 @@ class ModelSettingModification extends Model {
 	public function getModifications($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
 
-		$sort_data = array(
+		$sort_data = [
 			'`name`',
 			'`author`',
 			'`version`',
 			'`status`',
 			'`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";

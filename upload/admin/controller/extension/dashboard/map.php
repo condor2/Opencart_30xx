@@ -25,20 +25,20 @@ class ControllerExtensionDashboardMap extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -99,10 +99,10 @@ class ControllerExtensionDashboardMap extends Controller {
 		$results = $this->model_extension_dashboard_map->getTotalOrdersByCountry();
 
 		foreach ($results as $result) {
-			$json[strtolower($result['iso_code_2'])] = array(
+			$json[strtolower($result['iso_code_2'])] = [
 				'total'  => $result['total'],
 				'amount' => $this->currency->format($result['amount'], $this->config->get('config_currency'))
-			);
+			];
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

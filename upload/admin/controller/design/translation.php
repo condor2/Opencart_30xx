@@ -145,15 +145,15 @@ class ControllerDesignTranslation extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$this->load->model('localisation/language');
 
@@ -164,12 +164,12 @@ class ControllerDesignTranslation extends Controller {
 
 		$data['translations'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$translation_total = $this->model_design_translation->getTotalTranslations();
 
@@ -184,7 +184,7 @@ class ControllerDesignTranslation extends Controller {
 				$code = '';
 			}
 
-			$data['translations'][] = array(
+			$data['translations'][] = [
 				'translation_id' => $result['translation_id'],
 				'store'          => ($result['store_id'] ? $result['store'] : $this->language->get('text_default')),
 				'route'          => $result['route'],
@@ -192,7 +192,7 @@ class ControllerDesignTranslation extends Controller {
 				'key'            => $result['key'],
 				'value'          => $result['value'],
 				'edit'           => $this->url->link('design/translation/edit', 'user_token=' . $this->session->data['user_token'] . '&translation_id=' . $result['translation_id'], true),
-			);
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -286,15 +286,15 @@ class ControllerDesignTranslation extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['translation_id'])) {
 			$data['action'] = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -457,10 +457,10 @@ class ControllerDesignTranslation extends Controller {
 			include($directory . $language_info['code'] . '/' . $route . '.php');
 
 			foreach ($_ as $key => $value) {
-				$json[] = array(
+				$json[] = [
 					'key'   => $key,
 					'value' => $value
-				);
+				];
 			}
 		}
 

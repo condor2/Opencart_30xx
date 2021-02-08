@@ -234,22 +234,22 @@ class ControllerDesignSeoUrl extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['add'] = $this->url->link('design/seo_url/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('design/seo_url/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['seo_urls'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'filter_keyword'     => $filter_keyword,
 			'filter_query'	     => $filter_query,
 			'filter_store_id'    => $filter_store_id,
@@ -258,21 +258,21 @@ class ControllerDesignSeoUrl extends Controller {
 			'order'              => $order,
 			'start'              => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'              => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$seo_url_total = $this->model_design_seo_url->getTotalSeoUrls($filter_data);
 
 		$results = $this->model_design_seo_url->getSeoUrls($filter_data);
 
 		foreach ($results as $result) {
-			$data['seo_urls'][] = array(
+			$data['seo_urls'][] = [
 				'seo_url_id' => $result['seo_url_id'],
 				'keyword'    => $result['keyword'],
 				'query'      => htmlspecialchars($result['query'], ENT_COMPAT, 'UTF-8'),
 				'store'      => $result['store_id'] ? $result['store'] : $this->language->get('text_default'),
 				'language'   => $result['language'],
 				'edit'       => $this->url->link('design/seo_url/edit', 'user_token=' . $this->session->data['user_token'] . '&seo_url_id=' . $result['seo_url_id'] . $url, true)
-			);
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -426,15 +426,15 @@ class ControllerDesignSeoUrl extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['seo_url_id'])) {
 			$data['action'] = $this->url->link('design/seo_url/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -468,18 +468,18 @@ class ControllerDesignSeoUrl extends Controller {
 
 		$data['stores'] = [];
 
-		$data['stores'][] = array(
+		$data['stores'][] = [
 			'store_id' => 0,
 			'name'     => $this->language->get('text_default')
-		);
+		];
 
 		$stores = $this->model_setting_store->getStores();
 
 		foreach ($stores as $store) {
-			$data['stores'][] = array(
+			$data['stores'][] = [
 				'store_id' => $store['store_id'],
 				'name'     => $store['name']
-			);
+			];
 		}
 
 		if (isset($this->request->post['store_id'])) {

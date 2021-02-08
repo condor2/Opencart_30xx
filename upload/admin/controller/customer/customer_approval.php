@@ -7,15 +7,15 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] =[
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -71,7 +71,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['customer_approvals'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'filter_customer'          => $filter_customer,
 			'filter_email'             => $filter_email,
 			'filter_customer_group_id' => $filter_customer_group_id,
@@ -79,7 +79,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 			'filter_date_added'        => $filter_date_added,
 			'start'                    => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'                    => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$this->load->model('customer/customer_approval');	
 
@@ -88,7 +88,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$results = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
 
 		foreach ($results as $result) {
-			$data['customer_approvals'][] = array(
+			$data['customer_approvals'][] = [
 				'customer_id'    => $result['customer_id'],
 				'customer'       => $result['customer'],
 				'email'          => $result['email'],
@@ -98,7 +98,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 				'approve'        => $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&type=' . $result['type'], true),
 				'deny'           => $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&type=' . $result['type'], true),
 				'edit'           => $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'], true)
-			);
+			];
 		}
 
 		$url = '';

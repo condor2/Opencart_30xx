@@ -178,25 +178,25 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/securetrading_ws', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		$data['cards'] = array(
+		$data['cards'] = [
 			'AMEX' => 'American Express',
 			'VISA' => 'Visa',
 			'DELTA' => 'Visa Debit',
@@ -207,14 +207,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			'MASTERCARDDEBIT' => 'MasterCard Debit',
 			'MAESTRO' => 'Maestro',
 			'PAYPAL' => 'PayPal',
-		);
+		];
 
-		$data['settlement_statuses'] = array(
+		$data['settlement_statuses'] = [
 			'0' => $this->language->get('text_pending_settlement'),
 			'1' => $this->language->get('text_pending_settlement_manually_overriden'),
 			'2' => $this->language->get('text_pending_suspended'),
 			'100' => $this->language->get('text_pending_settled'),
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/payment/securetrading_ws', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -284,19 +284,19 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 		$data['transactions'] = [];
 
-		$status_mapping = array(
+		$status_mapping = [
 			'0' => $this->language->get('text_ok'),
 			'70000' => $this->language->get('text_denied'),
-		);
+		];
 
-		$settle_status_mapping = array(
+		$settle_status_mapping = [
 			'0' => $this->language->get('text_pending_settlement'),
 			'1' => $this->language->get('text_manual_settlement'),
 			'2' => $this->language->get('text_suspended'),
 			'3' => $this->language->get('text_cancelled'),
 			'10' => $this->language->get('text_settling'),
 			'100' => $this->language->get('text_settled'),
-		);
+		];
 
 		if ($response) {
 			$lines = array_filter(explode("\n", $response));
@@ -309,7 +309,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			}
 
 			foreach ($csv as $row) {
-				$data['transactions'][] = array(
+				$data['transactions'][] = [
 					'order_id' => $row['orderreference'],
 					'order_href' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $row['orderreference'], true),
 					'transaction_reference' => $row['transactionreference'],
@@ -320,7 +320,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					'status' => $status_mapping[$row['errorcode']],
 					'type' => $row['requesttypedescription'],
 					'payment_type' => $row['paymenttypedescription'],
-				);
+				];
 			}
 		}
 
@@ -379,11 +379,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					$this->model_extension_payment_securetrading_ws->addTransaction($securetrading_ws_order['securetrading_ws_order_id'], 'reversed', 0.00);
 					$this->model_extension_payment_securetrading_ws->updateVoidStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
 
-					$this->data = array(
+					$this->data = [
 						'order_status_id' => $this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id'),
 						'notify' => false,
 						'comment' => '',
-					);
+					];
 
 					$this->load->model('sale/order');
 

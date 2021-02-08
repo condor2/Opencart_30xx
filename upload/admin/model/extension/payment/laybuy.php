@@ -46,10 +46,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$months = [];
 
 		for ($i = 1; $i <= $max_months; $i++) {
-			$months[] = array(
+			$months[] = [
 				'value' => $i,
 				'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
-			);
+			];
 		}
 
 		return $months;
@@ -130,7 +130,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$sql .= " AND " . implode(" AND ", $implode);
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'lt.order_id',
 			'customer',
 			'lt.amount',
@@ -141,7 +141,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			'lt.last_payment_due',
 			'lt.status',
 			'lt.date_added'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -229,28 +229,28 @@ class ModelExtensionPaymentLaybuy extends Model {
 	public function getTransactionStatuses() {
 		$this->load->language('extension/payment/laybuy');
 
-		$transaction_statuses = array(
-			array(
+		$transaction_statuses = [
+			[
 				'status_id'		=> 1,
 				'status_name'	=> $this->language->get('text_status_1')
-			),
-			array(
+			],
+			[
 				'status_id'		=> 5,
 				'status_name'	=> $this->language->get('text_status_5')
-			),
-			array(
+			],
+			[
 				'status_id'		=> 7,
 				'status_name'	=> $this->language->get('text_status_7')
-			),
-			array(
+			],
+			[
 				'status_id'		=> 50,
 				'status_name'	=> $this->language->get('text_status_50')
-			),
-			array(
+			],
+			[
 				'status_id'		=> 51,
 				'status_name'	=> $this->language->get('text_status_51')
-			)
-		);
+			]
+		];
 
 		return $transaction_statuses;
 	}

@@ -53,7 +53,7 @@ class ModelCatalogRecurring extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "recurring_description` WHERE `recurring_id` = '" . (int)$recurring_id . "'");
 
 		foreach ($query->rows as $result) {
-			$recurring_description_data[$result['language_id']] = array('name' => $result['name']);
+			$recurring_description_data[$result['language_id']] = ['name' => $result['name']];
 		}
 
 		return $recurring_description_data;
@@ -66,10 +66,10 @@ class ModelCatalogRecurring extends Model {
 			$sql .= " AND rd.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'rd.`name`',
 			'r.`sort_order`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";

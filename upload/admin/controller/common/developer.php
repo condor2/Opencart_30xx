@@ -19,7 +19,7 @@ class ControllerCommonDeveloper extends Controller {
 		} else {
 			$this->load->model('setting/setting');
 
-			$this->model_setting_setting->editSetting('developer', array('developer_theme' => 1), 0);
+			$this->model_setting_setting->editSetting('developer', ['developer_theme' => 1], 0);
 		
 			$data['eval'] = false;			
 		}

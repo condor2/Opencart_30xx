@@ -72,21 +72,21 @@ class ControllerCommonFileManager extends Controller {
 					$url .= '&thumb=' . $this->request->get['thumb'];
 				}
 
-				$data['images'][] = array(
+				$data['images'][] = [
 					'thumb' => '',
 					'name'  => implode(' ', $name),
 					'type'  => 'directory',
 					'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
 					'href'  => $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
-				);
+				];
 			} elseif (is_file($image)) {
-				$data['images'][] = array(
+				$data['images'][] = [
 					'thumb' => $this->model_tool_image->resize(utf8_substr($image, utf8_strlen(DIR_IMAGE)), 100, 100),
 					'name'  => implode(' ', $name),
 					'type'  => 'image',
 					'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
 					'href'  => HTTP_CATALOG . 'image/' . utf8_substr($image, utf8_strlen(DIR_IMAGE))
-				);
+				];
 			}
 		}
 
@@ -213,13 +213,13 @@ class ControllerCommonFileManager extends Controller {
 
 			if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
 				foreach (array_keys($this->request->files['file']['name']) as $key) {
-					$files[] = array(
+					$files[] = [
 						'name'     => $this->request->files['file']['name'][$key],
 						'type'     => $this->request->files['file']['type'][$key],
 						'tmp_name' => $this->request->files['file']['tmp_name'][$key],
 						'error'    => $this->request->files['file']['error'][$key],
 						'size'     => $this->request->files['file']['size'][$key]
-					);
+					];
 				}
 			}
 
@@ -234,7 +234,7 @@ class ControllerCommonFileManager extends Controller {
 					}
 
 					// Allowed file extension types
-					$allowed = array(
+					$allowed = [
 						'jpg',
 						'jpeg',
 						'png',
@@ -242,14 +242,14 @@ class ControllerCommonFileManager extends Controller {
 						'svg',
 						'svgz',
 						'webp'
-					);
+					];
 
 					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
 						$json['error'] = $this->language->get('error_filetype');
 					}
 
 					// Allowed file mime types
-					$allowed = array(
+					$allowed = [
 						'image/jpeg',
 						'image/pjpeg',
 						'image/png',
@@ -258,7 +258,7 @@ class ControllerCommonFileManager extends Controller {
 						'image/svg+xml',
 						'image/svg+xml-compressed',
 						'image/webp'
-					);
+					];
 
 					if (!in_array($file['type'], $allowed)) {
 						$json['error'] = $this->language->get('error_filetype');
@@ -383,7 +383,7 @@ class ControllerCommonFileManager extends Controller {
 					$files = [];
 
 					// Make path into an array
-					$path = array($path);
+					$path = [$path];
 
 					// While the path array is still populated keep looping through
 					while (count($path) != 0) {

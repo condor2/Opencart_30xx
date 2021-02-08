@@ -40,20 +40,20 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true),
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/module/ebay_listing', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/module/ebay_listing', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -117,65 +117,70 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 		$data['sites'] = [];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'USA',
 			'value' => 0
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'UK',
 			'value' => 3
-		);
-		$data['sites'][] = array(
+		];
+
+		$data['sites'][] = [
 			'text'  => 'Australia',
 			'value' => 15
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'Canada (English)',
 			'value' => 2
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'France',
 			'value' => 71
-		);
-		$data['sites'][] = array(
+		];
+
+		$data['sites'][] = [
 			'text'  => 'Germany',
 			'value' => 77
-		);
-		$data['sites'][] = array(
+		];
+
+		$data['sites'][] = [
 			'text'  => 'Italy',
 			'value' => 101
-		);
-		$data['sites'][] = array(
+		];
+
+		$data['sites'][] = [
 			'text'  => 'Spain',
 			'value' => 186
-		);
-		$data['sites'][] = array(
+		];
+
+		$data['sites'][] = [
 			'text'  => 'Ireland',
 			'value' => 205
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'Austria',
 			'value' => 16
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'Netherlands',
 			'value' => 146
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'Belgium (French)',
 			'value' => 23
-		);
+		];
 
-		$data['sites'][] = array(
+		$data['sites'][] = [
 			'text'  => 'Belgium (Dutch)',
 			'value' => 123
-		);
+		];
 
 		if (isset($this->request->post['ebay_listing_status'])) {
 			$data['ebay_listing_status'] = (int)$this->request->post['ebay_listing_status'];
