@@ -1670,7 +1670,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['shipping_country']
 				];
 
-				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"]), '<br />', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 				$this->load->model('tool/upload');
 
