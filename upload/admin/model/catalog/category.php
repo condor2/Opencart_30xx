@@ -224,7 +224,7 @@ class ModelCatalogCategory extends Model {
 
 		$sql .= " GROUP BY cp.`category_id`";
 
-		$sort_data = ]
+		$sort_data = [
 			'`category_id`',
 			'`name`',
 			'c1.`status`',
@@ -266,7 +266,7 @@ class ModelCatalogCategory extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_description` WHERE `category_id` = '" . (int)$category_id . "'");
 
 		foreach ($query->rows as $result) {
-			$category_description_data[$result['language_id']] = ]
+			$category_description_data[$result['language_id']] = [
 				'name'             => $result['name'],
 				'meta_title'       => $result['meta_title'],
 				'meta_description' => $result['meta_description'],

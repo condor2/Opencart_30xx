@@ -69,7 +69,7 @@ class ModelCatalogFilter extends Model {
 	public function getFilterGroups($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN `" . DB_PREFIX . "filter_group_description` fgd ON (fg.`filter_group_id` = fgd.`filter_group_id`) WHERE fgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-		$sort_data = ]
+		$sort_data = [
 			'fgd.`name`',
 			'fg.`sort_order`'
 		];

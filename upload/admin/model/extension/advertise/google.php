@@ -41,7 +41,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         'catalog/view/checkout/cart/after' => [
             'extension/advertise/google/google_dynamic_remarketing_cart'
         ]
-    );
+    ];
 
     private $rename_tables = [
         'advertise_google_target' => 'googleshopping_target',

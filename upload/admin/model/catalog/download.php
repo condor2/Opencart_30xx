@@ -40,7 +40,7 @@ class ModelCatalogDownload extends Model {
 			$sql .= " AND dd.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
-		$sort_data = ]
+		$sort_data = [
 			'dd.`name`',
 			'd.`date_added`'
 		];
