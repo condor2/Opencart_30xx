@@ -125,6 +125,12 @@ class ControllerSettingSetting extends Controller {
 			$data['error_encryption'] = '';
 		}
 
+		if (isset($this->error['file_max_size'])) {
+			$data['error_file_max_size'] = $this->error['file_max_size'];
+		} else {
+			$data['error_file_max_size'] = '';
+		}
+
 		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = [
@@ -357,9 +363,12 @@ class ControllerSettingSetting extends Controller {
 		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getInstalled('currency');
+
 		foreach ($extensions as $code) {
 			if ($this->config->get('currency_' . $code . '_status')) {
+
 				$this->load->language('extension/currency/' . $code, 'extension');
+
 				$data['currency_engines'][] = [
 					'text'  => $this->language->get('extension')->get('heading_title'),
 					'value' => $code
@@ -985,6 +994,10 @@ class ControllerSettingSetting extends Controller {
 
 		if ((utf8_strlen($this->request->post['config_encryption']) < 32) || (utf8_strlen($this->request->post['config_encryption']) > 1024)) {
 			$this->error['encryption'] = $this->language->get('error_encryption');
+		}
+
+		if (!$this->request->post['config_file_max_size']) {
+			$this->error['file_max_size'] = $this->language->get('error_file_max_size');
 		}
 
 		if ($this->error && !isset($this->error['warning'])) {
