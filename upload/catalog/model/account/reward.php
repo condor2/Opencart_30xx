@@ -3,11 +3,11 @@ class ModelAccountReward extends Model {
 	public function getRewards($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
 
-		$sort_data = array(
+		$sort_data = [
 			'points',
 			'description',
 			'date_added'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";

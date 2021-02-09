@@ -45,11 +45,11 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $colors = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $color_id);
         $sizes = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
 
-        $map = array(
+        $map = [
             'groups' => $groups,
             'colors' => count($colors) > 1 ? $colors : null,
             'sizes' => count($sizes) > 1 ? $sizes : null,
-        );
+        ];
 
         return $map;
     }
@@ -83,12 +83,12 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {
-                $items[] = array(
+                $items[] = [
                     'google_business_vertical' => 'retail',
                     'id' => (string)$id,
                     'name' => (string)$product['name'],
                     'quantity' => (int)$product['quantity']
-                );
+                ];
             }
         }
 

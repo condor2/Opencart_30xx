@@ -18,12 +18,12 @@ class ModelExtensionPaymentPPPro extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'pp_pro',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_pp_pro_sort_order')
-			);
+			];
 		}
 
 		return $method_data;

@@ -55,7 +55,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				$api_signature = $this->config->get('payment_pp_express_signature');
 			}
 		
-			$request = array(
+			$request = [
 				'USER'         => $api_username,
 				'PWD'          => $api_password,
 				'SIGNATURE'    => $api_signature,
@@ -65,7 +65,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
 				'PROFILEID'    => $recurring_info['reference'],
 				'ACTION'       => 'Cancel'
-			);
+			];
 
 			$curl = curl_init($api_url);
 

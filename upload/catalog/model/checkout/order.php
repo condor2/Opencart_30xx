@@ -165,7 +165,7 @@ class ModelCheckoutOrder extends Model {
 				$language_code = $this->config->get('config_language');
 			}
 
-			return array(
+			return [
 				'order_id'                => $order_query->row['order_id'],
 				'invoice_no'              => $order_query->row['invoice_no'],
 				'invoice_prefix'          => $order_query->row['invoice_prefix'],
@@ -232,7 +232,7 @@ class ModelCheckoutOrder extends Model {
 				'accept_language'         => $order_query->row['accept_language'],
 				'date_added'              => $order_query->row['date_added'],
 				'date_modified'           => $order_query->row['date_modified']
-			);
+			];
 		} else {
 			return false;
 		}

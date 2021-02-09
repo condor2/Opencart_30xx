@@ -15,10 +15,10 @@ class ControllerCommonLanguage extends Controller {
 
 		foreach ($results as $result) {
 			if ($result['status']) {
-				$data['languages'][] = array(
+				$data['languages'][] = [
 					'name' => $result['name'],
 					'code' => $result['code']
-				);
+				];
 			}
 		}
 
@@ -56,11 +56,11 @@ class ControllerCommonLanguage extends Controller {
 			$this->response->redirect($this->url->link('common/home'));
 		}
 
-		$option = array(
+		$option = [
 			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
 			'SameSite' => 'Lax'
-		);
+		];
 
 		oc_setcookie('language', $code, $option);
 	}

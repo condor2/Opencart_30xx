@@ -222,18 +222,18 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-			$paypal_info = array(
+			$paypal_info = [
 				'partner_id' => $partner_id,
 				'client_id' => $client_id,
 				'secret' => $secret,
 				'environment' => $environment
-			);
+			];
 
 			$paypal = new PayPal($paypal_info);
 
-			$token_info = array(
+			$token_info = [
 				'grant_type' => 'client_credentials'
-			);	
+			];
 
 			$paypal->setAccessToken($token_info);
 
@@ -244,16 +244,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			foreach ($this->cart->getProducts() as $product) {
 				$product_price = number_format($product['price'] * $currency_value, $decimal_place, '.', '');
 
-				$item_info[] = array(
+				$item_info[] = [
 					'name' => $product['name'],
 					'sku' => $product['model'],
 					'url' => $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
 					'quantity' => $product['quantity'],
-					'unit_amount' => array(
+					'unit_amount' => [
 						'currency_code' => $currency_code,
 						'value' => $product_price
-					)
-				);
+					]
+				];
 				
 				$item_total += $product_price * $product['quantity'];
 			}
@@ -264,20 +264,20 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$tax_total = number_format(($total - $sub_total) * $currency_value, $decimal_place, '.', '');
 			$order_total = number_format($item_total + $tax_total, $decimal_place, '.', '');
 
-			$amount_info = array(
+			$amount_info = [
 				'currency_code' => $currency_code,
 				'value' => $order_total,
-				'breakdown' => array(
-					'item_total' => array(
+				'breakdown' => [
+					'item_total' => [
 						'currency_code' => $currency_code,
 						'value' => $item_total
-					),
-					'tax_total' => array(
+					],
+					'tax_total' => [
 						'currency_code' => $currency_code,
 						'value' => $tax_total
-					)
-				)
-			);
+					]
+				]
+			];
 
 			if ($this->cart->hasShipping()) {
 				$shipping_preference = 'GET_FROM_FILE';
@@ -285,19 +285,19 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$shipping_preference = 'NO_SHIPPING';
 			}
 
-			$order_info = array(
+			$order_info = [
 				'intent' => strtoupper($transaction_method),
-				'purchase_units' => array(
-					array(
+				'purchase_units' => [
+					[
 						'reference_id' => 'default',
 						'items' => $item_info,
 						'amount' => $amount_info
-					)
-				),
-				'application_context' => array(
+					]
+				],
+				'application_context' => [
 					'shipping_preference' => $shipping_preference
-				)
-			);
+				]
+			];
 
 			$result = $paypal->createOrder($order_info);
 
@@ -384,18 +384,18 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 
-		$paypal_info = array(
+		$paypal_info = [
 			'partner_id' => $partner_id,
 			'client_id' => $client_id,
 			'secret' => $secret,
 			'environment' => $environment
-		);
+		];
 		
 		$paypal = new PayPal($paypal_info);
 		
-		$token_info = array(
+		$token_info = [
 			'grant_type' => 'client_credentials'
-		);	
+		];
 
 		$paypal->setAccessToken($token_info);
 			

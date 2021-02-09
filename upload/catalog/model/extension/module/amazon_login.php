@@ -8,9 +8,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
     public function fetchProfile($access_token) {
         $url = sprintf(self::URL_PROFILE, $this->getApiDomainName());
 
-        $profile = $this->curlGet($url, array(
+        $profile = $this->curlGet($url, [
             'Authorization: bearer ' . $access_token
-        ));
+        ]);
 
         if (!empty($profile->error)) {
             $this->debugLog("ERROR", $this->language->get('error_login'));
@@ -48,14 +48,14 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
         // Create non-existing customer
         if (empty($customer_info)) {
-            $data = array(
+            $data = [
                 'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
                 'firstname' => (string)$amazon_profile->first_name,
                 'lastname' => (string)$amazon_profile->last_name,
                 'email' => (string)$amazon_profile->email,
                 'telephone' => '0000000',
                 'password' => uniqid(rand(), true)
-            );
+            ];
 
             $customer_id = $this->model_account_customer->addCustomer($data);
 
@@ -148,10 +148,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
             if ($this->config->get('config_customer_activity')) {
                 $this->load->model('account/activity');
                 
-                $activity_data = array(
+                $activity_data = [
                     'customer_id' => $customer_info['customer_id'],
                     'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
-                );
+                ];
                 
                 $this->model_account_activity->addActivity('login', $activity_data);
             }
@@ -199,11 +199,11 @@ class ModelExtensionModuleAmazonLogin extends Model {
         $response = curl_exec($ch);
 
         if (empty($response)) {
-            $debug = array(
+            $debug = [
                 'curl_getinfo' => curl_getinfo($ch),
                 'curl_errno' => curl_errno($ch),
                 'curl_error' => curl_error($ch)
-            );
+            ];
 
             curl_close($ch);
 

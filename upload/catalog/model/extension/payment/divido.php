@@ -49,12 +49,12 @@ class ModelExtensionPaymentDivido extends Model {
 			$title = $title_override;
 		}
 
-		$method_data = array(
+		$method_data = [
 			'code' => 'divido',
 			'title' => $title,
 			'terms' => '',
 			'sort_order' => $this->config->get('payment_divido_sort_order')
-		);
+		];
 
 		return $method_data;
 	}
@@ -214,11 +214,11 @@ class ModelExtensionPaymentDivido extends Model {
 		$total = 0;
 
 		// Because __call can not keep var references so we put them into an array.
-		$total_data = array(
+		$total_data = [
 			'totals' => &$totals,
 			'taxes'  => &$taxes,
 			'total'  => &$total
-		);
+		];
 
 		$this->load->model('setting/extension');
 
@@ -249,7 +249,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		array_multisort($sort_order, SORT_ASC, $totals);
 
-		return array($total, $totals);
+		return [$total, $totals];
 	}
 
 	public function getProductPlans($product_id) {
@@ -276,10 +276,10 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		if (empty($settings)) {
-			$settings = array(
+			$settings = [
 				'display' => 'default',
 				'plans'   => '',
-			);
+			];
 		}
 
 		if ($product_selection == 'selected' && $settings['display'] == 'custom' && empty($settings['plans'])) {

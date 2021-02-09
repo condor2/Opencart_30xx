@@ -53,7 +53,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 						$tax = false;
 					}
 
-					$data['products'][] = array(
+					$data['products'][] = [
 						'product_id'  => $product['product_id'],
 						'thumb'       => $image,
 						'name'        => $product['name'],
@@ -63,7 +63,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 						'tax'         => $tax,
 						'rating'      => $product['rating'],
 						'href'        => $this->url->link('product/product', 'product_id=' . $product['product_id'])
-					);
+					];
 			}
 		}
 

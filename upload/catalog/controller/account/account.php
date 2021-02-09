@@ -15,15 +15,15 @@ class ControllerAccountAccount extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		);
+		];
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -47,10 +47,10 @@ class ControllerAccountAccount extends Controller {
 			if ($this->config->get('payment_' . $code . '_status') && $this->config->get('payment_' . $code . '_card')) {
 				$this->load->language('extension/credit_card/' . $code, 'extension');
 
-				$data['credit_cards'][] = array(
+				$data['credit_cards'][] = [
 					'name' => $this->language->get('extension')->get('heading_title'),
 					'href' => $this->url->link('extension/credit_card/' . $code, '', true)
-				);
+				];
 			}
 		}
 		
@@ -106,7 +106,7 @@ class ControllerAccountAccount extends Controller {
 		if ($country_info) {
 			$this->load->model('localisation/zone');
 
-			$json = array(
+			$json = [
 				'country_id'        => $country_info['country_id'],
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
@@ -115,7 +115,7 @@ class ControllerAccountAccount extends Controller {
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
-			);
+			];
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

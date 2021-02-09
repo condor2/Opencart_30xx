@@ -18,12 +18,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'			=> 'cardconnect',
 				'title'			=> $this->language->get('text_title'),
 				'terms'			=> '',
 				'sort_order'	=> $this->config->get('payment_cardconnect_sort_order')
-			);
+			];
 		}
 
 		return $method_data;
@@ -32,25 +32,25 @@ class ModelExtensionPaymentCardConnect extends Model {
 	public function getCardTypes() {
 		$cards = [];
 
-		$cards[] = array(
+		$cards[] = [
 			'text'  => 'Visa',
 			'value' => 'VISA'
-		);
+		];
 
-		$cards[] = array(
+		$cards[] = [
 			'text'  => 'MasterCard',
 			'value' => 'MASTERCARD'
-		);
+		];
 
-		$cards[] = array(
+		$cards[] = [
 			'text'  => 'Discover Card',
 			'value' => 'DISCOVER'
-		);
+		];
 
-		$cards[] = array(
+		$cards[] = [
 			'text'  => 'American Express',
 			'value' => 'AMEX'
-		);
+		];
 
 		return $cards;
 	}
@@ -59,10 +59,10 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$months = [];
 
 		for ($i = 1; $i <= 12; $i++) {
-			$months[] = array(
+			$months[] = [
 				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
-			);
+			];
 		}
 
 		return $months;
@@ -74,10 +74,10 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$today = getdate();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
-			$years[] = array(
+			$years[] = [
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
 				'value' => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
-			);
+			];
 		}
 
 		return $years;

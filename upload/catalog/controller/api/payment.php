@@ -14,7 +14,7 @@ class ControllerApiPayment extends Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		} else {
 			// Add keys for missing post vars
-			$keys = array(
+			$keys = [
 				'firstname',
 				'lastname',
 				'company',
@@ -24,7 +24,7 @@ class ControllerApiPayment extends Controller {
 				'city',
 				'zone_id',
 				'country_id'
-			);
+			];
 
 			foreach ($keys as $key) {
 				if (!isset($this->request->post[$key])) {
@@ -73,7 +73,7 @@ class ControllerApiPayment extends Controller {
 				if ($custom_field['location'] == 'address') {
 					if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
+					} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/']])) {
 						$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 					}
 				}
@@ -108,7 +108,7 @@ class ControllerApiPayment extends Controller {
 					$zone_code = '';
 				}
 
-				$this->session->data['payment_address'] = array(
+				$this->session->data['payment_address'] = [
 					'firstname'      => $this->request->post['firstname'],
 					'lastname'       => $this->request->post['lastname'],
 					'company'        => $this->request->post['company'],
@@ -125,7 +125,7 @@ class ControllerApiPayment extends Controller {
 					'iso_code_3'     => $iso_code_3,
 					'address_format' => $address_format,
 					'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : []
-				);
+				];
 
 				$json['success'] = $this->language->get('text_address');
 				
@@ -162,11 +162,11 @@ class ControllerApiPayment extends Controller {
 				$total = 0;
 
 				// Because __call can not keep var references so we put them into an array. 
-				$total_data = array(
+				$total_data = [
 					'totals' => &$totals,
 					'taxes'  => &$taxes,
 					'total'  => &$total
-				);
+				];
 
 				$this->load->model('setting/extension');
 

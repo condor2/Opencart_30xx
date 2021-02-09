@@ -18,20 +18,20 @@ class ControllerAccountTracking extends Controller {
 	
 			$data['breadcrumbs'] = [];
 	
-			$data['breadcrumbs'][] = array(
+			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home')
-			);
+			];
 	
-			$data['breadcrumbs'][] = array(
+			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_account'),
 				'href' => $this->url->link('account/account', '', true)
-			);
+			];
 	
-			$data['breadcrumbs'][] = array(
+			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('account/tracking', '', true)
-			);
+			];
 	
 			$data['text_description'] = sprintf($this->language->get('text_description'), $this->config->get('config_name'));
 	
@@ -64,19 +64,19 @@ class ControllerAccountTracking extends Controller {
 			
 			$this->load->model('catalog/product');
 
-			$filter_data = array(
+			$filter_data = [
 				'filter_name' => $this->request->get['filter_name'],
 				'start'       => 0,
 				'limit'       => 5
-			);
+			];
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
 
 			foreach ($results as $result) {
-				$json[] = array(
+				$json[] = [
 					'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
 					'link' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $result['product_id'] . '&tracking=' . $tracking))
-				);
+				];
 			}
 		}
 

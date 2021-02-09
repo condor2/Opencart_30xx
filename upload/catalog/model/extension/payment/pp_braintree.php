@@ -138,7 +138,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 	}
 
 	public function setGateway($access_token) {
-		return new Braintree_Gateway(array('accessToken' => $access_token));
+		return new Braintree_Gateway(['accessToken' => $access_token]);
 	}
 
 	public function getMethod($address, $total) {
@@ -159,12 +159,12 @@ class ModelExtensionPaymentPPBraintree extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'		 => 'pp_braintree',
 				'title'		 => $this->language->get('text_title'),
 				'terms'		 => '',
 				'sort_order' => $this->config->get('payment_pp_braintree_sort_order')
-			);
+			];
 		}
 
 		return $method_data;

@@ -43,11 +43,11 @@ class ControllerExtensionModuleAmazonPay extends Controller {
                        if(!empty($this->session->data['language'])) {
               $session_lang = $this->session->data['language'];
               $session_lang_code = current(explode('-', $session_lang));
-              $language_region_mapping = array(
-                'EUR' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'GBP' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'USD' =>array('en-US')
-              );
+              $language_region_mapping = [
+                'EUR' => ['de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'],
+                'GBP' => ['de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'],
+                'USD' => ['en-US']
+              ];
 
               if($this->config->get('payment_amazon_login_pay_payment_region')) {
                 $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');

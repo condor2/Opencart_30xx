@@ -18,12 +18,12 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'firstdata_remote',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_firstdata_remote_sort_order')
-			);
+			];
 		}
 
 		return $method_data;
@@ -197,7 +197,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://test.ipg-online.com/ipgapi/services");
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml"));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: text/xml"]);
 		curl_setopt($ch, CURLOPT_HTTPAUTH, 'CURLAUTH_BASIC');
 		curl_setopt($ch, CURLOPT_USERPWD, $this->config->get('payment_firstdata_remote_user_id') . ':' . $this->config->get('payment_firstdata_remote_password'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
@@ -257,11 +257,11 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	public function mapCurrency($code) {
-		$currency = array(
+		$currency = [
 			'GBP' => 826,
 			'USD' => 840,
 			'EUR' => 978,
-		);
+		];
 
 		if (array_key_exists($code, $currency)) {
 			return $currency[$code];

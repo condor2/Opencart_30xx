@@ -21,7 +21,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$total_fee_cny = trim($this->currency->format($order_info['total'], 'CNY', '', false));
 		$body = trim($this->config->get('config_name'));
 
-		$alipay_config = array (
+		$alipay_config = [
 			'partner'              => $this->config->get('payment_alipay_cross_app_id'),
 			'key'                  => $this->config->get('payment_alipay_cross_merchant_private_key'),
 			'notify_url'           => HTTPS_SERVER . "payment_callback/alipay_cross",
@@ -31,20 +31,20 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 			'cacert'               => getcwd().'/cacert.pem',
 			'transport'            => 'https',
 			'service'              => 'create_forex_trade'
-		);
+		];
 
-		$parameter = array(
+		$parameter = [
 			"service"        => $alipay_config['service'],
 			"partner"        => $alipay_config['partner'],
 			"notify_url"     => $alipay_config['notify_url'],
 			"return_url"     => $alipay_config['return_url'],
-
 			"out_trade_no"   => $out_trade_no,
 			"subject"        => $subject,
 			"body"           => $body,
 			"currency"       => $currency,
 			"_input_charset" => trim(strtolower($alipay_config['input_charset']))
-		);
+		];
+
 		if (isset($this->session->data['currency']) && $this->session->data['currency'] == 'CNY') {
 			$parameter['rmb_fee'] = $total_fee_cny;
 		} else {
@@ -61,13 +61,14 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 	public function callback() {
 		$this->log->write('alipay cross payment notify:');
-		$alipay_config = array (
+		$alipay_config = [
 			'partner'              => $this->config->get('payment_alipay_cross_app_id'),
 			'key'                  => $this->config->get('payment_alipay_cross_merchant_private_key'),
 			'sign_type'            => strtoupper('MD5'),
 			'input_charset'        => strtolower('utf-8'),
 			'cacert'               => getcwd().'/cacert.pem'
-		);
+		];
+
 		$this->load->model('extension/payment/alipay_cross');
 		$this->log->write('config: ' . var_export($alipay_config,true));
 		$verify_result = $this->model_extension_payment_alipay_cross->verifyNotify($alipay_config);

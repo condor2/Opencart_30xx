@@ -68,15 +68,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         
         $total = $this->googleshopping->convertAndFormat($order_info['total'], $currency);
 
-        $search = array(
+        $search = [
             '{VALUE}',
             '{CURRENCY}'
-        );
+        ];
 
-        $replace = array(
+        $replace = [
             $total,
             $currency
-        );
+        ];
 
         $snippet = str_replace($search, $replace, $tracker['google_event_snippet']);
 
@@ -101,7 +101,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $order_product['option'] = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
         }
 
-        $purchase_data = array(
+        $purchase_data = [
             'transaction_id' => $order_info['order_id'],
             'value' => $total,
             'currency' => $currency,
@@ -109,7 +109,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             'shipping' => $shipping,
             'items' => $this->model_extension_advertise_google->getRemarketingItems($order_products, $order_info['store_id']),
             'ecomm_prodid' => $this->model_extension_advertise_google->getRemarketingProductIds($order_products, $order_info['store_id'])
-        );
+        ];
 
         if ($coupon !== null) {
             $purchase_data['coupon'] = $coupon;

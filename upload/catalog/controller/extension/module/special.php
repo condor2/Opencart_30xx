@@ -9,12 +9,12 @@ class ControllerExtensionModuleSpecial extends Controller {
 
 		$data['products'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => 'pd.name',
 			'order' => 'ASC',
 			'start' => 0,
 			'limit' => $setting['limit']
-		);
+		];
 
 		$results = $this->model_catalog_product->getProductSpecials($filter_data);
 
@@ -46,7 +46,7 @@ class ControllerExtensionModuleSpecial extends Controller {
 					$tax = false;
 				}
 
-				$data['products'][] = array(
+				$data['products'][] = [
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
 					'name'        => $result['name'],
@@ -56,7 +56,7 @@ class ControllerExtensionModuleSpecial extends Controller {
 					'tax'         => $tax,
 					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
-				);
+				];
 			}
 
 			$data['review_status'] = $this->config->get('config_review_status');

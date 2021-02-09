@@ -45,11 +45,11 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             if(!empty($this->session->data['language'])) {
               $session_lang = $this->session->data['language'];
               $session_lang_code = current(explode('-', $session_lang));
-              $language_region_mapping = array(
-                'EUR' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'GBP' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'USD' =>array('en-US')
-              );
+              $language_region_mapping =[
+                'EUR' => ['de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'],
+                'GBP' => ['de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'],
+                'USD' => ['en-US']
+              ];
 
               if($this->config->get('payment_amazon_login_pay_payment_region')) {
                 $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
@@ -153,16 +153,16 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 
             $data['breadcrumbs'] = [];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'href' => $this->url->link('common/home', '', true),
                 'text' => $this->language->get('text_home')
-            );
+            ];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'href' => null,
                 'current' => true,
                 'text' => $this->language->get('error_login')
-            );
+            ];
 
             $data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);
             $data['column_left'] = $this->load->controller('common/column_left');

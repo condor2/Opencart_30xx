@@ -100,12 +100,12 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'			=> 'laybuy',
 				'title'			=> $this->language->get('text_title'),
 				'terms'			=> '',
 				'sort_order'	=> $this->config->get('payment_laybuy_sort_order')
-			);
+			];
 		}
 
 		return $method_data;
@@ -127,10 +127,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$months = [];
 
 		for ($i = 1; $i <= $max_months; $i++) {
-			$months[] = array(
+			$months[] = [
 				'value' => $i,
 				'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
-			);
+			];
 		}
 
 		return $months;
@@ -195,25 +195,25 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$report_content = [];
 
-		$report_content[] = array(
+		$report_content[] = [
 			'instalment'	=> 0,
 			'amount'		=> $this->currency->format($data['downpayment_amount'], $data['currency']),
 			'date'			=> $date_added,
 			'pp_trans_id'	=> $data['dp_paypal_txn_id'],
 			'status'		=> 'Completed'
-		);
+		];
 
 		for ($month = 1; $month <= $months; $month++) {
 			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month -1) . " month"));
 			$date = date($this->language->get('date_format_short'), strtotime($date));
 
-			$report_content[] = array(
+			$report_content[] = [
 			'instalment'	=> $month,
 			'amount'		=> $this->currency->format($data['payment_amounts'], $data['currency']),
 			'date'			=> $date,
 			'pp_trans_id'	=> '',
 			'status'		=> 'Pending'
-			);
+			];
 		}
 
 		$data['report'] = json_encode($report_content);

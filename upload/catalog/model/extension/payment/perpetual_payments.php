@@ -18,12 +18,12 @@ class ModelExtensionPaymentPerpetualPayments extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'perpetual_payments',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_perpetual_payments_sort_order')
-			);
+			];
 		}
 
 		return $method_data;

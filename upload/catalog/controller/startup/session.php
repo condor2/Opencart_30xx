@@ -37,13 +37,13 @@ class ControllerStartupSession extends Controller {
 
 			$session->start($session_id);
 
-			$option = array(
+			$option = [
 				'expires'  => 0,
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
 				'SameSite' => 'Strict'
-			);
+			];
 
 			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			oc_setcookie($this->config->get('session_name'), $session->getId(), $option);

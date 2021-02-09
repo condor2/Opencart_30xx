@@ -24,20 +24,20 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_checkout'),
 			'href' => $this->url->link('checkout/checkout', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_qrcode'),
 			'href' => $this->url->link('extension/payment/wechat_pay/qrcode')
-		);
+		];
 
 		$this->load->model('checkout/order');
 
@@ -54,12 +54,12 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$total_amount = trim($this->currency->format($order_info['total'], $currency, '', false));
 		$notify_url = HTTPS_SERVER . "payment_callback/wechat_pay"; //$this->url->link('wechat_pay/callback');
 
-		$options = array(
+		$options = [
 			'appid'			 =>  $this->config->get('payment_wechat_pay_app_id'),
 			'appsecret'		 =>  $this->config->get('payment_wechat_pay_app_secret'),
-			'mch_id'			=>  $this->config->get('payment_wechat_pay_mch_id'),
-			'partnerkey'		=>  $this->config->get('payment_wechat_pay_api_secret')
-		);
+			'mch_id'         =>  $this->config->get('payment_wechat_pay_mch_id'),
+			'partnerkey'     =>  $this->config->get('payment_wechat_pay_api_secret')
+		];
 
 		\Wechat\Loader::config($options);
 		$pay = new \Wechat\WechatPay();
@@ -107,12 +107,12 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	}
 
 	public function callback() {
-		$options = array(
+		$options = [
 			'appid'			 =>  $this->config->get('payment_wechat_pay_app_id'),
 			'appsecret'		 =>  $this->config->get('payment_wechat_pay_app_secret'),
-			'mch_id'			=>  $this->config->get('payment_wechat_pay_mch_id'),
-			'partnerkey'		=>  $this->config->get('payment_wechat_pay_api_secret')
-		);
+			'mch_id'		 =>  $this->config->get('payment_wechat_pay_mch_id'),
+			'partnerkey'	 =>  $this->config->get('payment_wechat_pay_api_secret')
+		];
 
 		\Wechat\Loader::config($options);
 		$pay = new \Wechat\WechatPay();

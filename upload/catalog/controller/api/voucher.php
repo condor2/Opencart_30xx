@@ -43,7 +43,7 @@ class ControllerApiVoucher extends Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		} else {
 			// Add keys for missing post vars
-			$keys = array(
+			$keys = [
 				'from_name',
 				'from_email',
 				'to_name',
@@ -51,7 +51,7 @@ class ControllerApiVoucher extends Controller {
 				'voucher_theme_id',
 				'message',
 				'amount'
-			);
+			];
 
 			foreach ($keys as $key) {
 				if (!isset($this->request->post[$key])) {
@@ -64,7 +64,7 @@ class ControllerApiVoucher extends Controller {
 
 				foreach ($this->request->post['voucher'] as $voucher) {
 					if (isset($voucher['code']) && isset($voucher['to_name']) && isset($voucher['to_email']) && isset($voucher['from_name']) && isset($voucher['from_email']) && isset($voucher['voucher_theme_id']) && isset($voucher['message']) && isset($voucher['amount'])) {
-						$this->session->data['vouchers'][$voucher['code']] = array(
+						$this->session->data['vouchers'][$voucher['code']] = [
 							'code'             => $voucher['code'],
 							'description'      => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $voucher['to_name']),
 							'to_name'          => $voucher['to_name'],
@@ -74,7 +74,7 @@ class ControllerApiVoucher extends Controller {
 							'voucher_theme_id' => $voucher['voucher_theme_id'],
 							'message'          => $voucher['message'],
 							'amount'           => $this->currency->convert($voucher['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
-						);
+						];
 					}
 				}
 
@@ -109,7 +109,7 @@ class ControllerApiVoucher extends Controller {
 				if (!$json) {
 					$code = token();
 
-					$this->session->data['vouchers'][$code] = array(
+					$this->session->data['vouchers'][$code] = [
 						'code'             => $code,
 						'description'      => sprintf($this->language->get('text_for'), $this->currency->format($this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency')), $this->session->data['currency']), $this->request->post['to_name']),
 						'to_name'          => $this->request->post['to_name'],
@@ -119,7 +119,7 @@ class ControllerApiVoucher extends Controller {
 						'voucher_theme_id' => $this->request->post['voucher_theme_id'],
 						'message'          => $this->request->post['message'],
 						'amount'           => $this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
-					);
+					];
 
 					$json['success'] = $this->language->get('text_cart');
 

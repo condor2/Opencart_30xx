@@ -131,20 +131,20 @@ class ControllerAccountAddress extends Controller {
 	}
 
 	protected function getList() {
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/address', '', true)
-		);
+		];
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -171,7 +171,7 @@ class ControllerAccountAddress extends Controller {
 				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
 			}
 
-			$find = array(
+			$find = [
 				'{firstname}',
 				'{lastname}',
 				'{company}',
@@ -182,9 +182,9 @@ class ControllerAccountAddress extends Controller {
 				'{zone}',
 				'{zone_code}',
 				'{country}'
-			);
+			];
 
-			$replace = array(
+			$replace = [
 				'firstname' => $result['firstname'],
 				'lastname'  => $result['lastname'],
 				'company'   => $result['company'],
@@ -195,14 +195,14 @@ class ControllerAccountAddress extends Controller {
 				'zone'      => $result['zone'],
 				'zone_code' => $result['zone_code'],
 				'country'   => $result['country']
-			);
+			];
 
-			$data['addresses'][] = array(
+			$data['addresses'][] = [
 				'address_id' => $result['address_id'],
-				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+				'address'    => str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format)))),
 				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
 				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
-			);
+			];
 		}
 
 		$data['add'] = $this->url->link('account/address/add', '', true);
@@ -227,31 +227,31 @@ class ControllerAccountAddress extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/address', '', true)
-		);
+		];
 
 		if (!isset($this->request->get['address_id'])) {
-			$data['breadcrumbs'][] = array(
+			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_address_add'),
 				'href' => $this->url->link('account/address/add', '', true)
-			);
+			];
 		} else {
-			$data['breadcrumbs'][] = array(
+			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_address_edit'),
 				'href' => $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true)
-			);
+			];
 		}
 
 		if (isset($this->error['firstname'])) {
@@ -471,7 +471,7 @@ class ControllerAccountAddress extends Controller {
 			if ($custom_field['location'] == 'address') {
 				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
+				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}

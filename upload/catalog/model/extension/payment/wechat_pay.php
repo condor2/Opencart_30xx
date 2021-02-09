@@ -26,12 +26,12 @@ class ModelExtensionPaymentWechatPay extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'wechat_pay',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_wechat_pay_sort_order')
-			);
+			];
 		}
 
 		return $method_data;

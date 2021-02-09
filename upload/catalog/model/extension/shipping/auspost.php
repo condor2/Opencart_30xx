@@ -48,7 +48,7 @@ class ModelExtensionShippingAusPost extends Model {
 
 				$curl = curl_init();
 
-				curl_setopt($curl, CURLOPT_HTTPHEADER, array('AUTH-KEY: ' . $api_key));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, ['AUTH-KEY: ' . $api_key]);
 				curl_setopt($curl, CURLOPT_URL, 'https://digitalapi.auspost.com.au/postage/parcel/domestic/service.json?from_postcode=' . urlencode($this->config->get('shipping_auspost_postcode')) . '&to_postcode=' . urlencode($address['postcode']) . '&height=' . $height . '&width=' . $width . '&length=' . $height . '&weight=' . urlencode($weight));
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
@@ -69,20 +69,20 @@ class ModelExtensionShippingAusPost extends Model {
 						$response_services = $response_parts['services']['service'];
 
 						foreach ($response_services as $response_service) {
-							$quote_data[$response_service['name']] = array(
+							$quote_data[$response_service['name']] = [
 								'code'         => 'auspost.' .  $response_service['name'],
 								'title'        => $response_service['name'],
 								'cost'         => $this->currency->convert($response_service['price'], 'AUD', $this->config->get('config_currency')),
 								'tax_class_id' => $this->config->get('shipping_auspost_tax_class_id'),
 								'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($response_service['price'], 'AUD', $this->session->data['currency']), $this->config->get('shipping_auspost_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
-							);
+							];
 						}
 					}
 				}
 			} else {
 				$curl = curl_init();
 
-				curl_setopt($curl, CURLOPT_HTTPHEADER, array('AUTH-KEY: ' .  $api_key));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, ['AUTH-KEY: ' .  $api_key]);
 				curl_setopt($curl, CURLOPT_URL, 'https://digitalapi.auspost.com.au/postage/parcel/international/service.json?country_code=' . urlencode($address['iso_code_2']) . '&weight=' . urlencode($weight));
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
@@ -103,13 +103,13 @@ class ModelExtensionShippingAusPost extends Model {
 						$response_services = $response_parts['services']['service'];
 
 						foreach ($response_services as $response_service) {
-							$quote_data[$response_service['name']] = array(
+							$quote_data[$response_service['name']] = [
 								'code'         => 'auspost.' .  $response_service['name'],
 								'title'        => $response_service['name'],
 								'cost'         => $this->currency->convert($response_service['price'], 'AUD', $this->config->get('config_currency')),
 								'tax_class_id' => $this->config->get('shipping_auspost_tax_class_id'),
 								'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($response_service['price'], 'AUD', $this->session->data['currency']), $this->config->get('shipping_auspost_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
-							);
+							];
 						}
 					}
 				}
@@ -119,13 +119,13 @@ class ModelExtensionShippingAusPost extends Model {
 		$method_data = [];
 
 		if ($quote_data) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'auspost',
 				'title'      => $this->language->get('text_title'),
 				'quote'      => $quote_data,
 				'sort_order' => $this->config->get('shipping_auspost_sort_order'),
 				'error'      => $error
-			);
+			];
 		}
 
 		return $method_data;

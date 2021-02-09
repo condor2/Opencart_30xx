@@ -15,12 +15,12 @@ class ControllerCommonCurrency extends Controller {
 
 		foreach ($results as $result) {
 			if ($result['status']) {
-				$data['currencies'][] = array(
+				$data['currencies'][] = [
 					'title'        => $result['title'],
 					'code'         => $result['code'],
 					'symbol_left'  => $result['symbol_left'],
 					'symbol_right' => $result['symbol_right']
-				);
+				];
 			}
 		}
 
@@ -55,11 +55,11 @@ class ControllerCommonCurrency extends Controller {
 			unset($this->session->data['shipping_methods']);
 		}
 
-		$option = array(
+		$option = [
 			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
 			'SameSite' => 'Lax'
-		);
+		];
 
 		oc_setcookie('currency', $this->session->data['currency'], $option);
 

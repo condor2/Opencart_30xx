@@ -27,20 +27,20 @@ class ControllerAccountForgotten extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_forgotten'),
 			'href' => $this->url->link('account/forgotten', '', true)
-		);
+		];
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

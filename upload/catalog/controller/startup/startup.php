@@ -61,13 +61,13 @@ class ControllerStartupStartup extends Controller {
 
 			$this->session->start($session_id);
 
-			$option = array(
+			$option = [
 				'expires'  => time() + $this->config->get('session_expire'),
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '',
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
 				'SameSite' => 'Strict'
-			);
+			];
 
 			oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
 		}
@@ -139,11 +139,11 @@ class ControllerStartupStartup extends Controller {
 
 		// Set a new language cookie if the code does not match the current one
 		if (!isset($this->request->cookie['language']) || $this->request->cookie['language'] != $code) {
-			$option = array(
+			$option = [
 				'expires'  => time() + 60 * 60 * 24 * 30,
 				'path'     => '/',
 				'SameSite' => 'Lax'
-			);
+			];
 
 			oc_setcookie('language', $code, $option);
 		}
@@ -176,11 +176,11 @@ class ControllerStartupStartup extends Controller {
 
 		// Tracking Code
 		if (isset($this->request->get['tracking'])) {
-			$option = array(
+			$option = [
 				'expires'  => time() + 3600 * 24 * 1000,
 				'path'     => '/',
 				'SameSite' => 'Lax'
-			);
+			];
 
 			oc_setcookie('tracking', $this->request->get['tracking'], $option);
 
@@ -212,11 +212,11 @@ class ControllerStartupStartup extends Controller {
 
 		// Set a new currency cookie if the code does not match the current one
 		if (!isset($this->request->cookie['currency']) || $this->request->cookie['currency'] != $code) {
-			$option = array(
+			$option = [
 				'expires'  => time() + 60 * 60 * 24 * 30,
 				'path'     => '/',
 				'SameSite' => 'Lax'
-			);
+			];
 
 			oc_setcookie('currency', $code, $option);
 		}

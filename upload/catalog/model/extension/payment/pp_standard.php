@@ -15,7 +15,7 @@ class ModelExtensionPaymentPPStandard extends Model {
 			$status = false;
 		}
 
-		$currencies = array(
+		$currencies = [
 			'AUD',
 			'CAD',
 			'EUR',
@@ -41,7 +41,7 @@ class ModelExtensionPaymentPPStandard extends Model {
 			'THB',
 			'TRY',
 			'RUB'
-		);
+		];
 
 		if (!in_array(strtoupper($this->session->data['currency']), $currencies)) {
 			$status = false;
@@ -50,12 +50,12 @@ class ModelExtensionPaymentPPStandard extends Model {
 		$method_data = [];
 
 		if ($status) {
-			$method_data = array(
+			$method_data = [
 				'code'       => 'pp_standard',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_pp_standard_sort_order')
-			);
+			];
 		}
 
 		return $method_data;

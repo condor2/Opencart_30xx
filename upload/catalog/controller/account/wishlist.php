@@ -28,20 +28,20 @@ class ControllerAccountWishList extends Controller {
 
 		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/wishlist')
-		);
+		];
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -85,7 +85,7 @@ class ControllerAccountWishList extends Controller {
 					$special = false;
 				}
 
-				$data['products'][] = array(
+				$data['products'][] = [
 					'product_id' => $product_info['product_id'],
 					'thumb'      => $image,
 					'name'       => $product_info['name'],
@@ -96,7 +96,7 @@ class ControllerAccountWishList extends Controller {
 					'minimum'    => ($product_info['minimum'] > 0 ? $product_info['minimum'] : 1),	
 					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
 					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
-				);
+				];
 			} else {
 				$this->model_account_wishlist->deleteWishlist($result['product_id']);
 			}
@@ -120,7 +120,7 @@ class ControllerAccountWishList extends Controller {
 		$json = [];
 
 		if (isset($this->request->post['product_id'])) {
-			$product_id = $this->request->post['product_id'];
+			$product_id = (int)$this->request->post['product_id'];
 		} else {
 			$product_id = 0;
 		}
