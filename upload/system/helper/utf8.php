@@ -55,7 +55,7 @@ if (extension_loaded('mbstring')) {
 		static $upper_to_lower;
 
 		if ($upper_to_lower == null) {
-			$upper_to_lower = array(
+			$upper_to_lower = [
 				0x0041 => 0x0061,
 				0x03A6 => 0x03C6,
 				0x0162 => 0x0163,
@@ -269,7 +269,7 @@ if (extension_loaded('mbstring')) {
 				0x00D0 => 0x00F0,
 				0x0407 => 0x0457,
 				0x0122 => 0x0123
-			);
+			];
 		}
 
 		$unicode = utf8_to_unicode($string);
@@ -291,7 +291,7 @@ if (extension_loaded('mbstring')) {
 		static $lower_to_upper;
 
 		if ($lower_to_upper == null) {
-			$lower_to_upper = array(
+			$lower_to_upper = [
 				0x0061 => 0x0041,
 				0x03C6 => 0x03A6,
 				0x0163 => 0x0162,
@@ -505,7 +505,7 @@ if (extension_loaded('mbstring')) {
 				0x00F0 => 0x00D0,
 				0x0457 => 0x0407,
 				0x0123 => 0x0122
-			);
+			];
 		}
 
 		$unicode = utf8_to_unicode($string);

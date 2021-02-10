@@ -24,18 +24,18 @@ final class Twig {
 		}
 
 		// initialize Twig environment
-		$config = array(
+		$config = [
 			'charset'     => 'utf-8',
 			'autoescape'  => false,
 			'debug'       => false,
 			'auto_reload' => true,
 			'cache'       => DIR_CACHE . 'template/'
-		);
+		];
 
 		try {
-			$loader1 = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
-			$loader2 = new \Twig\Loader\FilesystemLoader(array(DIR_TEMPLATE));
-			$loader = new \Twig\Loader\ChainLoader(array($loader1, $loader2));
+			$loader1 = new \Twig\Loader\ArrayLoader([$filename . '.twig' => $code]);
+			$loader2 = new \Twig\Loader\FilesystemLoader([DIR_TEMPLATE]);
+			$loader = new \Twig\Loader\ChainLoader([$loader1, $loader2]);
 
 			$twig = new \Twig\Environment($loader, $config);
 

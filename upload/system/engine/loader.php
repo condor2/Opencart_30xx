@@ -41,7 +41,7 @@ final class Loader {
 		$trigger = $route;
 
 		// Trigger the pre events
-		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/before', array(&$route, &$args));
+		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/before', [&$route, &$args]);
 
 		// Make sure its only the last event that returns an output if required.
 		if ($result != null && !$result instanceof Exception) {
@@ -52,7 +52,7 @@ final class Loader {
 		}
 
 		// Trigger the post events
-		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/after', array(&$route, &$args, &$output));
+		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/after', [&$route, &$args, &$output]);
 
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -115,7 +115,7 @@ final class Loader {
 		$code = '';
 
 		// Trigger the pre events
-		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', array(&$route, &$data, &$code));
+		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', [&$route, &$data, &$code]);
 
 		// Make sure its only the last event that returns an output if required.
 		if ($result && !$result instanceof Exception) {
@@ -131,7 +131,7 @@ final class Loader {
 		}
 
 		// Trigger the post events
-		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', array(&$route, &$data, &$output));
+		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', [&$route, &$data, &$output]);
 
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -188,11 +188,11 @@ final class Loader {
 		// Keep the original trigger
 		$trigger = $route;
 
-		$this->registry->get('event')->trigger('config/' . $trigger . '/before', array(&$route));
+		$this->registry->get('event')->trigger('config/' . $trigger . '/before', [&$route]);
 
 		$this->registry->get('config')->load($route);
 
-		$this->registry->get('event')->trigger('config/' . $trigger . '/after', array(&$route));
+		$this->registry->get('event')->trigger('config/' . $trigger . '/after', [&$route]);
 	}
 
 	/**
@@ -210,7 +210,7 @@ final class Loader {
 		// Keep the original trigger
 		$trigger = $route;
 
-		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/before', array(&$route, &$prefix));
+		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/before', [&$route, &$prefix]);
 
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -218,7 +218,7 @@ final class Loader {
 			$output = $this->registry->get('language')->load($route, $prefix);
 		}
 
-		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/after', array(&$route, &$prefix, &$output));
+		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/after', [&$route, &$prefix, &$output]);
 
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -245,7 +245,7 @@ final class Loader {
 			$trigger = $route;
 
 			// Trigger the pre events
-			$result = $this->registry->get('event')->trigger('model/' . $trigger . '/before', array(&$route, &$args));
+			$result = $this->registry->get('event')->trigger('model/' . $trigger . '/before', [&$route, &$args]);
 
 			if ($result && !$result instanceof Exception) {
 				$output = $result;
@@ -266,7 +266,7 @@ final class Loader {
 
 				$method = substr($route, strrpos($route, '/') + 1);
 
-				$callable = array($object, $method);
+				$callable = [$object, $method];
 
 				if (is_callable($callable)) {
 					$output = call_user_func_array($callable, $args);
@@ -276,7 +276,7 @@ final class Loader {
 			}
 
 			// Trigger the post events
-			$result = $this->registry->get('event')->trigger('model/' . $trigger . '/after', array(&$route, &$args, &$output));
+			$result = $this->registry->get('event')->trigger('model/' . $trigger . '/after', [&$route, &$args, &$output]);
 
 			if ($result && !$result instanceof Exception) {
 				$output = $result;

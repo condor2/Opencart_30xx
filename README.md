@@ -1,7 +1,7 @@
 # OpenCart
 
 ## Information
-This is a modified version of Opencart 3.0.3.6.
+This is a modified version of Opencart.
 
 ## Added
 - Bug fixes
