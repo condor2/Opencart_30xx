@@ -206,9 +206,11 @@
                     {{ option_value.name }}
                     {% if option_value.price %}
                     ({{ option_value.price_prefix }}{{ option_value.price }})
-                    {% endif %} </label>
+                    {% endif %}
+                  </label>
                 </div>
-                {% endfor %} </div>
+                {% endfor %}
+              </div>
             </div>
             {% endif %}
             {% if option.type == 'text' %}
@@ -459,6 +461,8 @@ $('button[id^=\'button-upload\']').on('click', function() {
 
 	$('#form-upload input[name=\'file\']').on('change', function() {
 		if (this.files[0].size > {{ config_file_max_size }}) {
+			$(this).val('');
+
 			alert('{{ error_upload_size }}');
 		}
 	});
