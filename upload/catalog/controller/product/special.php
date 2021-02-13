@@ -38,7 +38,7 @@ class ControllerProductSpecial extends Controller {
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		]
+		];
 
 		$url = '';
 
@@ -61,7 +61,7 @@ class ControllerProductSpecial extends Controller {
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('product/special', $url)
-		]
+		];
 
 		$data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 
@@ -74,7 +74,7 @@ class ControllerProductSpecial extends Controller {
 			'order' => $order,
 			'start' => ($page - 1) * $limit,
 			'limit' => $limit
-		]
+		];
 
 		$product_total = $this->model_catalog_product->getTotalProductSpecials();
 
