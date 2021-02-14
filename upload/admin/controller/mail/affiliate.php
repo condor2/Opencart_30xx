@@ -66,8 +66,8 @@ class ControllerMailAffiliate extends Controller {
 		}
 	}
 
-	// admin/model/customer/customer_approval/denyAffiliate/after
 	public function deny(&$route, &$args, &$output) {
+	// admin/model/customer/customer_approval/denyAffiliate/after
 		$this->load->model('customer/customer');
 		
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);
@@ -135,4 +135,4 @@ class ControllerMailAffiliate extends Controller {
 			$mail->send();
 		}
 	}
-}	
+}
