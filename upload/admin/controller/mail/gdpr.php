@@ -33,6 +33,7 @@ class ControllerMailGdpr extends Controller {
 
 	public function export($gdpr_info) {
 		$this->load->model('setting/store');
+		$this->load->language('mail/gdpr_export');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
@@ -47,21 +48,6 @@ class ControllerMailGdpr extends Controller {
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$store_url = HTTP_CATALOG;
 		}
-
-		// Send the email in the correct language
-		$this->load->model('localisation/language');
-
-		$language_info = $this->model_localisation_language->getLanguage($gdpr_info['language_id']);
-
-		if ($language_info) {
-			$language_code = $language_info['code'];
-		} else {
-			$language_code = $this->config->get('config_language');
-		}
-
-		$language = new Language($language_code);
-		$language->load($language_code);
-		$language->load('mail/gdpr_export');
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
@@ -193,6 +179,7 @@ class ControllerMailGdpr extends Controller {
 
 		if ($store_info) {
 			$this->load->model('setting/setting');
+			$this->load->language('mail/gdpr_aprove');
 
 			$store_logo = html_entity_decode($this->model_setting_setting->getSettingValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
 			$store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
@@ -202,21 +189,6 @@ class ControllerMailGdpr extends Controller {
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$store_url = HTTP_CATALOG;
 		}
-
-		// Send the email in the correct language
-		$this->load->model('localisation/language');
-
-		$language_info = $this->model_localisation_language->getLanguage($gdpr_info['language_id']);
-
-		if ($language_info) {
-			$language_code = $language_info['code'];
-		} else {
-			$language_code = $this->config->get('config_language');
-		}
-
-		$language = new Language($language_code);
-		$language->load($language_code);
-		$language->load('mail/gdpr_approve');
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
@@ -262,6 +234,7 @@ class ControllerMailGdpr extends Controller {
 
 	public function deny($gdpr_info) {
 		$this->load->model('setting/store');
+		$this->load->language('mail/gdpr_deny');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
@@ -276,21 +249,6 @@ class ControllerMailGdpr extends Controller {
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$store_url = HTTP_CATALOG;
 		}
-
-		// Send the email in the correct language
-		$this->load->model('localisation/language');
-
-		$language_info = $this->model_localisation_language->getLanguage($gdpr_info['language_id']);
-
-		if ($language_info) {
-			$language_code = $language_info['code'];
-		} else {
-			$language_code = $this->config->get('config_language');
-		}
-
-		$language = new Language($language_code);
-		$language->load($language_code);
-		$language->load('mail/gdpr_deny');
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
@@ -336,6 +294,7 @@ class ControllerMailGdpr extends Controller {
 
 	public function remove($gdpr_info) {
 		$this->load->model('setting/store');
+		$this->load->language('mail/gdpr_delete');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
@@ -350,21 +309,6 @@ class ControllerMailGdpr extends Controller {
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$store_url = HTTP_CATALOG;
 		}
-
-		// Send the email in the correct language
-		$this->load->model('localisation/language');
-
-		$language_info = $this->model_localisation_language->getLanguage($gdpr_info['language_id']);
-
-		if ($language_info) {
-			$language_code = $language_info['code'];
-		} else {
-			$language_code = $this->config->get('config_language');
-		}
-
-		$language = new Language($language_code);
-		$language->load($language_code);
-		$language->load('mail/gdpr_delete');
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 

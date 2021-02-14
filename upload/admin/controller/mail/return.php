@@ -33,6 +33,7 @@ class ControllerMailReturn extends Controller {
 			
 			if ($return_info) {
 				$this->load->model('sale/order');
+				$this->load->language('mail/return');
 
 				$order_info = $this->model_sale_order->getOrder($return_info['order_id']);
 
@@ -43,20 +44,6 @@ class ControllerMailReturn extends Controller {
 					$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 					$store_url = HTTP_CATALOG;
 				}
-
-				$this->load->model('localisation/language');
-				
-				$language_info = $this->model_localisation_language->getLanguage($return_info['language_id']);
-
-				if ($language_info) {
-					$language_code = $language_info['code'];
-				} else {
-					$language_code = $this->config->get('config_language');
-				}
-
-				$language = new Language($language_code);
-				$language->load($language_code);
-				$language->load('mail/return');
 
 				$subject = sprintf($this->language->get('text_subject'), $store_name, $return_id);
 

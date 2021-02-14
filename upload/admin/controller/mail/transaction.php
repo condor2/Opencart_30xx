@@ -44,6 +44,7 @@ class ControllerMailTransaction extends Controller {
 				$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 				$store_url = HTTP_CATALOG;
 			}
+
 			$this->load->model('localisation/language');
 
 			$language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
