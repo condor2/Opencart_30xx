@@ -45,7 +45,9 @@ class ControllerMailCustomer extends Controller {
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 
-			$data['login'] = $store_url;
+			$data['button_login'] = $language->get('button_login');
+
+			$data['login'] = $store_url . 'index.php?route=account/login';
 			$data['store'] = $store_name;
 			$data['store_url'] = $store_url;
 
@@ -66,8 +68,8 @@ class ControllerMailCustomer extends Controller {
 		}
 	}
 
-	// admin/controller/mail/customer/deny/after
 	public function deny(&$route, &$args, &$output) {
+	// admin/controller/mail/customer/deny/after
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);
