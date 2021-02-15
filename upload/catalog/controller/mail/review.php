@@ -10,17 +10,17 @@ class ControllerMailReview extends Controller {
 			$product_info = $this->model_catalog_product->getProduct((int)$args[0]);
 
 			if ($product_info) {
-				$data['text_waiting'] = $this->language->get('text_waiting');
+				$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-				$data['text_product'] = $this->language->get('text_product');
-				$data['text_reviewer'] = $this->language->get('text_reviewer');
-				$data['text_rating'] = $this->language->get('text_rating');
-				$data['text_review'] = $this->language->get('text_review');
+				$subject = sprintf($this->language->get('text_subject'), $store_name);
 
 				$data['product'] = html_entity_decode($product_info['name'], ENT_QUOTES, 'UTF-8');
 				$data['reviewer'] = html_entity_decode($args[1]['name'], ENT_QUOTES, 'UTF-8');
 				$data['rating'] = (int)$args[1]['rating'];
-				$data['text'] = $args[1]['text'];
+				$data['text'] = nl2br($args[1]['text']);
+
+				$data['store'] = $store_name;
+				$data['store_url'] = $this->config->get('config_url');
 
 				$mail = new Mail($this->config->get('config_mail_engine'));
 				$mail->parameter = $this->config->get('config_mail_parameter');
@@ -32,17 +32,17 @@ class ControllerMailReview extends Controller {
 
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
-				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-				$mail->setSubject(html_entity_decode(sprintf($this->language->get('text_subject'), $this->config->get('config_name')), ENT_QUOTES, 'UTF-8'));
+				$mail->setSender($store_name);
+				$mail->setSubject($subject);
 				$mail->setHtml($this->load->view('mail/review', $data));
 				$mail->send();
 
 				// Send to additional alert emails
-				$emails = explode(',', trim($this->config->get('config_mail_alert_email')));
+				$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
 
 				foreach ($emails as $email) {
-					if (utf8_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-						$mail->setTo($email);
+					if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						$mail->setTo(trim($email));
 						$mail->send();
 					}
 				}
