@@ -225,16 +225,16 @@ class ModelCatalogCategory extends Model {
 		$sql .= " GROUP BY cp.`category_id`";
 
 		$sort_data = [
-			'`category_id`',
-			'`name`',
+			'category_id',
+			'name',
 			'c1.`status`',
-			'`sort_order`'
+			'sort_order'
 		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
 		} else {
-			$sql .= " ORDER BY `name`";
+			$sql .= " ORDER BY `sort_order`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
