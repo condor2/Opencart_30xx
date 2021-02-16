@@ -84,7 +84,7 @@ class ModelUpgrade1009 extends Model {
 
 		//Api
 		if ($api_query->num_rows) {
-		    $this->db->query("ALTER TABLE `" . DB_PREFIX . "api` DROP COLUMN `username`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` DROP COLUMN `username`");
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` CHANGE COLUMN `name` `username` VARCHAR(64) NOT NULL");
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` MODIFY COLUMN `username` VARCHAR(64) NOT NULL AFTER `api_id`");
 		}
@@ -110,6 +110,12 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('mail_order_alert') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('statistics_order_history') . "'");		
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('admin/model/sale/return/addOrderHistory/after') . "' WHERE `code` = '" . $this->db->escape('admin_mail_return') . "'");
+
+		$query = $this->db->query("SELECT `event_id` FROM `" . DB_PREFIX . "event` WHERE `code` = 'mail_review'");
+
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_review', `trigger` = 'catalog/model/catalog/review/addReview/after', `action` = 'mail/review', `status` = '1', `sort_order` = '0'");
+		}
 
 		// Country
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
