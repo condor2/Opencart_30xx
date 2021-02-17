@@ -14,7 +14,6 @@ $_['db_port']            = DB_PORT;
 // Session
 $_['session_autostart']  = false;
 $_['session_engine']     = 'db'; // db or file
-$_['session_name']       = 'OCSESSID';
 
 // Template
 $_['template_engine']    = 'twig';
@@ -26,7 +25,7 @@ $_['library_autoload']   = [];
 
 // Actions
 $_['action_pre_action']  = [
-	'startup/session',
+	//'startup/session',
 	'startup/startup',
 	'startup/error',
 	'startup/event',

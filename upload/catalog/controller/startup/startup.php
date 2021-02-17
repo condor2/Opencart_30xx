@@ -39,7 +39,7 @@ class ControllerStartupStartup extends Controller {
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 
 		// Session
-		if (isset($this->request->get['route']) && substr((string)$this->request->get['route'], 0, 4) == 'api/') {
+		if (isset($this->request->get['route']) && substr((string)$this->request->get['route'], 0, 4) == 'api/' && isset($this->request->get['api_token'])) {
 			$this->load->model('setting/api');
 
 			$this->model_setting_api->cleanSessions();
@@ -62,13 +62,14 @@ class ControllerStartupStartup extends Controller {
 			$this->session->start($session_id);
 
 			$option = [
-				'expires'  => time() + $this->config->get('session_expire'),
-				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '',
+				'expires'  => 0,
+				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
 				'SameSite' => 'Strict'
 			];
 
+			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 			oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
 		}
 
