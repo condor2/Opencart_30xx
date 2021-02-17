@@ -26,6 +26,7 @@ $_['library_autoload']   = [];
 
 // Actions
 $_['action_pre_action']  = [
+	'startup/session',
 	'startup/startup',
 	'startup/error',
 	'startup/event',
