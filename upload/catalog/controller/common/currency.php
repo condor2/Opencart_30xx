@@ -61,7 +61,7 @@ class ControllerCommonCurrency extends Controller {
 			'SameSite' => 'Lax'
 		];
 
-		oc_setcookie('currency', $this->session->data['currency'], $option);
+		setcookie('currency', $this->session->data['currency'], $option);
 
 		if (isset($this->request->post['redirect'])) {
 			$this->response->redirect($this->request->post['redirect']);

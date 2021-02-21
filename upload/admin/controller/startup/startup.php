@@ -38,7 +38,7 @@ class ControllerStartupStartup extends Controller {
 			'SameSite' => 'Strict'
 		];
 
-		oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
+		setcookie($this->config->get('session_name'), $this->session->getId(), $option);
 
 		// Response output compression level
 		if ($this->config->get('config_compression')) {

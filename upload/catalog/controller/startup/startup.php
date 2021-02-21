@@ -70,7 +70,7 @@ class ControllerStartupStartup extends Controller {
 			];
 
 			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-			oc_setcookie($this->config->get('session_name'), $this->session->getId(), $option);
+			setcookie($this->config->get('session_name'), $this->session->getId(), $option);
 		}
 
 		// Response output compression level
@@ -146,7 +146,7 @@ class ControllerStartupStartup extends Controller {
 				'SameSite' => 'Lax'
 			];
 
-			oc_setcookie('language', $code, $option);
+			setcookie('language', $code, $option);
 		}
 
 		// Overwrite the default language object
@@ -183,7 +183,7 @@ class ControllerStartupStartup extends Controller {
 				'SameSite' => 'Lax'
 			];
 
-			oc_setcookie('tracking', $this->request->get['tracking'], $option);
+			setcookie('tracking', $this->request->get['tracking'], $option);
 
 			$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET clicks = (clicks + 1) WHERE code = '" . $this->db->escape($this->request->get['tracking']) . "'");
 		}
@@ -219,7 +219,7 @@ class ControllerStartupStartup extends Controller {
 				'SameSite' => 'Lax'
 			];
 
-			oc_setcookie('currency', $code, $option);
+			setcookie('currency', $code, $option);
 		}
 
 		$this->registry->set('currency', new Cart\Currency($this->registry));

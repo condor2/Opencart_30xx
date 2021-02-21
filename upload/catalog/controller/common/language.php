@@ -62,6 +62,6 @@ class ControllerCommonLanguage extends Controller {
 			'SameSite' => 'Lax'
 		];
 
-		oc_setcookie('language', $code, $option);
+		setcookie('language', $code, $option);
 	}
 }
