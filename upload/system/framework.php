@@ -139,7 +139,7 @@ if ($config->get('session_autostart')) {
 		'SameSite' => 'Strict'
 	];
 
-	oc_setcookie($config->get('session_name'), $session->getId(), $option);
+	setcookie($config->get('session_name'), $session->getId(), $option);
 }
 
 // Cache
