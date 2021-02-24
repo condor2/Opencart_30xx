@@ -159,11 +159,18 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD `country` VARCHAR(2) NOT NULL AFTER `ip`");
 		}
 
+		//Timezone
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_timezone'");
+
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_timezone', `value` = 'UTC', `serialized` = '0'");
+		}
+
 		// OPENCART_SERVER
 		$upgrade = true;
-		
+
 		$file = DIR_OPENCART . 'admin/config.php';
-		
+
 		$lines = file(DIR_OPENCART . 'admin/config.php');
 
 		foreach ($lines as $line) {
@@ -192,7 +199,7 @@ class ModelUpgrade1009 extends Model {
 
 			fclose($handle);
 		}
-	
+
 		$files = glob(DIR_OPENCART . '{config.php,admin/config.php}', GLOB_BRACE);
 
 		foreach ($files as $file) {
@@ -222,16 +229,16 @@ class ModelUpgrade1009 extends Model {
 				if (strpos($lines[$i], 'DIR_MODIFICATION') !== false) {
 					$lines[$i] = 'define(\'DIR_MODIFICATION\', DIR_STORAGE . \'modification/\');' . "\n";
 				}
-				
+
 				if (strpos($lines[$i], 'DIR_SESSION') !== false) {
 					$lines[$i] = 'define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');' . "\n";
 				}				
-	
+
 				if (strpos($lines[$i], 'DIR_UPLOAD') !== false) {
 					$lines[$i] = 'define(\'DIR_UPLOAD\', DIR_STORAGE . \'upload/\');' . "\n";
 				}
 			}
-			
+
 			$output = implode('', $lines);
 			
 			$handle = fopen($file, 'w');
