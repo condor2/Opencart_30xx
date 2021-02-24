@@ -121,6 +121,20 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
 
 		// Statistics
+		$query = $this->db->query("SELECT `statistics_id` FROM `" . DB_PREFIX . "statistics` WHERE `code` = 'order_sale'");
+
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `oc_statistics` (`statistics_id`, `code`, `value`) VALUES
+                (1, 'order_sale', 0),
+                (2, 'order_processing', 0),
+                (3, 'order_complete', 0),
+                (4, 'order_other', 0),
+                (5, 'return', 0),
+                (6, 'product', 0),
+                (7, 'review', 0);
+            ");
+		}
+
 		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = '" . $this->db->escape('return') . "' WHERE `code` = '" . $this->db->escape('returns') . "'");
 
 		// Zone
