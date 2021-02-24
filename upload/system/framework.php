@@ -111,10 +111,9 @@ if ($config->get('db_autostart')) {
 }
 
 // Session
-$session = new Session($config->get('session_engine'), $registry);
-$registry->set('session', $session);
-
 if ($config->get('session_autostart')) {
+	$session = new Session($config->get('session_engine'), $registry);
+	$registry->set('session', $session);
 
 	if (isset($request->cookie[$config->get('session_name')])) {
 		$session_id = $request->cookie[$config->get('session_name')];

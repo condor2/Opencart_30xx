@@ -1,5 +1,6 @@
 <?php
 class ControllerStartupSession extends Controller {
+	public function index() {
 		$session = new Session($this->config->get('session_engine'), $this->registry);
 		$this->registry->set('session', $session);
 
@@ -46,6 +47,7 @@ class ControllerStartupSession extends Controller {
 			];
 
 			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+
 			setcookie($this->config->get('session_name'), $session->getId(), $option);
 		}
 	}

@@ -89,7 +89,7 @@ class ControllerAccountOrder extends Controller {
 		$this->load->language('account/order');
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}
@@ -342,7 +342,7 @@ class ControllerAccountOrder extends Controller {
 		$this->load->language('account/order');
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}
@@ -353,7 +353,7 @@ class ControllerAccountOrder extends Controller {
 
 		if ($order_info) {
 			if (isset($this->request->get['order_product_id'])) {
-				$order_product_id = $this->request->get['order_product_id'];
+				$order_product_id = (int)$this->request->get['order_product_id'];
 			} else {
 				$order_product_id = 0;
 			}
@@ -378,7 +378,7 @@ class ControllerAccountOrder extends Controller {
 						} elseif ($order_option['type'] == 'text' || $order_option['type'] == 'textarea' || $order_option['type'] == 'date' || $order_option['type'] == 'datetime' || $order_option['type'] == 'time') {
 							$option_data[$order_option['product_option_id']] = $order_option['value'];
 						} elseif ($order_option['type'] == 'file') {
-							$option_data[$order_option['product_option_id']] = $this->encryption->encrypt($this->config->get('config_encryption'), $order_option['value']);
+							$option_data[$order_option['product_option_id']] = $order_option['value'];
 						}
 					}
 
