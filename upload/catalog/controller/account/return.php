@@ -44,6 +44,8 @@ class ControllerAccountReturn extends Controller {
 
 		$data['returns'] = [];
 
+		$this->load->model('account/return');
+
 		$return_total = $this->model_account_return->getTotalReturns();
 
 		$results = $this->model_account_return->getReturns(($page - 1) * 10, 10);
@@ -208,8 +210,6 @@ class ControllerAccountReturn extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
-
-			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
@@ -418,12 +418,8 @@ class ControllerAccountReturn extends Controller {
 		}
 
 		// Captcha
-		$this->load->model('setting/extension');
-
-		$extension_info = $this->model_setting_extension->getExtensionByCode('captcha', $this->config->get('config_captcha'));
-
-		if ($extension_info && $this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
-			$data['captcha'] = $this->load->controller('extension/'  . $extension_info['extension'] . '/captcha/' . $extension_info['code'], $this->error);
+		if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
+			$data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'), $this->error);
 		} else {
 			$data['captcha'] = '';
 		}
@@ -495,12 +491,8 @@ class ControllerAccountReturn extends Controller {
 		}
 
 		// Captcha
-		$this->load->model('setting/extension');
-
-		$extension_info = $this->model_setting_extension->getExtensionByCode('captcha', $this->config->get('config_captcha'));
-
-		if ($extension_info && $this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
-			$captcha = $this->load->controller('extension/'  . $extension_info['extension'] . '/captcha/' . $extension_info['code'] . '|validate');
+		if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('return', (array)$this->config->get('config_captcha_page'))) {
+			$captcha = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha') . '/validate');
 
 			if ($captcha) {
 				$this->error['captcha'] = $captcha;

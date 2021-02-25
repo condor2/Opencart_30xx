@@ -91,9 +91,11 @@ abstract class Constraint
      * getRequiredOptions() to return the names of these options. If any
      * option is not set here, an exception is thrown.
      *
-     * @param mixed $options The options (as associative array)
-     *                       or the value for the default
-     *                       option (any other type)
+     * @param mixed    $options The options (as associative array)
+     *                          or the value for the default
+     *                          option (any other type)
+     * @param string[] $groups  An array of validation groups
+     * @param mixed    $payload Domain-specific data attached to a constraint
      *
      * @throws InvalidOptionsException       When you pass the names of non-existing
      *                                       options
@@ -103,8 +105,22 @@ abstract class Constraint
      *                                       array, but getDefaultOption() returns
      *                                       null
      */
-    public function __construct($options = null)
+    public function __construct($options = null, array $groups = null, $payload = null)
     {
+        $options = $this->normalizeOptions($options);
+        if (null !== $groups) {
+            $options['groups'] = $groups;
+        }
+        $options['payload'] = $payload ?? $options['payload'] ?? null;
+
+        foreach ($options as $name => $value) {
+            $this->$name = $value;
+        }
+    }
+
+    protected function normalizeOptions($options): array
+    {
+        $normalizedOptions = [];
         $defaultOption = $this->getDefaultOption();
         $invalidOptions = [];
         $missingOptions = array_flip((array) $this->getRequiredOptions());
@@ -128,7 +144,7 @@ abstract class Constraint
         if ($options && \is_array($options) && \is_string(key($options))) {
             foreach ($options as $option => $value) {
                 if (\array_key_exists($option, $knownOptions)) {
-                    $this->$option = $value;
+                    $normalizedOptions[$option] = $value;
                     unset($missingOptions[$option]);
                 } else {
                     $invalidOptions[] = $option;
@@ -140,7 +156,7 @@ abstract class Constraint
             }
 
             if (\array_key_exists($defaultOption, $knownOptions)) {
-                $this->$defaultOption = $options;
+                $normalizedOptions[$defaultOption] = $options;
                 unset($missingOptions[$defaultOption]);
             } else {
                 $invalidOptions[] = $defaultOption;
@@ -154,6 +170,8 @@ abstract class Constraint
         if (\count($missingOptions) > 0) {
             throw new MissingOptionsException(sprintf('The options "%s" must be set for constraint "%s".', implode('", "', array_keys($missingOptions)), static::class), array_keys($missingOptions));
         }
+
+        return $normalizedOptions;
     }
 
     /**
@@ -163,12 +181,11 @@ abstract class Constraint
      * this method will be called at most once per constraint instance and
      * option name.
      *
-     * @param string $option The option name
-     * @param mixed  $value  The value to set
+     * @param mixed $value The value to set
      *
      * @throws InvalidOptionsException If an invalid option name is given
      */
-    public function __set($option, $value)
+    public function __set(string $option, $value)
     {
         if ('groups' === $option) {
             $this->groups = (array) $value;
@@ -194,7 +211,7 @@ abstract class Constraint
      *
      * @internal this method should not be used or overwritten in userland code
      */
-    public function __get($option)
+    public function __get(string $option)
     {
         if ('groups' === $option) {
             $this->groups = [self::DEFAULT_GROUP];
@@ -210,7 +227,7 @@ abstract class Constraint
      *
      * @return bool
      */
-    public function __isset($option)
+    public function __isset(string $option)
     {
         return 'groups' === $option;
     }

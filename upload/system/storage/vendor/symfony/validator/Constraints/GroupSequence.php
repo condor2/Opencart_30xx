@@ -51,6 +51,7 @@ namespace Symfony\Component\Validator\Constraints;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class GroupSequence
 {
     /**
@@ -84,6 +85,6 @@ class GroupSequence
     public function __construct(array $groups)
     {
         // Support for Doctrine annotations
-        $this->groups = isset($groups['value']) ? $groups['value'] : $groups;
+        $this->groups = $groups['value'] ?? $groups;
     }
 }

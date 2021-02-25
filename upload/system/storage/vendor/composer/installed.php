@@ -6,28 +6,28 @@
     'aliases' => 
     array (
     ),
-    'reference' => '3057ca8c0255df89f376c6c1eccd9592245627be',
+    'reference' => 'bfce66fed69fcfe7878f750df47de7b229d849f1',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
   array (
     'braintree/braintree_php' => 
     array (
-      'pretty_version' => '5.3.1',
-      'version' => '5.3.1.0',
+      'pretty_version' => '5.5.0',
+      'version' => '5.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b5e971d898c78819cf2fddab7043b7c7c69e841e',
+      'reference' => '8902a072ac04c9eea2996f2683cb56259cbe46fa',
     ),
     'cardinity/cardinity-sdk-php' => 
     array (
-      'pretty_version' => 'v2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => 'v3.0.2',
+      'version' => '3.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '602f6c40f81d4dfae0e1e9f327736c2c2e31a82b',
+      'reference' => 'e2923dc0561745cbd9ba602b746330a5beef283f',
     ),
     'divido/divido-php' => 
     array (
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '3057ca8c0255df89f376c6c1eccd9592245627be',
+      'reference' => 'bfce66fed69fcfe7878f750df47de7b229d849f1',
     ),
     'psr/http-message' => 
     array (
@@ -110,17 +110,26 @@
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => 'v1.4.1',
+      'version' => '1.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f7c9088320e218ca42e4ef0074259a1ba24ec93a',
+      'reference' => 'ba86c963b94ec7ebd6e19d90cdab90d89667dbf7',
+    ),
+    'symfony/deprecation-contracts' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5fa56b4074d1ae755beb55617ddafe6f5d78f665',
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -128,39 +137,57 @@
     ),
     'symfony/polyfill-intl-idn' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0eb8293dbbcd6ef6bf81404c9ce7d95bcdf34f44',
+      'reference' => '2d63434d922daf7da8dd863e7907e67ee3031483',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6e971c891537eb617a00bb07a43d182a6915faba',
+      'reference' => '43a0283138253ed1d48d352ab6d0bdb3f809f248',
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f377a3dd1fde44d37b9831d68dc8dea3ffd28e13',
+      'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
     ),
     'symfony/polyfill-php72' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
       'reference' => 'cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9',
+    ),
+    'symfony/polyfill-php73' => 
+    array (
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a678b42e92f86eca04b7fa4c0f6f19d097fb69e2',
+    ),
+    'symfony/polyfill-php80' => 
+    array (
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
     ),
     'symfony/translation-contracts' => 
     array (
@@ -173,21 +200,21 @@
     ),
     'symfony/validator' => 
     array (
-      'pretty_version' => 'v4.4.18',
-      'version' => '4.4.18.0',
+      'pretty_version' => 'v5.2.3',
+      'version' => '5.2.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f212e0520097c3a283358a83fd202a66d85c21ee',
+      'reference' => 'd83d2a9f060ce42636feef6af6facc39793354cf',
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.3.0',
+      'version' => '3.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f795ca686d38530045859b0350b5352f7d63447d',
+      'reference' => '1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5',
     ),
     'zoujingli/wechat-php-sdk' => 
     array (

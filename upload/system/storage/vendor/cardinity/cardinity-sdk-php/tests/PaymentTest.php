@@ -4,24 +4,15 @@ namespace Cardinity\Tests;
 
 use Cardinity\Exception;
 use Cardinity\Method\Payment;
+use Cardinity\Method\ResultObject;
 
 class PaymentTest extends ClientTestCase
 {
     public function testResultObjectSerialization()
     {
-        $payment = new Payment\Payment();
-        $payment->setId('foo');
-        $payment->setType('bar');
-        $payment->setCurrency(null);
-        $payment->setAmount('55.00');
-        $payment->setPaymentMethod(Payment\Create::CARD);
+        $payment = $this->getPayment();
 
-        $card = new Payment\PaymentInstrumentCard();
-        $card->setCardBrand('Visa');
-        $card->setPan('4447');
-        $card->setExpYear(2021);
-        $card->setExpMonth(5);
-        $card->setHolder('John Smith');
+        $card = $this->getCard();
         $payment->setPaymentInstrument($card);
 
         $info = new Payment\AuthorizationInformation();
@@ -30,14 +21,14 @@ class PaymentTest extends ClientTestCase
         $payment->setAuthorizationInformation($info);
 
         $this->assertSame(
-            '{"id":"foo","amount":"55.00","type":"bar","payment_method":"card","payment_instrument":{"card_brand":"Visa","pan":"4447","exp_year":2021,"exp_month":5,"holder":"John Smith"},"authorization_information":{"url":"http:\/\/...","data":"some_data"}}',
+            '{"id":"foo","amount":"55.00","type":"bar","payment_method":"card","payment_instrument":{"card_brand":"Visa","pan":"4447","exp_year":'.(date('Y')+4).',"exp_month":11,"holder":"James Bond"},"authorization_information":{"url":"http:\/\/...","data":"some_data"}}',
             $payment->serialize()
         );
     }
 
     public function testResultObjectUnserialization()
     {
-        $json = '{"id":"foo","amount":"55.00","type":"bar","payment_method":"card","payment_instrument":{"card_brand":"Visa","pan":"4447","exp_year":2021,"exp_month":5,"holder":"John Smith"},"authorization_information":{"url":"http:\/\/...","data":"some_data"}}';
+        $json = '{"id":"foo","amount":"55.00","type":"bar","payment_method":"card","payment_instrument":{"card_brand":"Visa","pan":"4447","exp_year":'.(date('Y')+4).',"exp_month":11,"holder":"James Bond"},"authorization_information":{"url":"http:\/\/...","data":"some_data"}}';
 
         $payment = new Payment\Payment();
         $payment->unserialize($json);
@@ -49,7 +40,7 @@ class PaymentTest extends ClientTestCase
         $this->assertInstanceOf('Cardinity\Method\Payment\AuthorizationInformation', $payment->getAuthorizationInformation());
         $this->assertSame('http://...', $payment->getAuthorizationInformation()->getUrl());
         $this->assertInstanceOf('Cardinity\Method\Payment\PaymentInstrumentCard', $payment->getPaymentInstrument());
-        $this->assertSame('John Smith', $payment->getPaymentInstrument()->getHolder());
+        $this->assertSame('James Bond', $payment->getPaymentInstrument()->getHolder());
     }
 
     /**
@@ -102,7 +93,7 @@ class PaymentTest extends ClientTestCase
             $this->assertSame('declined', $result->getStatus());
             $this->assertSame(true, $result->isDeclined());
             $this->assertSame('CRD-TEST: Do Not Honor', $result->getError());
-            $this->assertContains('status: CRD-TEST: Do Not Honor;', $e->getErrorsAsString());
+            $this->assertStringContainsString('status: CRD-TEST: Do Not Honor;', $e->getErrorsAsString());
 
             return;
         }
@@ -234,7 +225,7 @@ class PaymentTest extends ClientTestCase
             $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
             $this->assertSame('declined', $result->getStatus());
             $this->assertSame(true, $result->isDeclined());
-            $this->assertContains('status: 33333: 3D Secure Authorization Failed.;', $e->getErrorsAsString());
+            $this->assertStringContainsString('status: 33333: 3D Secure Authorization Failed.;', $e->getErrorsAsString());
 
             return;
         }

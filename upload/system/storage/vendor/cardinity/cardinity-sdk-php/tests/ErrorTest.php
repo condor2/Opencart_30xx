@@ -4,6 +4,7 @@ namespace Cardinity\Tests;
 
 use Cardinity\Client;
 use Cardinity\Method\Payment;
+use Cardinity\Exception\InvalidAttributeValue;
 
 class ErrorTest extends ClientTestCase
 {
@@ -25,7 +26,7 @@ class ErrorTest extends ClientTestCase
             $this->assertInstanceOf('Cardinity\Method\Error', $result);
             $this->assertSame('https://developers.cardinity.com/api/v1/#400', $result->getType());
             $this->assertSame('Validation Failed', $result->getTitle());
-            $this->assertContains('validation errors', $result->getDetail());
+            $this->assertStringContainsString('validation errors', $result->getDetail());
             $this->assertTrue(is_array($result->getErrors()));
             $this->assertNotEmpty($result->getErrors());
         }

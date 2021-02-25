@@ -3,6 +3,8 @@
 namespace Cardinity\Method\Payment;
 
 use Cardinity\Method\ResultObject;
+use Cardinity\Method\Payment\ThreeDS2Data;
+use Cardinity\Method\Payment\ThreeDS2AuthorizationInformation;
 
 class Payment extends ResultObject
 {
@@ -70,7 +72,8 @@ class Payment extends ResultObject
      */
     private $paymentInstrument;
 
-    /** @type string Used to provide additional information (PATCH verb) once
+    /** @deprecated 
+     * @type string Used to provide additional information (PATCH verb) once
         customer completes authorization process. */
     private $authorizeData;
 
@@ -78,6 +81,9 @@ class Payment extends ResultObject
         payment authorization is needed (i.e. payment status is pending).
         Value assigned by Cardinity. */
     private $authorizationInformation;
+    
+    /** @type ThreeDS2AuthorizationInformation */
+    private $threeDS2AuthorizationInformation;
 
     /**
      * Gets the value of id.
@@ -346,6 +352,7 @@ class Payment extends ResultObject
     }
 
     /**
+     * @deprecated method is deprecated and shouldn't be used.
      * Gets the value of authorizeData.
      * @return mixed
      */
@@ -355,6 +362,7 @@ class Payment extends ResultObject
     }
 
     /**
+     * @deprecated method is deprecated and shouldn't be used.
      * Sets the value of authorizeData.
      * @param mixed $authorizeData the authorize data
      * @return void
@@ -381,6 +389,40 @@ class Payment extends ResultObject
     public function setAuthorizationInformation(AuthorizationInformation $authorizationInformation)
     {
         $this->authorizationInformation = $authorizationInformation;
+    }
+
+    /**
+     * @return ThreeDS2AuthorizationInformation
+     */
+    public function getThreeds2Data()
+    {
+        return $this->threeDS2AuthorizationInformation;
+    }
+
+    /**
+     * @param ThreeDS2AuthorizationInformation
+     * @return VOID
+     */
+    public function setThreeds2Data(
+        ThreeDS2AuthorizationInformation $threeDS2AuthorizationInformation
+    ){
+        $this->threeDS2AuthorizationInformation = $threeDS2AuthorizationInformation;
+    }
+
+    /**
+     * @return BOOL is it 3D secure v1?
+     */
+    public function isThreedsV1() : bool
+    {
+        return $this->authorizationInformation != null;
+    }
+
+    /**
+     * @return BOOL is it 3D secure v2?
+     */
+    public function isThreedsV2() : bool
+    {
+        return $this->threeDS2AuthorizationInformation != null;
     }
 
     /**

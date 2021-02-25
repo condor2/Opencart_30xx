@@ -10,13 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class ClientTestCase extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $log = Client::LOG_NONE;
-
-        // Use monolog logger to log requests into the file
-        // $log = new Logger('requests');
-        // $log->pushHandler(new StreamHandler(__DIR__ . '/info.log', Logger::INFO));
 
         $this->client = Client::create($this->getConfig(), $log);
 
@@ -43,11 +39,88 @@ class ClientTestCase extends TestCase
             'payment_method' => Payment\Create::CARD,
             'payment_instrument' => [
                 'pan' => '4111111111111111',
-                'exp_year' => 2021,
+                'exp_year' => date('Y') + 4,
                 'exp_month' => 12,
                 'cvc' => '456',
                 'holder' => 'Mike Dough'
             ],
         ];
+    }
+
+    public function getPayment()
+    {
+        $payment = new Payment\Payment();
+        $payment->setId('foo');
+        $payment->setType('bar');
+        $payment->setCurrency(null);
+        $payment->setAmount('55.00');
+        $payment->setPaymentMethod(Payment\Create::CARD);
+        return $payment;
+    }
+
+    
+    public function getBrowserInfo($args = [])
+    {
+        $browserInfo = [
+            'accept_header' => 'Some header',
+            'browser_language' => 'LT',
+            'screen_width' => 390,
+            'screen_height' => 400,
+            'challenge_window_size' => '390x400',
+            'user_agent' => 'super user agent',
+            'color_depth' => 24,
+            'time_zone' => -60,
+        ];
+        if($args && isset($args['ip_address'])) {
+            $browserInfo['ip_address'] = $args['ip_address'];
+        }
+        if($args && isset($args['javascript_enabled'])) {
+            $browserInfo['javascript_enabled'] = $args['javascript_enabled'];
+        }
+        if($args && isset($args['java_enabled'])) {
+            $browserInfo['java_enabled'] = $args['java_enabled'];
+        }
+        return $browserInfo;
+    }
+
+    public function getAddress($args = [])
+    {
+        $address = [
+            'address_line1' => 'first address line',
+            'city' => 'balbieriskis',
+            'country' => 'LT',
+            'postal_code' => '0234'
+        ];
+        if($args && isset($args['address_line2'])) {
+            $address['address_line2'] = $args['address_line2'];
+        }
+        if($args && isset($args['address_line3'])) {
+            $address['address_line3'] = $args['address_line3'];
+        }
+        if($args && isset($args['state'])) {
+            $address['state'] = $args['state'];
+        }
+        return $address;
+    }
+
+    public function getThreeDS2DataMandatoryData()
+    {
+        $treeDS2Data['notification_url'] = 'https://notification.url/';
+
+        $browserInfo = $this->getBrowserInfo();
+        $treeDS2Data['browser_info'] = $browserInfo;
+
+        return $treeDS2Data;
+    }
+
+    public function getCard()
+    {
+        $card = new Payment\PaymentInstrumentCard();
+        $card->setCardBrand('Visa');
+        $card->setPan('4447');
+        $card->setExpYear(date('Y') + 4);
+        $card->setExpMonth(11);
+        $card->setHolder('James Bond');
+        return $card;
     }
 }
