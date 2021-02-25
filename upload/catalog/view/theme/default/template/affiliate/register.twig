@@ -30,13 +30,15 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" checked="checked" />
-                  {{ customer_group.name }}</label>
+                  {{ customer_group.name }}
+                </label>
               </div>
               {% else %}
               <div class="radio">
                 <label>
                   <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" />
-                  {{ customer_group.name }}</label>
+                  {{ customer_group.name }}
+                </label>
               </div>
               {% endif %}
               {% endfor %}</div>
@@ -47,7 +49,8 @@
               <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" />
               {% if error_firstname %}
               <div class="text-danger">{{ error_firstname }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
@@ -55,7 +58,8 @@
               <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control" />
               {% if error_lastname %}
               <div class="text-danger">{{ error_lastname }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
@@ -63,7 +67,8 @@
               <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
               {% if error_email %}
               <div class="text-danger">{{ error_email }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
@@ -71,7 +76,8 @@
               <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" />
               {% if error_telephone %}
               <div class="text-danger">{{ error_telephone }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           {% for custom_field in custom_fields %}
           {% if custom_field.location == 'account' %}
@@ -91,7 +97,8 @@
               </select>
               {% if error_custom_field[custom_field.custom_field_id] %}
               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           {% endif %}
           {% if custom_field.type == 'radio' %}
@@ -111,7 +118,8 @@
                 {% endfor %} </div>
               {% if error_custom_field[custom_field.custom_field_id] %}
               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           {% endif %}
           {% if custom_field.type == 'checkbox' %}
@@ -131,7 +139,8 @@
                 {% endfor %} </div>
               {% if error_custom_field[custom_field.custom_field_id] %}
               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           {% endif %}
           {% if custom_field.type == 'text' %}
@@ -308,8 +317,10 @@
                 <input type="text" name="bank_account_number" value="{{ bank_account_number }}" placeholder="{{ entry_bank_account_number }}" id="input-bank-account-number" class="form-control" />
                 {% if error_bank_account_number %}
                 <div class="text-danger">{{ error_bank_account_number }}</div>
-                {% endif %} </div>
+                {% endif %}
+              </div>
             </div>
+          </div>
             {% for custom_field in custom_fields %}
             {% if custom_field.location == 'affiliate' %}
             {% if custom_field.type == 'select' %}
@@ -445,7 +456,7 @@
             </div>
             {% endif %}
             {% endif %}
-            {% endfor %} </div>
+            {% endfor %}
         </fieldset>
         <fieldset>
           <legend>{{ text_your_password }}</legend>
@@ -553,7 +564,7 @@ $('input[name=\'customer_group_id\']').on('change', function() {
 });
 
 $('input[name=\'customer_group_id\']:checked').trigger('change');
-//--></script> 
+//--></script>
 <script type="text/javascript"><!--
 $('button[id^=\'button-custom-field\']').on('click', function() {
 	var element = this;
@@ -614,7 +625,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 		}
 	}, 500);
 });
-//--></script> 
+//--></script>
 <script type="text/javascript"><!--
 $('.date').datetimepicker({
 	language: '{{ datepicker }}',
@@ -640,5 +651,5 @@ $('input[name=\'payment\']').on('change', function() {
 });
 
 $('input[name=\'payment\']:checked').trigger('change');
-//--></script> 
+//--></script>
 {{ footer }}
