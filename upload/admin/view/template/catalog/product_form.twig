@@ -882,7 +882,9 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('textarea[data-toggle=\'ckeditor\']').ckeditor();
+$('textarea[data-toggle=\'ckeditor\']').ckeditor({
+    language:'{{ ckeditor }}'
+});
 
   // Manufacturer
   $('input[name=\'manufacturer\']').autocomplete({
