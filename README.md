@@ -26,7 +26,7 @@ This is a modified version of Opencart.
 - Latest version of Paypal Commerce
 - TWIG v3.3.0
 - Bootstrap 3.4.1
-- Jquery 3.5.1
+- Jquery 3.6.0
 
 ## Features
 - Enable and Disable button on Country List
