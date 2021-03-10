@@ -519,4 +519,18 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	private function isDirEmpty ($dir_name) {
+		if (!is_dir($dir_name)) {
+			return false;
+		}
+
+		foreach (scandir($dir_name) as $dir_file) {
+			if (!in_array($dir_file, array('.','..'))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
