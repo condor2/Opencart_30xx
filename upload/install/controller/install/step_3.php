@@ -103,7 +103,7 @@ class ControllerInstallStep3 extends Controller {
 		$data['text_db_connection'] = $this->language->get('text_db_connection');
 		$data['text_db_administration'] = $this->language->get('text_db_administration');
 		$data['text_mysqli'] = $this->language->get('text_mysqli');
-		$data['text_mpdo'] = $this->language->get('text_mpdo');
+		$data['text_pdo'] = $this->language->get('text_pdo');
 		$data['text_pgsql'] = $this->language->get('text_pgsql');
 
 		$data['entry_db_driver'] = $this->language->get('entry_db_driver');
