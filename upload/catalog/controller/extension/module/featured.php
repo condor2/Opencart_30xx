@@ -39,12 +39,12 @@ class ControllerExtensionModuleFeatured extends Controller {
 						$price = false;
 					}
 
-					if (!is_null($product_info['special']) && (float)$product_info['special'] >= 0) {
+					if (!is_null($product['special']) && (float)$product['special'] >= 0) {
 						$special = $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-						$tax_price = (float)$product_info['special'];
+						$tax_price = (float)$product['special'];
 					} else {
 						$special = false;
-						$tax_price = (float)$product_info['price'];
+						$tax_price = (float)$product['price'];
 					}
 
 					if ($this->config->get('config_tax')) {
