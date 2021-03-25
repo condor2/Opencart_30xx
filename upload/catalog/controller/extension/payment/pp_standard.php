@@ -44,20 +44,20 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 						}
 					}
 
-					$option_data[] = array(
+					$option_data[] = [
 						'name'  => $option['name'],
 						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
-					);
+					];
 				}
 
-				$data['products'][] = array(
+				$data['products'][] = [
 					'name'     => htmlspecialchars($product['name']),
 					'model'    => htmlspecialchars($product['model']),
 					'price'    => $this->currency->format($product['price'], $order_info['currency_code'], false, false),
 					'quantity' => $product['quantity'],
 					'option'   => $option_data,
 					'weight'   => $product['weight']
-				);
+				];
 			}
 
 			$data['discount_amount_cart'] = 0;
@@ -65,26 +65,41 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			$total = $this->currency->format($order_info['total'] - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
 
 			if ($total > 0) {
-				$data['products'][] = array(
+				$data['products'][] = [
 					'name'     => $this->language->get('text_total'),
 					'model'    => '',
 					'price'    => $total,
 					'quantity' => 1,
 					'option'   => [],
 					'weight'   => 0
-				);
+				];
 			} else {
 				$data['discount_amount_cart'] -= $total;
 			}
 
+			if ($this->cart->hasShipping()) { 
+				$data['no_shipping'] = 2;
+				$data['address_override'] = 1;
+				$data['first_name'] = $order_info['shipping_firstname'];
+				$data['last_name'] = $order_info['shipping_lastname'];
+				$data['address1'] = $order_info['shipping_address_1'];
+				$data['address2'] = $order_info['shipping_address_2'];
+				$data['city'] = $order_info['shipping_city'];
+				$data['zip'] = $order_info['shipping_postcode'];
+				$data['country'] = $order_info['shipping_iso_code_2'];
+			} else {
+				$data['no_shipping'] = 1;
+				$data['address_override'] = 0;
+				$data['first_name'] = $order_info['payment_firstname'];
+				$data['last_name'] = $order_info['payment_lastname'];
+				$data['address1'] = $order_info['payment_address_1'];
+				$data['address2'] = $order_info['payment_address_2'];
+				$data['city'] = $order_info['payment_city'];
+				$data['zip'] = $order_info['payment_postcode'];
+				$data['country'] = $order_info['payment_iso_code_2'];
+			}
+
 			$data['currency_code'] = $order_info['currency_code'];
-			$data['first_name'] = $order_info['payment_firstname'];
-			$data['last_name'] = $order_info['payment_lastname'];
-			$data['address1'] = $order_info['payment_address_1'];
-			$data['address2'] = $order_info['payment_address_2'];
-			$data['city'] = $order_info['payment_city'];
-			$data['zip'] = $order_info['payment_postcode'];
-			$data['country'] = $order_info['payment_iso_code_2'];
 			$data['email'] = $order_info['email'];
 			$data['invoice'] = $this->session->data['order_id'] . ' - ' . $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
 			$data['lc'] = $this->session->data['language'];
@@ -106,7 +121,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 
 	public function callback() {
 		if (isset($this->request->post['custom'])) {
-			$order_id = $this->request->post['custom'];
+			$order_id = (int)$this->request->post['custom'];
 		} else {
 			$order_id = 0;
 		}
