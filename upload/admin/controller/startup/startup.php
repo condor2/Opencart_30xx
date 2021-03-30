@@ -42,8 +42,8 @@ class ControllerStartupStartup extends Controller {
 			'expires'  => time() + $this->config->get('session_expire'),
 			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
-			'httponly' => false,
-			'SameSite' => 'Strict'
+			'httponly' => true,
+			'SameSite' => $this->config->get('session_samesite')
 		];
 
 		setcookie($this->config->get('session_name'), $session->getId(), $option);

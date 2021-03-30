@@ -42,8 +42,8 @@ class ControllerStartupSession extends Controller {
 				'expires'  => 0,
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
 				'secure'   => $this->request->server['HTTPS'],
-				'httponly' => false,
-				'SameSite' => 'Strict'
+				'httponly' => true,
+				'SameSite' => $this->config->get('session_samesite')
 			];
 
 			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
