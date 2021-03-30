@@ -38,41 +38,6 @@ class ControllerStartupStartup extends Controller {
 		// Theme
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 
-		// Session
-		if (isset($this->request->get['route']) && substr((string)$this->request->get['route'], 0, 4) == 'api/' && isset($this->request->get['api_token'])) {
-			$this->load->model('setting/api');
-
-			$this->model_setting_api->cleanSessions();
-
-			// Make sure the IP is allowed
-			$api_info = $this->model_setting_api->getApiByToken($this->request->get['api_token']);
-
-			if ($api_info) {
-				$this->session->start($this->request->get['api_token']);
-
-				$this->model_setting_api->updateSession($api_info['api_session_id']);
-			}
-		} else {
-			if (isset($this->request->cookie[$this->config->get('session_name')])) {
-				$session_id = $this->request->cookie[$this->config->get('session_name')];
-			} else {
-				$session_id = '';
-			}
-
-			$this->session->start($session_id);
-
-			$option = [
-				'expires'  => 0,
-				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
-				'secure'   => $this->request->server['HTTPS'],
-				'httponly' => false,
-				'SameSite' => 'Strict'
-			];
-
-			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-			setcookie($this->config->get('session_name'), $this->session->getId(), $option);
-		}
-
 		// Response output compression level
 		if ($this->config->get('config_compression')) {
 			$this->response->setCompression($this->config->get('config_compression'));
@@ -180,7 +145,7 @@ class ControllerStartupStartup extends Controller {
 			$option = [
 				'expires'  => time() + 3600 * 24 * 1000,
 				'path'     => '/',
-				'SameSite' => 'Lax'
+				'SameSite' => 'Strict'
 			];
 
 			setcookie('tracking', $this->request->get['tracking'], $option);
