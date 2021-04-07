@@ -11,15 +11,14 @@
 * Mail class
 */
 class Mail {
-	protected $to;
-	protected $from;
-	protected $sender;
-	protected $reply_to;
-	protected $subject;
-	protected $text;
-	protected $html;
+	protected $to = '';
+	protected $from = '';
+	protected $sender = '';
+	protected $reply_to = '';
+	protected $subject = '';
+	protected $text = '';
+	protected $html = '';
 	protected $attachments = [];
-	protected $bccs = [];
 
 	/**
 	 * Constructor
@@ -31,10 +30,9 @@ class Mail {
 		$class = 'Mail\\' . $adaptor;
 
 		if (class_exists($class)) {
-			$this->adaptor = new $class();
+			$this->adaptor = $class;
 		} else {
-			trigger_error('Error: Could not load mail adaptor ' . $adaptor . '!');
-			exit();
+			throw new \Exception('Error: Could not load mail adaptor ' . $adaptor . '!');
 		}
 	}
 
@@ -114,11 +112,6 @@ class Mail {
      * 
      *
      */
-
-	public function addBCC($mail) {
-		$this->bccs[] = $mail;
-	}
-
 	public function send() {
 		if (!$this->to) {
 			throw new \Exception('Error: E-Mail to required!');
@@ -136,14 +129,16 @@ class Mail {
 			throw new \Exception('Error: E-Mail subject required!');
 		}
 
-		if ((!$this->text) && (!$this->html)) {
+		if (!$this->text && !$this->html) {
 			throw new \Exception('Error: E-Mail message required!');
 		}
 		
-		foreach (get_object_vars($this) as $key => $value) {
-			$this->adaptor->$key = $value;
-		}
+		$mail_data = [];
 
-		$this->adaptor->send();
+		foreach (get_object_vars($this) as $key => $value) $mail_data[$key] = $value;
+
+		$mail = new $this->adaptor($mail_data);
+
+		return $mail->send();
 	}
 }

@@ -1,7 +1,23 @@
 <?php
 namespace Mail;
 class Mail {
-	public $parameter;
+	protected string $to = '';
+	protected string $from = '';
+	protected string $sender = '';
+	protected string $reply_to = '';
+	protected string $subject = '';
+	protected string $text = '';
+	protected string $html = '';
+	protected array $attachments = [];
+	protected string $parameter;
+
+	public function __construct(array $args) {
+		foreach ($args as $key => $value) {
+			if (property_exists($this, $key)) {
+				$this->{$key} = $value;
+			}
+		}
+	}
 
 	public function send() {
 		if (is_array($this->to)) {
@@ -15,7 +31,7 @@ class Mail {
 		$header  = 'MIME-Version: 1.0' . PHP_EOL;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . PHP_EOL;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
-		
+
 		if (!$this->reply_to) {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
 		} else {
@@ -52,7 +68,7 @@ class Mail {
 		}
 
 		foreach ($this->attachments as $attachment) {
-			if (file_exists($attachment)) {
+			if (is_file($attachment)) {
 				$handle = fopen($attachment, 'r');
 
 				$content = fread($handle, filesize($attachment));
@@ -74,9 +90,9 @@ class Mail {
 		ini_set('sendmail_from', $this->from);
 
 		if ($this->parameter) {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
+			return mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
 		} else {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
+			return mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
 		}
 	}
 }

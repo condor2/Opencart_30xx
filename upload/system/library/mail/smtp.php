@@ -1,13 +1,29 @@
 <?php
 namespace Mail;
 class Smtp {
-	public $smtp_hostname;
-	public $smtp_username;
-	public $smtp_password;
-	public $smtp_port = 25;
-	public $smtp_timeout = 5;
-	public $max_attempts = 3;
-	public $verp = false;
+	protected $to = '';
+	protected $from = '';
+	protected $sender = '';
+	protected $reply_to = '';
+	protected $subject = '';
+	protected $text = '';
+	protected $html = '';
+	protected $attachments = [];
+	protected $smtp_hostname = '';
+	protected $smtp_username = '';
+	protected $smtp_password = '';
+	protected $smtp_port = 25;
+	protected $smtp_timeout = 5;
+	protected $max_attempts = 3;
+	protected $verp = false;
+
+	public function __construct(array $args) {
+		foreach ($args as $key => $value) {
+			if (property_exists($this, $key)) {
+				$this->{$key} = $value;
+			}
+		}
+	}
 
 	public function send() {
 		if (is_array($this->to)) {
@@ -214,6 +230,8 @@ class Smtp {
 
 			fclose($handle);
 		}
+
+		return true;
 	}
 
 	private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
