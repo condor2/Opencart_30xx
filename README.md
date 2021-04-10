@@ -44,7 +44,7 @@ This is a modified version of Opencart.
 - Admin Zone filter code from 4.0.0.0_b.
 
 ## Note
-This version is not supported by Opencart. You need to have at least PHP 7.3 to use this version.
+This version is not supported by Opencart. You need to have PHP 7.4 to use this version.
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).
