@@ -1,6 +1,10 @@
 <?php
 class ControllerCommonHeader extends Controller {
 	public function index() {
+		if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
+			$this->document->addLink(HTTP_CATALOG . 'image/' . $this->config->get('config_icon'), 'icon');
+		}
+
 		$data['title'] = $this->document->getTitle();
 
 		$data['base'] = HTTP_SERVER;
