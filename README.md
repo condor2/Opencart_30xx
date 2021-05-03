@@ -42,6 +42,7 @@ This is a modified version of Opencart.
 - SameSite cookie code from 4.0.0.0_b.
 - Admin Country filter code from 4.0.0.0_b.
 - Admin Zone filter code from 4.0.0.0_b.
+- Address fields on Registration page like 2.3.0.2
 
 ## Note
 This version is not supported by Opencart. You need to have PHP 7.4 to use this version.
