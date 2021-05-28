@@ -283,14 +283,22 @@ class ControllerCatalogCategory extends Controller {
 	}
 
 	protected function getForm() {
-		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
-		$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+		if ($this->config->get('config_editor_default') == 'ckeditor') {
+			$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
+			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
+		} else {
+			$this->document->addScript('view/javascript/summernote/summernote.js');
+			$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('lang') . '.js');
+			$this->document->addScript('view/javascript/summernote/opencart.js');
+			$this->document->addStyle('view/javascript/summernote/summernote.css');
 
-		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
-		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
-		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
-		$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
-		$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
+			$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
+			$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+
+			$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
+			$this->document->addScript('view/javascript/codemirror/lib/xml.js');
+			$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
+		}
 
 		$data['text_form'] = (!isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
@@ -364,9 +372,13 @@ class ControllerCatalogCategory extends Controller {
 
 		$data['user_token'] = $this->session->data['user_token'];
 
+		$data['editor'] = $this->config->get('config_editor_default');
+
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
+
+		$data['lang'] = $this->language->get('lang');
 
 		if (isset($this->request->post['category_description'])) {
 			$data['category_description'] = $this->request->post['category_description'];

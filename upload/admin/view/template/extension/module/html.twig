@@ -52,7 +52,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                   <div class="col-sm-10">
-                    <textarea name="module_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="ckeditor" class="form-control">{{ module_description[language.language_id] ? module_description[language.language_id].description }}</textarea>
+                    <textarea name="module_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="{{ editor }}" data-lang="{{ lang }}" class="form-control">{{ module_description[language.language_id] ? module_description[language.language_id].description }}</textarea>
                   </div>
                 </div>
               </div>
@@ -77,11 +77,15 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript"><!--
+{% if editor == 'ckeditor' %}
+<script type="text/javascript"><!--
 $('textarea[data-toggle=\'ckeditor\']').ckeditor({
     language:'{{ ckeditor }}'
 });
+  //--></script>
+{% endif %}
 
+  <script type="text/javascript"><!--
 $('#language a:first').tab('show');
 //--></script>
 </div>

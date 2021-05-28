@@ -1124,6 +1124,23 @@
                     <input type="text" name="config_compression" value="{{ config_compression }}" placeholder="{{ entry_compression }}" id="input-compression" class="form-control" />
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_editor_default }}">{{ entry_editor_default }}</span></label>
+                  <div class="col-sm-10">
+                    <select name="config_editor_default" id="config_editor_default" class="form-control">
+                      {% if config_editor_default == 'summernote' %}
+                      <option value="summernote" selected="selected">{{ text_summernote }}</option>
+                      {% else %}
+                      <option value="summernote">{{ text_summernote }}</option>
+                      {% endif %}
+                      {% if config_editor_default == 'ckeditor' %}
+                      <option value="ckeditor" selected="selected">{{ text_ckeditor }}</option>
+                      {% else %}
+                      <option value="ckeditor">{{ text_ckeditor }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_security }}</legend>

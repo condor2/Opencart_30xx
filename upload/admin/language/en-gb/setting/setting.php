@@ -34,6 +34,8 @@ $_['text_general']                   = 'General';
 $_['text_security']                  = 'Security';
 $_['text_upload']                    = 'Uploads';
 $_['text_error']                     = 'Error Handling';
+$_['text_summernote']                = 'Summernote';
+$_['text_ckeditor']                  = 'CKEditor';
 
 // Entry
 $_['entry_meta_title']               = 'Meta Title';
@@ -128,6 +130,7 @@ $_['entry_error_display']            = 'Display Errors';
 $_['entry_error_log']                = 'Log Errors';
 $_['entry_error_filename']           = 'Error Log Filename';
 $_['entry_status']                   = 'Status';
+$_['entry_editor_default']           = 'Default editor';
 
 // Help
 $_['help_geocode']                   = 'Please enter your store location geocode manually.';
@@ -190,6 +193,7 @@ $_['help_maintenance']               = 'Prevents customers from browsing your st
 $_['help_password']                  = 'Allow forgotten password to be used for the admin. This will be disabled automatically if the system detects a hack attempt.';
 $_['help_encryption']                = 'Please provide a secret key that will be used to encrypt private information when processing orders.';
 $_['help_compression']               = 'GZIP for more efficient transfer to requesting clients. Compression level must be between 0 - 9.';
+$_['help_editor_default']            = 'Set default editor. If you select CKEditor, in some third-party modules, will not work.';
 
 // Error
 $_['error_warning']                  = 'Warning: Please check the form carefully for errors!';

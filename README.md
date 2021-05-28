@@ -15,12 +15,12 @@ This is a modified version of Opencart.
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39538">PHPMailer Integration - by @cansei_vendi</a>
 - <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.16.0</a>
 - GDPR function from 4.0.0.0_b.
+- CKEditor v4.16.1
 
 ## Removed
 - Promotion
 - Openbay
 - Klarna Payment
-- Summernote
 
 ## Updates
 - Latest version of Paypal Commerce
@@ -43,6 +43,7 @@ This is a modified version of Opencart.
 - Admin Country filter code from 4.0.0.0_b.
 - Admin Zone filter code from 4.0.0.0_b.
 - Address fields on Registration page like 2.3.0.2
+- Default editor can be changed from store settings.
 
 ## Note
 This version is not supported by Opencart. You need to have PHP 7.4 to use this version.

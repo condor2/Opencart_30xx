@@ -914,6 +914,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_compression'] = $this->config->get('config_compression');
 		}
 
+		if (isset($this->request->post['config_editor_default'])) {
+			$data['config_editor_default'] = $this->request->post['config_editor_default'];
+		} else {
+			$data['config_editor_default'] = $this->config->get('config_editor_default');
+		}
+
 		if (isset($this->request->post['config_error_display'])) {
 			$data['config_error_display'] = (int)$this->request->post['config_error_display'];
 		} else {

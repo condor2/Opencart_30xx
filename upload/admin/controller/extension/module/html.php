@@ -7,14 +7,22 @@ class ControllerExtensionModuleHTML extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
-		$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+		if ($this->config->get('config_editor_default') == 'ckeditor') {
+			$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
+			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
+		} else {
+			$this->document->addScript('view/javascript/summernote/summernote.js');
+			$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('lang') . '.js');
+			$this->document->addScript('view/javascript/summernote/opencart.js');
+			$this->document->addStyle('view/javascript/summernote/summernote.css');
 
-		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
-		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
-		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
-		$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
-		$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
+			$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
+			$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+
+			$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
+			$this->document->addScript('view/javascript/codemirror/lib/xml.js');
+			$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
+		}
 
 		$this->load->model('setting/module');
 
@@ -97,6 +105,10 @@ class ControllerExtensionModuleHTML extends Controller {
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
+
+		$data['lang'] = $this->language->get('lang');
+
+		$data['editor'] = $this->config->get('config_editor_default');
 
 		if (isset($this->request->post['status'])) {
 			$data['status'] = $this->request->post['status'];
