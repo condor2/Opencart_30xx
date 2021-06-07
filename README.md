@@ -27,6 +27,7 @@ This is a modified version of Opencart.
 - TWIG v3.3.0
 - Bootstrap 3.4.1
 - Jquery 3.6.0
+- Summernote 0.8.18
 
 ## Features
 - Enable and Disable button on Country List

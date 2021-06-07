@@ -6,7 +6,7 @@ $(document).ready(function() {
 		var lang = $(element).data('lang');
 
 		if (typeof(lang) == 'undefined') {
-			lang = 'en-US';
+			lang = 'en';
 		}
 
 		$(element).summernote({

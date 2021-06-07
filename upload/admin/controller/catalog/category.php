@@ -288,7 +288,9 @@ class ControllerCatalogCategory extends Controller {
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
 			$this->document->addScript('view/javascript/summernote/summernote.min.js');
-			$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js');
+			if (file_exists('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js')) {
+            $this->document->addScript('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js');
+            }
 			$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
 			if (file_exists('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js')) {
 			$this->document->addScript('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js');
