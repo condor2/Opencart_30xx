@@ -11,14 +11,14 @@ class ControllerMarketingContact extends Controller {
 			$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
-			$this->document->addScript('view/javascript/summernote/summernote.js');
-			$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.js');
+			$this->document->addScript('view/javascript/summernote/summernote.min.js');
+			$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js');
 			$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
 			if (file_exists('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js')) {
 			$this->document->addScript('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js');
             }
 			$this->document->addScript('view/javascript/summernote/opencart.js');
-			$this->document->addStyle('view/javascript/summernote/summernote.css');
+			$this->document->addStyle('view/javascript/summernote/summernote.min.css');
 
 			$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
 			$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
