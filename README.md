@@ -12,9 +12,8 @@ This is a modified version of Opencart.
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39538">PHPMailer Integration - by @cansei_vendi</a>
-- <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.16.0</a>
+- <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.16.1</a>
 - GDPR function from 4.0.0.0_b.
-- CKEditor v4.16.1
 
 ## Removed
 - Promotion
