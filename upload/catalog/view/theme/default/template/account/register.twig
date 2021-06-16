@@ -29,16 +29,19 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" checked="checked" />
-                  {{ customer_group.name }}</label>
+                  {{ customer_group.name }}
+                </label>
               </div>
               {% else %}
               <div class="radio">
                 <label>
                   <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" />
-                  {{ customer_group.name }}</label>
+                  {{ customer_group.name }}
+                </label>
               </div>
               {% endif %}
-              {% endfor %}</div>
+              {% endfor %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-firstname">{{ entry_firstname }}</label>
