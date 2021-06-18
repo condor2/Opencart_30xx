@@ -321,20 +321,18 @@ class ControllerSettingSetting extends Controller {
 		// Set Time Zone
 		$data['timezones'] = [];
 
-		$timestamp = time();
+		$timestamp = date_create('now');
 
 		$timezones = timezone_identifiers_list();
 
 		foreach ($timezones as $timezone) {
-			date_default_timezone_set($timezone);
-			$hour = ' (' . date('P', $timestamp) . ')';
+			date_timezone_set($timestamp, timezone_open($timezone));
+			$hour = ' (' . date_format($timestamp, 'P') . ')';
 			$data['timezones'][] = [
 				'text'  => $timezone . $hour,
 				'value' => $timezone
 			];
 		}
-
-		date_default_timezone_set($this->config->get('config_timezone'));
 
 		if (isset($this->request->post['config_language'])) {
 			$data['config_language'] = $this->request->post['config_language'];
