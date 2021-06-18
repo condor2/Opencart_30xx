@@ -12,7 +12,7 @@
 */
 final class Router {
 	private $registry;
-	private $pre_action = [];
+	private $pre_action = array();
 	private $error;
 	
 	/**
@@ -25,7 +25,7 @@ final class Router {
 	}
 	
 	/**
-	 * Add Pre Action
+	 * 
 	 *
 	 * @param	object	$pre_action
  	*/	
@@ -34,7 +34,7 @@ final class Router {
 	}
 
 	/**
-	 * Dispatch
+	 * 
 	 *
 	 * @param	object	$action
 	 * @param	object	$error
@@ -58,10 +58,10 @@ final class Router {
 	}
 	
 	/**
-	 * Execute
+	 * 
 	 *
 	 * @param	object	$action
-	 * @return	object	returns the out put of the executed action
+	 * @return	object
  	*/
 	private function execute(Action $action) {
 		$result = $action->execute($this->registry);
