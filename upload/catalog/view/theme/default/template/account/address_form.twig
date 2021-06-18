@@ -23,7 +23,8 @@
               <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" />
               {% if error_firstname %}
               <div class="text-danger">{{ error_firstname }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
@@ -354,7 +355,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 		}
 	}, 500);
 });
-//--></script> 
+//--></script>
 <script type="text/javascript"><!--
 $('.date').datetimepicker({
 	language: '{{ datepicker }}',
