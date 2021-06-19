@@ -8,7 +8,7 @@ $_['text_db_connection']     = '1. Please enter your database connection details
 $_['text_db_administration'] = '2. Please enter a username and password for the administration.';
 $_['text_mysqli']            = 'MySQLi';
 $_['text_pdo']               = 'PDO';
-$_['text_pgsql']             = 'PostgreSQL';
+$_['text_pgsql']             = 'PostgreSQL (alpha)';
 
 // Entry
 $_['entry_db_driver']        = 'DB Driver';
