@@ -31,7 +31,7 @@ class Proxy {
 	}
 	
 	public function __call($key, $args) {
-		$arg_data = array();
+		$arg_data = [];
 		
 		$args = func_get_args();
 		

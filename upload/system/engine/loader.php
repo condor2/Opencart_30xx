@@ -30,7 +30,7 @@ final class Loader {
 	 *
 	 * @return	mixed
  	*/	
-	public function controller($route, $data = array()) {
+	public function controller($route, $data = []) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -38,18 +38,18 @@ final class Loader {
 		$trigger = $route;
 		
 		// Trigger the pre events
-		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/before', array(&$route, &$data));
+		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/before', [&$route, &$data]);
 		
 		// Make sure its only the last event that returns an output if required.
 		if ($result != null && !$result instanceof Exception) {
 			$output = $result;
 		} else {
 			$action = new Action($route);
-			$output = $action->execute($this->registry, array(&$data));
+			$output = $action->execute($this->registry, [&$data]);
 		}
 		
 		// Trigger the post events
-		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/after', array(&$route, &$data, &$output));
+		$result = $this->registry->get('event')->trigger('controller/' . $trigger . '/after', [&$route, &$data, &$output]);
 		
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -99,7 +99,7 @@ final class Loader {
 	 *
 	 * @return	string
  	*/
-	public function view($route, $data = array()) {
+	public function view($route, $data = []) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -110,7 +110,7 @@ final class Loader {
 		$code = '';
 		
 		// Trigger the pre events
-		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', array(&$route, &$data, &$code));
+		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', [&$route, &$data, &$code]);
 		
 		// Make sure its only the last event that returns an output if required.
 		if ($result && !$result instanceof Exception) {
@@ -126,7 +126,7 @@ final class Loader {
 		}
 		
 		// Trigger the post events
-		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', array(&$route, &$data, &$output));
+		$result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', [&$route, &$data, &$output]);
 		
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -177,11 +177,11 @@ final class Loader {
 	 * @param	string	$route
  	*/	
 	public function config($route) {
-		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
+		$this->registry->get('event')->trigger('config/' . $route . '/before', [&$route]);
 		
 		$this->registry->get('config')->load($route);
 		
-		$this->registry->get('event')->trigger('config/' . $route . '/after', array(&$route));
+		$this->registry->get('event')->trigger('config/' . $route . '/after', [&$route]);
 	}
 
 	/**
@@ -199,7 +199,7 @@ final class Loader {
 		// Keep the original trigger
 		$trigger = $route;
 				
-		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/before', array(&$route, &$key));
+		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/before', [&$route, &$key]);
 		
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -207,7 +207,7 @@ final class Loader {
 			$output = $this->registry->get('language')->load($route, $key);
 		}
 		
-		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/after', array(&$route, &$key, &$output));
+		$result = $this->registry->get('event')->trigger('language/' . $trigger . '/after', [&$route, &$key, &$output]);
 		
 		if ($result && !$result instanceof Exception) {
 			$output = $result;
@@ -226,7 +226,7 @@ final class Loader {
 			$trigger = $route;
 					
 			// Trigger the pre events
-			$result = $registry->get('event')->trigger('model/' . $trigger . '/before', array(&$route, &$args));
+			$result = $registry->get('event')->trigger('model/' . $trigger . '/before', [&$route, &$args]);
 			
 			if ($result && !$result instanceof Exception) {
 				$output = $result;
@@ -242,7 +242,7 @@ final class Loader {
 				
 				$method = substr($route, strrpos($route, '/') + 1);
 				
-				$callable = array($model[$key], $method);
+				$callable = [$model[$key], $method];
 	
 				if (is_callable($callable)) {
 					$output = call_user_func_array($callable, $args);
@@ -252,7 +252,7 @@ final class Loader {
 			}
 			
 			// Trigger the post events
-			$result = $registry->get('event')->trigger('model/' . $trigger . '/after', array(&$route, &$args, &$output));
+			$result = $registry->get('event')->trigger('model/' . $trigger . '/after', [&$route, &$args, &$output]);
 			
 			if ($result && !$result instanceof Exception) {
 				$output = $result;
