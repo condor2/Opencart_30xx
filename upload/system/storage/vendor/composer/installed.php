@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9b41b3f617c900b41ba7a32d43031b9e140e1108',
+    'reference' => '74ef2f731fb6cfb6fe56d243d918afc0093bc188',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9b41b3f617c900b41ba7a32d43031b9e140e1108',
+      'reference' => '74ef2f731fb6cfb6fe56d243d918afc0093bc188',
     ),
     'psr/http-message' => 
     array (
@@ -110,12 +110,12 @@
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.4.1',
-      'version' => '1.4.1.0',
+      'pretty_version' => 'v1.6.0',
+      'version' => '1.6.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ba86c963b94ec7ebd6e19d90cdab90d89667dbf7',
+      'reference' => 'b83594e2323c5d6e80785df3f91b9d1d32aad530',
     ),
     'symfony/deprecation-contracts' => 
     array (
