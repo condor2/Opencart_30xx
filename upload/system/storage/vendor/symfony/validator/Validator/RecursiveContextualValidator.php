@@ -271,9 +271,9 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
     /**
      * Normalizes the given group or list of groups to an array.
      *
-     * @param string|GroupSequence|(string|GroupSequence)[] $groups The groups to normalize
+     * @param string|GroupSequence|array<string|GroupSequence> $groups The groups to normalize
      *
-     * @return (string|GroupSequence)[] A group array
+     * @return array<string|GroupSequence> A group array
      */
     protected function normalizeGroups($groups)
     {
@@ -649,8 +649,10 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             return;
         }
 
-        // If the value is a scalar, pass it anyway, because we want
-        // a NoSuchMetadataException to be thrown in that case
+        if (!\is_object($value)) {
+            throw new NoSuchMetadataException(sprintf('Cannot create metadata for non-objects. Got: "%s".', \gettype($value)));
+        }
+
         $this->validateObject(
             $value,
             $propertyPath,
