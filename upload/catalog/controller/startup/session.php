@@ -42,7 +42,7 @@ class ControllerStartupSession extends Controller {
 				'expires'  => 0,
 				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
 				'secure'   => $this->request->server['HTTPS'],
-				'httponly' => true,
+				'httponly' => false,
 				'SameSite' => $this->config->get('session_samesite')
 			];
 

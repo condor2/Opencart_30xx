@@ -134,7 +134,7 @@ if ($config->get('session_autostart')) {
 		'path'     => $config->get('session_path'),
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
-		'httponly' => true,
+		'httponly' => false,
 		'SameSite' => $config->get('session_samesite')
 	];
 
