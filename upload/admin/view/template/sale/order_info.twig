@@ -157,7 +157,7 @@
           <tbody>
           {% for product in products %}
           <tr>
-            <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %} <br />
+            <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %} <br/>
               {% if option.type != 'file' %}
               &nbsp;<small> - {{ option.name }}: {{ option.value }}</small> {% else %}
               &nbsp;<small> - {{ option.name }}: <a href="{{ option.href }}">{{ option.value }}</a></small> {% endif %}
@@ -218,7 +218,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="tab-history">
             <div id="history"></div>
-            <br />
+            <br/>
             <fieldset>
               <legend>{{ text_history_add }}</legend>
               <form class="form-horizontal">
