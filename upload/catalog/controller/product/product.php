@@ -321,7 +321,7 @@ class ControllerProductProduct extends Controller {
 
 			$data['discounts'] = [];
 
-			if($discounts && ($this->customer->isLogged() || !$this->config->get('config_customer_price'))){
+			if ($discounts && ($this->customer->isLogged() || !$this->config->get('config_customer_price'))) {
 
 			foreach ($discounts as $discount) {
 				$data['discounts'][] = [

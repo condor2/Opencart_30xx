@@ -126,7 +126,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     'icon' => 'exclamation-circle',
                     'text' => sprintf($this->language->get('text_token_expired'), $this->url->link('extension/payment/squareup/refresh_token', 'user_token=' . $this->session->data['user_token'], true))
                 ]);
-            } else if ($delta < (5 * 24 * 60 * 60)) { // token is valid, just about to expire
+            } elseif ($delta < (5 * 24 * 60 * 60)) { // token is valid, just about to expire
                 $this->pushAlert([
                     'type' => 'warning',
                     'icon' => 'exclamation-circle',
@@ -135,7 +135,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
 
             $data['access_token_expires_time'] = $expiration_date_formatted;
-        } else if ($previous_config->get('payment_squareup_client_id')) {
+        } elseif ($previous_config->get('payment_squareup_client_id')) {
             $this->pushAlert([
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
@@ -206,9 +206,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (isset($this->request->get['tab']) && in_array($this->request->get['tab'], $tabs)) {
             $data['tab'] = $this->request->get['tab'];
-        } else if (isset($this->error['cron_email']) || isset($this->error['cron_acknowledge'])) {
+        } elseif (isset($this->error['cron_email']) || isset($this->error['cron_acknowledge'])) {
             $data['tab'] = 'tab-cron';
-        } else if ($this->error) {
+        } elseif ($this->error) {
             $data['tab'] = 'tab-setting';
         } else {
             $data['tab'] = $tabs[1];
@@ -729,7 +729,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 if (strpos($amount, ',') !== FALSE && strpos($amount, '.') !== FALSE) {
                     $amount = (float)str_replace(',', '', $amount);
-                } else if (strpos($amount, ',') !== FALSE && strpos($amount, '.') === FALSE) {
+                } elseif (strpos($amount, ',') !== FALSE && strpos($amount, '.') === FALSE) {
                     $amount = (float)str_replace(',', '.', $amount);
                 } else {
                     $amount = (float)$amount;
@@ -1062,7 +1062,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (isset($this->request->post[$key])) {
             return $this->request->post[$key]; 
-        } else if ($this->config->has($key)) {
+        } elseif ($this->config->has($key)) {
             return $this->config->get($key);
         } else {
             return $default;

@@ -60,7 +60,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 							if ($this->request->post['card_new'] && isset($this->request->post['card_save']) && $this->config->get('payment_cardconnect_store_cards') && $this->customer->isLogged()) {
 								$profile = 'Y';
-							} else if (!$this->request->post['card_new'] && $this->customer->isLogged()) {
+							} elseif (!$this->request->post['card_new'] && $this->customer->isLogged()) {
 								$existing_card = $this->model_extension_payment_cardconnect->getCard($this->request->post['card_choice'], $this->customer->getId());
 
 								$profile = $existing_card['profileid'];
@@ -286,8 +286,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 				$responses = $this->model_extension_payment_cardconnect->getSettlementStatuses($this->config->get('payment_cardconnect_merchant_id'), $date);
 
-				foreach($responses as $response) {
-					foreach($response['txns'] as $transaction) {
+				foreach ($responses as $response) {
+					foreach ($response['txns'] as $transaction) {
 						$this->model_extension_payment_cardconnect->updateTransactionStatusByRetref($transaction['retref'], $transaction['setlstat']);
 					}
 				}

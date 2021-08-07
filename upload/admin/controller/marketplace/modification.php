@@ -134,7 +134,7 @@ class ControllerMarketplaceModification extends Controller {
 			$modification = [];
 
 			foreach ($xml as $xml) {
-				if (empty($xml)){
+				if (empty($xml)) {
 					continue;
 				}
 				

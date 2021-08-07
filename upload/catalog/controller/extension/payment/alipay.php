@@ -65,7 +65,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 			$order_id = $_POST['out_trade_no'];
 			if($_POST['trade_status'] == 'TRADE_FINISHED') {
 			}
-			else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+			elseif ($_POST['trade_status'] == 'TRADE_SUCCESS') {
 				$this->load->model('checkout/order');
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_order_status_id'));
 			}

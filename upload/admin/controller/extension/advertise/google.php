@@ -47,22 +47,22 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             // If we have not connected, navigate to connect screen
             if (!$this->setting->has('advertise_google_access_token')) {
                 $this->response->redirect($this->url->link('extension/advertise/google/connect', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
-            } else if (!$this->setting->has('advertise_google_gmc_account_selected')) {
+            } elseif (!$this->setting->has('advertise_google_gmc_account_selected')) {
                 // In case the merchant has made no decision about which GMC account to use, redirect to the form for connection
                 $this->response->redirect($this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
-            } else if (!$this->googleshopping->isStoreUrlClaimed()) {
+            } elseif (!$this->googleshopping->isStoreUrlClaimed()) {
                 if (empty($this->session->data['error'])) {
                     $this->session->data['error'] = $this->language->get('error_store_url_claim');
                 }
 
                 // In case the merchant has made no decision about which GMC account to use, redirect to the form for connection
                 $this->response->redirect($this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
-            } else if (count($this->googleshopping->getTargets($this->store_id)) == 0) {
+            } elseif (count($this->googleshopping->getTargets($this->store_id)) == 0) {
                 $this->response->redirect($this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
-            } else if (!$this->setting->has('advertise_google_gmc_shipping_taxes_configured')) {
+            } elseif (!$this->setting->has('advertise_google_gmc_shipping_taxes_configured')) {
                 // In case the merchant has not set up shipping and taxes, redirect them to the form for shipping and taxes
                 $this->response->redirect($this->url->link('extension/advertise/google/shipping_taxes', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
-            } else if (count($this->model_extension_advertise_google->getMapping($this->store_id)) == 0) {
+            } elseif (count($this->model_extension_advertise_google->getMapping($this->store_id)) == 0) {
                 // In case the merchant has not set up mapping, redirect them to the form for mapping
                 $this->response->redirect($this->url->link('extension/advertise/google/mapping', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
             }
@@ -108,7 +108,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -129,11 +129,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (!$this->setting->get('advertise_google_status') && $this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $data['warning'] = $this->language->get('warning_disabled');
-        } else if (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
+        } elseif (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $data['warning'] = sprintf($this->language->get('warning_no_active_campaigns'), $this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'] . '&from_dashboard=true', true));
-        } else if ($advertised_count == 0) {
+        } elseif ($advertised_count == 0) {
             $data['warning'] = sprintf($this->language->get("warning_no_advertised_products"), $this->language->get("text_video_tutorial_url_advertise"));
-        } else if ($last_cron_executed + 24 * 60 * 60 <= time()) {
+        } elseif ($last_cron_executed + 24 * 60 * 60 <= time()) {
             $data['warning'] = sprintf($this->language->get("warning_last_cron_executed"), $this->language->get("text_tutorial_cron"));
         }
 
@@ -179,7 +179,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->request->post['advertise_google_reporting_interval'])) {
             $data['advertise_google_reporting_interval'] = $this->request->post['advertise_google_reporting_interval'];
-        } else if ($this->setting->has('advertise_google_reporting_interval') && in_array($this->setting->get('advertise_google_reporting_interval'), $reporting_intervals)) {
+        } elseif ($this->setting->has('advertise_google_reporting_interval') && in_array($this->setting->get('advertise_google_reporting_interval'), $reporting_intervals)) {
             $data['advertise_google_reporting_interval'] = $this->setting->get('advertise_google_reporting_interval');
         } else {
             $data['advertise_google_reporting_interval'] = $this->config->get('advertise_google_reporting_intervals_default');
@@ -263,7 +263,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
             if (!empty($this->request->post['all_pages'])) {
                 $filter_data = $this->getFilter($this->request->post['filter']);
-            } else if (isset($this->request->post['select']) && is_array($this->request->post['select'])) {
+            } elseif (isset($this->request->post['select']) && is_array($this->request->post['select'])) {
                 $select = $this->request->post['select'];
             }
 
@@ -272,7 +272,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
                 if (!empty($select)) {
                     $this->model_extension_advertise_google->setAdvertisingBySelect($select, $target_ids, $this->store_id);
-                } else if (!empty($filter_data)) {
+                } elseif (!empty($filter_data)) {
                     $this->model_extension_advertise_google->setAdvertisingByFilter($filter_data, $target_ids, $this->store_id);
                 }
 
@@ -292,11 +292,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (!$this->setting->get('advertise_google_status') && $this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $json['warning'] = $this->language->get('warning_disabled');
-        } else if (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
+        } elseif (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $json['warning'] = sprintf($this->language->get('warning_no_active_campaigns'), $this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'] . '&from_dashboard=true', true));
-        } else if ($advertised_count == 0) {
+        } elseif ($advertised_count == 0) {
             $json['warning'] = sprintf($this->language->get("warning_no_advertised_products"), $this->language->get("text_video_tutorial_url_advertise"));
-        } else if ($last_cron_executed + 24 * 60 * 60 <= time()) {
+        } elseif ($last_cron_executed + 24 * 60 * 60 <= time()) {
             $json['warning'] = sprintf($this->language->get("warning_last_cron_executed"), $this->language->get("text_tutorial_cron"));
         }
 
@@ -387,7 +387,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -486,7 +486,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -569,7 +569,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->request->post['advertise_google_shipping_taxes'])) {
             $data['advertise_google_shipping_taxes'] = $this->request->post['advertise_google_shipping_taxes'];
-        } else if ($this->setting->has('advertise_google_shipping_taxes')) {
+        } elseif ($this->setting->has('advertise_google_shipping_taxes')) {
             $data['advertise_google_shipping_taxes'] = $this->setting->get('advertise_google_shipping_taxes');
         } else {
             $data['advertise_google_shipping_taxes'] = [
@@ -634,7 +634,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -794,7 +794,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -839,7 +839,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->request->post['advertise_google_auto_advertise'])) {
             $data['advertise_google_auto_advertise'] = $this->request->post['advertise_google_auto_advertise'];
-        } else if ($this->setting->has('advertise_google_auto_advertise')) {
+        } elseif ($this->setting->has('advertise_google_auto_advertise')) {
             $data['advertise_google_auto_advertise'] = $this->setting->get('advertise_google_auto_advertise');
         } else {
             $data['advertise_google_auto_advertise'] = '0';
@@ -1129,7 +1129,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             } catch (\RuntimeException $e) {
                 $this->session->data['error'] = $e->getMessage();
             }
-        } else if (!is_null($error)) {
+        } elseif (!is_null($error)) {
             $this->session->data['error'] = $error;
 
             $setting = $this->model_setting_setting->getSetting('advertise_google', $this->store_id);
@@ -1186,7 +1186,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             } catch (\RuntimeException $e) {
                 $this->session->data['error'] = $e->getMessage();
             }
-        } else if (isset($this->request->get['error'])) {
+        } elseif (isset($this->request->get['error'])) {
             $this->session->data['error'] = $this->request->get['error'];
         }
 
@@ -1235,7 +1235,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                 $data['error'] = $this->session->data['error'];
             }
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -1373,7 +1373,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
             unset($this->session->data['error']);
-        } else if (!empty($this->error['warning'])) {
+        } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
         }
 
@@ -1449,7 +1449,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
                 $default_form_data = $this->model_extension_advertise_google->getProductAdvertiseGoogle($product_advertise_google_id);
             }
-        } else if ($this->request->post['operand']['type'] == 'multiple') {
+        } elseif ($this->request->post['operand']['type'] == 'multiple') {
             if (!empty($this->request->post['operand']['data']['all_pages'])) {
                 $filter_data = $this->getFilter($this->request->post['operand']['data']['filter']);
 
@@ -1514,7 +1514,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
                 if ($this->request->post['operand']['type'] == 'single') {
                     $this->model_extension_advertise_google->updateSingleProductFields($form_data);
-                } else if ($this->request->post['operand']['type'] == 'multiple') {
+                } elseif ($this->request->post['operand']['type'] == 'multiple') {
                     if (!empty($this->request->post['operand']['data']['all_pages'])) {
                         $this->model_extension_advertise_google->updateMultipleProductFields($filter_data, $form_data);
                     } else {
@@ -1888,7 +1888,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->request->post[$key])) {
             return $this->request->post[$key]; 
-        } else if ($this->setting->has($key)) {
+        } elseif ($this->setting->has($key)) {
             return $this->setting->get($key);
         } else {
             return $default;
@@ -1932,7 +1932,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         
         if (empty($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time'] < 0) {
             $this->error['min_transit_time'] = $this->language->get('error_min_transit_time');
-        } else if (empty($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['max_transit_time'] < (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time']) {
+        } elseif (empty($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['max_transit_time'] < (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time']) {
             $this->error['max_transit_time'] = $this->language->get('error_max_transit_time');
         }
 
@@ -1991,7 +1991,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             foreach ($required_fields as $key => $requirements) {
                 if (empty($requirements['selected_field']) && (!isset($this->request->post['form'][$key]) || $this->request->post['form'][$key] == '')) {
                     $this->error[$key] = $this->language->get('error_field_no_value');
-                } else if (!empty($requirements['selected_field'])) {
+                } elseif (!empty($requirements['selected_field'])) {
                     foreach ($requirements['selected_field'] as $dependency => $values) {
                         if (in_array($this->request->post['form'][$dependency], $values) && (!isset($this->request->post['form'][$key]) || $this->request->post['form'][$key] == '')) {
                             $this->error[$key] = $this->language->get('error_field_no_value');
@@ -2039,7 +2039,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (!isset($this->request->post['advertise_google_app_id']) || trim($this->request->post['advertise_google_app_id']) == '') {
             $this->error['app_id'] = $this->language->get('error_empty_app_id');
-        } else if ($this->model_extension_advertise_google->isAppIdUsed($this->request->post['advertise_google_app_id'], $this->store_id)) {
+        } elseif ($this->model_extension_advertise_google->isAppIdUsed($this->request->post['advertise_google_app_id'], $this->store_id)) {
             $this->error['app_id'] = $this->language->get('error_used_app_id');
         }
 

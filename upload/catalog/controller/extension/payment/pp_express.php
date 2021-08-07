@@ -315,7 +315,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				 * Compare all of the user addresses and see if there is a match
 				 */
 				$match = false;
-				foreach($addresses as $address) {
+				foreach ($addresses as $address) {
 					if (trim(strtolower($address['address_1'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOSTREET'])) && trim(strtolower($address['postcode'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOZIP']))) {
 						$match = true;
 
@@ -1202,7 +1202,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'year'       => 'Year'
 					);
 
-					foreach($recurring_products as $item) {
+					foreach ($recurring_products as $item) {
 						$data = array(
 							'METHOD'             => 'CreateRecurringPaymentsProfile',
 							'TOKEN'              => $this->session->data['paypal']['token'],

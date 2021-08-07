@@ -128,7 +128,7 @@ class Smtp {
 					$reply = '';
 
 					continue;
-				} else if (substr($line, 3, 1) == ' ') {
+				} elseif (substr($line, 3, 1) == ' ') {
 					break;
 				}
 			}

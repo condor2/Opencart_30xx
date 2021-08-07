@@ -68,7 +68,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		$data['error'] = '';
 		$data['code_url'] = '';
-		if($result === FALSE){
+		if ($result === FALSE) {
 			$data['error_warning'] = $pay->errMsg;
 		} else {
 			$data['code_url'] = $result;

@@ -397,7 +397,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 						$transaction['payment_status'] = 'Failed';
 						$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction, $call_data);
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
-					} else if ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
+					} elseif ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
 
 						$transaction['transaction_id'] = $result['REFUNDTRANSACTIONID'];
 						$transaction['payment_type'] = $result['REFUNDSTATUS'];
@@ -586,7 +586,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				$json['failed_transaction']['date_added'] = date("Y-m-d H:i:s");
 
 				$json['msg'] = $this->language->get('error_timeout');
-			} else if (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
+			} elseif (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
 				$transaction['transaction_id'] = $result['TRANSACTIONID'];
 				$transaction['payment_type'] = $result['PAYMENTTYPE'];
 				$transaction['payment_status'] = $result['PAYMENTSTATUS'];
