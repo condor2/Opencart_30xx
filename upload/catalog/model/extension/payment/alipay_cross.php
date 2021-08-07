@@ -67,7 +67,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	function verifyNotify($alipay_config){
 		$this->alipay_config = $alipay_config;
 
-		if(empty($_POST)) {
+		if (empty($_POST)) {
 			return false;
 		}
 		else {
@@ -129,8 +129,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	function paraFilter($para) {
 		$para_filter = [];
 		while (list ($key, $val) = each ($para)) {
-			if($key == "sign" || $key == "sign_type" || $val == "")continue;
-			else	$para_filter[$key] = $para[$key];
+			if ($key == "sign" || $key == "sign_type" || $val == "")
+                continue;
+			else $para_filter[$key] = $para[$key];
 		}
 		return $para_filter;
 	}
@@ -162,8 +163,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return md5($prestr);
 	}
 
-	function md5Verify($prestr, $sign, $key)
-	{
+	function md5Verify($prestr, $sign, $key) {
 		$prestr = $prestr . $key;
 		$mysgin = md5($prestr);
 
@@ -174,4 +174,3 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		}
 	}
 }
-

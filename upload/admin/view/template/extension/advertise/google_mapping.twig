@@ -120,7 +120,7 @@
         $(element).autocomplete({
             'source': function(request, response) {
                 $.ajax({
-                    url: '{{ url_category_autocomplete }}&filter_name=' +  encodeURIComponent(request),
+                    url: '{{ url_category_autocomplete }}&filter_name=' + encodeURIComponent(request),
                     dataType: 'json',
                     success: function(json) {
                         response($.map(json, function(item) {
