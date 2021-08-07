@@ -865,7 +865,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->load->model('account/recurring');
 
 		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = $this->request->get['order_recurring_id'];
+			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 		} else {
 			$order_recurring_id = 0;
 		}
@@ -940,7 +940,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->load->language('extension/payment/pp_express');
 
 		if (isset($this->request->get['paypal_order_transaction_id'])) {
-			$paypal_order_transaction_id = $this->request->get['paypal_order_transaction_id'];
+			$paypal_order_transaction_id = (int)$this->request->get['paypal_order_transaction_id'];
 		} else {
 			$paypal_order_transaction_id = 0;
 		}
