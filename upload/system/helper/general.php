@@ -37,58 +37,72 @@ function date_added($date) {
 	$second = time() - strtotime($date);
 
 	if ($second < 10) {
-		$date_added = 'just now';
+		$code = 'second';
+		$date_added = $second;
 	} elseif ($second) {
-		$date_added = $second . ' seconds ago';
+		$code = 'seconds';
+		$date_added = $second;
 	}
 
 	$minute = floor($second / 60);
 
 	if ($minute == 1) {
-		$date_added = $minute . ' minute ago';
+		$code = 'minute';
+		$date_added = $minute;
 	} elseif ($minute) {
-		$date_added = $minute . ' minutes ago';
+		$code = 'minutes';
+		$date_added = $minute;
 	}
 
 	$hour = floor($minute / 60);
 
 	if ($hour == 1) {
-		$date_added = $hour . ' hour ago';
+		$code = 'hour';
+		$date_added = $hour;
 	} elseif ($hour) {
-		$date_added = $hour . ' hours ago';
+		$code = 'hours';
+		$date_added = $hour;
 	}
 
 	$day = floor($hour / 24);
 
 	if ($day == 1) {
-		$date_added = $day . ' day ago';
+		$code = 'day';
+		$date_added = $day;
 	} elseif ($day) {
-		$date_added = $day . ' days ago';
+		$code = 'days';
+		$date_added = $day;
 	}
 
 	$week = floor($day / 7);
 
 	if ($week == 1) {
-		$date_added = $week . ' week ago';
+		$code = 'week';
+		$date_added = $week;
 	} elseif ($week) {
-		$date_added = $week . ' weeks ago';
+		$code = 'weeks';
+		$date_added = $week;
 	}
 
 	$month = floor($week / 4);
 
 	if ($month == 1) {
-		$date_added = $month . ' month ago';
+		$code = 'month';
+		$date_added = $month;
 	} elseif ($month) {
-		$date_added = $month . ' months ago';
+		$code = 'months';
+		$date_added = $month;
 	}
 
 	$year = floor($week / 52.1429);
 
 	if ($year == 1) {
-		$date_added = $year . ' year ago';
+		$code = 'year';
+		$date_added = $year;
 	} elseif ($year) {
-		$date_added = $year . ' years ago';
+		$code = 'years';
+		$date_added = $year;
 	}
 
-	return $date_added;
+	return [$code, $date_added];
 }
