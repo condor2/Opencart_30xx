@@ -3,7 +3,6 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-product').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
         <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
         <button type="submit" form="form-product" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default"><i class="fa fa-copy"></i></button>
         <button type="button" form="form-product" formaction="{{ delete }}" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>
@@ -26,16 +25,21 @@
       <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
     {% endif %}
-    <div class="row">
-      <div id="filter-product" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
-        <div class="panel panel-default">
+    <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
           </div>
           <div class="panel-body">
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-4">
             <div class="form-group">
               <label class="control-label" for="input-name">{{ entry_name }}</label>
               <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-model">{{ entry_model }}</label>
+              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control" />
             </div>
             <div class="form-group">
               <label class="control-label" for="input-manufacturer">{{ entry_manufacturer }}</label>
@@ -50,10 +54,8 @@
                  {% endfor %}
               </select>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="input-model">{{ entry_model }}</label>
-              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control" />
             </div>
+            <div class="col-sm-4">
             <div class="form-group">
               <label class="control-label" for="input-price">{{ entry_price }}</label>
               <input type="text" name="filter_price" value="{{ filter_price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control" />
@@ -61,7 +63,9 @@
             <div class="form-group">
               <label class="control-label" for="input-quantity">{{ entry_quantity }}</label>
               <input type="text" name="filter_quantity" value="{{ filter_quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control" />
+              </div>
             </div>
+            <div class="col-sm-4">
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
@@ -94,18 +98,10 @@
                   {% endif %}
               </select>
             </div>
-            <div class="form-group text-right">
-              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-9 col-md-pull-3 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
-          </div>
-          <div class="panel-body">
             <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-product">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -132,7 +128,7 @@
                       <input type="checkbox" name="selected[]" value="{{ product.product_id }}" />
                       {% endif %}</td>
                     <td class="text-left">{{ product.product_id }}</td>
-                    <td class="text-center">{% if product.image %} <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
+                    <td class="text-center">{% if product.image %} <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" id="img{{ product.product_id }}" onmousemove="imgshow('img{{ product.product_id }}', '{{ product.image_zoom }}', event);" onmouseout="imgoff();" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
                     <td class="text-left">{{ product.name }}</td>
                     <td class="text-left">{{ product.model }}</td>
                     <td class="text-right">{% if product.special %} <span style="text-decoration: line-through;">{{ product.price }}</span><br/>
@@ -157,8 +153,6 @@
             <div class="row">
               <div class="col-sm-6 text-left">{{ pagination }}</div>
               <div class="col-sm-6 text-right">{{ results }}</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -178,6 +172,12 @@ $('#button-filter').on('click', function() {
 	if (filter_manufacturer != '*') {
 		url += '&filter_manufacturer=' + encodeURIComponent(filter_manufacturer);
 	}
+
+    var filter_category = $('select[name=\'filter_category\']').val();
+
+    if (filter_category != '*') {
+		url += '&filter_category=' + encodeURIComponent(filter_category);
+    }
 
 	var filter_model = $('input[name=\'filter_model\']').val();
 
@@ -258,5 +258,32 @@ $('input[name=\'filter_model\']').autocomplete({
 	}
 });
 //--></script>
+<script type="text/javascript"><!--
+  function imgshow(obj, img, event) {
+    if (!e) {
+      //var e = window.event;
+      var e = ( window.event ? window.event : event ); // fix for FF (event)
+    }
+    if (e.pageX || e.pageY) {
+      var curCursorX = e.pageX;
+      var curCursorY = e.pageY;
+    } else {
+      var curCursorX = e.clientX + document.body.scrollLeft;
+      var curCursorY = e.clientY + document.body.scrollTop;
+    }
+    var width_thumb = document.getElementById(obj).width;
+    var height_new  = 350; // set zoom image (px)
+    document.getElementById('nahled').height = height_new;
+    document.getElementById('nahled').src = img;
+    document.getElementById('nahled').style.border = document.getElementById(obj).style.border;
+    document.getElementById('nahled').style.display = 'block';    
+    document.getElementById('nahled').style.left = curCursorX + width_thumb + 'px';
+    document.getElementById('nahled').style.top  = curCursorY - (height_new/2) + 'px';
+  } // imgshow
+  function imgoff () {
+    document.getElementById('nahled').style.display = 'none';
+  } // imgoff
+//--></script>
+<img src="" id="nahled" style="position:absolute;">
 </div>
 {{ footer }}
