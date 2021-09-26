@@ -19,7 +19,7 @@ class ControllerCheckoutLogin extends Controller {
 	public function save() {
 		$this->load->language('checkout/checkout');
 
-		$json = [];
+		$json = array();
 
 		if ($this->customer->isLogged()) {
 			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('checkout/checkout', '', true));

@@ -2,7 +2,7 @@
 namespace DB;
 class PDO {
 	private $connection;
-	private $data = [];
+	private $data = array();
 	private $affected;
 
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
@@ -23,13 +23,13 @@ class PDO {
 
 		try {
 			if ($statement && $statement->execute($this->data)) {
-				$this->data = [];
+				$this->data = array();
 
 				if ($statement->columnCount()) {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
-					$result->row = (isset($data[0]) ? $data[0] : []);
+					$result->row = (isset($data[0]) ? $data[0] : array());
 					$result->rows = $data;
 					$result->num_rows = count($data);
 					$this->affected = 0;

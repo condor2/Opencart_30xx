@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleEbayListing extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/ebay_listing');
@@ -38,22 +38,22 @@ class ControllerExtensionModuleEbayListing extends Controller {
 			$data['error_height'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true),
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/module/ebay_listing', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/module/ebay_listing', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -115,72 +115,72 @@ class ControllerExtensionModuleEbayListing extends Controller {
 			$data['ebay_listing_site'] = $this->config->get('ebay_listing_site');
 		}
 
-		$data['sites'] = [];
+		$data['sites'] = array();
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'USA',
 			'value' => 0
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'UK',
 			'value' => 3
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Australia',
 			'value' => 15
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Canada (English)',
 			'value' => 2
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'France',
 			'value' => 71
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Germany',
 			'value' => 77
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Italy',
 			'value' => 101
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Spain',
 			'value' => 186
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Ireland',
 			'value' => 205
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Austria',
 			'value' => 16
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Netherlands',
 			'value' => 146
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Belgium (French)',
 			'value' => 23
-		];
+		);
 
-		$data['sites'][] = [
+		$data['sites'][] = array(
 			'text'  => 'Belgium (Dutch)',
 			'value' => 123
-		];
+		);
 
 		if (isset($this->request->post['ebay_listing_status'])) {
 			$data['ebay_listing_status'] = (int)$this->request->post['ebay_listing_status'];

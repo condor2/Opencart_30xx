@@ -13,17 +13,17 @@ class ControllerAccountAccount extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -37,7 +37,7 @@ class ControllerAccountAccount extends Controller {
 		$data['password'] = $this->url->link('account/password', '', true);
 		$data['address'] = $this->url->link('account/address', '', true);
 		
-		$data['credit_cards'] = [];
+		$data['credit_cards'] = array();
 		
 		$files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
 		
@@ -47,10 +47,10 @@ class ControllerAccountAccount extends Controller {
 			if ($this->config->get('payment_' . $code . '_status') && $this->config->get('payment_' . $code . '_card')) {
 				$this->load->language('extension/credit_card/' . $code, 'extension');
 
-				$data['credit_cards'][] = [
+				$data['credit_cards'][] = array(
 					'name' => $this->language->get('extension')->get('heading_title'),
 					'href' => $this->url->link('extension/credit_card/' . $code, '', true)
-				];
+				);
 			}
 		}
 		
@@ -97,7 +97,7 @@ class ControllerAccountAccount extends Controller {
 	}
 
 	public function country() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('localisation/country');
 
@@ -106,7 +106,7 @@ class ControllerAccountAccount extends Controller {
 		if ($country_info) {
 			$this->load->model('localisation/zone');
 
-			$json = [
+			$json = array(
 				'country_id'        => $country_info['country_id'],
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
@@ -115,7 +115,7 @@ class ControllerAccountAccount extends Controller {
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

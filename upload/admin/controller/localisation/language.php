@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationLanguage extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/language');
@@ -143,42 +143,42 @@ class ControllerLocalisationLanguage extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('localisation/language/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/language/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['languages'] = [];
+		$data['languages'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$language_total = $this->model_localisation_language->getTotalLanguages();
 
 		$results = $this->model_localisation_language->getLanguages($filter_data);
 
 		foreach ($results as $result) {
-			$data['languages'][] = [
+			$data['languages'][] = array(
 				'language_id' => $result['language_id'],
 				'name'        => $result['name'] . (($result['code'] == $this->config->get('config_language')) ? $this->language->get('text_default') : null),
 				'code'        => $result['code'],
 				'sort_order'  => $result['sort_order'],
 				'edit'        => $this->url->link('localisation/language/edit', 'user_token=' . $this->session->data['user_token'] . '&language_id=' . $result['language_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -198,7 +198,7 @@ class ControllerLocalisationLanguage extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -288,17 +288,17 @@ class ControllerLocalisationLanguage extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['language_id'])) {
 			$data['action'] = $this->url->link('localisation/language/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -328,7 +328,7 @@ class ControllerLocalisationLanguage extends Controller {
 			$data['code'] = '';
 		}
 		
-		$data['languages'] = [];
+		$data['languages'] = array();
 		
 		$folders = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
 

@@ -129,14 +129,14 @@ if ($config->get('session_autostart')) {
 	$path = substr($path, 0, strrpos($path, '/')) . '/';
 
 	// Require higher security for session cookies
-	$option = [
+	$option = array(
 		'expires'  => time() + $config->get('session_expire'),
 		'path'     => $config->get('session_path'),
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
 		'SameSite' => $config->get('session_samesite')
-	];
+	);
 
 	setcookie($config->get('session_name'), $session->getId(), $option);
 }

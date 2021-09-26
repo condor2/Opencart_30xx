@@ -10,17 +10,17 @@ class ControllerInformationGdpr extends Controller {
 
 			$this->document->setTitle($this->language->get('heading_title'));
 
-			$data['breadcrumbs'] = [];
+			$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home')
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('information/gdpr')
-			];
+			);
 
 			$data['title'] = $information_info['title'];
 
@@ -71,7 +71,7 @@ class ControllerInformationGdpr extends Controller {
 	public function action() {
 		$this->load->language('information/gdpr');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['email'])) {
 			$email = $this->request->post['email'];
@@ -91,10 +91,10 @@ class ControllerInformationGdpr extends Controller {
 		}
 
 		// Validate Action
-		$allowed = [
+		$allowed = array(
 			'export',
 			'remove'
-		];
+		);
 
 		if (!in_array($action, $allowed)) {
 			$json['error']['action'] = $this->language->get('error_action');
@@ -143,22 +143,22 @@ class ControllerInformationGdpr extends Controller {
 
 			$this->document->setTitle($this->language->get('heading_title'));
 
-			$data['breadcrumbs'] = [];
+			$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home')
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_account'),
 				'href' => $this->url->link('information/gdpr')
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('information/gdpr/success')
-			];
+			);
 
 			if ($gdpr_info['status'] == 0) {
 				$this->model_account_gdpr->editStatus($code, 1);

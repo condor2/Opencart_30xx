@@ -15,7 +15,7 @@ class ModelExtensionShippingFedex extends Model {
 
 		$error = '';
 
-		$quote_data = [];
+		$quote_data = array();
 
 		if ($status) {
 			$weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_fedex_weight_class_id'));
@@ -215,7 +215,7 @@ class ModelExtensionShippingFedex extends Model {
 			}
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($quote_data || $error) {
 			$title = $this->language->get('text_title');

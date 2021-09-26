@@ -3,7 +3,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function install() {
 		$this->load->language('marketplace/install');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -35,7 +35,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function unzip() {
 		$this->load->language('marketplace/install');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -82,7 +82,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function move() {
 		$this->load->language('marketplace/install');
 		
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -104,10 +104,10 @@ class ControllerMarketplaceInstall extends Controller {
 			$directory = DIR_UPLOAD . 'tmp-' . $this->session->data['install'] . '/';
 
 			if (is_dir($directory . 'upload/')) {
-				$files = [];
+				$files = array();
 
 				// Get a list of files ready to upload
-				$path = [$directory . 'upload/*'];
+				$path = array($directory . 'upload/*');
 
 				while (count($path) != 0) {
 					$next = array_shift($path);
@@ -122,7 +122,7 @@ class ControllerMarketplaceInstall extends Controller {
 				}
 
 				// A list of allowed directories to be written to
-				$allowed = [
+				$allowed = array(
 					'admin/controller/extension/',
 					'admin/language/',
 					'admin/model/extension/',
@@ -138,7 +138,7 @@ class ControllerMarketplaceInstall extends Controller {
 					'system/config/',
 					'system/library/',
 					'image/catalog/'
-				];
+				);
 
 				// First we need to do some checks
 				foreach ($files as $file) {
@@ -237,7 +237,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function xml() {
 		$this->load->language('marketplace/install');
 
-		$json = [];
+		$json = array();
 		
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -319,7 +319,7 @@ class ControllerMarketplaceInstall extends Controller {
 						if (!$json) {
 							
 							
-							$modification_data = [
+							$modification_data = array(
 								'extension_install_id' => $extension_install_id,
 								'name'                 => $name,
 								'code'                 => $code,
@@ -328,7 +328,7 @@ class ControllerMarketplaceInstall extends Controller {
 								'link'                 => $link,
 								'xml'                  => $xml,
 								'status'               => 1
-							];
+							);
 
 							$this->model_setting_modification->addModification($modification_data);
 						}
@@ -352,7 +352,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function remove() {
 		$this->load->language('marketplace/install');
 
-		$json = [];
+		$json = array();
 
 		if (!$this->user->hasPermission('modify', 'marketplace/install')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -367,9 +367,9 @@ class ControllerMarketplaceInstall extends Controller {
 			
 			if (is_dir($directory)) {
 				// Get a list of files ready to upload
-				$files = [];
+				$files = array();
 
-				$path = [$directory];
+				$path = array($directory);
 
 				while (count($path) != 0) {
 					$next = array_shift($path);
@@ -417,7 +417,7 @@ class ControllerMarketplaceInstall extends Controller {
 	public function uninstall() {
 		$this->load->language('marketplace/install');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -462,9 +462,9 @@ class ControllerMarketplaceInstall extends Controller {
 
 				if (is_dir($source)) {
 					// Get a list of files ready to upload
-					$files = [];
+					$files = array();
 
-					$path = [$source];
+					$path = array($source);
 
 					while (count($path) != 0) {
 						$next = array_shift($path);

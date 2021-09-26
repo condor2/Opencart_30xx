@@ -2,7 +2,7 @@
 
 class ControllerExtensionPaymentG2apay extends Controller {
 
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/g2apay');
@@ -85,22 +85,22 @@ class ControllerExtensionPaymentG2apay extends Controller {
 			$data['payment_g2apay_partially_refunded_status_id'] = $this->config->get('payment_g2apay_partially_refunded_status_id');
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$this->load->model('localisation/order_status');
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -222,7 +222,7 @@ class ControllerExtensionPaymentG2apay extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/g2apay');
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/g2apay');
@@ -248,7 +248,7 @@ class ControllerExtensionPaymentG2apay extends Controller {
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 
-				$json['data'] = [];
+				$json['data'] = array();
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $g2apay_order['currency_code'], false);
 				$json['data']['total_released'] = (float)$total_released;

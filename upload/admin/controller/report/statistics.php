@@ -1,6 +1,6 @@
 <?php
 class ControllerReportStatistics extends Controller {
-	protected $error = [];
+	protected $error = array();
 	
 	public function index() {
 		$this->load->language('report/statistics');
@@ -82,7 +82,7 @@ class ControllerReportStatistics extends Controller {
 		if ($this->validate()) {
 			$this->load->model('localisation/order_status');
 
-			$order_status_data = [];
+			$order_status_data = array();
 
 			$results = $this->model_localisation_order_status->getOrderStatuses();
 
@@ -205,30 +205,30 @@ class ControllerReportStatistics extends Controller {
 	}
 
 	public function getList() {
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['statistics'] = [];
+		$data['statistics'] = array();
 
 		$this->load->model('report/statistics');
 
 		$results = $this->model_report_statistics->getStatistics();
 
 		foreach ($results as $result) {
-			$data['statistics'][] = [
+			$data['statistics'][] = array(
 				'name'  => $this->language->get('text_' . $result['code']),
 				'value' => $result['value'],
 				'href'  => $this->url->link('report/statistics/' . str_replace('_', '', $result['code']), 'user_token=' . $this->session->data['user_token'], true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {

@@ -77,13 +77,13 @@ class ControllerMailGdpr extends Controller {
 		}
 
 		// Addresses
-		$data['addresses'] = [];
+		$data['addresses'] = array();
 
 		if ($customer_info) {
 			$results = $this->model_customer_customer->getAddresses($customer_info['customer_id']);
 
 			foreach ($results as $result) {
-				$address = [
+				$address = array(
 					'firstname' => $result['firstname'],
 					'lastname'  => $result['lastname'],
 					'address_1' => $result['address_1'],
@@ -92,7 +92,7 @@ class ControllerMailGdpr extends Controller {
 					'postcode'  => $result['postcode'],
 					'country'   => $result['country'],
 					'zone'      => $result['zone']
-				];
+				);
 
 				if (!in_array($address, $data['addresses'])) {
 					$data['addresses'][] = $address;
@@ -108,7 +108,7 @@ class ControllerMailGdpr extends Controller {
 		foreach ($results as $result) {
 			$order_info = $this->model_sale_order->getOrder($result['order_id']);
 
-			$address = [
+			$address = array(
 				'firstname' => $order_info['payment_firstname'],
 				'lastname'  => $order_info['payment_lastname'],
 				'address_1' => $order_info['payment_address_1'],
@@ -117,13 +117,13 @@ class ControllerMailGdpr extends Controller {
 				'postcode'  => $order_info['payment_postcode'],
 				'country'   => $order_info['payment_country'],
 				'zone'      => $order_info['payment_zone']
-			];
+			);
 
 			if (!in_array($address, $data['addresses'])) {
 				$data['addresses'][] = $address;
 			}
 
-			$address = [
+			$address = array(
 				'firstname' => $order_info['shipping_firstname'],
 				'lastname'  => $order_info['shipping_lastname'],
 				'address_1' => $order_info['shipping_address_1'],
@@ -132,7 +132,7 @@ class ControllerMailGdpr extends Controller {
 				'postcode'  => $order_info['shipping_postcode'],
 				'country'   => $order_info['shipping_country'],
 				'zone'      => $order_info['shipping_zone']
-			];
+			);
 
 			if (!in_array($address, $data['addresses'])) {
 				$data['addresses'][] = $address;
@@ -140,16 +140,16 @@ class ControllerMailGdpr extends Controller {
 		}
 
 		// Ip's
-		$data['ips'] = [];
+		$data['ips'] = array();
 
 		if ($customer_info) {
 			$results = $this->model_customer_customer->getIps($customer_info['customer_id']);
 
 			foreach ($results as $result) {
-				$data['ips'][] = [
+				$data['ips'][] = array(
 					'ip'         => $result['ip'],
 					'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-				];
+				);
 			}
 		}
 

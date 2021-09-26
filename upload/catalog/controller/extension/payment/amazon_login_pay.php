@@ -52,7 +52,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $amazon_payment_js = $this->model_extension_payment_amazon_login_pay->getWidgetJs();
         $this->document->addScript($amazon_payment_js);
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
             'href' => $this->url->link('common/home', '', true),
@@ -94,7 +94,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function shipping_methods() {
         $this->load->language('extension/payment/amazon_login_pay');
 
-        $json = [];
+        $json = array();
 
         try {
             $this->load->model('extension/payment/amazon_login_pay');
@@ -110,7 +110,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             $address = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
 
-            $quotes = [];
+            $quotes = array();
 
             $results = $this->model_setting_extension->getExtensions('shipping');
 
@@ -141,7 +141,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 throw new \RuntimeException($this->language->get('error_no_shipping_methods'));
             }
 
-            $sort_order = [];
+            $sort_order = array();
 
             foreach ($quotes as $key => $value) {
                 $sort_order[$key] = $value['sort_order'];
@@ -265,7 +265,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $amazon_payment_js = $this->model_extension_payment_amazon_login_pay->getWidgetJs();
         $this->document->addScript($amazon_payment_js);
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
             'href' => $this->url->link('common/home', '', true),
@@ -428,7 +428,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['persist_comment'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/persist_comment', '', true), ENT_COMPAT, "UTF-8");
         $data['is_coupon_change_allowed'] = $this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], array('Draft'));
         $data['error_unexpected_network_error'] = $this->language->get('error_unexpected_network_error');
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
             'href' => $this->url->link('common/home', '', true),
@@ -818,7 +818,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         // Verify order
         $this->model_extension_payment_amazon_login_pay->verifyOrder();
 
-        $json = [];
+        $json = array();
 
         try {
             $order_reference_id = $this->session->data['apalwa']['pay']['order_reference_id'];

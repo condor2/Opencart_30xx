@@ -1,6 +1,6 @@
 <?php
 class ControllerToolUpload extends Controller {
-	private $error = [];
+	private $error = array();
 
 	public function index() {
 		$this->load->language('tool/upload');
@@ -114,43 +114,43 @@ class ControllerToolUpload extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['delete'] = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['uploads'] = [];
+		$data['uploads'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_name'	    => $filter_name,
 			'filter_date_added'	=> $filter_date_added,
 			'sort'              => $sort,
 			'order'             => $order,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
 
 		$results = $this->model_tool_upload->getUploads($filter_data);
 
 		foreach ($results as $result) {
-			$data['uploads'][] = [
+			$data['uploads'][] = array(
 				'upload_id'  => $result['upload_id'],
 				'name'       => $result['name'],
 				'filename'   => $result['filename'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'download'   => $this->url->link('tool/upload/download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $result['code'] . $url, true)
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -176,7 +176,7 @@ class ControllerToolUpload extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -315,7 +315,7 @@ class ControllerToolUpload extends Controller {
 	public function upload() {
 		$this->load->language('sale/order');
 
-		$json = [];
+		$json = array();
 
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'tool/upload')) {
@@ -332,7 +332,7 @@ class ControllerToolUpload extends Controller {
 				}
 
 				// Allowed file extension types
-				$allowed = [];
+				$allowed = array();
 
 				$extension_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_ext_allowed'));
 
@@ -347,7 +347,7 @@ class ControllerToolUpload extends Controller {
 				}
 
 				// Allowed file mime types
-				$allowed = [];
+				$allowed = array();
 
 				$mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
 

@@ -5,20 +5,20 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
 		if (isset($this->session->data['payment_address'])) {
 			// Totals
-			$totals = [];
+			$totals = array();
 			$taxes = $this->cart->getTaxes();
 			$total = 0;
 
 			// Because __call can not keep var references so we put them into an array.
-			$total_data = [
+			$total_data = array(
 				'totals' => &$totals,
 				'taxes'  => &$taxes,
 				'total'  => &$total
-			];
+			);
 			
 			$this->load->model('setting/extension');
 
-			$sort_order = [];
+			$sort_order = array();
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -37,7 +37,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($total_data['totals'] as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -46,7 +46,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			array_multisort($sort_order, SORT_ASC, $total_data['totals']);
 
 			// Payment Methods
-			$method_data = [];
+			$method_data = array();
 
 			$this->load->model('setting/extension');
 
@@ -72,7 +72,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($method_data as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -92,7 +92,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 		if (isset($this->session->data['payment_methods'])) {
 			$data['payment_methods'] = $this->session->data['payment_methods'];
 		} else {
-			$data['payment_methods'] = [];
+			$data['payment_methods'] = array();
 		}
 
 		if (isset($this->session->data['payment_method']['code'])) {
@@ -133,7 +133,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 	public function save() {
 		$this->load->language('checkout/checkout');
 
-		$json = [];
+		$json = array();
 
 		// Validate if payment address has been set.
 		if (!isset($this->session->data['payment_address'])) {

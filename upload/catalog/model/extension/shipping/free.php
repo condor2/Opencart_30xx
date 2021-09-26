@@ -17,10 +17,10 @@ class ModelExtensionShippingFree extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$quote_data = [];
+			$quote_data = array();
 
 			$quote_data['free'] = [
 				'code'         => 'free.free',

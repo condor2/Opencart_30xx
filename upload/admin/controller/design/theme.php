@@ -5,31 +5,31 @@ class ControllerDesignTheme extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/theme', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['user_token'] = $this->session->data['user_token'];
 
-		$data['stores'] = [];
+		$data['stores'] = array();
 
 		$this->load->model('setting/store');
 
 		$results = $this->model_setting_store->getStores();
-		
+
 		foreach ($results as $result) {
-			$data['stores'][] = [
+			$data['stores'][] = array(
 				'store_id' => $result['store_id'],
 				'name'     => $result['name']
-			];
+			);
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -48,7 +48,7 @@ class ControllerDesignTheme extends Controller {
 			$page = 1;
 		}
 
-		$data['histories'] = [];
+		$data['histories'] = array();
 
 		$this->load->model('design/theme');
 		$this->load->model('setting/store');
@@ -66,7 +66,7 @@ class ControllerDesignTheme extends Controller {
 				$store = '';
 			}
 
-			$data['histories'][] = [
+			$data['histories'][] = array(
 				'store_id'   => $result['store_id'],
 				'store'      => ($result['store_id'] ? $store : $this->language->get('text_default')),
 				'route'      => $result['route'],
@@ -74,7 +74,7 @@ class ControllerDesignTheme extends Controller {
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'edit'       => $this->url->link('design/theme/template', 'user_token=' . $this->session->data['user_token'], true),
 				'delete'     => $this->url->link('design/theme/delete', 'user_token=' . $this->session->data['user_token'] . '&theme_id=' . $result['theme_id'], true)
-			];
+			);
 		}
 
 		$pagination = new Pagination();
@@ -93,7 +93,7 @@ class ControllerDesignTheme extends Controller {
 	public function path() {
 		$this->load->language('design/theme');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -117,7 +117,7 @@ class ControllerDesignTheme extends Controller {
 		}
 
 		if (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view') {
-			$path_data = [];
+			$path_data = array();
 
 			// We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files can not be found.
 			$files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
@@ -126,17 +126,17 @@ class ControllerDesignTheme extends Controller {
 				foreach ($files as $file) {
 					if (!in_array(basename($file), $path_data))  {
 						if (is_dir($file)) {
-							$json['directory'][] = [
+							$json['directory'][] = array(
 								'name' => basename($file),
 								'path' => trim($path . '/' . basename($file), '/')
-							];
+							);
 						}
 
 						if (is_file($file)) {
-							$json['file'][] = [
+							$json['file'][] = array(
 								'name' => basename($file),
 								'path' => trim($path . '/' . basename($file), '/')
-							];
+							);
 						}
 
 						$path_data[] = basename($file);
@@ -146,10 +146,10 @@ class ControllerDesignTheme extends Controller {
 		}
 
 		if (!empty($this->request->get['path'])) {
-			$json['back'] = [
+			$json['back'] = array(
 				'name' => $this->language->get('button_back'),
 				'path' => urlencode(substr($path, 0, strrpos($path, '/'))),
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -159,7 +159,7 @@ class ControllerDesignTheme extends Controller {
 	public function template() {
 		$this->load->language('design/theme');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -201,7 +201,7 @@ class ControllerDesignTheme extends Controller {
 	public function save() {
 		$this->load->language('design/theme');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -250,7 +250,7 @@ class ControllerDesignTheme extends Controller {
 	public function reset() {
 		$this->load->language('design/theme');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -261,7 +261,7 @@ class ControllerDesignTheme extends Controller {
 		$this->load->model('setting/setting');
 
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
-		
+
 		// This is only here for compatibility with old themes.
 		if ($theme == 'default') {
 			$theme = $this->model_setting_setting->getSettingValue('theme_default_directory', $store_id);
@@ -284,7 +284,7 @@ class ControllerDesignTheme extends Controller {
 	public function delete() {
 		$this->load->language('design/theme');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['theme_id'])) {
 			$theme_id = (int)$this->request->get['theme_id'];

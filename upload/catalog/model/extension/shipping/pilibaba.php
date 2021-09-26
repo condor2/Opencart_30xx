@@ -5,10 +5,10 @@ class ModelExtensionShippingPilibaba extends Model {
 
 		$status = true;
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$quote_data = [];
+			$quote_data = array();
 
 			$quote_data['pilibaba'] = [
 				'code'         => 'pilibaba.pilibaba',

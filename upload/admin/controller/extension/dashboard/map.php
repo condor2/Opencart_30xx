@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionDashboardMap extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/dashboard/map');
@@ -23,22 +23,22 @@ class ControllerExtensionDashboardMap extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -50,7 +50,7 @@ class ControllerExtensionDashboardMap extends Controller {
 			$data['dashboard_map_width'] = $this->config->get('dashboard_map_width');
 		}
 
-		$data['columns'] = [];
+		$data['columns'] = array();
 		
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
@@ -92,17 +92,17 @@ class ControllerExtensionDashboardMap extends Controller {
 	}
 
 	public function map() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('extension/dashboard/map');
 
 		$results = $this->model_extension_dashboard_map->getTotalOrdersByCountry();
 
 		foreach ($results as $result) {
-			$json[strtolower($result['iso_code_2'])] = [
+			$json[strtolower($result['iso_code_2'])] = array(
 				'total'  => $result['total'],
 				'amount' => $this->currency->format($result['amount'], $this->config->get('config_currency'))
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

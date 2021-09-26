@@ -1,16 +1,16 @@
 <?php
 class ControllerProductProduct extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('product/product');
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
 		$this->load->model('catalog/category');
 
@@ -31,10 +31,10 @@ class ControllerProductProduct extends Controller {
 				$category_info = $this->model_catalog_category->getCategory($path_id);
 
 				if ($category_info) {
-					$data['breadcrumbs'][] = [
+					$data['breadcrumbs'][] = array(
 						'text' => $category_info['name'],
 						'href' => $this->url->link('product/category', 'path=' . $path)
-					];
+					);
 				}
 			}
 
@@ -60,20 +60,20 @@ class ControllerProductProduct extends Controller {
 					$url .= '&limit=' . $this->request->get['limit'];
 				}
 
-				$data['breadcrumbs'][] = [
+				$data['breadcrumbs'][] = array(
 					'text' => $category_info['name'],
 					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . $url)
-				];
+				);
 			}
 		}
 
 		$this->load->model('catalog/manufacturer');
 
 		if (isset($this->request->get['manufacturer_id'])) {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_brand'),
 				'href' => $this->url->link('product/manufacturer')
-			];
+			);
 
 			$url = '';
 
@@ -96,10 +96,10 @@ class ControllerProductProduct extends Controller {
 			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
 
 			if ($manufacturer_info) {
-				$data['breadcrumbs'][] = [
+				$data['breadcrumbs'][] = array(
 					'text' => $manufacturer_info['name'],
 					'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url)
-				];
+				);
 			}
 		}
 
@@ -142,10 +142,10 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_search'),
 				'href' => $this->url->link('product/search', $url)
-			];
+			);
 		}
 
 		if (isset($this->request->get['product_id'])) {
@@ -163,14 +163,14 @@ class ControllerProductProduct extends Controller {
 			$parts = explode('_', (string)$this->request->get['path']);
 						
 			if(empty($this->model_catalog_product->checkProductCategory($product_id, $parts))) {
-				$product_info = [];
+				$product_info = array();
 			}
 		}
 
 		//check product page open from manufacturer page
 		if (isset($this->request->get['manufacturer_id']) && !empty($product_info)) {
 			if($product_info['manufacturer_id'] !=  $this->request->get['manufacturer_id']) {
-				$product_info = [];
+				$product_info = array();
 			}
 		}
 
@@ -225,10 +225,10 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $product_info['name'],
 				'href' => $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id'])
-			];
+			);
 
 			$this->document->setTitle($product_info['meta_title']);
 			$this->document->setDescription($product_info['meta_description']);
@@ -284,16 +284,16 @@ class ControllerProductProduct extends Controller {
 				$data['thumb'] = '';
 			}
 
-			$data['images'] = [];
+			$data['images'] = array();
 
 			$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
 
 			foreach ($results as $result) {
 				if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-					$data['images'][] = [
+					$data['images'][] = array(
 						'popup' => $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
 						'thumb' => $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'))
-					];
+					);
 				}
 			}
 
@@ -319,22 +319,22 @@ class ControllerProductProduct extends Controller {
 
 			$discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
 
-			$data['discounts'] = [];
+			$data['discounts'] = array();
 
 			if ($discounts && ($this->customer->isLogged() || !$this->config->get('config_customer_price'))) {
 
 			foreach ($discounts as $discount) {
-				$data['discounts'][] = [
+				$data['discounts'][] = array(
 					'quantity' => $discount['quantity'],
 					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
-				];
+				);
 			}
 			}
 
-			$data['options'] = [];
+			$data['options'] = array();
 
 			foreach ($this->model_catalog_product->getProductOptions($this->request->get['product_id']) as $option) {
-				$product_option_value_data = [];
+				$product_option_value_data = array();
 
 				foreach ($option['product_option_value'] as $option_value) {
 					if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
@@ -350,18 +350,18 @@ class ControllerProductProduct extends Controller {
 							$image = '';
 						}
 
-						$product_option_value_data[] = [
+						$product_option_value_data[] = array(
 							'product_option_value_id' => $option_value['product_option_value_id'],
 							'option_value_id'         => $option_value['option_value_id'],
 							'name'                    => $option_value['name'],
 							'image'                   => $image,
 							'price'                   => $price,
 							'price_prefix'            => $option_value['price_prefix']
-						];
+						);
 					}
 				}
 
-				$data['options'][] = [
+				$data['options'][] = array(
 					'product_option_id'    => $option['product_option_id'],
 					'product_option_value' => $product_option_value_data,
 					'option_id'            => $option['option_id'],
@@ -369,7 +369,7 @@ class ControllerProductProduct extends Controller {
 					'type'                 => $option['type'],
 					'value'                => $option['value'],
 					'required'             => $option['required']
-				];
+				);
 			}
 
 			if ($product_info['minimum']) {
@@ -405,7 +405,7 @@ class ControllerProductProduct extends Controller {
 
 			$data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
 
-			$data['products'] = [];
+			$data['products'] = array();
 
 			$results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
 
@@ -436,7 +436,7 @@ class ControllerProductProduct extends Controller {
 					$tax = false;
 				}
 
-				$data['products'][] = [
+				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
 					'name'        => $result['name'],
@@ -447,19 +447,19 @@ class ControllerProductProduct extends Controller {
 					'minimum'     => ($result['minimum'] > 0 ? $result['minimum'] : 1),
 					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
-				];
+				);
 			}
 
-			$data['tags'] = [];
+			$data['tags'] = array();
 
 			if ($product_info['tag']) {
 				$tags = explode(',', $product_info['tag']);
 
 				foreach ($tags as $tag) {
-					$data['tags'][] = [
+					$data['tags'][] = array(
 						'tag'  => trim($tag),
 						'href' => $this->url->link('product/search', 'tag=' . trim($tag))
-					];
+					);
 				}
 			}
 
@@ -526,10 +526,10 @@ class ControllerProductProduct extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_error'),
 				'href' => $this->url->link('product/product', $url . '&product_id=' . $product_id)
-			];
+			);
 
 			$this->document->setTitle($this->language->get('text_error'));
 
@@ -558,19 +558,19 @@ class ControllerProductProduct extends Controller {
 			$page = 1;
 		}
 
-		$data['reviews'] = [];
+		$data['reviews'] = array();
 
 		$review_total = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
 
 		$results = $this->model_catalog_review->getReviewsByProductId($this->request->get['product_id'], ($page - 1) * 5, 5);
 
 		foreach ($results as $result) {
-			$data['reviews'][] = [
+			$data['reviews'][] = array(
 				'author'     => $result['author'],
 				'text'       => nl2br($result['text']),
 				'rating'     => (int)$result['rating'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
-			];
+			);
 		}
 
 		$pagination = new Pagination();
@@ -589,7 +589,7 @@ class ControllerProductProduct extends Controller {
 	public function write() {
 		$this->load->language('product/product');
 
-		$json = [];
+		$json = array();
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 			if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 25)) {
@@ -652,17 +652,17 @@ class ControllerProductProduct extends Controller {
 		
 		$recurring_info = $this->model_catalog_product->getProfile($product_id, $recurring_id);
 
-		$json = [];
+		$json = array();
 
 		if ($product_info && $recurring_info) {
 			if (!$json) {
-				$frequencies = [
+				$frequencies = array(
 					'day'        => $this->language->get('text_day'),
 					'week'       => $this->language->get('text_week'),
 					'semi_month' => $this->language->get('text_semi_month'),
 					'month'      => $this->language->get('text_month'),
 					'year'       => $this->language->get('text_year'),
-				];
+				);
 
 				if ($recurring_info['trial_status'] == 1) {
 					$price = $this->currency->format($this->tax->calculate($recurring_info['trial_price'] * $quantity, $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);

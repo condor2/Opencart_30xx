@@ -19,15 +19,15 @@ class ModelExtensionPaymentAlipayCross extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$method_data = [
+			$method_data = array(
 				'code'       => 'alipay_cross',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_alipay_cross_sort_order')
-			];
+			);
 		}
 
 		return $method_data;
@@ -127,7 +127,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	function paraFilter($para) {
-		$para_filter = [];
+		$para_filter = array();
 		while (list ($key, $val) = each ($para)) {
 			if ($key == "sign" || $key == "sign_type" || $val == "")
                 continue;

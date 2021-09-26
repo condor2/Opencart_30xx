@@ -1,6 +1,6 @@
 <?php
 class ControllerDesignBanner extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('design/banner');
@@ -143,41 +143,41 @@ class ControllerDesignBanner extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('design/banner/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['banners'] = [];
+		$data['banners'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$banner_total = $this->model_design_banner->getTotalBanners();
 
 		$results = $this->model_design_banner->getBanners($filter_data);
 
 		foreach ($results as $result) {
-			$data['banners'][] = [
+			$data['banners'][] = array(
 				'banner_id' => $result['banner_id'],
 				'name'      => $result['name'],
 				'status'    => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'edit'      => $this->url->link('design/banner/edit', 'user_token=' . $this->session->data['user_token'] . '&banner_id=' . $result['banner_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -197,7 +197,7 @@ class ControllerDesignBanner extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -263,7 +263,7 @@ class ControllerDesignBanner extends Controller {
 		if (isset($this->error['banner_image'])) {
 			$data['error_banner_image'] = $this->error['banner_image'];
 		} else {
-			$data['error_banner_image'] = [];
+			$data['error_banner_image'] = array();
 		}
 
 		$url = '';
@@ -280,17 +280,17 @@ class ControllerDesignBanner extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['banner_id'])) {
 			$data['action'] = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -333,10 +333,10 @@ class ControllerDesignBanner extends Controller {
 		} elseif (!empty($banner_info)) {
 			$banner_images = $this->model_design_banner->getBannerImages($this->request->get['banner_id']);
 		} else {
-			$banner_images = [];
+			$banner_images = array();
 		}
 
-		$data['banner_images'] = [];
+		$data['banner_images'] = array();
 
 		foreach ($banner_images as $key => $value) {
 			foreach ($value as $banner_image) {
@@ -347,14 +347,14 @@ class ControllerDesignBanner extends Controller {
 					$image = '';
 					$thumb = 'no_image.png';
 				}
-				
-				$data['banner_images'][$key][] = [
+
+				$data['banner_images'][$key][] = array(
 					'title'      => $banner_image['title'],
 					'link'       => $banner_image['link'],
 					'image'      => $image,
 					'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
 					'sort_order' => $banner_image['sort_order']
-				];
+				);
 			}
 		}
 

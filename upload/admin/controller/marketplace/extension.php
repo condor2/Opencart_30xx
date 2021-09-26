@@ -1,23 +1,23 @@
 <?php
 class ControllerMarketplaceExtension extends Controller {
-	private $error = [];
+	private $error = array();
 
 	public function index() {
 		$this->load->language('marketplace/extension');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -27,7 +27,7 @@ class ControllerMarketplaceExtension extends Controller {
 			$data['type'] = '';
 		}
 		
-		$data['categories'] = [];
+		$data['categories'] = array();
 		
 		$files = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
 		
@@ -40,11 +40,11 @@ class ControllerMarketplaceExtension extends Controller {
 			if ($this->user->hasPermission('access', 'extension/extension/' . $extension)) {
 				$files = glob(DIR_APPLICATION . 'controller/extension/' . $extension . '/*.php', GLOB_BRACE);
 		
-				$data['categories'][] = [
+				$data['categories'][] = array(
 					'code' => $extension,
 					'text' => $this->language->get('extension')->get('heading_title') . ' (' . count($files) .')',
 					'href' => $this->url->link('extension/extension/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-				];
+				);
 			}			
 		}
 		

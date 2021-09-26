@@ -81,7 +81,7 @@ class ModelCatalogCategory extends Model {
 				// Delete the path below the current one
 				$this->db->query("DELETE FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_path['category_id'] . "' AND `level` < '" . (int)$category_path['level'] . "'");
 
-				$path = [];
+				$path = array();
 
 				// Get the nodes new parents
 				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$data['parent_id'] . "' ORDER BY `level` ASC");
@@ -215,7 +215,7 @@ class ModelCatalogCategory extends Model {
 		return $query->row;
 	}
 
-	public function getCategories($data = []) {
+	public function getCategories($data = array()) {
 		$sql = "SELECT cp.`category_id` AS `category_id`, GROUP_CONCAT(cd1.`name` ORDER BY cp.`level` SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS `name`, c1.`parent_id`, c1.`sort_order`, c1.`status` FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category` c1 ON (cp.`category_id` = c1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` c2 ON (cp.`path_id` = c2.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd1 ON (cp.`path_id` = cd1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd2 ON (cp.`category_id` = cd2.`category_id`) WHERE cd1.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cd2.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
@@ -224,12 +224,12 @@ class ModelCatalogCategory extends Model {
 
 		$sql .= " GROUP BY cp.`category_id`";
 
-		$sort_data = [
+		$sort_data = array(
 			'category_id',
 			'name',
 			'c1.`status`',
 			'sort_order'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -261,18 +261,18 @@ class ModelCatalogCategory extends Model {
 	}
 
 	public function getCategoryDescriptions($category_id) {
-		$category_description_data = [];
+		$category_description_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_description` WHERE `category_id` = '" . (int)$category_id . "'");
 
 		foreach ($query->rows as $result) {
-			$category_description_data[$result['language_id']] = [
+			$category_description_data[$result['language_id']] = array(
 				'name'             => $result['name'],
 				'meta_title'       => $result['meta_title'],
 				'meta_description' => $result['meta_description'],
 				'meta_keyword'     => $result['meta_keyword'],
 				'description'      => $result['description']
-			];
+			);
 		}
 
 		return $category_description_data;
@@ -285,7 +285,7 @@ class ModelCatalogCategory extends Model {
 	}
 	
 	public function getCategoryFilters($category_id) {
-		$category_filter_data = [];
+		$category_filter_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_filter` WHERE `category_id` = '" . (int)$category_id . "'");
 
@@ -297,7 +297,7 @@ class ModelCatalogCategory extends Model {
 	}
 
 	public function getCategoryStores($category_id) {
-		$category_store_data = [];
+		$category_store_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_to_store` WHERE `category_id` = '" . (int)$category_id . "'");
 
@@ -309,7 +309,7 @@ class ModelCatalogCategory extends Model {
 	}
 	
 	public function getCategorySeoUrls($category_id) {
-		$category_seo_url_data = [];
+		$category_seo_url_data = array();
 		
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category_id . "'");
 
@@ -321,7 +321,7 @@ class ModelCatalogCategory extends Model {
 	}
 	
 	public function getCategoryLayouts($category_id) {
-		$category_layout_data = [];
+		$category_layout_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_to_layout` WHERE `category_id` = '" . (int)$category_id . "'");
 

@@ -78,7 +78,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 			$zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
 
-			$this->session->data['shipping_address'] = [
+			$this->session->data['shipping_address'] = array(
 				'address_id'	 => null,
 				'firstname'		 => null,
 				'lastname'		 => null,
@@ -96,12 +96,12 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 				'iso_code_3'	 => $country_info['iso_code_3'],
 				'address_format' => '',
 				'custom_field'	 => null,
-			];
+			);
 		}
 
 		if (isset($this->session->data['shipping_address'])) {
 			// Shipping Methods
-			$method_data = [];
+			$method_data = array();
 
 			$this->load->model('setting/extension');
 
@@ -114,17 +114,17 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
 
 					if ($quote) {
-						$method_data[$result['code']] = [
+						$method_data[$result['code']] = array(
 							'title'      => $quote['title'],
 							'quote'      => $quote['quote'],
 							'sort_order' => $quote['sort_order'],
 							'error'      => $quote['error']
-						];
+						);
 					}
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($method_data as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];

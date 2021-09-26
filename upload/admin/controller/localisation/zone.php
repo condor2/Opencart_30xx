@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationZone extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/zone');
@@ -209,24 +209,24 @@ class ControllerLocalisationZone extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/zone', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('localisation/zone/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/zone/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['zones'] = [];
+		$data['zones'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_name'    => $filter_name,
 			'filter_country' => $filter_country,
 			'filter_code'    => $filter_code,
@@ -234,20 +234,20 @@ class ControllerLocalisationZone extends Controller {
 			'order'          => $order,
 			'start'          => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'          => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$zone_total = $this->model_localisation_zone->getTotalZones($filter_data);
 
 		$results = $this->model_localisation_zone->getZones($filter_data);
 
 		foreach ($results as $result) {
-			$data['zones'][] = [
+			$data['zones'][] = array(
 				'zone_id' => $result['zone_id'],
 				'country' => $result['country'],
 				'name'    => $result['name'] . (($result['zone_id'] == $this->config->get('config_zone_id')) ? $this->language->get('text_default') : null),
 				'code'    => $result['code'],
 				'edit'    => $this->url->link('localisation/zone/edit', 'user_token=' . $this->session->data['user_token'] . '&zone_id=' . $result['zone_id'] . $url, true)
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -269,7 +269,7 @@ class ControllerLocalisationZone extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -387,17 +387,17 @@ class ControllerLocalisationZone extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/zone', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['zone_id'])) {
 			$data['action'] = $this->url->link('localisation/zone/add', 'user_token=' . $this->session->data['user_token'] . $url, true);

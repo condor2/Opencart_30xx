@@ -4,7 +4,7 @@ class User {
 	private $user_id;
 	private $user_group_id;
 	private $username;
-	private $permission = [];
+	private $permission = array();
 
 	public function __construct($registry) {
 		$this->db = $registry->get('db');

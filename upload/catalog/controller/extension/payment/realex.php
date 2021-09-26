@@ -33,7 +33,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 				'diners' => $this->language->get('text_card_diners'),
 			);
 
-			$data['cards'] = [];
+			$data['cards'] = array();
 
 			$accounts = $this->config->get('payment_realex_account');
 

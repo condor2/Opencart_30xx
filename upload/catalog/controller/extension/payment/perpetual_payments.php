@@ -3,7 +3,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/perpetual_payments');
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -14,7 +14,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 
 		$today = getdate();
 
-		$data['year_valid'] = [];
+		$data['year_valid'] = array();
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
@@ -23,7 +23,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 			);
 		}
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(

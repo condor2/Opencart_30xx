@@ -1,6 +1,6 @@
 <?php
 class ControllerAffiliateRegister extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		if ($this->customer->isLogged()) {
@@ -34,22 +34,22 @@ class ControllerAffiliateRegister extends Controller {
 			$this->response->redirect($this->url->link('affiliate/success'));
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_register'),
 			'href' => $this->url->link('affiliate/register', '', true)
-		];
+		);
 
 		$data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', '', true));
 
@@ -102,7 +102,7 @@ class ControllerAffiliateRegister extends Controller {
 		if (isset($this->error['custom_field'])) {
 			$data['error_custom_field'] = $this->error['custom_field'];
 		} else {
-			$data['error_custom_field'] = [];
+			$data['error_custom_field'] = array();
 		}
 		
 		if (isset($this->error['cheque'])) {
@@ -131,7 +131,7 @@ class ControllerAffiliateRegister extends Controller {
 				
 		$data['action'] = $this->url->link('affiliate/register', '', true);
 
-		$data['customer_groups'] = [];
+		$data['customer_groups'] = array();
 
 		if (is_array($this->config->get('config_customer_group_display'))) {
 			$this->load->model('account/customer_group');
@@ -182,7 +182,7 @@ class ControllerAffiliateRegister extends Controller {
 		}
 
 		// Custom Fields
-		$data['custom_fields'] = [];
+		$data['custom_fields'] = array();
 
 		$this->load->model('account/custom_field');
 
@@ -198,18 +198,18 @@ class ControllerAffiliateRegister extends Controller {
 			if (isset($this->request->post['custom_field']['account'])) {
 				$account_custom_field = $this->request->post['custom_field']['account'];
 			} else {
-				$account_custom_field = [];
+				$account_custom_field = array();
 			}
 			
 			if (isset($this->request->post['custom_field']['affiliate'])) {
 				$affiliate_custom_field = $this->request->post['custom_field']['affiliate'];
 			} else {
-				$affiliate_custom_field = [];
+				$affiliate_custom_field = array();
 			}
 			
 			$data['register_custom_field'] = $account_custom_field + $affiliate_custom_field;
 		} else {
-			$data['register_custom_field'] = [];
+			$data['register_custom_field'] = array();
 		}
 
 		if (isset($this->request->post['website'])) {
@@ -358,7 +358,7 @@ class ControllerAffiliateRegister extends Controller {
             if ($custom_field['location'] == 'account' || $custom_field['location'] == 'affiliate') {
 				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/']])) {
+				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
             		$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}

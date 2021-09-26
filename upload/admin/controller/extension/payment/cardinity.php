@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentCardinity extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/cardinity');
@@ -35,22 +35,22 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			$data['error_secret'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/cardinity', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/payment/cardinity', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -154,7 +154,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$data['payment'] = false;
 
-		$data['refunds'] = [];
+		$data['refunds'] = array();
 
 		if ($order && $order['payment_id']) {
 			$data['payment'] = true;
@@ -163,9 +163,9 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 			$data['refund_action'] = false;
 
-			$successful_statuses = [
+			$successful_statuses = array(
 				'approved'
-			];
+			);
 
 			if (in_array($payment->getStatus(), $successful_statuses)) {
 				$data['refund_action'] = true;
@@ -177,20 +177,20 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 			if ($refunds) {
 				foreach ($refunds as $refund) {
-					$successful_refund_statuses = [
+					$successful_refund_statuses = array(
 						'approved'
-					];
+					);
 
 					if (in_array($refund->getStatus(), $successful_refund_statuses)) {
 						$max_refund_amount -= $refund->getAmount();
 					}
 
-					$data['refunds'][] = [
+					$data['refunds'][] = array(
 						'date_added'  => date($this->language->get('datetime_format'), strtotime($refund->getCreated())),
 						'amount'	  => $this->currency->format($refund->getAmount(), $refund->getCurrency(), '1.00000000', true),
 						'status'	  => $refund->getStatus(),
 						'description' => $refund->getDescription()
-					];
+					);
 				}
 			}
 
@@ -213,7 +213,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$this->load->model('extension/payment/cardinity');
 
-		$json = [];
+		$json = array();
 
 		$success = $error = '';
 

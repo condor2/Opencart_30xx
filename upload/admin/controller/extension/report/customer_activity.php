@@ -21,22 +21,22 @@ class ControllerExtensionReportCustomerActivity extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/report/customer_activity', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/report/customer_activity', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -104,16 +104,16 @@ class ControllerExtensionReportCustomerActivity extends Controller {
 
 		$this->load->model('extension/report/customer');
 
-		$data['activities'] = [];
+		$data['activities'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_customer'   => $filter_customer,
 			'filter_ip'         => $filter_ip,
 			'filter_date_start'	=> $filter_date_start,
 			'filter_date_end'	=> $filter_date_end,
 			'start'             => ($page - 1) * 20,
 			'limit'             => 20
-		];
+		);
 
 		$activity_total = $this->model_extension_report_customer->getTotalCustomerActivities($filter_data);
 
@@ -122,21 +122,21 @@ class ControllerExtensionReportCustomerActivity extends Controller {
 		foreach ($results as $result) {
 			$comment = vsprintf($this->language->get('text_activity_' . $result['key']), json_decode($result['data'], true));
 
-			$find = [
+			$find = array(
 				'customer_id=',
 				'order_id='
-			];
+			);
 
-			$replace = [
+			$replace = array(
 				$this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=', true),
 				$this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=', true)
-			];
+			);
 
-			$data['activities'][] = [
+			$data['activities'][] = array(
 				'comment'    => str_replace($find, $replace, $comment),
 				'ip'         => $result['ip'],
 				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

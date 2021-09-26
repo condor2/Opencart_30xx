@@ -13,7 +13,7 @@ class ModelExtensionShippingParcelforce48 extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
 			$cost = 0;
@@ -48,7 +48,7 @@ class ModelExtensionShippingParcelforce48 extends Model {
 				}
 			}
 
-			$quote_data = [];
+			$quote_data = array();
 
 			if ((float)$cost) {
 				$text = $this->language->get('text_description');

@@ -21,22 +21,22 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/report/customer_search', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/report/customer_search', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -111,9 +111,9 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 		$this->load->model('extension/report/customer');
 		$this->load->model('catalog/category');
 
-		$data['searches'] = [];
+		$data['searches'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_date_start' => $filter_date_start,
 			'filter_date_end'   => $filter_date_end,
 			'filter_keyword'    => $filter_keyword,
@@ -121,7 +121,7 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 			'filter_ip'         => $filter_ip,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$search_total = $this->model_extension_report_customer->getTotalCustomerSearches($filter_data);
 
@@ -142,14 +142,14 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 				$customer = $this->language->get('text_guest');
 			}
 
-			$data['searches'][] = [
+			$data['searches'][] = array(
 				'keyword'     => $result['keyword'],
 				'products'    => $result['products'],
 				'category'    => $category,
 				'customer'    => $customer,
 				'ip'          => $result['ip'],
 				'date_added'  => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

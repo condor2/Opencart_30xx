@@ -1,6 +1,6 @@
 <?php
 class ControllerDesignTranslation extends Controller {
-	private $error = [];
+	private $error = array();
 
 	public function index() {
 		$this->load->language('design/translation');
@@ -143,17 +143,17 @@ class ControllerDesignTranslation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$this->load->model('localisation/language');
 
@@ -162,14 +162,14 @@ class ControllerDesignTranslation extends Controller {
 
 		$this->load->model('localisation/language');
 
-		$data['translations'] = [];
+		$data['translations'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$translation_total = $this->model_design_translation->getTotalTranslations();
 
@@ -184,7 +184,7 @@ class ControllerDesignTranslation extends Controller {
 				$code = '';
 			}
 
-			$data['translations'][] = [
+			$data['translations'][] = array(
 				'translation_id' => $result['translation_id'],
 				'store'          => ($result['store_id'] ? $result['store'] : $this->language->get('text_default')),
 				'route'          => $result['route'],
@@ -192,7 +192,7 @@ class ControllerDesignTranslation extends Controller {
 				'key'            => $result['key'],
 				'value'          => $result['value'],
 				'edit'           => $this->url->link('design/translation/edit', 'user_token=' . $this->session->data['user_token'] . '&translation_id=' . $result['translation_id'], true),
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -214,7 +214,7 @@ class ControllerDesignTranslation extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -284,17 +284,17 @@ class ControllerDesignTranslation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['translation_id'])) {
 			$data['action'] = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -388,7 +388,7 @@ class ControllerDesignTranslation extends Controller {
 	public function path() {
 		$this->load->language('design/translation');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['language_id'])) {
 			$language_id = (int)$this->request->get['language_id'];
@@ -425,7 +425,7 @@ class ControllerDesignTranslation extends Controller {
 	public function translation() {
 		$this->load->language('design/translation');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -452,15 +452,15 @@ class ControllerDesignTranslation extends Controller {
 		$directory = DIR_CATALOG . 'language/';
 
 		if ($language_info && is_file($directory . $language_info['code'] . '/' . $route . '.php') && substr(str_replace('\\', '/', realpath($directory . $language_info['code'] . '/' . $route . '.php')), 0, strlen($directory)) == str_replace('\\', '/', $directory)) {
-			$_ = [];
+			$_ = array();
 
 			include($directory . $language_info['code'] . '/' . $route . '.php');
 
 			foreach ($_ as $key => $value) {
-				$json[] = [
+				$json[] = array(
 					'key'   => $key,
 					'value' => $value
-				];
+				);
 			}
 		}
 

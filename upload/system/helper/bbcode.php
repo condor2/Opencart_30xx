@@ -1,8 +1,8 @@
 <?php
 /* BBCode Converter that converts BBCode writen in ckeditor */	
 function bbcode_decode($string) {  
-    $pattern = [];
-	$replace = [];
+    $pattern = array();
+	$replace = array();
 	
 	// Bold
 	$pattern[0] = '/\[b\](.*?)\[\/b\]/is';

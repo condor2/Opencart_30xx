@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationCountry extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/country');
@@ -301,26 +301,26 @@ class ControllerLocalisationCountry extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('localisation/country/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/country/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['enable'] = $this->url->link('localisation/country/enable', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['disable'] = $this->url->link('localisation/country/disable', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['countries'] = [];
+		$data['countries'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_name'       => $filter_name,
 			'filter_iso_code_2' => $filter_iso_code_2,
 			'filter_iso_code_3' => $filter_iso_code_3,
@@ -328,21 +328,21 @@ class ControllerLocalisationCountry extends Controller {
 			'order'             => $order,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$country_total = $this->model_localisation_country->getTotalCountries($filter_data);
 
 		$results = $this->model_localisation_country->getCountries($filter_data);
 
 		foreach ($results as $result) {
-			$data['countries'][] = [
+			$data['countries'][] = array(
 				'country_id' => $result['country_id'],
 				'name'       => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
 				'iso_code_2' => $result['iso_code_2'],
 				'iso_code_3' => $result['iso_code_3'],
 				'status'     => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'edit'       => $this->url->link('localisation/country/edit', 'user_token=' . $this->session->data['user_token'] . '&country_id=' . $result['country_id'] . $url, true)
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -364,7 +364,7 @@ class ControllerLocalisationCountry extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -483,17 +483,17 @@ class ControllerLocalisationCountry extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['country_id'])) {
 			$data['action'] = $this->url->link('localisation/country/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -634,7 +634,7 @@ class ControllerLocalisationCountry extends Controller {
 	}
 
 	public function country() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('localisation/country');
 
@@ -643,7 +643,7 @@ class ControllerLocalisationCountry extends Controller {
 		if ($country_info) {
 			$this->load->model('localisation/zone');
 
-			$json = [
+			$json = array(
 				'country_id'        => $country_info['country_id'],
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
@@ -652,7 +652,7 @@ class ControllerLocalisationCountry extends Controller {
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

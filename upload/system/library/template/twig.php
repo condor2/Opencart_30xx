@@ -1,7 +1,7 @@
 <?php
 namespace Template;
 final class Twig {
-	private $data = [];
+	private $data = array();
 
 	public function set($key, $value) {
 		$this->data[$key] = $value;
@@ -20,13 +20,13 @@ final class Twig {
 		}
 
 		// initialize Twig environment
-		$config = [
+		$config = array(
 			'charset'     => 'utf-8',
 			'autoescape'  => false,
 			'debug'       => false,
 			'auto_reload' => true,
 			'cache'       => DIR_CACHE . 'template/'
-		];
+		);
 
 		try {
 			$loader1 = new \Twig\Loader\ArrayLoader([$filename . '.twig' => $code]);

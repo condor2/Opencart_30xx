@@ -91,17 +91,17 @@ class ModelCatalogManufacturer extends Model {
 		return $query->row;
 	}
 
-	public function getManufacturers($data = []) {
+	public function getManufacturers($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "manufacturer";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " WHERE `name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			'name',
 			'sort_order'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -133,7 +133,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	public function getManufacturerStores($manufacturer_id) {
-		$manufacturer_store_data = [];
+		$manufacturer_store_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "manufacturer_to_store` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 
@@ -145,7 +145,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	public function getManufacturerSeoUrls($manufacturer_id) {
-		$manufacturer_seo_url_data = [];
+		$manufacturer_seo_url_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'manufacturer_id=" . (int)$manufacturer_id . "'");
 
@@ -157,7 +157,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	public function getManufacturerLayouts($manufacturer_id) {
-		$manufacturer_layout_data = [];
+		$manufacturer_layout_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "manufacturer_to_layout` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 

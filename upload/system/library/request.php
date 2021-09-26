@@ -11,11 +11,11 @@
 * Request class
 */
 class Request {
-	public $get = [];
-	public $post = [];
-	public $cookie = [];
-	public $files = [];
-	public $server = [];
+	public $get = array();
+	public $post = array();
+	public $cookie = array();
+	public $files = array();
+	public $server = array();
 	
 	/**
 	 * Constructor

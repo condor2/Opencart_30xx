@@ -13,7 +13,7 @@
 class Language {
 	private $default = 'en-gb';
 	private $directory;
-	public $data = [];
+	public $data = array();
 	
 	/**
 	 * Constructor
@@ -59,7 +59,7 @@ class Language {
      */	
 	public function load($filename, $key = '') {
 		if (!$key) {
-			$_ = [];
+			$_ = array();
 	
 			$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';
 	

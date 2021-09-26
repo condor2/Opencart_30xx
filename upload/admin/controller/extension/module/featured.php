@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleFeatured extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/featured');
@@ -45,28 +45,28 @@ class ControllerExtensionModuleFeatured extends Controller {
 			$data['error_height'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
-		];
+		);
 
 		if (!isset($this->request->get['module_id'])) {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('extension/module/featured', 'user_token=' . $this->session->data['user_token'], true)
-			];
+			);
 		} else {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('extension/module/featured', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true)
-			];
+			);
 		}
 
 		if (!isset($this->request->get['module_id'])) {
@@ -93,24 +93,24 @@ class ControllerExtensionModuleFeatured extends Controller {
 
 		$this->load->model('catalog/product');
 
-		$data['products'] = [];
+		$data['products'] = array();
 
 		if (!empty($this->request->post['product'])) {
 			$products = $this->request->post['product'];
 		} elseif (!empty($module_info['product'])) {
 			$products = $module_info['product'];
 		} else {
-			$products = [];
+			$products = array();
 		}
 
 		foreach ($products as $product_id) {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
 
 			if ($product_info) {
-				$data['products'][] = [
+				$data['products'][] = array(
 					'product_id' => $product_info['product_id'],
 					'name'       => $product_info['name']
-				];
+				);
 			}
 		}
 

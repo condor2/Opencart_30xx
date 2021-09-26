@@ -28,7 +28,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
 		$data['owner'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
 
-		$data['cards'] = [];
+		$data['cards'] = array();
 
 		$data['cards'][] = array(
 			'text'  => 'Visa',
@@ -50,7 +50,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 			'value' => 'S'
 		);
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -61,7 +61,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
 		$today = getdate();
 
-		$data['year_valid'] = [];
+		$data['year_valid'] = array();
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
@@ -70,7 +70,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 			);
 		}
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
@@ -147,11 +147,11 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 			$this->log->write('DoDirectPayment failed: ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
 		}
 
-		$response_info = [];
+		$response_info = array();
 
 		parse_str($response, $response_info);
 
-		$json = [];
+		$json = array();
 
 		if ($response_info['RESULT'] == '0') {
 			$message = '';

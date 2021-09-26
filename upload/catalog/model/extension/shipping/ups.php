@@ -13,7 +13,7 @@ class ModelExtensionShippingUps extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
 			$weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_ups_weight_class_id'));
@@ -219,7 +219,7 @@ class ModelExtensionShippingUps extends Model {
 
 			$error = '';
 
-			$quote_data = [];
+			$quote_data = array();
 
 			if ($result) {
 				if ($this->config->get('shipping_ups_debug')) {

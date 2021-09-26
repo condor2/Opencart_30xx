@@ -5,17 +5,17 @@ class ControllerCommonDashboard extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -25,9 +25,9 @@ class ControllerCommonDashboard extends Controller {
 		} else {
 			$data['error_install'] = '';
 		}
-		
+
 		// Dashboard Extensions
-		$dashboards = [];
+		$dashboards = array();
 
 		$this->load->model('setting/extension');
 
@@ -40,17 +40,17 @@ class ControllerCommonDashboard extends Controller {
 				$output = $this->load->controller('extension/dashboard/' . $code . '/dashboard');
 
 				if ($output) {
-					$dashboards[] = [
+					$dashboards[] = array(
 						'code'       => $code,
 						'width'      => $this->config->get('dashboard_' . $code . '_width'),
 						'sort_order' => $this->config->get('dashboard_' . $code . '_sort_order'),
 						'output'     => $output
-					];
+					);
 				}
 			}
 		}
 
-		$sort_order = [];
+		$sort_order = array();
 
 		foreach ($dashboards as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -60,8 +60,8 @@ class ControllerCommonDashboard extends Controller {
 
 		// Split the array so the columns width is not more than 12 on each row.
 		$width = 0;
-		$column = [];
-		$data['rows'] = [];
+		$column = array();
+		$data['rows'] = array();
 
 		foreach ($dashboards as $dashboard) {
 			$column[] = $dashboard;
@@ -72,7 +72,7 @@ class ControllerCommonDashboard extends Controller {
 				$data['rows'][] = $column;
 
 				$width = 0;
-				$column = [];
+				$column = array();
 			}
 		}
 

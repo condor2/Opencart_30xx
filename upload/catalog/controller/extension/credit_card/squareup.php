@@ -14,22 +14,22 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs'] = array();
 
-        $data['breadcrumbs'][] = [
+        $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
-        ];
+        );
 
-        $data['breadcrumbs'][] = [
+        $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_account'),
             'href' => $this->url->link('account/account', '', true)
-        ];
+        );
 
-        $data['breadcrumbs'][] = [
+        $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/credit_card/squareup', '', true)
-        ];
+        );
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -49,13 +49,13 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $data['back'] = $this->url->link('account/account', '', true);
 
-        $data['cards'] = [];
+        $data['cards'] = array();
 
         foreach ($this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox')) as $card) {
-            $data['cards'][] = [
+            $data['cards'][] = array(
                 'text' => sprintf($this->language->get('text_card_ends_in'), $card['brand'], $card['ends_in']),
                 'delete' => $this->url->link('extension/credit_card/squareup/forget', 'squareup_token_id=' . $card['squareup_token_id'], true)
-            ];
+            );
         }
 
         $data['column_left'] = $this->load->controller('common/column_left');

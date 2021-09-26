@@ -28,7 +28,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$create_token = [];
+		$create_token = array();
 		$merchant_id = $this->config->get('payment_pp_braintree_merchant_id');
 
 		if ($this->gateway == '') {
@@ -253,7 +253,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$create_sale['paymentMethodToken'] = $payment_method_token;
 
 				// unset the billing info for a vaulted payment
-				$create_sale['billing'] = [];
+				$create_sale['billing'] = array();
 			}
 
 			if ($payment_method_nonce != '') {
@@ -288,7 +288,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					'required' => true
 				);
 
-				$three_ds_info = [];
+				$three_ds_info = array();
 
 				if (isset($nonce_info->threeDSecureInfo) && !empty($nonce_info->threeDSecureInfo)) {
 					$three_ds_info = $nonce_info->threeDSecureInfo;
@@ -425,7 +425,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->model_extension_payment_pp_braintree->log('Starting vaulted');
 		$this->model_extension_payment_pp_braintree->log($this->request->post);
 
-		$json = [];
+		$json = array();
 
 		$json['payment_method'] = '';
 
@@ -461,7 +461,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		$this->load->model('extension/payment/pp_braintree');
 
-		$json = [];
+		$json = array();
 
 		$json['success'] = false;
 
@@ -501,7 +501,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 	public function expressSetup() {
 		// check checkout can continue due to stock checks or vouchers
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
-			$json = [];
+			$json = array();
 			$json['error'] = true;
 			$json['url'] = $this->url->link('checkout/cart');
 
@@ -511,7 +511,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		// if user not logged in check that the guest checkout is allowed
 		if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasRecurringProducts())) {
-			$json = [];
+			$json = array();
 			$json['error'] = true;
 			$json['url'] = $this->url->link('checkout/checkout');
 
@@ -615,7 +615,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					$this->session->data['guest']['payment']['address_format'] = '';
 					$this->session->data['shipping_country_id'] = '';
 
-					$zone_info = [];
+					$zone_info = array();
 				}
 
 				if ($zone_info) {
@@ -790,7 +790,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		$data['heading_title'] = $this->language->get('text_express_title');
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
 			'href' => $this->url->link('common/home'),
@@ -859,7 +859,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$image = '';
 			}
 
-			$option_data = [];
+			$option_data = array();
 
 			foreach ($product['option'] as $option) {
 				if ($option['type'] != 'file') {
@@ -907,7 +907,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			);
 		}
 
-		$data['vouchers'] = [];
+		$data['vouchers'] = array();
 
 		if ($this->cart->hasShipping()) {
 			$data['has_shipping'] = true;
@@ -923,7 +923,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			if (!empty($shipping_address)) {
 				// Shipping Methods
-				$quote_data = [];
+				$quote_data = array();
 
 				$this->load->model('setting/extension');
 
@@ -948,7 +948,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					}
 
 					if (!empty($quote_data)) {
-						$sort_order = [];
+						$sort_order = array();
 
 						foreach ($quote_data as $key => $value) {
 							$sort_order[$key] = $value['sort_order'];
@@ -986,7 +986,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		// Totals
 		$this->load->model('setting/extension');
 
-		$totals = [];
+		$totals = array();
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 
@@ -999,7 +999,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-			$sort_order = [];
+			$sort_order = array();
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -1018,7 +1018,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($totals as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -1027,7 +1027,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			array_multisort($sort_order, SORT_ASC, $totals);
 		}
 
-		$data['totals'] = [];
+		$data['totals'] = array();
 
 		foreach ($totals as $total) {
 			$data['totals'][] = array(
@@ -1046,7 +1046,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$payment_address = $this->session->data['guest']['payment'];
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		$this->load->model('setting/extension');
 
@@ -1067,7 +1067,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 		}
 
-		$sort_order = [];
+		$sort_order = array();
 
 		foreach ($method_data as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -1193,7 +1193,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 
 		if ($redirect == '') {
-			$totals = [];
+			$totals = array();
 			$taxes = $this->cart->getTaxes();
 			$total = 0;
 
@@ -1206,7 +1206,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$this->load->model('setting/extension');
 
-			$sort_order = [];
+			$sort_order = array();
 
 			$results = $this->model_setting_extension->getExtensions('total');
 
@@ -1225,7 +1225,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($totals as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -1235,7 +1235,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$this->load->language('checkout/checkout');
 
-			$data = [];
+			$data = array();
 
 			$data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
 			$data['store_id'] = $this->config->get('config_store_id');
@@ -1342,10 +1342,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$data['shipping_code'] = '';
 			}
 
-			$product_data = [];
+			$product_data = array();
 
 			foreach ($this->cart->getProducts() as $product) {
-				$option_data = [];
+				$option_data = array();
 
 				foreach ($product['option'] as $option) {
 					$option_data[] = array(
@@ -1375,7 +1375,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 
 			// Gift Voucher
-			$voucher_data = [];
+			$voucher_data = array();
 
 			if (!empty($this->session->data['vouchers'])) {
 				foreach ($this->session->data['vouchers'] as $voucher) {
@@ -1470,12 +1470,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$this->initialise();
 
-			$create_sale = [
+			$create_sale = array(
 				"amount" => $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false),
 				"paymentMethodNonce" => $this->session->data['paypal_braintree']['nonce'],
 				"orderId" => $order_id,
 				'channel' => 'OpenCart_Cart_vzero',
-			];
+			);
 
 			$transaction = $this->model_extension_payment_pp_braintree->addTransaction($this->gateway, $create_sale);
 

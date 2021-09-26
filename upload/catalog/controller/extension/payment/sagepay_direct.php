@@ -10,7 +10,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['cards'] = [];
+		$data['cards'] = array();
 
 		$data['cards'][] = array(
 			'text' => 'Visa',
@@ -57,7 +57,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			'value' => 'JCB'
 		);
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -68,7 +68,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		$today = getdate();
 
-		$data['year_valid'] = [];
+		$data['year_valid'] = array();
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
@@ -77,7 +77,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			);
 		}
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
@@ -92,7 +92,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$data['sagepay_direct_card'] = false;
 		}
 
-		$data['existing_cards'] = [];
+		$data['existing_cards'] = array();
 		if ($this->customer->isLogged() && $data['sagepay_direct_card']) {
 			$this->load->model('extension/payment/sagepay_direct');
 			$data['existing_cards'] = $this->model_extension_payment_sagepay_direct->getCards($this->customer->getId());
@@ -107,7 +107,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$this->load->model('extension/payment/sagepay_direct');
 		$this->load->model('account/order');
 
-		$payment_data = [];
+		$payment_data = array();
 
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
@@ -236,7 +236,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		$response_data = $this->model_extension_payment_sagepay_direct->sendCurl($url, $payment_data);
 
-		$json = [];
+		$json = array();
 
 		if ($response_data['Status'] == '3DAUTH') {
 			$json['ACSURL'] = $response_data['ACSURL'];
@@ -249,7 +249,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 			$card_id = '';
 			if (!empty($payment_data['CreateToken']) && $this->customer->isLogged()) {
-				$card_data = [];
+				$card_data = array();
 				$card_data['customer_id'] = $this->customer->getId();
 				$card_data['Token'] = '';
 				$card_data['Last4Digits'] = substr(str_replace(' ', '', $payment_data['CardNumber']), -4, 4);
@@ -302,7 +302,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 			$card_id = '';
 			if (!empty($payment_data['CreateToken']) && !empty($response_data['Token']) && $this->customer->isLogged()) {
-				$card_data = [];
+				$card_data = array();
 				$card_data['customer_id'] = $this->customer->getId();
 				$card_data['Token'] = $response_data['Token'];
 				$card_data['Last4Digits'] = substr(str_replace(' ', '', $payment_data['CardNumber']), -4, 4);

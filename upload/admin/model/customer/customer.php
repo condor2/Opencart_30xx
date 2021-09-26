@@ -78,7 +78,7 @@ class ModelCustomerCustomer extends Model {
 		return $query->row;
 	}
 	
-	public function getCustomers($data = []) {
+	public function getCustomers($data = array()) {
 		$sql = "SELECT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name`, cgd.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (c.`customer_group_id` = cgd.`customer_group_id`)";
 		
 		if (!empty($data['filter_affiliate'])) {
@@ -119,14 +119,14 @@ class ModelCustomerCustomer extends Model {
 			$sql .= " AND DATE(c.`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			'`name`',
 			'c.`email`',
 			'`customer_group`',
 			'c.`status`',
 			'c.`ip`',
 			'c.`date_added`'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -209,7 +209,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function getAddresses($customer_id) {
-		$address_data = [];
+		$address_data = array();
 
 		$query = $this->db->query("SELECT `address_id` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
@@ -224,10 +224,10 @@ class ModelCustomerCustomer extends Model {
 		return $address_data;
 	}
 
-	public function getTotalCustomers($data = []) {
+	public function getTotalCustomers($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` c";
 
-		$implode = [];
+		$implode = array();
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
@@ -278,10 +278,10 @@ class ModelCustomerCustomer extends Model {
 		return $query->row;
 	}
 	
-	public function getAffiliates($data = []) {
+	public function getAffiliates($data = array()) {
 		$sql = "SELECT DISTINCT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name` FROM `" . DB_PREFIX . "customer_affiliate` ca LEFT JOIN `" . DB_PREFIX . "customer` c ON (ca.`customer_id` = c.`customer_id`)";
 
-		$implode = [];
+		$implode = array();
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
@@ -308,10 +308,10 @@ class ModelCustomerCustomer extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalAffiliates($data = []) {
+	public function getTotalAffiliates($data = array()) {
 		$sql = "SELECT DISTINCT COUNT(*) AS total FROM " . DB_PREFIX . "customer_affiliate ca LEFT JOIN " . DB_PREFIX . "customer c ON (ca.customer_id = c.customer_id)";
 		
-		$implode = [];
+		$implode = array();
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "CONCAT(c.firstname, ' ', c.lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";

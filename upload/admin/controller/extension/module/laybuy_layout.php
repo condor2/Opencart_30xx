@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleLaybuyLayout extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->model('setting/setting');
@@ -17,22 +17,22 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/module/laybuy_layout', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

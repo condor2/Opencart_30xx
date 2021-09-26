@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionPayment extends Controller {
-	private $error = [];
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/extension/payment');
@@ -76,7 +76,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 			}
 		}
 
-		$data['extensions'] = [];
+		$data['extensions'] = array();
 
 		// Compatibility code for old extension folders
 		$files = glob(DIR_APPLICATION . 'controller/extension/payment/*.php');
@@ -96,7 +96,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 						$link = '';
 					}
 
-					$data['extensions'][] = [
+					$data['extensions'][] = array(
 						'name'       => $this->language->get('extension')->get('heading_title'),
 						'link'       => $link,
 						'status'     => $this->config->get('payment_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -105,7 +105,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 						'uninstall'  => $this->url->link('extension/extension/payment/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
 						'installed'  => in_array($extension, $extensions),
 						'edit'       => $this->url->link('extension/payment/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-					];
+					);
 				}
 			}
 		}

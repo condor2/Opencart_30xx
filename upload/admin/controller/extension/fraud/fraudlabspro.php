@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFraudFraudLabsPro extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/fraud/fraudlabspro');
@@ -29,22 +29,22 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			$data['error_key'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/fraud/fraudlabspro', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/fraud/fraudlabspro', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -157,20 +157,20 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
 			//Update history record
 			if (strtolower($flp_status) == 'approve') {
-				$data_temp = [
+				$data_temp = array(
 					'order_status_id'=>$this->config->get('fraud_fraudlabspro_approve_status_id'),
 					'notify'=>0,
 					'comment'=>'Approved using FraudLabs Pro.'
-				];
+				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
 			}
 			elseif (strtolower($flp_status) == "reject") {
-				$data_temp = [
+				$data_temp = array(
 					'order_status_id'=>$this->config->get('fraud_fraudlabspro_reject_status_id'),
 					'notify'=>0,
 					'comment'=>'Rejected using FraudLabs Pro.'
-				];
+				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
 			}

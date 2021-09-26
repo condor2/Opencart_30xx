@@ -13,7 +13,7 @@ class ModelExtensionShippingItem extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
 			$items = 0;
@@ -24,7 +24,7 @@ class ModelExtensionShippingItem extends Model {
 				}
 			}
 
-			$quote_data = [];
+			$quote_data = array();
 
 			$quote_data['item'] = [
 				'code'         => 'item.item',

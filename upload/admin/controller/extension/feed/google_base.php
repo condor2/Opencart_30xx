@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleBase extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/feed/google_base');
@@ -23,22 +23,22 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=feed', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/feed/google_base', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/feed/google_base', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -84,7 +84,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function import() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = [];
+		$json = array();
 
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
@@ -141,19 +141,19 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 			$page = 1;
 		}
 
-		$data['google_base_categories'] = [];
+		$data['google_base_categories'] = array();
 
 		$this->load->model('extension/feed/google_base');
 
 		$results = $this->model_extension_feed_google_base->getCategories(($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
-			$data['google_base_categories'][] = [
+			$data['google_base_categories'][] = array(
 				'google_base_category_id' => $result['google_base_category_id'],
 				'google_base_category'    => $result['google_base_category'],
 				'category_id'             => $result['category_id'],
 				'category'                => $result['category']
-			];
+			);
 		}
 
 		$category_total = $this->model_extension_feed_google_base->getTotalCategories();
@@ -174,7 +174,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function addCategory() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = [];
+		$json = array();
 
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -193,7 +193,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	public function removeCategory() {
 		$this->load->language('extension/feed/google_base');
 
-		$json = [];
+		$json = array();
 
 		if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -210,7 +210,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 	}
 
 	public function autocomplete() {
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->get['filter_name'])) {
 			$this->load->model('extension/feed/google_base');
@@ -221,19 +221,19 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 				$filter_name = '';
 			}
 
-			$filter_data = [
+			$filter_data = array(
 				'filter_name' => html_entity_decode($filter_name, ENT_QUOTES, 'UTF-8'),
 				'start'       => 0,
 				'limit'       => 5
-			];
+			);
 
 			$results = $this->model_extension_feed_google_base->getGoogleBaseCategories($filter_data);
 
 			foreach ($results as $result) {
-				$json[] = [
+				$json[] = array(
 					'google_base_category_id' => $result['google_base_category_id'],
 					'name'                    => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
-				];
+				);
 			}
 		}
 

@@ -39,7 +39,7 @@ class ControllerExtensionTotalShipping extends Controller {
 	public function quote() {
 		$this->load->language('extension/total/shipping');
 
-		$json = [];
+		$json = array();
 
 		if (!$this->cart->hasProducts()) {
 			$json['error']['warning'] = $this->language->get('error_product');
@@ -100,7 +100,7 @@ class ControllerExtensionTotalShipping extends Controller {
 				$zone_code = '';
 			}
 
-			$this->session->data['shipping_address'] = [
+			$this->session->data['shipping_address'] = array(
 				'firstname'      => '',
 				'lastname'       => '',
 				'company'        => '',
@@ -116,9 +116,9 @@ class ControllerExtensionTotalShipping extends Controller {
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
 				'address_format' => $address_format
-			];
+			);
 
-			$quote_data = [];
+			$quote_data = array();
 
 			$this->load->model('setting/extension');
 
@@ -131,17 +131,17 @@ class ControllerExtensionTotalShipping extends Controller {
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
 
 					if ($quote) {
-						$quote_data[$result['code']] = [
+						$quote_data[$result['code']] = array(
 							'title'      => $quote['title'],
 							'quote'      => $quote['quote'],
 							'sort_order' => $quote['sort_order'],
 							'error'      => $quote['error']
-						];
+						);
 					}
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($quote_data as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
@@ -165,7 +165,7 @@ class ControllerExtensionTotalShipping extends Controller {
 	public function shipping() {
 		$this->load->language('extension/total/shipping');
 
-		$json = [];
+		$json = array();
 
 		if (!empty($this->request->post['shipping_method'])) {
 			$shipping = explode('.', $this->request->post['shipping_method']);
@@ -192,7 +192,7 @@ class ControllerExtensionTotalShipping extends Controller {
 	}
 
 	public function country() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('localisation/country');
 
@@ -201,7 +201,7 @@ class ControllerExtensionTotalShipping extends Controller {
 		if ($country_info) {
 			$this->load->model('localisation/zone');
 
-			$json = [
+			$json = array(
 				'country_id'        => $country_info['country_id'],
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
@@ -210,7 +210,7 @@ class ControllerExtensionTotalShipping extends Controller {
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

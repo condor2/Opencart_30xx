@@ -12,7 +12,7 @@
 */
 final class Router {
 	private $registry;
-	private $pre_action = [];
+	private $pre_action = array();
 	private $error;
 	
 	/**

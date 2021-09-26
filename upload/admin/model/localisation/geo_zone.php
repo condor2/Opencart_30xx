@@ -47,14 +47,14 @@ class ModelLocalisationGeoZone extends Model {
 		return $query->row;
 	}
 
-	public function getGeoZones($data = []) {
+	public function getGeoZones($data = array()) {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "geo_zone`";
 
-			$sort_data = [
+			$sort_data = array(
 				'`name`',
 				'`description`'
-			];
+			);
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 				$sql .= " ORDER BY `" . $data['sort'] . "`";

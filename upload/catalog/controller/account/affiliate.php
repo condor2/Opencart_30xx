@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountAffiliate extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function add() {
 		if (!$this->customer->isLogged()) {
@@ -60,28 +60,28 @@ class ControllerAccountAffiliate extends Controller {
 
 		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
 		if ($this->request->get['route'] == 'account/affiliate/add') {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_affiliate'),
 				'href' => $this->url->link('account/affiliate/add', '', true)
-			];
+			);
 		} else {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_affiliate'),
 				'href' => $this->url->link('account/affiliate/edit', '', true)
-			];
+			);
 		}
 	
 		if (isset($this->error['warning'])) {
@@ -117,7 +117,7 @@ class ControllerAccountAffiliate extends Controller {
 		if (isset($this->error['custom_field'])) {
 			$data['error_custom_field'] = $this->error['custom_field'];
 		} else {
-			$data['error_custom_field'] = [];
+			$data['error_custom_field'] = array();
 		}
 				
 		$data['action'] = $this->url->link($this->request->get['route'], '', true);
@@ -230,7 +230,7 @@ class ControllerAccountAffiliate extends Controller {
 		} elseif (isset($affiliate_info)) {
 			$data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
 		} else {
-			$data['affiliate_custom_field'] = [];
+			$data['affiliate_custom_field'] = array();
 		}
 
 		$affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
@@ -291,7 +291,7 @@ class ControllerAccountAffiliate extends Controller {
 			if ($custom_field['location'] == 'affiliate') {
 				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/']])) {
+				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/')))) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 				}
 			}

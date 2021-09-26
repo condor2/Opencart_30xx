@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->model('setting/setting');
@@ -158,7 +158,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			$data['payment_securetrading_pp_cards_accepted'] = $this->config->get('payment_securetrading_pp_cards_accepted');
 
 			if ($data['payment_securetrading_pp_cards_accepted'] == null) {
-				$data['payment_securetrading_pp_cards_accepted'] = [];
+				$data['payment_securetrading_pp_cards_accepted'] = array();
 			}
 		}
 
@@ -194,26 +194,26 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			$data['error_notification_password'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/securetrading_pp', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-		$data['cards'] = [
+		$data['cards'] = array(
 			'AMEX' => 'American Express',
 			'VISA' => 'Visa',
 			'DELTA' => 'Visa Debit',
@@ -224,14 +224,14 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			'MASTERCARDDEBIT' => 'MasterCard Debit',
 			'MAESTRO' => 'Maestro',
 			'PAYPAL' => 'PayPal',
-		];
+		);
 
-		$data['settlement_statuses'] = [
+		$data['settlement_statuses'] = array(
 			'0' => $this->language->get('text_pending_settlement'),
 			'1' => $this->language->get('text_pending_settlement_manually_overriden'),
 			'2' => $this->language->get('text_pending_suspended'),
 			'100' => $this->language->get('text_pending_settled'),
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/payment/securetrading_pp', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -283,7 +283,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/securetrading_pp');
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/securetrading_pp');
@@ -305,11 +305,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'reversed', 0.00);
 					$this->model_extension_payment_securetrading_pp->updateVoidStatus($securetrading_pp_order['securetrading_pp_order_id'], 1);
 
-					$this->data = [
+					$this->data = array(
 						'order_status_id' => $this->config->get('payment_securetrading_pp_authorisation_reversed_order_status_id'),
 						'notify' => false,
 						'comment' => '',
-					];
+					);
 
 					$this->load->model('sale/order');
 
@@ -333,7 +333,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/securetrading_pp');
-		$json = [];
+		$json = array();
 
 		$amount = number_format($this->request->post['amount'], 2);
 
@@ -364,7 +364,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 						$this->load->model('sale/order');
 
-						$history = [];
+						$history = array();
 						$history['order_status_id'] = $this->config->get('securetrading_pp_order_status_success_settled_id');
 						$history['comment'] = '';
 						$history['notify'] = '';
@@ -375,7 +375,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$json['msg'] = $this->language->get('text_release_ok');
 					}
 
-					$json['data'] = [];
+					$json['data'] = array();
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount;
 					$json['data']['release_status'] = $release_status;
@@ -396,7 +396,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/securetrading_pp');
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/securetrading_pp');
@@ -431,7 +431,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 						$this->load->model('sale/order');
 
-						$history = [];
+						$history = array();
 						$history['order_status_id'] = $this->config->get('payment_securetrading_pp_refunded_order_status_id');
 						$history['comment'] = '';
 						$history['notify'] = '';
@@ -442,7 +442,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$json['msg'] = $this->language->get('text_rebate_ok');
 					}
 
-					$json['data'] = [];
+					$json['data'] = array();
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount * -1;
 					$json['data']['total_released'] = (double)$total_released;

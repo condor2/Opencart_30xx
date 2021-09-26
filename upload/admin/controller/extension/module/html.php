@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleHTML extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/html');
@@ -56,28 +56,28 @@ class ControllerExtensionModuleHTML extends Controller {
 			$data['error_name'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
-		];
+		);
 
 		if (!isset($this->request->get['module_id'])) {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('extension/module/html', 'user_token=' . $this->session->data['user_token'], true)
-			];
+			);
 		} else {
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('extension/module/html', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true)
-			];
+			);
 		}
 
 		if (!isset($this->request->get['module_id'])) {
@@ -105,7 +105,7 @@ class ControllerExtensionModuleHTML extends Controller {
 		} elseif (!empty($module_info)) {
 			$data['module_description'] = $module_info['module_description'];
 		} else {
-			$data['module_description'] = [];
+			$data['module_description'] = array();
 		}
 
 		$this->load->model('localisation/language');

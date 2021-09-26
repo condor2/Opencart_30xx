@@ -26,22 +26,22 @@ class ControllerAccountWishList extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/wishlist')
-		];
+		);
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -51,7 +51,7 @@ class ControllerAccountWishList extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['products'] = [];
+		$data['products'] = array();
 
 		$results = $this->model_account_wishlist->getWishlist();
 
@@ -85,7 +85,7 @@ class ControllerAccountWishList extends Controller {
 					$special = false;
 				}
 
-				$data['products'][] = [
+				$data['products'][] = array(
 					'product_id' => $product_info['product_id'],
 					'thumb'      => $image,
 					'name'       => $product_info['name'],
@@ -96,7 +96,7 @@ class ControllerAccountWishList extends Controller {
 					'minimum'    => ($product_info['minimum'] > 0 ? $product_info['minimum'] : 1),	
 					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
 					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
-				];
+				);
 			} else {
 				$this->model_account_wishlist->deleteWishlist($result['product_id']);
 			}
@@ -117,7 +117,7 @@ class ControllerAccountWishList extends Controller {
 	public function add() {
 		$this->load->language('account/wishlist');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['product_id'])) {
 			$product_id = (int)$this->request->post['product_id'];
@@ -141,7 +141,7 @@ class ControllerAccountWishList extends Controller {
 				$json['total'] = sprintf($this->language->get('text_wishlist_total'), $this->model_account_wishlist->getTotalWishlist());
 			} else {
 				if (!isset($this->session->data['wishlist'])) {
-					$this->session->data['wishlist'] = [];
+					$this->session->data['wishlist'] = array();
 				}
 
 				$this->session->data['wishlist'][] = $this->request->post['product_id'];

@@ -9,7 +9,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 			$data['heading_title'] = $this->language->get('heading_title');
 
-			$data['products'] = [];
+			$data['products'] = array();
 
 			$products = $this->cache->get('ebay_listing.' . md5(serialize($products)));
 
@@ -26,7 +26,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('ebay_listing_width'), $this->config->get('ebay_listing_height'));
 				}
 
-				$data['products'][] = [
+				$data['products'][] = array(
 					'thumb' => $image, 
 					'name'  => base64_decode($product['Title']), 
 					'price' => $this->currency->format($product['priceGross'], $this->session->data['currency']), 

@@ -20,12 +20,12 @@ class ModelExtensionShippingUsps extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
 			$this->load->model('localisation/country');
 
-			$quote_data = [];
+			$quote_data = array();
 
 			$weight = ($weight < 0.1 ? 0.1 : $weight);
 			$pounds = floor($weight);

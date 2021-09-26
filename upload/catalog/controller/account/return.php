@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountReturn extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -13,17 +13,17 @@ class ControllerAccountReturn extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
 		$url = '';
 
@@ -31,10 +31,10 @@ class ControllerAccountReturn extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/return', $url, true)
-		];
+		);
 
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
@@ -42,7 +42,7 @@ class ControllerAccountReturn extends Controller {
 			$page = 1;
 		}
 
-		$data['returns'] = [];
+		$data['returns'] = array();
 
 		$this->load->model('account/return');
 
@@ -51,14 +51,14 @@ class ControllerAccountReturn extends Controller {
 		$results = $this->model_account_return->getReturns(($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
-			$data['returns'][] = [
+			$data['returns'][] = array(
 				'return_id'  => $result['return_id'],
 				'order_id'   => $result['order_id'],
 				'name'       => $result['firstname'] . ' ' . $result['lastname'],
 				'status'     => $result['status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'href'       => $this->url->link('account/return/info', 'return_id=' . $result['return_id'] . $url, true)
-			];
+			);
 		}
 
 		$pagination = new Pagination();
@@ -105,17 +105,17 @@ class ControllerAccountReturn extends Controller {
 		if ($return_info) {
 			$this->document->setTitle($this->language->get('text_return'));
 
-			$data['breadcrumbs'] = [];
+			$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home', '', true)
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_account'),
 				'href' => $this->url->link('account/account', '', true)
-			];
+			);
 
 			$url = '';
 
@@ -123,15 +123,15 @@ class ControllerAccountReturn extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('account/return', $url, true)
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_return'),
 				'href' => $this->url->link('account/return/info', 'return_id=' . $this->request->get['return_id'] . $url, true)
-			];
+			);
 
 			$data['return_id'] = $return_info['return_id'];
 			$data['order_id'] = $return_info['order_id'];
@@ -149,16 +149,16 @@ class ControllerAccountReturn extends Controller {
 			$data['comment'] = nl2br($return_info['comment']);
 			$data['action'] = $return_info['action'];
 
-			$data['histories'] = [];
+			$data['histories'] = array();
 
 			$results = $this->model_account_return->getReturnHistories($this->request->get['return_id']);
 
 			foreach ($results as $result) {
-				$data['histories'][] = [
+				$data['histories'][] = array(
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 					'status'     => $result['status'],
 					'comment'    => nl2br($result['comment'])
-				];
+				);
 			}
 
 			$data['continue'] = $this->url->link('account/return', $url, true);
@@ -174,22 +174,22 @@ class ControllerAccountReturn extends Controller {
 		} else {
 			$this->document->setTitle($this->language->get('text_return'));
 
-			$data['breadcrumbs'] = [];
+			$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home')
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_account'),
 				'href' => $this->url->link('account/account', '', true)
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('account/return', '', true)
-			];
+			);
 
 			$url = '';
 
@@ -197,10 +197,10 @@ class ControllerAccountReturn extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_return'),
 				'href' => $this->url->link('account/return/info', 'return_id=' . $return_id . $url, true)
-			];
+			);
 
 			$data['continue'] = $this->url->link('account/return', '', true);
 
@@ -232,22 +232,22 @@ class ControllerAccountReturn extends Controller {
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/return/add', '', true)
-		];
+		);
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -517,17 +517,17 @@ class ControllerAccountReturn extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/return', '', true)
-		];
+		);
 
 		$data['continue'] = $this->url->link('common/home');
 

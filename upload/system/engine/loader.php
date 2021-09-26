@@ -30,7 +30,7 @@ final class Loader {
 	 *
 	 * @return	mixed
  	*/	
-	public function controller($route, $data = []) {
+	public function controller($route, $data = array()) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -99,7 +99,7 @@ final class Loader {
 	 *
 	 * @return	string
  	*/
-	public function view($route, $data = []) {
+	public function view($route, $data = array()) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -242,7 +242,7 @@ final class Loader {
 				
 				$method = substr($route, strrpos($route, '/') + 1);
 				
-				$callable = [$model[$key], $method];
+				$callable = array($model[$key], $method);
 	
 				if (is_callable($callable)) {
 					$output = call_user_func_array($callable, $args);

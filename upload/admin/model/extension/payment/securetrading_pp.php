@@ -171,7 +171,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	public function call($data) {
 		$ch = curl_init();
 
-		$defaults = [
+		$defaults = array(
 			CURLOPT_POST => 1,
 			CURLOPT_HEADER => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
@@ -186,7 +186,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 				'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_pp_webservice_username') . ':' . $this->config->get('payment_securetrading_pp_webservice_password')),
 			],
 			CURLOPT_POSTFIELDS => $data,
-		];
+		);
 
 		curl_setopt_array($ch, $defaults);
 

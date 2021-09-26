@@ -21,22 +21,22 @@ class ControllerExtensionReportProductViewed extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/report/product_viewed', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/report/product_viewed', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -82,12 +82,12 @@ class ControllerExtensionReportProductViewed extends Controller {
 
 		$this->load->model('extension/report/product');
 
-		$filter_data = [
+		$filter_data = array(
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
-		$data['products'] = [];
+		$data['products'] = array();
 
 		$product_viewed_total = $this->model_extension_report_product->getTotalProductViews();
 
@@ -102,12 +102,12 @@ class ControllerExtensionReportProductViewed extends Controller {
 				$percent = 0;
 			}
 
-			$data['products'][] = [
+			$data['products'][] = array(
 				'name'    => $result['name'],
 				'model'   => $result['model'],
 				'viewed'  => $result['viewed'],
 				'percent' => $percent . '%'
-			];
+			);
 		}
 		
 		$data['user_token'] = $this->session->data['user_token'];

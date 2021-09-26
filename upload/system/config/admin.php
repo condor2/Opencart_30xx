@@ -22,37 +22,37 @@ $_['error_display']     = true;
 $_['template_cache']    = true;
 
 // Actions
-$_['action_pre_action'] = [
+$_['action_pre_action'] = array(
 	'startup/startup',
 	'startup/error',
 	'startup/event',
 	'startup/sass',
 	'startup/login',
 	'startup/permission'
-];
+);
 
 // Actions
 $_['action_default'] = 'common/dashboard';
 
 // Action Events
-$_['action_event'] = [
-	'controller/*/before' => [
+$_['action_event'] = array(
+	'controller/*/before' => array(
 		'event/language/before'
-	],
-	'controller/*/after' => [
+	),
+	'controller/*/after' => array(
 		'event/language/after'
-	],
-	'view/*/before' => [
+	),
+	'view/*/before' => array(
 		999  => 'event/language',
 		1000 => 'event/theme'
-	],
-	'view/*/before' => [
+	),
+	'view/*/before' => array(
 		'event/language'
-	],
-	//'model/*/after' => [
+	),
+	//'model/*/after' => array(
 	//	'event/debug/before'
-	//],
-	//'model/*/after'  => [
+	//),
+	//'model/*/after'  => array(
 	//	'event/debug/after'
-	//]
-];
+	//)
+);

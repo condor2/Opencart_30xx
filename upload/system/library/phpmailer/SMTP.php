@@ -177,7 +177,7 @@ class SMTP
      *
      * @var string[]
      */
-    protected $smtp_transaction_id_patterns = [
+    protected $smtp_transaction_id_patterns = array(
         'exim' => '/[\d]{3} OK id=(.*)/',
         'sendmail' => '/[\d]{3} 2.0.0 (.*) Message/',
         'postfix' => '/[\d]{3} 2.0.0 Ok: queued as (.*)/',
@@ -185,7 +185,7 @@ class SMTP
         'Amazon_SES' => '/[\d]{3} Ok (.*)/',
         'SendGrid' => '/[\d]{3} Ok: queued as (.*)/',
         'CampaignMonitor' => '/[\d]{3} 2.0.0 OK:([a-zA-Z\d]{48})/',
-    ];
+    );
 
     /**
      * The last transaction ID issued in response to a DATA command,
@@ -207,12 +207,12 @@ class SMTP
      *
      * @var array
      */
-    protected $error = [
+    protected $error = array(
         'error' => '',
         'detail' => '',
         'smtp_code' => '',
         'smtp_code_ex' => '',
-    ];
+    );
 
     /**
      * The reply the server sent to us for HELO.
@@ -309,7 +309,7 @@ class SMTP
      *
      * @return bool
      */
-    public function connect($host, $port = null, $timeout = 30, $options = [])
+    public function connect($host, $port = null, $timeout = 30, $options = array())
     {
         // Clear errors to avoid confusion
         $this->setError('');
@@ -356,7 +356,7 @@ class SMTP
      *
      * @return false|resource
      */
-    protected function getSMTPConnection($host, $port = null, $timeout = 30, $options = [])
+    protected function getSMTPConnection($host, $port = null, $timeout = 30, $options = array())
     {
         static $streamok;
         //This is enabled by default since 5.0.0 but some providers disable it
@@ -719,7 +719,7 @@ class SMTP
         }
 
         foreach ($lines as $line) {
-            $lines_out = [];
+            $lines_out = array();
             if ($in_headers && $line === '') {
                 $in_headers = false;
             }
@@ -819,7 +819,7 @@ class SMTP
      */
     protected function parseHelloFields($type)
     {
-        $this->server_caps = [];
+        $this->server_caps = array();
         $lines = explode("\n", $this->helo_rply);
 
         foreach ($lines as $n => $s) {
@@ -841,7 +841,7 @@ class SMTP
                             break;
                         case 'AUTH':
                             if (!is_array($fields)) {
-                                $fields = [];
+                                $fields = array();
                             }
                             break;
                         default:
@@ -915,7 +915,7 @@ class SMTP
             $rcpt = 'RCPT TO:<' . $address . '>';
         } else {
             $dsn = strtoupper($dsn);
-            $notify = [];
+            $notify = array();
 
             if (strpos($dsn, 'NEVER') !== false) {
                 $notify[] = 'NEVER';
@@ -975,7 +975,7 @@ class SMTP
 
         $this->last_reply = $this->get_lines();
         // Fetch SMTP code and possible error code explanation
-        $matches = [];
+        $matches = array();
         if (preg_match('/^([\d]{3})[ -](?:([\d]\\.[\d]\\.[\d]{1,2}) )?/', $this->last_reply, $matches)) {
             $code = (int) $matches[1];
             $code_ex = (count($matches) > 2 ? $matches[2] : null);
@@ -1190,7 +1190,7 @@ class SMTP
         if ($this->Timelimit > 0) {
             $endtime = time() + $this->Timelimit;
         }
-        $selR = [$this->smtp_conn];
+        $selR = array($this->smtp_conn);
         $selW = null;
         while (is_resource($this->smtp_conn) && !feof($this->smtp_conn)) {
             //Must pass vars in here as params are by reference
@@ -1264,12 +1264,12 @@ class SMTP
      */
     protected function setError($message, $detail = '', $smtp_code = '', $smtp_code_ex = '')
     {
-        $this->error = [
+        $this->error = array(
             'error' => $message,
             'detail' => $detail,
             'smtp_code' => $smtp_code,
             'smtp_code_ex' => $smtp_code_ex,
-        ];
+        );
     }
 
     /**
@@ -1372,7 +1372,7 @@ class SMTP
         } else {
             $this->last_smtp_transaction_id = false;
             foreach ($this->smtp_transaction_id_patterns as $smtp_transaction_id_pattern) {
-                $matches = [];
+                $matches = array();
                 if (preg_match($smtp_transaction_id_pattern, $reply, $matches)) {
                     $this->last_smtp_transaction_id = trim($matches[1]);
                     break;

@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonForgotten extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
@@ -19,7 +19,7 @@ class ControllerCommonForgotten extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_user_user->editCode($this->request->post['email'], token(40));
-			
+
 			$this->session->data['success'] = $this->language->get('text_success');
 
 			$this->response->redirect($this->url->link('common/login', '', true));
@@ -31,17 +31,17 @@ class ControllerCommonForgotten extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', '', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('common/forgotten', 'user_token=' . '', true)
-		];
+		);
 
 		$data['action'] = $this->url->link('common/forgotten', '', true);
 

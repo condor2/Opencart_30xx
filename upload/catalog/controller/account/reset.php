@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountReset extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		if ($this->customer->isLogged()) {
@@ -43,22 +43,22 @@ class ControllerAccountReset extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 
-			$data['breadcrumbs'] = [];
+			$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_home'),
 				'href' => $this->url->link('common/home')
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_account'),
 				'href' => $this->url->link('account/account', '', true)
-			];
+			);
 
-			$data['breadcrumbs'][] = [
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
 				'href' => $this->url->link('account/reset', '', true)
-			];
+			);
 
 			if (isset($this->error['password'])) {
 				$data['error_password'] = $this->error['password'];

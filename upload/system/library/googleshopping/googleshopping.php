@@ -178,7 +178,7 @@ class Googleshopping extends Library {
         $page = 0;
 
         while (null !== $products = $this->getFeedProducts(++$page, $job['language_id'], $job['currency'])) {
-            $post = [];
+            $post = array();
 
             $post_data = array(
                 'product' => $products,
@@ -223,7 +223,7 @@ class Googleshopping extends Library {
 
         $sql = "SELECT DISTINCT pag.product_id, pag.color, pag.size FROM `" . DB_PREFIX . "googleshopping_product` pag LEFT JOIN `" . DB_PREFIX . "product` p ON (p.product_id = pag.product_id) LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.product_id = p.product_id AND p2s.store_id=" . (int)$this->store_id . ") WHERE p2s.store_id IS NOT NULL AND p.status = 1 AND p.date_available <= NOW() AND p.price > 0 ORDER BY p.product_id ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_report_limit')) . ', ' . (int)$this->config->get('advertise_google_report_limit');
 
-        $result = [];
+        $result = array();
 
         $this->load->model('localisation/language');
 
@@ -248,7 +248,7 @@ class Googleshopping extends Library {
 
         $url = '';
 
-        $data = [];
+        $data = array();
 
         parse_str($url_info['query'], $data);
 
@@ -310,7 +310,7 @@ class Googleshopping extends Library {
     protected function getFeedProducts($page, $language_id, $currency) {
         $sql = $this->getFeedProductsQuery($page, $language_id);
 
-        $result = [];
+        $result = array();
 
         $this->setRuntimeExceptionErrorHandler();
 
@@ -354,7 +354,7 @@ class Googleshopping extends Library {
                 }
             }
 
-            $campaigns = [];
+            $campaigns = array();
             $custom_label_0 = '';
             $custom_label_1 = '';
             $custom_label_2 = '';
@@ -445,7 +445,7 @@ class Googleshopping extends Library {
             'size' => $this->getProductOptionValueNames($product_id, $language_id, $size_id)
         );
 
-        $result = [];
+        $result = array();
 
         foreach ($this->combineOptions($options) as $group) {
             $key = $product_id . '-' . md5(json_encode(array('color' => $group['color'], 'size' => $group['size'])));
@@ -462,7 +462,7 @@ class Googleshopping extends Library {
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $return = [];
+            $return = array();
 
             foreach ($result->rows as $row) {
                 $text = $this->sanitizeText($row['name'], 100);
@@ -554,7 +554,7 @@ class Googleshopping extends Library {
     }
 
     public function getProductIds($data, $store_id) {
-        $result = [];
+        $result = array();
 
         $this->load->model('localisation/language');
 
@@ -596,7 +596,7 @@ class Googleshopping extends Library {
 
         $this->load->config('googleshopping/googleshopping');
 
-        $report = [];
+        $report = array();
 
         $report[] = $this->output("Starting CRON task for " . $this->getStoreUrl());
 
@@ -723,7 +723,7 @@ class Googleshopping extends Library {
     }
 
     public function getProductVariationTargetSpecificIds($data) {
-        $result = [];
+        $result = array();
 
         $targets = $this->getTargets($this->store_id);
 
@@ -737,7 +737,7 @@ class Googleshopping extends Library {
                     $groups = $this->getGroups($row['product_id'], $language_id, $row['color'], $row['size']);
 
                     foreach (array_keys($groups) as $id) {
-                        $id_parts = [];
+                        $id_parts = array();
                         $id_parts[] = 'online';
                         $id_parts[] = $language_code;
                         $id_parts[] = $target['country']['code'];
@@ -757,10 +757,10 @@ class Googleshopping extends Library {
     }
 
     public function updateProductReports($reports) {
-        $values = [];
+        $values = array();
 
         foreach ($reports as $report) {
-            $entry = [];
+            $entry = array();
             $entry['product_id'] = $this->getProductIdFromOfferId($report['offer_id']);
             $entry['store_id'] = (int)$this->store_id;
             $entry['impressions'] = (int)$report['impressions'];
@@ -778,10 +778,10 @@ class Googleshopping extends Library {
     }
 
     public function updateProductStatuses($statuses) {
-        $product_advertise_google = [];
-        $product_advertise_google_status = [];
-        $product_level_entries = [];
-        $entry_statuses = [];
+        $product_advertise_google = array();
+        $product_advertise_google_status = array();
+        $product_level_entries = array();
+        $entry_statuses = array();
 
         foreach ($statuses as $status) {
             $product_id = $this->getProductIdFromTargetSpecificId($status['productId']);
@@ -818,30 +818,30 @@ class Googleshopping extends Library {
             }
 
             if (!isset($entry_statuses[$product_variation_id])) {
-                $entry_statuses[$product_variation_id] = [];
+                $entry_statuses[$product_variation_id] = array();
 
                 $entry_statuses[$product_variation_id]['product_id'] = (int)$product_id;
                 $entry_statuses[$product_variation_id]['store_id'] = (int)$this->store_id;
                 $entry_statuses[$product_variation_id]['product_variation_id'] = "'" . $this->db->escape($product_variation_id) . "'";
-                $entry_statuses[$product_variation_id]['destination_statuses'] = [];
-                $entry_statuses[$product_variation_id]['data_quality_issues'] = [];
-                $entry_statuses[$product_variation_id]['item_level_issues'] = [];
+                $entry_statuses[$product_variation_id]['destination_statuses'] = array();
+                $entry_statuses[$product_variation_id]['data_quality_issues'] = array();
+                $entry_statuses[$product_variation_id]['item_level_issues'] = array();
                 $entry_statuses[$product_variation_id]['google_expiration_date'] = (int)strtotime($status['googleExpirationDate']);
             }
 
             $entry_statuses[$product_variation_id]['destination_statuses'] = array_merge(
                 $entry_statuses[$product_variation_id]['destination_statuses'],
-                !empty($status['destinationStatuses']) ? $status['destinationStatuses'] : []
+                !empty($status['destinationStatuses']) ? $status['destinationStatuses'] : array()
             );
 
             $entry_statuses[$product_variation_id]['data_quality_issues'] = array_merge(
                 $entry_statuses[$product_variation_id]['data_quality_issues'],
-                !empty($status['dataQualityIssues']) ? $status['dataQualityIssues'] : []
+                !empty($status['dataQualityIssues']) ? $status['dataQualityIssues'] : array()
             );
 
             $entry_statuses[$product_variation_id]['item_level_issues'] = array_merge(
                 $entry_statuses[$product_variation_id]['item_level_issues'],
-                !empty($status['itemLevelIssues']) ? $status['itemLevelIssues'] : []
+                !empty($status['itemLevelIssues']) ? $status['itemLevelIssues'] : array()
             );
         }
 
@@ -909,7 +909,7 @@ class Googleshopping extends Library {
     }
 
     protected function getJobs() {
-        $jobs = [];
+        $jobs = array();
 
         if ($this->setting->has('advertise_google_work') && is_array($this->setting->get('advertise_google_work'))) {
             $this->load->model('extension/advertise/google');
@@ -923,7 +923,7 @@ class Googleshopping extends Library {
 
                     $jobs[] = array(
                         'work_id' => $work['work_id'],
-                        'countries' => isset($work['countries']) && is_array($work['countries']) ? $work['countries'] : [],
+                        'countries' => isset($work['countries']) && is_array($work['countries']) ? $work['countries'] : array(),
                         'language_id' => $supported_language_id,
                         'currency' => $currency_info['code']
                     );
@@ -988,7 +988,7 @@ class Googleshopping extends Library {
         $result = array([]);
 
         foreach ($arrays as $property => $property_values) {
-            $tmp = [];
+            $tmp = array();
             foreach ($result as $result_item) {
                 foreach ($property_values as $property_value) {
                     $tmp[] = array_merge($result_item, array($property => $property_value));
@@ -1117,7 +1117,7 @@ class Googleshopping extends Library {
         $tracker = $this->setting->get('advertise_google_conversion_tracker');
 
         if (!empty($tracker['google_event_snippet'])) {
-            $matches = [];
+            $matches = array();
 
             preg_match('~send_to\': \'([a-zA-Z0-9-]*).*\'~', $tracker['google_event_snippet'], $matches);
 
@@ -1194,8 +1194,8 @@ class Googleshopping extends Library {
     }
 
     public function getCampaignReports() {
-        $targets = [];
-        $statuses = [];
+        $targets = array();
+        $statuses = array();
         
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = $target['campaign_name'];
@@ -1224,14 +1224,14 @@ class Googleshopping extends Library {
             );
 
             // Get date range
-            $matches = [];
+            $matches = array();
             preg_match('~CAMPAIGN_PERFORMANCE_REPORT \((.*?)\)~', $lines[0], $matches);
             $result['date_range'] = $matches[1];
 
             $header = explode(',', $lines[1]);
-            $data = [];
-            $total = [];
-            $value_keys = [];
+            $data = array();
+            $total = array();
+            $value_keys = array();
 
             $campaign_keys = array_flip($targets);
 
@@ -1321,7 +1321,7 @@ class Googleshopping extends Library {
             return $cache_result['result'];
         }
 
-        $post = [];
+        $post = array();
         $post_data = array(
             'product_ids' => $product_ids
         );
@@ -1338,14 +1338,14 @@ class Googleshopping extends Library {
 
         $response = $this->api($request);
 
-        $result = [];
+        $result = array();
 
         if (!empty($response['ad_report'])) {
             $lines = explode("\n", trim($response['ad_report']));
 
             $header = explode(',', $lines[1]);
-            $data = [];
-            $keys = [];
+            $data = array();
+            $keys = array();
             
             $expected = array(
                 'Item Id' => 'offer_id',
@@ -1369,7 +1369,7 @@ class Googleshopping extends Library {
             for ($j = 2; $j < count($lines) - 1; $j++) {
                 $line_items = explode(',', $lines[$j]);
 
-                $result[$j] = [];
+                $result[$j] = array();
 
                 foreach ($line_items as $k => $line_item) {
                     if (in_array($k, array_keys($data))) {
@@ -1503,7 +1503,7 @@ class Googleshopping extends Library {
     }
 
     public function authorize($data) {
-        $query = [];
+        $query = array();
 
         $query['response_type'] = 'code';
         $query['client_id'] = $data['app_id'];
@@ -1553,7 +1553,7 @@ class Googleshopping extends Library {
     }
 
     public function deleteCampaign($name) {
-        $post = [];
+        $post = array();
         $data = array(
             'delete' => array(
                 $name
@@ -1574,8 +1574,8 @@ class Googleshopping extends Library {
     }
 
     public function pushTargets() {
-        $post = [];
-        $targets = [];
+        $post = array();
+        $targets = array();
 
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = array(
@@ -1608,7 +1608,7 @@ class Googleshopping extends Library {
     }
 
     public function pushShippingAndTaxes() {
-        $post = [];
+        $post = array();
         $data = $this->setting->get('advertise_google_shipping_taxes');
 
         $this->curlPostQuery($data, $post);
@@ -1635,8 +1635,8 @@ class Googleshopping extends Library {
     }
 
     public function pushCampaignStatus() {
-        $post = [];
-        $targets = [];
+        $post = array();
+        $targets = array();
 
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = array(
@@ -1677,7 +1677,7 @@ class Googleshopping extends Library {
     public function getLanguages($language_codes) {
         $this->load->config('googleshopping/googleshopping');
 
-        $result = [];
+        $result = array();
 
         foreach ($this->config->get('advertise_google_languages') as $code => $name) {
             if (in_array($code, $language_codes)) {
@@ -1709,11 +1709,11 @@ class Googleshopping extends Library {
     }
 
     public function getCurrencies($currency_codes) {
-        $result = [];
+        $result = array();
 
         $this->load->config('googleshopping/googleshopping');
 
-        $result = [];
+        $result = array();
 
         foreach ($this->config->get('advertise_google_currencies') as $code => $name) {
             if (in_array($code, $currency_codes)) {
@@ -1790,7 +1790,7 @@ class Googleshopping extends Library {
         );
     }
 
-    private function curlPostQuery($arrays, &$new = [], $prefix = null) {
+    private function curlPostQuery($arrays, &$new = array(), $prefix = null) {
         foreach ($arrays as $key => $value) {
             $k = isset($prefix) ? $prefix . '[' . $key . ']' : $key;
             if (is_array($value)) {
@@ -1855,7 +1855,7 @@ class Googleshopping extends Library {
 
         $url = sprintf($this->endpoint_url, $request['endpoint']);
 
-        $headers = [];
+        $headers = array();
 
         if (isset($request['content_type'])) {
             $headers[] = 'Content-Type: ' . $request['content_type'];
@@ -1867,7 +1867,7 @@ class Googleshopping extends Library {
             $headers[] = 'Authorization: Bearer ' . $this->setting->get('advertise_google_access_token');
         }
 
-        $curl_options = [];
+        $curl_options = array();
 
         if (isset($request['type']) && $request['type'] == 'POST') {
             $curl_options[CURLOPT_POST] = true;

@@ -3,7 +3,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/authorizenet_aim');
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -14,7 +14,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 
 		$today = getdate();
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
@@ -43,7 +43,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$data = [];
+		$data = array();
 
 		$data['x_login'] = $this->config->get('payment_authorizenet_aim_login');
 		$data['x_tran_key'] = $this->config->get('payment_authorizenet_aim_key');
@@ -114,7 +114,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 
 		$response = curl_exec($curl);
 
-		$json = [];
+		$json = array();
 
 		if (curl_error($curl)) {
 			$json['error'] = 'CURL ERROR: ' . curl_errno($curl) . '::' . curl_error($curl);
@@ -123,7 +123,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 		} elseif ($response) {
 			$i = 1;
 
-			$response_info = [];
+			$response_info = array();
 
 			$results = explode('|', $response);
 

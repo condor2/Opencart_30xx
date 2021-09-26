@@ -32,22 +32,22 @@ class ControllerCheckoutCheckout extends Controller {
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_cart'),
 			'href' => $this->url->link('checkout/cart')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('checkout/checkout', '', true)
-		];
+		);
 
 		$data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
 		$data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 2);
@@ -91,7 +91,7 @@ class ControllerCheckoutCheckout extends Controller {
 	}
 
 	public function country() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('localisation/country');
 
@@ -100,7 +100,7 @@ class ControllerCheckoutCheckout extends Controller {
 		if ($country_info) {
 			$this->load->model('localisation/zone');
 
-			$json = [
+			$json = array(
 				'country_id'        => $country_info['country_id'],
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
@@ -109,7 +109,7 @@ class ControllerCheckoutCheckout extends Controller {
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -117,7 +117,7 @@ class ControllerCheckoutCheckout extends Controller {
 	}
 
 	public function customfield() {
-		$json = [];
+		$json = array();
 
 		$this->load->model('account/custom_field');
 
@@ -131,10 +131,10 @@ class ControllerCheckoutCheckout extends Controller {
 		$custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
 
 		foreach ($custom_fields as $custom_field) {
-			$json[] = [
+			$json[] = array(
 				'custom_field_id' => $custom_field['custom_field_id'],
 				'required'        => $custom_field['required']
-			];
+			);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

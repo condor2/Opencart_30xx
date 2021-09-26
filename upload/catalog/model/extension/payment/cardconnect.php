@@ -15,69 +15,69 @@ class ModelExtensionPaymentCardConnect extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$method_data = [
+			$method_data = array(
 				'code'			=> 'cardconnect',
 				'title'			=> $this->language->get('text_title'),
 				'terms'			=> '',
 				'sort_order'	=> $this->config->get('payment_cardconnect_sort_order')
-			];
+			);
 		}
 
 		return $method_data;
 	}
 
 	public function getCardTypes() {
-		$cards = [];
+		$cards = array();
 
-		$cards[] = [
+		$cards[] = array(
 			'text'  => 'Visa',
 			'value' => 'VISA'
-		];
+		);
 
-		$cards[] = [
+		$cards[] = array(
 			'text'  => 'MasterCard',
 			'value' => 'MASTERCARD'
-		];
+		);
 
-		$cards[] = [
+		$cards[] = array(
 			'text'  => 'Discover Card',
 			'value' => 'DISCOVER'
-		];
+		);
 
-		$cards[] = [
+		$cards[] = array(
 			'text'  => 'American Express',
 			'value' => 'AMEX'
-		];
+		);
 
 		return $cards;
 	}
 
 	public function getMonths() {
-		$months = [];
+		$months = array();
 
 		for ($i = 1; $i <= 12; $i++) {
-			$months[] = [
+			$months[] = array(
 				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
-			];
+			);
 		}
 
 		return $months;
 	}
 
 	public function getYears() {
-		$years = [];
+		$years = array();
 
 		$today = getdate();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
-			$years[] = [
+			$years[] = array(
 				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
 				'value' => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
-			];
+			);
 		}
 
 		return $years;
@@ -122,7 +122,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/settlestat?merchid=' . $merchant_id . '&date=' . $date;
 
-		$header = [];
+		$header = array();
 
 		$header[] = 'Content-type: application/json';
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));

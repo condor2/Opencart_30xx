@@ -3,7 +3,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/pp_pro');
 
-		$data['cards'] = [];
+		$data['cards'] = array();
 
 		$data['cards'][] = array(
 			'text'  => 'Visa',
@@ -35,7 +35,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 			'value' => 'SOLO'
 		);
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -46,7 +46,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
 		$today = getdate();
 
-		$data['year_valid'] = [];
+		$data['year_valid'] = array();
 
 		for ($i = $today['year'] - 10; $i < $today['year'] + 1; $i++) {
 			$data['year_valid'][] = array(
@@ -55,7 +55,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 			);
 		}
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
@@ -152,11 +152,11 @@ class ControllerExtensionPaymentPPPro extends Controller {
 			$this->log->write('DoDirectPayment failed: ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
 		}
 
-		$response_info = [];
+		$response_info = array();
 
 		parse_str($response, $response_info);
 
-		$json = [];
+		$json = array();
 
 		if (($response_info['ACK'] == 'Success') || ($response_info['ACK'] == 'SuccessWithWarning')) {
 			$message = '';

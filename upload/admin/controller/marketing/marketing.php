@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketingMarketing extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('marketing/marketing');
@@ -213,24 +213,24 @@ class ControllerMarketingMarketing extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('marketing/marketing/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('marketing/marketing/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['marketings'] = [];
+		$data['marketings'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_name'       => $filter_name,
 			'filter_code'       => $filter_code,
 			'filter_date_added' => $filter_date_added,
@@ -238,14 +238,14 @@ class ControllerMarketingMarketing extends Controller {
 			'order'             => $order,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$marketing_total = $this->model_marketing_marketing->getTotalMarketings($filter_data);
 
 		$results = $this->model_marketing_marketing->getMarketings($filter_data);
 
 		foreach ($results as $result) {
-			$data['marketings'][] = [
+			$data['marketings'][] = array(
 				'marketing_id' => $result['marketing_id'],
 				'name'         => $result['name'],
 				'code'         => $result['code'],
@@ -253,7 +253,7 @@ class ControllerMarketingMarketing extends Controller {
 				'orders'       => $result['orders'],
 				'date_added'   => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'edit'         => $this->url->link('marketing/marketing/edit', 'user_token=' . $this->session->data['user_token'] . '&marketing_id=' . $result['marketing_id'] . $url, true)
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -275,7 +275,7 @@ class ControllerMarketingMarketing extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -399,17 +399,17 @@ class ControllerMarketingMarketing extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['marketing_id'])) {
 			$data['action'] = $this->url->link('marketing/marketing/add', 'user_token=' . $this->session->data['user_token'] . $url, true);

@@ -27,7 +27,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 	}
 	
 	public function cancel() {
-		$json = [];
+		$json = array();
 		
 		$this->load->language('extension/recurring/pp_express');
 		
@@ -55,7 +55,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				$api_signature = $this->config->get('payment_pp_express_signature');
 			}
 		
-			$request = [
+			$request = array(
 				'USER'         => $api_username,
 				'PWD'          => $api_password,
 				'SIGNATURE'    => $api_signature,
@@ -65,7 +65,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
 				'PROFILEID'    => $recurring_info['reference'],
 				'ACTION'       => 'Cancel'
-			];
+			);
 
 			$curl = curl_init($api_url);
 
@@ -84,7 +84,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 			
 			curl_close($curl);
 			
-			$response_info = [];
+			$response_info = array();
 			
 			parse_str($response, $response_info);
 

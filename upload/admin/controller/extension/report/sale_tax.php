@@ -21,22 +21,22 @@ class ControllerExtensionReportSaleTax extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/report/sale_tax', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/report/sale_tax', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -104,31 +104,31 @@ class ControllerExtensionReportSaleTax extends Controller {
 
 		$this->load->model('extension/report/sale');
 
-		$data['orders'] = [];
+		$data['orders'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'filter_date_start'	     => $filter_date_start,
 			'filter_date_end'	     => $filter_date_end,
 			'filter_group'           => $filter_group,
 			'filter_order_status_id' => $filter_order_status_id,
 			'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'                  => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$order_total = $this->model_extension_report_sale->getTotalTaxes($filter_data);
 
-		$data['orders'] = [];
+		$data['orders'] = array();
 
 		$results = $this->model_extension_report_sale->getTaxes($filter_data);
 
 		foreach ($results as $result) {
-			$data['orders'][] = [
+			$data['orders'][] = array(
 				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
 				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
 				'title'      => $result['title'],
 				'orders'     => $result['orders'],
 				'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
-			];
+			);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -137,27 +137,27 @@ class ControllerExtensionReportSaleTax extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		$data['groups'] = [];
+		$data['groups'] = array();
 
-		$data['groups'][] = [
+		$data['groups'][] = array(
 			'text'  => $this->language->get('text_year'),
 			'value' => 'year',
-		];
+		);
 
-		$data['groups'][] = [
+		$data['groups'][] = array(
 			'text'  => $this->language->get('text_month'),
 			'value' => 'month',
-		];
+		);
 
-		$data['groups'][] = [
+		$data['groups'][] = array(
 			'text'  => $this->language->get('text_week'),
 			'value' => 'week',
-		];
+		);
 
-		$data['groups'][] = [
+		$data['groups'][] = array(
 			'text'  => $this->language->get('text_day'),
 			'value' => 'day',
-		];
+		);
 
 		$url = '';
 

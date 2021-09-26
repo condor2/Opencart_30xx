@@ -1,8 +1,8 @@
 <?php
 class ControllerToolLog extends Controller {
-	protected $error = [];
+	protected $error = array();
 
-	public function index() {		
+	public function index() {
 		$this->load->language('tool/log');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -25,17 +25,17 @@ class ControllerToolLog extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['download'] = $this->url->link('tool/log/download', 'user_token=' . $this->session->data['user_token'], true);
 		$data['clear'] = $this->url->link('tool/log/clear', 'user_token=' . $this->session->data['user_token'], true);
@@ -44,11 +44,11 @@ class ControllerToolLog extends Controller {
 
 		$file = DIR_LOGS . $this->config->get('config_error_filename');
 
-		if (file_exists($file)) {
+		if (is_file($file)) {
 			$size = filesize($file);
 
 			if ($size >= 3145728) {
-				$suffix = [
+				$suffix = array(
 					'B',
 					'KB',
 					'MB',
@@ -58,7 +58,7 @@ class ControllerToolLog extends Controller {
 					'EB',
 					'ZB',
 					'YB'
-				];
+				);
 
 				$i = 0;
 
@@ -69,6 +69,12 @@ class ControllerToolLog extends Controller {
 
 				$data['error_warning'] = sprintf($this->language->get('error_warning'), basename($file), round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i]);
 			}
+
+			$handle = fopen($file, 'r+');
+
+			$data['log'] = fread($handle, 3145728);
+
+			fclose($handle);
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -83,7 +89,7 @@ class ControllerToolLog extends Controller {
 
 		$file = DIR_LOGS . $this->config->get('config_error_filename');
 
-		if (file_exists($file) && filesize($file) > 0) {
+		if (is_file($file) && filesize($file) > 0) {
 			$this->response->addheader('Pragma: public');
 			$this->response->addheader('Expires: 0');
 			$this->response->addheader('Content-Description: File Transfer');

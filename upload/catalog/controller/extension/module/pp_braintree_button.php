@@ -16,7 +16,7 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 				$this->load->model('checkout/order');
 				$this->load->model('extension/payment/pp_braintree');
 
-				$create_token = [];
+				$create_token = array();
 
 				$data['client_token'] = $this->model_extension_payment_pp_braintree->generateToken($this->gateway, $create_token);
 

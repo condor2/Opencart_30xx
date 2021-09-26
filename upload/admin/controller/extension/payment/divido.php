@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentDivido extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/divido');
@@ -18,16 +18,16 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
-		$data['entry_plans_options'] = [
+		$data['entry_plans_options'] = array(
 			'all'		=> $this->language->get('entry_plans_options_all'),
 			'selected'	=> $this->language->get('entry_plans_options_selected'),
-		];
+		);
 
-		$data['entry_products_options']= [
+		$data['entry_products_options']= array(
 			'all'		=> $this->language->get('entry_products_options_all'),
 			'selected'	=> $this->language->get('entry_products_options_selected'),
 			'threshold'	=> $this->language->get('entry_products_options_threshold'),
-		];
+		);
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -42,22 +42,22 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/divido', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/payment/divido', 'user_token=' . $this->session->data['user_token'], 'SSL');
 		
@@ -124,7 +124,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		} elseif ($this->config->get('payment_divido_plans_selected')) {
 			$data['payment_divido_plans_selected'] = $this->config->get('payment_divido_plans_selected');
 		} else {
-			$data['payment_divido_plans_selected'] = [];
+			$data['payment_divido_plans_selected'] = array();
 		}
 
 		if (isset($this->request->post['payment_divido_categories'])) {
@@ -132,10 +132,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 		} elseif ($this->config->get('payment_divido_categories')) {
 			$data['payment_divido_categories'] = $this->config->get('payment_divido_categories');
 		} else {
-			$data['payment_divido_categories'] = [];
+			$data['payment_divido_categories'] = array();
 		}
 
-		$data['categories'] = [];
+		$data['categories'] = array();
 
 		$this->load->model('catalog/category');
 
@@ -143,10 +143,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$category_info = $this->model_catalog_category->getCategory($category_id);
 
 			if ($category_info) {
-				$data['categories'][] = [
+				$data['categories'][] = array(
 					'category_id' 	=> $category_info['category_id'],
 					'name' 			=> ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
-				];
+				);
 			}
 		}
 
@@ -154,7 +154,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$data['divido_plans'] = $this->model_extension_payment_divido->getAllPlans();
 		} catch (Exception $e) {
 			$this->log->write($e->getMessage());
-			$data['divido_plans'] = [];
+			$data['divido_plans'] = array();
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

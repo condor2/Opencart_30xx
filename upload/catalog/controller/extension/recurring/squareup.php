@@ -41,7 +41,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
             $order_recurring_id = 0;
         }
 
-        $json = [];
+        $json = array();
         
         $recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);
 
@@ -74,12 +74,12 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
         $this->load->library('squareup');
 
-        $result = [
-            'transaction_success' => [],
-            'transaction_error' => [],
-            'transaction_fail' => [],
+        $result = array(
+            'transaction_success' => array(),
+            'transaction_error' => array(),
+            'transaction_fail' => array(),
             'token_update_error' => ''
-        ];
+        );
 
         $result['token_update_error'] = $this->model_extension_payment_squareup->updateToken();
 

@@ -3,7 +3,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/web_payment_software');
 
-		$data['months'] = [];
+		$data['months'] = array();
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
@@ -14,7 +14,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 
 		$today = getdate();
 
-		$data['year_expire'] = [];
+		$data['year_expire'] = array();
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 		$xml = simplexml_load_string($response);
 
 		//create object to use as json
-		$json = [];
+		$json = array();
 
 		//If successful log transaction in opencart system
 		if ('00' === (string)$xml->response_code) {

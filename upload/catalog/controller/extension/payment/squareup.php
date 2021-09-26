@@ -23,7 +23,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $data['sandbox_message'] = '';
         }
 
-        $data['cards'] = [];
+        $data['cards'] = array();
 
         if ($this->customer->isLogged()) {
             $data['is_logged'] = true;
@@ -33,10 +33,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $cards = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
 
             foreach ($cards as $card) {
-                $data['cards'][] = [
+                $data['cards'][] = array(
                     'id' => $card['squareup_token_id'],
                     'text' => sprintf($this->language->get('text_card_ends_in'), $card['brand'], $card['ends_in'])
-                ];
+                );
             }
         } else {
             $data['is_logged'] = false;
@@ -66,7 +66,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $billing_country_info = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
 
         if (!empty($billing_country_info)) {
-            $billing_address = [
+            $billing_address = array(
                 'first_name' => $order_info['payment_firstname'],
                 'last_name' => $order_info['payment_lastname'],
                 'address_line_1' => $order_info['payment_address_1'],
@@ -76,13 +76,13 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 'postal_code' => $order_info['payment_postcode'],
                 'country' => $billing_country_info['iso_code_2'],
                 'organization' => $order_info['payment_company']
-            ];
+            );
         } else {
-            $billing_address = [];
+            $billing_address = array();
         }
 
         if (!empty($shipping_country_info)) {
-            $shipping_address = [
+            $shipping_address = array(
                 'first_name' => $order_info['shipping_firstname'],
                 'last_name' => $order_info['shipping_lastname'],
                 'address_line_1' => $order_info['shipping_address_1'],
@@ -92,12 +92,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 'postal_code' => $order_info['shipping_postcode'],
                 'country' => $shipping_country_info['iso_code_2'],
                 'organization' => $order_info['shipping_company']
-            ];
+            );
         } else {
-            $shipping_address = [];
+            $shipping_address = array();
         }
 
-        $json = [];
+        $json = array();
 
         try {
             // Ensure we have registered the customer with Square
@@ -126,11 +126,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $square_card_id = $card['token'];
             } elseif ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
                 // Save the card
-                $card_data = [
+                $card_data = array(
                     'card_nonce' => $this->request->post['squareup_nonce'],
                     'billing_address' => $billing_address,
                     'cardholder_name' => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname']
-                ];
+                );
 
                 $square_card = $this->squareup->addCard($square_customer['square_customer_id'], $card_data);
 
@@ -143,17 +143,17 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
 
             // Prepare Transaction
-            $transaction_data = [
+            $transaction_data = array(
                 'idempotency_key' => uniqid(),
-                'amount_money' => [
+                'amount_money' => array(
                     'amount' => $this->squareup->lowestDenomination($order_info['total'], $order_info['currency_code']),
                     'currency' => $order_info['currency_code']
-                ],
+                ),
                 'billing_address' => $billing_address,
                 'buyer_email_address' => $order_info['email'],
                 'delay_capture' => !$this->cart->hasRecurringProducts() && $this->config->get('payment_squareup_delay_capture'),
                 'integration_id' => Squareup::SQUARE_INTEGRATION_ID
-            ];
+            );
             
             if (!empty($shipping_address)) {
                 $transaction_data['shipping_address'] = $shipping_address;

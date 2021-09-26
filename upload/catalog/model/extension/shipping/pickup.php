@@ -13,10 +13,10 @@ class ModelExtensionShippingPickup extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$quote_data = [];
+			$quote_data = array();
 
 			$quote_data['pickup'] = [
 				'code'         => 'pickup.pickup',

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
-	protected $error = [];
+	protected $error = array();
 	private $gateway = null;
 	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
 	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
@@ -51,25 +51,25 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		if (isset($this->error['account'])) {
 			$data['error_account'] = $this->error['account'];
 		} else {
-			$data['error_account'] = [];
+			$data['error_account'] = array();
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -357,7 +357,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$data['payment_pp_braintree_billing_agreement'] = $this->config->get('payment_pp_braintree_billing_agreement');
 		}
 
-		$data['transaction_statuses'] = [
+		$data['transaction_statuses'] = array(
 			'authorization_expired',
 			'authorized',
 			'authorizing',
@@ -369,27 +369,27 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'settling',
 			'submitted_for_settlement',
 			'voided'
-		];
+		);
 
-		$data['card_types'] = [
+		$data['card_types'] = array(
 			'Visa',
 			'MasterCard',
 			'American Express',
 			'Discover',
 			'JCB',
 			'Maestro'
-		];
+		);
 
 		if (isset($this->request->get['retrieve_code'])) {
 			$data['retrieve_code'] = $this->request->get['retrieve_code'];
 
 			$curl = curl_init($this->opencart_retrieve_url);
 
-			$post_data = [
+			$post_data = array(
 				'return_url' => $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'retrieve_code' => $this->request->get['retrieve_code'],
 				'store_version' => VERSION,
-			];
+			);
 
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -433,12 +433,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$this->load->model('localisation/country');
 			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
-			$post_data = [
+			$post_data = array(
 				'return_url' => $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'store_url' => HTTPS_CATALOG,
 				'store_version' => VERSION,
 				'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
-			];
+			);
 
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -458,7 +458,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 		}
 
-		$data['braintree_config'] = [];
+		$data['braintree_config'] = array();
 		$data['braintree_config']['three_d_secure_enabled'] = 0;
 		$data['braintree_config']['paypal_enabled'] = 0;
 
@@ -501,7 +501,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 	public function install() {
 		$this->load->model('setting/setting');
 
-		$defaults = [];
+		$defaults = array();
 
 		// 3D secure defaults
 		$defaults['payment_pp_braintree_3ds_unsupported_card'] = 1;
@@ -574,24 +574,24 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		]);
 
 		if (isset($this->request->get['order_id'])) {
-			$search = [
+			$search = array(
 				Braintree\TransactionSearch::orderId()->is($this->request->get['order_id'])
-			];
+			);
 		} elseif (isset($this->request->get['transaction_id'])) {
-			$search = [
+			$search = array(
 				Braintree\TransactionSearch::id()->is($this->request->get['transaction_id'])
-			];
+			);
 		}
 
 		$search_transactions = $this->model_extension_payment_pp_braintree->getTransactions($this->gateway, $search);
 
-		$transaction = [];
+		$transaction = array();
 
 		foreach ($search_transactions as $search_transaction) {
 			$transaction = $search_transaction;
 		}
 
-		$data['transaction'] = [];
+		$data['transaction'] = array();
 
 		if ($transaction) {
 			$data['transaction_id'] = $transaction->id;
@@ -616,15 +616,15 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					break;
 			}
 
-			$statuses = [];
+			$statuses = array();
 
 			foreach ($transaction->statusHistory as $status_history) {
 				$created_at = $status_history->timestamp;
 
-				$statuses[] = [
+				$statuses[] = array(
 					'status'     => $status_history->status,
 					'date_added' => date($this->language->get('datetime_format'), strtotime($created_at->format('Y-m-d H:i:s e')))
-				];
+				);
 			}
 
 			$data['statuses'] = $statuses;
@@ -633,12 +633,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$max_refund_amount = $transaction->amount;
 
-			$data['refunds'] = [];
+			$data['refunds'] = array();
 
 			foreach (array_reverse($transaction->refundIds) as $refund_id) {
 				$refund = $this->model_extension_payment_pp_braintree->getTransaction($this->gateway, $refund_id);
 
-				$successful_statuses = [
+				$successful_statuses = array(
 					'authorized',
 					'authorizing',
 					'settlement_pending',
@@ -646,7 +646,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					'settled',
 					'settling',
 					'submitted_for_settlement'
-				];
+				);
 
 				if (in_array($refund->status, $successful_statuses)) {
 					$max_refund_amount -= $refund->amount;
@@ -654,11 +654,11 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 				$created_at = $refund->createdAt;
 
-				$data['refunds'][] = [
+				$data['refunds'][] = array(
 					'date_added' => date($this->language->get('datetime_format'), strtotime($created_at->format('Y-m-d H:i:s e'))),
 					'amount'	 => $this->currency->format($refund->amount, $refund->currencyIsoCode, '1.00000000', true),
 					'status'	 => $refund->status
-				];
+				);
 			}
 
 			//If nothing left to refund, disable refund action
@@ -693,7 +693,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 			}
 
-			$data['transaction'] = [
+			$data['transaction'] = array(
 				'status'			  => $transaction->status,
 				'transaction_id'	  => $transaction->id,
 				'type'				  => $transaction->type,
@@ -710,7 +710,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'threeds_status'		  => ($transaction->threeDSecureInfo ? $transaction->threeDSecureInfo->status : ''),
 				'threeds_shifted'		  => ($transaction->threeDSecureInfo ? $liability_shifted : ''),
 				'threeds_shift_possible'  => ($transaction->threeDSecureInfo ? $liability_shift_possible : '')
-			];
+			);
 
 			$data['text_confirm_void'] = $this->language->get('text_confirm_void');
 			$data['text_confirm_settle'] = $this->language->get('text_confirm_settle');
@@ -732,7 +732,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
 		]);
 
-		$json = [];
+		$json = array();
 
 		$success = $error = '';
 
@@ -775,7 +775,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
 		]);
 
-		$json = [];
+		$json = array();
 
 		$success = $error = '';
 
@@ -839,9 +839,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$filter_amount_to = null;
 		}
 
-		$json['transactions'] = [];
+		$json['transactions'] = array();
 
-		$search = [];
+		$search = array();
 
 		if ($filter_transaction_id) {
 			$search[] = Braintree\TransactionSearch::id()->is($filter_transaction_id);
@@ -960,7 +960,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 				$created_at = $transaction->createdAt;
 
-				$json['transactions'][] = [
+				$json['transactions'][] = array(
 					'transaction_id'	  => $transaction->id,
 					'amount'			  => $transaction->amount,
 					'currency_iso'		  => $transaction->currencyIsoCode,
@@ -971,7 +971,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					'customer_url'		  => $customer_url,
 					'order'				  => $order,
 					'date_added'		  => date($this->language->get('datetime_format'), strtotime($created_at->format('Y-m-d H:i:s e')))
-				];
+				);
 			}
 		}
 
@@ -993,12 +993,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$this->load->model('localisation/country');
 			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
-			$post_data = [
+			$post_data = array(
 				'return_url' => $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'store_url' => HTTPS_CATALOG,
 				'store_version' => VERSION,
 				'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
-			];
+			);
 
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -1117,7 +1117,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		return !$this->error;
 	}
 
-	private function initialise($access_token = '', $credentials = []) {
+	private function initialise($access_token = '', $credentials = array()) {
 		$this->load->model('extension/payment/pp_braintree');
 
 		if ($access_token != '') {

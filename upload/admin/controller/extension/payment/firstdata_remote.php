@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/firstdata_remote');
@@ -73,22 +73,22 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			$data['error_ca'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/firstdata_remote', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/payment/firstdata_remote', 'user_token=' . $this->session->data['user_token'], true);
 		
@@ -221,39 +221,39 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			$data['payment_firstdata_remote_card_storage'] = $this->config->get('payment_firstdata_remote_card_storage');
 		}
 
-		$data['cards'] = [];
+		$data['cards'] = array();
 
-		$data['cards'][] = [
+		$data['cards'][] = array(
 			'text'  => $this->language->get('text_mastercard'),
 			'value' => 'mastercard'
-		];
+		);
 
-		$data['cards'][] = [
+		$data['cards'][] = array(
 			'text'  => $this->language->get('text_visa'),
 			'value' => 'visa'
-		];
+		);
 
-		$data['cards'][] = [
+		$data['cards'][] = array(
 			'text'  => $this->language->get('text_diners'),
 			'value' => 'diners'
-		];
+		);
 
-		$data['cards'][] = [
+		$data['cards'][] = array(
 			'text'  => $this->language->get('text_amex'),
 			'value' => 'amex'
-		];
+		);
 
-		$data['cards'][] = [
+		$data['cards'][] = array(
 			'text'  => $this->language->get('text_maestro'),
 			'value' => 'maestro'
-		];
+		);
 
 		if (isset($this->request->post['payment_firstdata_remote_cards_accepted'])) {
 			$data['payment_firstdata_remote_cards_accepted'] = $this->request->post['payment_firstdata_remote_cards_accepted'];
 		} elseif ($this->config->get('payment_firstdata_remote_cards_accepted')) {
 			$data['payment_firstdata_remote_cards_accepted'] = $this->config->get('payment_firstdata_remote_cards_accepted');
 		} else {
-			$data['payment_firstdata_remote_cards_accepted'] = [];
+			$data['payment_firstdata_remote_cards_accepted'] = array();
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -321,7 +321,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 	public function void() {
 		$this->load->language('extension/payment/firstdata_remote');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/firstdata_remote');
@@ -338,7 +338,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				$this->model_extension_payment_firstdata_remote->updateVoidStatus($firstdata_order['firstdata_remote_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
-				$json['data'] = [];
+				$json['data'] = array();
 				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
 				$json['error'] = false;
 			} else {
@@ -356,7 +356,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/firstdata');
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/firstdata_remote');
@@ -374,7 +374,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				$this->model_extension_payment_firstdata_remote->updateCaptureStatus($firstdata_order['firstdata_remote_order_id'], 1);
 				$capture_status = 1;
 				$json['msg'] = $this->language->get('text_capture_ok_order');
-				$json['data'] = [];
+				$json['data'] = array();
 				$json['data']['column_date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = (float)$firstdata_order['total'];
 				$json['data']['capture_status'] = $capture_status;
@@ -398,7 +398,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 	public function refund() {
 		$this->load->language('extension/payment/firstdata_remote');
 
-		$json = [];
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/firstdata_remote');
@@ -424,7 +424,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 
-				$json['data'] = [];
+				$json['data'] = array();
 				$json['data']['column_date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $firstdata_order['total'] * -1;
 				$json['data']['total_captured'] = (float)$total_captured;

@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogInformation extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/information');
@@ -143,41 +143,41 @@ class ControllerCatalogInformation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('catalog/information/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['informations'] = [];
+		$data['informations'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$information_total = $this->model_catalog_information->getTotalInformations();
 
 		$results = $this->model_catalog_information->getInformations($filter_data);
 
 		foreach ($results as $result) {
-			$data['informations'][] = [
+			$data['informations'][] = array(
 				'information_id' => $result['information_id'],
 				'title'          => $result['title'],
 				'sort_order'     => $result['sort_order'],
 				'edit'           => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -197,7 +197,7 @@ class ControllerCatalogInformation extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -280,19 +280,19 @@ class ControllerCatalogInformation extends Controller {
 		if (isset($this->error['title'])) {
 			$data['error_title'] = $this->error['title'];
 		} else {
-			$data['error_title'] = [];
+			$data['error_title'] = array();
 		}
 
 		if (isset($this->error['description'])) {
 			$data['error_description'] = $this->error['description'];
 		} else {
-			$data['error_description'] = [];
+			$data['error_description'] = array();
 		}
 
 		if (isset($this->error['meta_title'])) {
 			$data['error_meta_title'] = $this->error['meta_title'];
 		} else {
-			$data['error_meta_title'] = [];
+			$data['error_meta_title'] = array();
 		}
 
 		if (isset($this->error['keyword'])) {
@@ -315,17 +315,17 @@ class ControllerCatalogInformation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['information_id'])) {
 			$data['action'] = $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -354,25 +354,25 @@ class ControllerCatalogInformation extends Controller {
 		} elseif (!empty($information_info)) {
 			$data['information_description'] = $this->model_catalog_information->getInformationDescriptions($this->request->get['information_id']);
 		} else {
-			$data['information_description'] = [];
+			$data['information_description'] = array();
 		}
 
 		$this->load->model('setting/store');
 
-		$data['stores'] = [];
-		
-		$data['stores'][] = [
+		$data['stores'] = array();
+
+		$data['stores'][] = array(
 			'store_id' => 0,
 			'name'     => $this->language->get('text_default')
-		];
-		
+		);
+
 		$stores = $this->model_setting_store->getStores();
 
 		foreach ($stores as $store) {
-			$data['stores'][] = [
+			$data['stores'][] = array(
 				'store_id' => $store['store_id'],
 				'name'     => $store['name']
-			];
+			);
 		}
 
 		if (isset($this->request->post['information_store'])) {
@@ -380,7 +380,7 @@ class ControllerCatalogInformation extends Controller {
 		} elseif (!empty($information_info)) {
 			$data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
 		} else {
-			$data['information_store'] = [0];
+			$data['information_store'] = array(0);
 		}
 
 		if (isset($this->request->post['bottom'])) {
@@ -406,21 +406,21 @@ class ControllerCatalogInformation extends Controller {
 		} else {
 			$data['sort_order'] = '';
 		}
-		
+
 		if (isset($this->request->post['information_seo_url'])) {
 			$data['information_seo_url'] = $this->request->post['information_seo_url'];
 		} elseif (!empty($information_info)) {
 			$data['information_seo_url'] = $this->model_catalog_information->getInformationSeoUrls($this->request->get['information_id']);
 		} else {
-			$data['information_seo_url'] = [];
+			$data['information_seo_url'] = array();
 		}
-		
+
 		if (isset($this->request->post['information_layout'])) {
 			$data['information_layout'] = $this->request->post['information_layout'];
 		} elseif (!empty($information_info)) {
 			$data['information_layout'] = $this->model_catalog_information->getInformationLayouts($this->request->get['information_id']);
 		} else {
-			$data['information_layout'] = [];
+			$data['information_layout'] = array();
 		}
 
 		$this->load->model('design/layout');
@@ -455,16 +455,16 @@ class ControllerCatalogInformation extends Controller {
 
 		if ($this->request->post['information_seo_url']) {
 			$this->load->model('design/seo_url');
-			
+
 			foreach ($this->request->post['information_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
 					if (!empty($keyword)) {
 						if (count(array_keys($language, $keyword)) > 1) {
 							$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_unique');
-						}						
-						
+						}
+
 						$seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
-						
+
 						foreach ($seo_urls as $seo_url) {
 							if (($seo_url['store_id'] == $store_id) && (!isset($this->request->get['information_id']) || ($seo_url['query'] != 'information_id=' . $this->request->get['information_id']))) {
 								$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_keyword');

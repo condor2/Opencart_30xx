@@ -38,7 +38,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$this->load->model('setting/setting');
 
-		$defaults = [];
+		$defaults = array();
 
 		// Order Status defaults
 		$defaults['payment_pp_express_canceled_reversal_status_id'] = 9;
@@ -79,7 +79,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order` SET `capture_status` = '" . $this->db->escape($capture_status) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
-	public function addTransaction($transaction_data, $request_data = []) {
+	public function addTransaction($transaction_data, $request_data = array()) {
 		if ($request_data) {
 			$serialized_data = json_encode($request_data);
 
@@ -118,16 +118,16 @@ class ModelExtensionPaymentPPExpress extends Model {
 	}
 
 	public function getTransaction($transaction_id) {
-		$call_data = [
+		$call_data = array(
 			'METHOD' => 'GetTransactionDetails',
 			'TRANSACTIONID' => $transaction_id,
-		];
+		);
 
 		return $this->call($call_data);
 	}
 
 	public function getCurrencies() {
-		return [
+		return array(
 			'AUD',
 			'BRL',
 			'CAD',
@@ -152,7 +152,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 			'THB',
 			'TRY',
 			'USD',
-		];
+		);
 	}
 
 	public function getOrderId($transaction_id) {
@@ -182,7 +182,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 	public function cleanReturn($data) {
 		$data = explode('&', $data);
 
-		$arr = [];
+		$arr = array();
 
 		foreach ($data as $k => $v) {
 			$tmp = explode('=', $v);
@@ -239,11 +239,11 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$request .= '&client_secret=' . $client_secret;
 		$request .= '&grant_type=client_credentials';
 
-		$additional_opts = [
+		$additional_opts = array(
 			CURLOPT_USERPWD => $client_id . ':' . $client_secret,
 			CURLOPT_POST => true,
 			CURLOPT_POSTFIELDS => $request
-		];
+		);
 
 		$curl = $this->curl($endpoint, $additional_opts);
 
@@ -261,14 +261,14 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$endpoint1 = $endpoint . '?tracking_id=' . $merchant_id;
 
-		$header = [];
+		$header = array();
 		$header[] = 'Content-Type: application/json';
 		$header[] = 'Authorization: Bearer ' . $access_token;
 		$header[] = 'PAYPAL_SERVICE_VERSION:1.2.0';
 
-		$additional_opts = [
+		$additional_opts = array(
 			CURLOPT_HTTPHEADER => $header,
-		];
+		);
 
 		$curl = $this->curl($endpoint1, $additional_opts);
 
@@ -303,17 +303,17 @@ class ModelExtensionPaymentPPExpress extends Model {
 			$signature = $this->config->get('payment_pp_express_signature');
 		}
 
-		$settings = [
+		$settings = array(
 			'USER' => $user,
 			'PWD' => $password,
 			'SIGNATURE' => $signature,
 			'VERSION' => '84',
 			'BUTTONSOURCE' => 'OpenCart_Cart_EC',
-		];
+		);
 
 		$this->log($data, 'Call data');
 
-		$defaults = [
+		$defaults = array(
 			CURLOPT_POST => 1,
 			CURLOPT_HEADER => 0,
 			CURLOPT_URL => $api_endpoint,
@@ -325,17 +325,17 @@ class ModelExtensionPaymentPPExpress extends Model {
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 0,
 			CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&")
-		];
+		);
 
 		$ch = curl_init();
 
 		curl_setopt_array($ch, $defaults);
 
 		if (!$result = curl_exec($ch)) {
-			$log_data = [
+			$log_data = array(
 				'curl_error' => curl_error($ch),
 				'curl_errno' => curl_errno($ch)
-			];
+			);
 
 			$this->log($log_data, 'CURL failed');
 			return false;
@@ -348,8 +348,8 @@ class ModelExtensionPaymentPPExpress extends Model {
 		return $this->cleanReturn($result);
 	}
 
-	private function curl($endpoint, $additional_opts = []) {
-		$default_opts = [
+	private function curl($endpoint, $additional_opts = array()) {
+		$default_opts = array(
 			CURLOPT_PORT => 443,
 			CURLOPT_HEADER => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
@@ -357,7 +357,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 			CURLOPT_FORBID_REUSE => 1,
 			CURLOPT_FRESH_CONNECT => 1,
 			CURLOPT_URL => $endpoint,
-		];
+		);
 
 		$ch = curl_init($endpoint);
 

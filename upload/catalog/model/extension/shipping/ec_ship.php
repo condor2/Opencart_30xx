@@ -372,7 +372,7 @@ class ModelExtensionShippingECShip extends Model {
 			]
 		];
 
-		$method_data = [];
+		$method_data = array();
 		$error = '';
 
 		if ($status) {
@@ -479,7 +479,7 @@ class ModelExtensionShippingECShip extends Model {
 			    'weight'			 => $weight
 			];
 
-			$objResponseArray = [];
+			$objResponseArray = array();
 
 			foreach ($address_to['code'] as $key => $value) {
 				$api01Req = new api01Req($request['ecshipUsername'], $request['integratorUsername'], $request['countryCode'], $key, $request['weight']);
@@ -492,7 +492,7 @@ class ModelExtensionShippingECShip extends Model {
 
 			if ($objResponseArray) {
 				$code = 'ec_ship';
-				$quote_data = [];
+				$quote_data = array();
 
 				foreach ($objResponseArray as $key => $value) {
 					if ($value['getTotalPostageReturn']['status'] == 0) {

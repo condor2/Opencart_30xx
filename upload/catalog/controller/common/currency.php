@@ -9,18 +9,18 @@ class ControllerCommonCurrency extends Controller {
 
 		$this->load->model('localisation/currency');
 
-		$data['currencies'] = [];
+		$data['currencies'] = array();
 
 		$results = $this->model_localisation_currency->getCurrencies();
 
 		foreach ($results as $result) {
 			if ($result['status']) {
-				$data['currencies'][] = [
+				$data['currencies'][] = array(
 					'title'        => $result['title'],
 					'code'         => $result['code'],
 					'symbol_left'  => $result['symbol_left'],
 					'symbol_right' => $result['symbol_right']
-				];
+				);
 			}
 		}
 
@@ -55,11 +55,11 @@ class ControllerCommonCurrency extends Controller {
 			unset($this->session->data['shipping_methods']);
 		}
 
-		$option = [
+		$option = array(
 			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
 			'SameSite' => 'Lax'
-		];
+		);
 
 		setcookie('currency', $this->session->data['currency'], $option);
 

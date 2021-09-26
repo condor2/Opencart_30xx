@@ -47,7 +47,7 @@ class ControllerCommonColumnRight extends Controller {
 
 		$this->load->model('setting/module');
 
-		$data['modules'] = [];
+		$data['modules'] = array();
 
 		$modules = $this->model_design_layout->getLayoutModules($layout_id, 'column_right');
 

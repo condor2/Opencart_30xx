@@ -13,7 +13,7 @@
 class Url {
 	private $url;
 	private $ssl;
-	private $rewrite = [];
+	private $rewrite = array();
 	
 	/**
 	 * Constructor

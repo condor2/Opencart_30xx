@@ -127,7 +127,7 @@ class ModelExtensionPaymentDivido extends Model {
 			return [];
 		}
 
-		$plans = [];
+		$plans = array();
 		foreach ($all_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;
@@ -164,7 +164,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		// OpenCart 2.1 switched to json for their file storage cache, so
 		// we need to convert to a simple object.
-		$plans_plain = [];
+		$plans_plain = array();
 		foreach ($plans as $plan) {
 			$plan_copy = new stdClass();
 			$plan_copy->id                 = $plan->id;
@@ -186,7 +186,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	public function getCartPlans($cart)	{
-		$plans = [];
+		$plans = array();
 		$products = $cart->getProducts();
 		foreach ($products as $product) {
 			$product_plans = $this->getProductPlans($product['product_id']);
@@ -209,7 +209,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	public function getOrderTotals() {
-		$totals = [];
+		$totals = array();
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 
@@ -222,7 +222,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		$this->load->model('setting/extension');
 
-		$sort_order = [];
+		$sort_order = array();
 
 		$results = $this->model_setting_extension->getExtensions('total');
 
@@ -241,7 +241,7 @@ class ModelExtensionPaymentDivido extends Model {
 			}
 		}
 
-		$sort_order = [];
+		$sort_order = array();
 
 		foreach ($totals as $key => $value) {
 			$sort_order[$key] = $value['sort_order'];
@@ -264,7 +264,7 @@ class ModelExtensionPaymentDivido extends Model {
 		if ($divido_categories) {
 			$product_categories = $this->model_catalog_product->getCategories($product_id);
 
-			$all_categories = [];
+			$all_categories = array();
 			foreach ($product_categories as $product_category) {
 				$all_categories[] = $product_category['category_id'];
 			}
@@ -305,7 +305,7 @@ class ModelExtensionPaymentDivido extends Model {
 		$available_plans = $this->getPlans(false);
 		$selected_plans  = explode(',', $settings['plans']);
 
-		$plans = [];
+		$plans = array();
 		foreach ($available_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;

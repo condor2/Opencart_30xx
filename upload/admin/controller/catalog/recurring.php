@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogRecurring extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('catalog/recurring');
@@ -177,42 +177,42 @@ class ControllerCatalogRecurring extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('catalog/recurring/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['copy'] = $this->url->link('catalog/recurring/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('catalog/recurring/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['recurrings'] = [];
+		$data['recurrings'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$recurring_total = $this->model_catalog_recurring->getTotalRecurrings();
 
 		$results = $this->model_catalog_recurring->getRecurrings($filter_data);
 
 		foreach ($results as $result) {
-			$data['recurrings'][] = [
+			$data['recurrings'][] = array(
 				'recurring_id' => $result['recurring_id'],
 				'name'         => $result['name'],
 				'sort_order'   => $result['sort_order'],
 				'edit'         => $this->url->link('catalog/recurring/edit', 'user_token=' . $this->session->data['user_token'] . '&recurring_id=' . $result['recurring_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -232,7 +232,7 @@ class ControllerCatalogRecurring extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -292,7 +292,7 @@ class ControllerCatalogRecurring extends Controller {
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
 		} else {
-			$data['error_name'] = [];
+			$data['error_name'] = array();
 		}
 
 		$url = '';
@@ -309,17 +309,17 @@ class ControllerCatalogRecurring extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['recurring_id'])) {
 			$data['action'] = $this->url->link('catalog/recurring/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -344,7 +344,7 @@ class ControllerCatalogRecurring extends Controller {
 		} elseif (!empty($recurring_info)) {
 			$data['recurring_description'] = $this->model_catalog_recurring->getRecurringDescription($recurring_info['recurring_id']);
 		} else {
-			$data['recurring_description'] = [];
+			$data['recurring_description'] = array();
 		}
 
 		if (isset($this->request->post['price'])) {
@@ -355,32 +355,32 @@ class ControllerCatalogRecurring extends Controller {
 			$data['price'] = 0;
 		}
 
-		$data['frequencies'] = [];
+		$data['frequencies'] = array();
 
-		$data['frequencies'][] = [
+		$data['frequencies'][] = array(
 			'text'  => $this->language->get('text_day'),
 			'value' => 'day'
-		];
+		);
 
-		$data['frequencies'][] = [
+		$data['frequencies'][] = array(
 			'text'  => $this->language->get('text_week'),
 			'value' => 'week'
-		];
+		);
 
-		$data['frequencies'][] = [
+		$data['frequencies'][] = array(
 			'text'  => $this->language->get('text_semi_month'),
 			'value' => 'semi_month'
-		];
+		);
 
-		$data['frequencies'][] = [
+		$data['frequencies'][] = array(
 			'text'  => $this->language->get('text_month'),
 			'value' => 'month'
-		];
+		);
 
-		$data['frequencies'][] = [
+		$data['frequencies'][] = array(
 			'text'  => $this->language->get('text_year'),
 			'value' => 'year'
-		];
+		);
 
 		if (isset($this->request->post['frequency'])) {
 			$data['frequency'] = $this->request->post['frequency'];

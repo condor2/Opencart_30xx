@@ -18,10 +18,10 @@ class ModelDesignSeoUrl extends Model {
 		return $query->row;
 	}
 
-	public function getSeoUrls($data = []) {
+	public function getSeoUrls($data = array()) {
 		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = su.`store_id`) AS `store`, (SELECT `name` FROM `" . DB_PREFIX . "language` l WHERE l.`language_id` = su.`language_id`) AS `language` FROM `" . DB_PREFIX . "seo_url` su";
 
-		$implode = [];
+		$implode = array();
 
 		if (!empty($data['filter_query'])) {
 			$implode[] = "`query` LIKE '" . $this->db->escape((string)$data['filter_query']) . "'";
@@ -43,12 +43,12 @@ class ModelDesignSeoUrl extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}	
 
-		$sort_data = [
+		$sort_data = array(
 			'`query`',
 			'`keyword`',
 			'`store_id`',
 			'`language_id`'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -79,10 +79,10 @@ class ModelDesignSeoUrl extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalSeoUrls($data = []) {
+	public function getTotalSeoUrls($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "seo_url`";
 		
-		$implode = [];
+		$implode = array();
 
 		if (!empty($data['filter_query'])) {
 			$implode[] = "`query` LIKE '" . $this->db->escape((string)$data['filter_query']) . "'";

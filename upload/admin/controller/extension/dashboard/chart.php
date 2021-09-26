@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionDashboardChart extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('extension/dashboard/chart');
@@ -23,22 +23,22 @@ class ControllerExtensionDashboardChart extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/dashboard/chart', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['action'] = $this->url->link('extension/dashboard/chart', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -50,7 +50,7 @@ class ControllerExtensionDashboardChart extends Controller {
 			$data['dashboard_chart_width'] = $this->config->get('dashboard_chart_width');
 		}
 	
-		$data['columns'] = [];
+		$data['columns'] = array();
 		
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
@@ -94,18 +94,18 @@ class ControllerExtensionDashboardChart extends Controller {
 	public function chart() {
 		$this->load->language('extension/dashboard/chart');
 
-		$json = [];
+		$json = array();
 
 		$this->load->model('extension/dashboard/chart');
 
-		$json['order'] = [];
-		$json['customer'] = [];
-		$json['xaxis'] = [];
+		$json['order'] = array();
+		$json['customer'] = array();
+		$json['xaxis'] = array();
 
 		$json['order']['label'] = $this->language->get('text_order');
 		$json['customer']['label'] = $this->language->get('text_customer');
-		$json['order']['data'] = [];
-		$json['customer']['data'] = [];
+		$json['order']['data'] = array();
+		$json['customer']['data'] = array();
 
 		if (isset($this->request->get['range'])) {
 			$range = $this->request->get['range'];
@@ -119,30 +119,30 @@ class ControllerExtensionDashboardChart extends Controller {
 				$results = $this->model_extension_dashboard_chart->getTotalOrdersByDay();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = [$key, $value['total']];
+					$json['order']['data'][] = array($key, $value['total']);
 				}
 
 				$results = $this->model_extension_dashboard_chart->getTotalCustomersByDay();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = [$key, $value['total']];
+					$json['customer']['data'][] = array($key, $value['total']);
 				}
 
 				for ($i = 0; $i < 24; $i++) {
-					$json['xaxis'][] = [$i, $i];
+					$json['xaxis'][] = array($i, $i);
 				}
 				break;
 			case 'week':
 				$results = $this->model_extension_dashboard_chart->getTotalOrdersByWeek();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = [$key, $value['total']];
+					$json['order']['data'][] = array($key, $value['total']);
 				}
 
 				$results = $this->model_extension_dashboard_chart->getTotalCustomersByWeek();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = [$key, $value['total']];
+					$json['customer']['data'][] = array($key, $value['total']);
 				}
 
 				$date_start = strtotime('-' . date('w') . ' days');
@@ -150,43 +150,43 @@ class ControllerExtensionDashboardChart extends Controller {
 				for ($i = 0; $i < 7; $i++) {
 					$date = date('Y-m-d', $date_start + ($i * 86400));
 
-					$json['xaxis'][] = [date('w', strtotime($date)), date('D', strtotime($date))];
+					$json['xaxis'][] = array(date('w', strtotime($date)), date('D', strtotime($date)));
 				}
 				break;
 			case 'month':
 				$results = $this->model_extension_dashboard_chart->getTotalOrdersByMonth();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = [$key, $value['total']];
+					$json['order']['data'][] = array($key, $value['total']);
 				}
 
 				$results = $this->model_extension_dashboard_chart->getTotalCustomersByMonth();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = [$key, $value['total']];
+					$json['customer']['data'][] = array($key, $value['total']);
 				}
 
 				for ($i = 1; $i <= date('t'); $i++) {
 					$date = date('Y') . '-' . date('m') . '-' . $i;
 
-					$json['xaxis'][] = [date('j', strtotime($date)), date('d', strtotime($date))];
+					$json['xaxis'][] = array(date('j', strtotime($date)), date('d', strtotime($date)));
 				}
 				break;
 			case 'year':
 				$results = $this->model_extension_dashboard_chart->getTotalOrdersByYear();
 
 				foreach ($results as $key => $value) {
-					$json['order']['data'][] = [$key, $value['total']];
+					$json['order']['data'][] = array($key, $value['total']);
 				}
 
 				$results = $this->model_extension_dashboard_chart->getTotalCustomersByYear();
 
 				foreach ($results as $key => $value) {
-					$json['customer']['data'][] = [$key, $value['total']];
+					$json['customer']['data'][] = array($key, $value['total']);
 				}
 
 				for ($i = 1; $i <= 12; $i++) {
-					$json['xaxis'][] = [$i, date('M', mktime(0, 0, 0, $i))];
+					$json['xaxis'][] = array($i, date('M', mktime(0, 0, 0, $i)));
 				}
 				break;
 		}

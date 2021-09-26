@@ -26,10 +26,10 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			$data['business'] = $this->config->get('payment_pp_standard_email');
 			$data['item_name'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-			$data['products'] = [];
+			$data['products'] = array();
 
 			foreach ($this->cart->getProducts() as $product) {
-				$option_data = [];
+				$option_data = array();
 
 				foreach ($product['option'] as $option) {
 					if ($option['type'] != 'file') {
@@ -44,20 +44,20 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 						}
 					}
 
-					$option_data[] = [
+					$option_data[] = array(
 						'name'  => (utf8_strlen($option['name']) > 64 ? utf8_substr($option['name'], 0, 62) . '..' : $option['name']),
 						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
-					];
+					);
 				}
 
-				$data['products'][] = [
+				$data['products'][] = array(
 					'name'     => htmlspecialchars($product['name']),
 					'model'    => htmlspecialchars($product['model']),
 					'price'    => $this->currency->format($product['price'], $order_info['currency_code'], false, false),
 					'quantity' => $product['quantity'],
 					'option'   => $option_data,
 					'weight'   => $product['weight']
-				];
+				);
 			}
 
 			$data['discount_amount_cart'] = 0;
@@ -65,25 +65,25 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			$total = $this->currency->format($order_info['total'] - $this->cart->getSubTotal(), $order_info['currency_code'], false, false);
 
 			if ($total > 0) {
-				$data['products'][] = [
+				$data['products'][] = array(
 					'name'     => $this->language->get('text_total'),
 					'model'    => '',
 					'price'    => $total,
 					'quantity' => 1,
 					'option'   => [],
 					'weight'   => 0
-				];
+				);
 			} else {
 				$data['discount_amount_cart'] -= $total;
 			}
 
-			$ship_to_state_codes = [
+			$ship_to_state_codes = array(
 				'BR', // Brazil
 				'CA', // Canada
 				'IT', // Italy
 				'MX', // Mexico
 				'US'  // USA
-			];
+			);
 
 			if ($this->cart->hasShipping()) { 
 				$data['no_shipping'] = 2;

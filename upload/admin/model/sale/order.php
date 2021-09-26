@@ -147,11 +147,11 @@ class ModelSaleOrder extends Model {
 		}
 	}
 
-	public function getOrders($data = []) {
+	public function getOrders($data = array()) {
 		$sql = "SELECT o.`order_id`, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer`, (SELECT os.`name` FROM `" . DB_PREFIX . "order_status` os WHERE os.`order_status_id` = o.`order_status_id` AND os.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `order_status`, o.`store_name`,  o.`shipping_code`, o.`total`, o.`currency_code`, o.`currency_value`, o.`date_added`, o.`date_modified` FROM `" . DB_PREFIX . "order` o";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = [];
+			$implode = array();
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -200,7 +200,7 @@ class ModelSaleOrder extends Model {
 			$sql .= " AND o.`total` = '" . (float)$data['filter_total'] . "'";
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			'o.`order_id`',
 			'o.`store_name`',
 			'`customer`',
@@ -208,7 +208,7 @@ class ModelSaleOrder extends Model {
 			'o.`date_added`',
 			'o.`date_modified`',
 			'o.`total`'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -269,11 +269,11 @@ class ModelSaleOrder extends Model {
 		return $query->rows;
 	}
 	
-	public function getTotalOrders($data = []) {
+	public function getTotalOrders($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = [];
+			$implode = array();
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -340,7 +340,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalOrdersByProcessingStatus() {
-		$implode = [];
+		$implode = array();
 
 		$order_statuses = $this->config->get('config_processing_status');
 
@@ -358,7 +358,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalOrdersByCompleteStatus() {
-		$implode = [];
+		$implode = array();
 
 		$order_statuses = $this->config->get('config_complete_status');
 
@@ -387,11 +387,11 @@ class ModelSaleOrder extends Model {
 		return $query->row['total'];
 	}
 
-	public function getTotalSales($data = []) {
+	public function getTotalSales($data = array()) {
 		$sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = [];
+			$implode = array();
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -490,7 +490,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getEmailsByProductsOrdered($products, $start, $end) {
-		$implode = [];
+		$implode = array();
 
 		foreach ($products as $product_id) {
 			$implode[] = "op.`product_id` = '" . (int)$product_id . "'";
@@ -502,7 +502,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalEmailsByProductsOrdered($products) {
-		$implode = [];
+		$implode = array();
 
 		foreach ($products as $product_id) {
 			$implode[] = "op.`product_id` = '" . (int)$product_id . "'";

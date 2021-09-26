@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationTaxRate extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/tax_rate');
@@ -143,36 +143,36 @@ class ControllerLocalisationTaxRate extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/tax_rate', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('localisation/tax_rate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/tax_rate/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['tax_rates'] = [];
+		$data['tax_rates'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRates();
 
 		$results = $this->model_localisation_tax_rate->getTaxRates($filter_data);
 
 		foreach ($results as $result) {
-			$data['tax_rates'][] = [
+			$data['tax_rates'][] = array(
 				'tax_rate_id'   => $result['tax_rate_id'],
 				'name'          => $result['name'],
 				'rate'          => $result['rate'],
@@ -181,7 +181,7 @@ class ControllerLocalisationTaxRate extends Controller {
 				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 				'edit'          => $this->url->link('localisation/tax_rate/edit', 'user_token=' . $this->session->data['user_token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -201,7 +201,7 @@ class ControllerLocalisationTaxRate extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -288,17 +288,17 @@ class ControllerLocalisationTaxRate extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/tax_rate', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['tax_rate_id'])) {
 			$data['action'] = $this->url->link('localisation/tax_rate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -341,7 +341,7 @@ class ControllerLocalisationTaxRate extends Controller {
 		} elseif (isset($this->request->get['tax_rate_id'])) {
 			$data['tax_rate_customer_group'] = $this->model_localisation_tax_rate->getTaxRateCustomerGroups($this->request->get['tax_rate_id']);
 		} else {
-			$data['tax_rate_customer_group'] = [$this->config->get('config_customer_group_id')];
+			$data['tax_rate_customer_group'] = array($this->config->get('config_customer_group_id'));
 		}
 
 		$this->load->model('customer/customer_group');

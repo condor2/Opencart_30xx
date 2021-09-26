@@ -9,16 +9,16 @@ class ControllerCommonLanguage extends Controller {
 
 		$this->load->model('localisation/language');
 
-		$data['languages'] = [];
+		$data['languages'] = array();
 
 		$results = $this->model_localisation_language->getLanguages();
 
 		foreach ($results as $result) {
 			if ($result['status']) {
-				$data['languages'][] = [
+				$data['languages'][] = array(
 					'name' => $result['name'],
 					'code' => $result['code']
-				];
+				);
 			}
 		}
 
@@ -56,11 +56,11 @@ class ControllerCommonLanguage extends Controller {
 			$this->response->redirect($this->url->link('common/home'));
 		}
 
-		$option = [
+		$option = array(
 			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
 			'SameSite' => 'Lax'
-		];
+		);
 
 		setcookie('language', $code, $option);
 	}

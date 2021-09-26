@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationLocation extends Controller {
-	protected $error = [];
+	protected $error = array();
 
 	public function index() {
 		$this->load->language('localisation/location');
@@ -143,41 +143,41 @@ class ControllerLocalisationLocation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' =>  $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' =>  $this->language->get('heading_title'),
 			'href' =>  $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		$data['add'] = $this->url->link('localisation/location/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/location/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['locations'] = [];
+		$data['locations'] = array();
 
-		$filter_data = [
+		$filter_data = array(
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		];
+		);
 
 		$location_total = $this->model_localisation_location->getTotalLocations();
 
 		$results = $this->model_localisation_location->getLocations($filter_data);
 
 		foreach ($results as $result) {
-			$data['locations'][] = [
+			$data['locations'][] = array(
 				'location_id' => $result['location_id'],
 				'name'        => $result['name'],
 				'address'     => $result['address'],
 				'edit'        => $this->url->link('localisation/location/edit', 'user_token=' . $this->session->data['user_token'] . '&location_id=' . $result['location_id'] . $url, true)
-			];
+			);
 		}
 
 		if (isset($this->error['warning'])) {
@@ -197,7 +197,7 @@ class ControllerLocalisationLocation extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = [];
+			$data['selected'] = array();
 		}
 
 		$url = '';
@@ -286,17 +286,17 @@ class ControllerLocalisationLocation extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
+		);
 
 		if (!isset($this->request->get['location_id'])) {
 			$data['action'] = $this->url->link('localisation/location/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -368,7 +368,7 @@ class ControllerLocalisationLocation extends Controller {
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
 			$data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
-		} else {			
+		} else {
 			$data['thumb'] = $data['placeholder'];
 		}
 

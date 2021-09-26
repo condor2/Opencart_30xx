@@ -13,17 +13,17 @@ class ControllerToolBackup extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/backup', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -43,7 +43,7 @@ class ControllerToolBackup extends Controller {
 	public function import() {
 		$this->load->language('tool/backup');
 		
-		$json = [];
+		$json = array();
 		
 		if (!$this->user->hasPermission('modify', 'tool/backup')) {
 			$json['error'] = $this->language->get('error_permission');

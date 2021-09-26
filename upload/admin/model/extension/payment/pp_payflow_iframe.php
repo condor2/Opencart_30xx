@@ -91,13 +91,13 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 	}
 
 	public function call($data) {
-		$default_parameters = [
+		$default_parameters = array(
 			'USER' => $this->config->get('payment_pp_payflow_iframe_user'),
 			'VENDOR' => $this->config->get('payment_pp_payflow_iframe_vendor'),
 			'PWD' => $this->config->get('payment_pp_payflow_iframe_password'),
 			'PARTNER' => $this->config->get('payment_pp_payflow_iframe_partner'),
 			'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
-		];
+		);
 
 		$call_parameters = array_merge($data, $default_parameters);
 
@@ -107,7 +107,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 			$url = 'https://payflowpro.paypal.com';
 		}
 
-		$query_params = [];
+		$query_params = array();
 
 		foreach ($call_parameters as $key => $value) {
 			$query_params[] = $key . '=' . utf8_decode($value);
@@ -128,7 +128,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 
 		$this->log('Response data: ' . $response);
 
-		$response_params = [];
+		$response_params = array();
 		parse_str($response, $response_params);
 
 		return $response_params;

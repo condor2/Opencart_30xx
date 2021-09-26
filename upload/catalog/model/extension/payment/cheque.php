@@ -15,7 +15,7 @@ class ModelExtensionPaymentCheque extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
 			$method_data = [

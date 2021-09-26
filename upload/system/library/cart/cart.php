@@ -1,7 +1,7 @@
 <?php
 namespace Cart;
 class Cart {
-	private $data = [];
+	private $data = array();
 
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
@@ -31,7 +31,7 @@ class Cart {
 	}
 
 	public function getProducts() {
-		$product_data = [];
+		$product_data = array();
 
 		$cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
 
@@ -45,7 +45,7 @@ class Cart {
 				$option_points = 0;
 				$option_weight = 0;
 
-				$option_data = [];
+				$option_data = array();
 
 				foreach (json_decode($cart['option']) as $product_option_id => $value) {
 					$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,7 +77,7 @@ class Cart {
 									$stock = false;
 								}
 
-								$option_data[] = [
+								$option_data[] = array(
 									'product_option_id'       => $product_option_id,
 									'product_option_value_id' => $value,
 									'option_id'               => $option_query->row['option_id'],
@@ -93,7 +93,7 @@ class Cart {
 									'points_prefix'           => $option_value_query->row['points_prefix'],
 									'weight'                  => $option_value_query->row['weight'],
 									'weight_prefix'           => $option_value_query->row['weight_prefix']
-								];
+								);
 							}
 						} elseif ($option_query->row['type'] == 'checkbox' && is_array($value)) {
 							foreach ($value as $product_option_value_id) {
@@ -122,7 +122,7 @@ class Cart {
 										$stock = false;
 									}
 
-									$option_data[] = [
+									$option_data[] = array(
 										'product_option_id'       => $product_option_id,
 										'product_option_value_id' => $product_option_value_id,
 										'option_id'               => $option_query->row['option_id'],
@@ -138,11 +138,11 @@ class Cart {
 										'points_prefix'           => $option_value_query->row['points_prefix'],
 										'weight'                  => $option_value_query->row['weight'],
 										'weight_prefix'           => $option_value_query->row['weight_prefix']
-									];
+									);
 								}
 							}
 						} elseif ($option_query->row['type'] == 'text' || $option_query->row['type'] == 'textarea' || $option_query->row['type'] == 'file' || $option_query->row['type'] == 'date' || $option_query->row['type'] == 'datetime' || $option_query->row['type'] == 'time') {
-							$option_data[] = [
+							$option_data[] = array(
 								'product_option_id'       => $product_option_id,
 								'product_option_value_id' => '',
 								'option_id'               => $option_query->row['option_id'],
@@ -158,7 +158,7 @@ class Cart {
 								'points_prefix'           => '',
 								'weight'                  => '',
 								'weight_prefix'           => ''
-							];
+							);
 						}
 					}
 				}
@@ -197,17 +197,17 @@ class Cart {
 				}
 
 				// Downloads
-				$download_data = [];
+				$download_data = array();
 
 				$download_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_download p2d LEFT JOIN " . DB_PREFIX . "download d ON (p2d.download_id = d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON (d.download_id = dd.download_id) WHERE p2d.product_id = '" . (int)$cart['product_id'] . "' AND dd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 				foreach ($download_query->rows as $download) {
-					$download_data[] = [
+					$download_data[] = array(
 						'download_id' => $download['download_id'],
 						'name'        => $download['name'],
 						'filename'    => $download['filename'],
 						'mask'        => $download['mask']
-					];
+					);
 				}
 
 				// Stock
@@ -218,7 +218,7 @@ class Cart {
 				$recurring_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "recurring r LEFT JOIN " . DB_PREFIX . "product_recurring pr ON (r.recurring_id = pr.recurring_id) LEFT JOIN " . DB_PREFIX . "recurring_description rd ON (r.recurring_id = rd.recurring_id) WHERE r.recurring_id = '" . (int)$cart['recurring_id'] . "' AND pr.product_id = '" . (int)$cart['product_id'] . "' AND rd.language_id = " . (int)$this->config->get('config_language_id') . " AND r.status = 1 AND pr.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'");
 
 				if ($recurring_query->num_rows) {
-					$recurring = [
+					$recurring = array(
 						'recurring_id'    => $cart['recurring_id'],
 						'name'            => $recurring_query->row['name'],
 						'frequency'       => $recurring_query->row['frequency'],
@@ -230,12 +230,12 @@ class Cart {
 						'trial_price'     => $recurring_query->row['trial_price'],
 						'trial_cycle'     => $recurring_query->row['trial_cycle'],
 						'trial_duration'  => $recurring_query->row['trial_duration']
-					];
+					);
 				} else {
 					$recurring = false;
 				}
 
-				$product_data[] = [
+				$product_data[] = array(
 					'cart_id'         => $cart['cart_id'],
 					'product_id'      => $product_query->row['product_id'],
 					'name'            => $product_query->row['name'],
@@ -260,7 +260,7 @@ class Cart {
 					'height'          => $product_query->row['height'],
 					'length_class_id' => $product_query->row['length_class_id'],
 					'recurring'       => $recurring
-				];
+				);
 			} else {
 				$this->remove($cart['cart_id']);
 			}
@@ -269,7 +269,7 @@ class Cart {
 		return $product_data;
 	}
 
-	public function add($product_id, $quantity = 1, $option = [], $recurring_id = 0) {
+	public function add($product_id, $quantity = 1, $option = array(), $recurring_id = 0) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		if (!$query->row['total']) {
@@ -292,7 +292,7 @@ class Cart {
 	}
 
 	public function getRecurringProducts() {
-		$product_data = [];
+		$product_data = array();
 
 		foreach ($this->getProducts() as $value) {
 			if ($value['recurring']) {
@@ -326,7 +326,7 @@ class Cart {
 	}
 
 	public function getTaxes() {
-		$tax_data = [];
+		$tax_data = array();
 
 		foreach ($this->getProducts() as $product) {
 			if ($product['tax_class_id']) {

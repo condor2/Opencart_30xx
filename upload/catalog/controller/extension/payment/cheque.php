@@ -10,7 +10,7 @@ class ControllerExtensionPaymentCheque extends Controller {
 	}
 
 	public function confirm() {
-		$json = [];
+		$json = array();
 
 		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cheque') {
 			$this->load->language('extension/payment/cheque');

@@ -21,10 +21,10 @@ $_['template_directory'] = '';
 $_['template_cache']     = true;
 
 // Autoload Libraries
-$_['library_autoload']   = [];
+$_['library_autoload']   = array();
 
 // Actions
-$_['action_pre_action']  = [
+$_['action_pre_action']  = array(
 	'startup/session',
 	'startup/startup',
 	'startup/error',
@@ -32,27 +32,27 @@ $_['action_pre_action']  = [
 	'startup/sass',
 	'startup/maintenance',
 	'startup/seo_url'
-];
+);
 
 // Action Events
-$_['action_event'] = [
-	'controller/*/before' => [
+$_['action_event'] = array(
+	'controller/*/before' => array(
 		'event/language/before'
-	],
-	'controller/*/after' => [
+	),
+	'controller/*/after' => array(
 		'event/language/after'
-	],	
-	'view/*/before' => [
+	),	
+	'view/*/before' => array(
 		500  => 'event/theme',
 		998  => 'event/language',
-	],
-	'language/*/after' => [
+	),
+	'language/*/after' => array(
 		'event/translation'
-	],
-	//'view/*/before' => [
+	),
+	//'view/*/before' => array(
 	//	1000  => 'event/debug/before'
-	//],
-	//'controller/*/after'  => [
+	//),
+	//'controller/*/after'  => array(
 	//	'event/debug/after'
-//	]
-];
+//	)
+);

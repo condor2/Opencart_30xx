@@ -11,22 +11,22 @@ class ControllerAccountDownload extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_downloads'),
 			'href' => $this->url->link('account/download', '', true)
-		];
+		);
 
 		$this->load->model('account/download');
 
@@ -36,7 +36,7 @@ class ControllerAccountDownload extends Controller {
 			$page = 1;
 		}
 
-		$data['downloads'] = [];
+		$data['downloads'] = array();
 
 		$download_total = $this->model_account_download->getTotalDownloads();
 
@@ -48,7 +48,7 @@ class ControllerAccountDownload extends Controller {
 
 				$i = 0;
 
-				$suffix = [
+				$suffix = array(
 					'B',
 					'KB',
 					'MB',
@@ -58,20 +58,20 @@ class ControllerAccountDownload extends Controller {
 					'EB',
 					'ZB',
 					'YB'
-				];
+				);
 
 				while (($size / 1024) > 1) {
 					$size = $size / 1024;
 					$i++;
 				}
 
-				$data['downloads'][] = [
+				$data['downloads'][] = array(
 					'order_id'   => $result['order_id'],
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 					'name'       => $result['name'],
 					'size'       => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i],
 					'href'       => $this->url->link('account/download/download', 'download_id=' . $result['download_id'], true)
-				];
+				);
 			}
 		}
 

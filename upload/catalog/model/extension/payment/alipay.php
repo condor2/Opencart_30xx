@@ -14,7 +14,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	private $format = "json";
 	private $signtype = "RSA2";
 
-	private $apiParas = [];
+	private $apiParas = array();
 
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/alipay');
@@ -31,15 +31,15 @@ class ModelExtensionPaymentAlipay extends Model {
 			$status = false;
 		}
 
-		$method_data = [];
+		$method_data = array();
 
 		if ($status) {
-			$method_data = [
+			$method_data = array(
 				'code'       => 'alipay',
 				'title'      => $this->language->get('text_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payment_alipay_sort_order')
-			];
+			);
 		}
 
 		return $method_data;

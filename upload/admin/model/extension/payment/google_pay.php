@@ -3,7 +3,7 @@ class ModelExtensionPaymentGooglePay extends Model {
 	public function install() {
 		$this->load->model('setting/setting');
 
-		$default_settings = [
+		$default_settings = array(
 			'payment_google_pay_environment' 			=> 'TEST',
 			'payment_google_pay_total' 					=> 0,
 			'payment_google_pay_sort_order' 			=> 0,
@@ -17,7 +17,7 @@ class ModelExtensionPaymentGooglePay extends Model {
 			'payment_google_pay_bill_require_phone'		=> 0,
 			'payment_google_pay_ship_require_phone'		=> 0,
 			'payment_google_pay_ship_allow_countries' 	=> [],
-		];
+		);
 
 		$this->model_setting_setting->editSetting('payment_google_pay', $default_settings);
 
