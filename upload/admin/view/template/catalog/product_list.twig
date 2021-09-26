@@ -173,12 +173,6 @@ $('#button-filter').on('click', function() {
 		url += '&filter_manufacturer=' + encodeURIComponent(filter_manufacturer);
 	}
 
-    var filter_category = $('select[name=\'filter_category\']').val();
-
-    if (filter_category != '*') {
-		url += '&filter_category=' + encodeURIComponent(filter_category);
-    }
-
 	var filter_model = $('input[name=\'filter_model\']').val();
 
 	if (filter_model) {
@@ -258,32 +252,5 @@ $('input[name=\'filter_model\']').autocomplete({
 	}
 });
 //--></script>
-<script type="text/javascript"><!--
-  function imgshow(obj, img, event) {
-    if (!e) {
-      //var e = window.event;
-      var e = ( window.event ? window.event : event ); // fix for FF (event)
-    }
-    if (e.pageX || e.pageY) {
-      var curCursorX = e.pageX;
-      var curCursorY = e.pageY;
-    } else {
-      var curCursorX = e.clientX + document.body.scrollLeft;
-      var curCursorY = e.clientY + document.body.scrollTop;
-    }
-    var width_thumb = document.getElementById(obj).width;
-    var height_new  = 350; // set zoom image (px)
-    document.getElementById('nahled').height = height_new;
-    document.getElementById('nahled').src = img;
-    document.getElementById('nahled').style.border = document.getElementById(obj).style.border;
-    document.getElementById('nahled').style.display = 'block';    
-    document.getElementById('nahled').style.left = curCursorX + width_thumb + 'px';
-    document.getElementById('nahled').style.top  = curCursorY - (height_new/2) + 'px';
-  } // imgshow
-  function imgoff () {
-    document.getElementById('nahled').style.display = 'none';
-  } // imgoff
-//--></script>
-<img src="" id="nahled" style="position:absolute;">
 </div>
 {{ footer }}
