@@ -13,12 +13,12 @@ $registry->set('config', $config);
 // Set the default time zone
 date_default_timezone_set($config->get('date_timezone'));
 
-// Log
+// Logging
 $log = new Log($config->get('error_filename'));
 $registry->set('log', $log);
 
 // Error Handler
-set_error_handler(function($code, $message, $file, $line) use ($log, $config) {
+set_error_handler(function(string $code, string $message, string $file, string $line) use ($log, $config) {
 	// error suppressed with @
 	if (@error_reporting() === 0) {
 		return false;
@@ -57,7 +57,7 @@ set_error_handler(function($code, $message, $file, $line) use ($log, $config) {
 });
 
 // Exception Handler
-set_exception_handler(function($e) use ($log, $config)  {
+set_exception_handler(function(\Throwable $e) use ($log, $config)  {
 	if ($config->get('error_log')) {
 		$log->write(get_class($e) . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
 	}
@@ -98,6 +98,11 @@ foreach ($config->get('response_header') as $header) {
 	$response->addHeader($header);
 }
 
+$response->addHeader('Access-Control-Allow-Origin: *');
+$response->addHeader('Access-Control-Allow-Credentials: true');
+$response->addHeader('Access-Control-Max-Age: 1000');
+$response->addHeader('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding');
+$response->addHeader('Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE');
 $response->setCompression($config->get('config_compression'));
 $registry->set('response', $response);
 
