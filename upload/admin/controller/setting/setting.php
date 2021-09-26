@@ -869,9 +869,6 @@ class ControllerSettingSetting extends Controller {
 		}
 
 		// Server
-		$data['config_shared'] = $this->config->get('config_shared');
-		$data['config_robots'] = $this->config->get('config_robots');
-
 		if ($this->config->has('config_session_expire')) {
 			$data['config_session_expire'] = $this->config->get('config_session_expire');
 		} else {
