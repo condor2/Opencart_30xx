@@ -868,6 +868,16 @@ class ControllerSettingSetting extends Controller {
 			$data['config_seo_url'] = $this->config->get('config_seo_url');
 		}
 
+		// Server
+		$data['config_shared'] = $this->config->get('config_shared');
+		$data['config_robots'] = $this->config->get('config_robots');
+
+		if ($this->config->has('config_session_expire')) {
+			$data['config_session_expire'] = $this->config->get('config_session_expire');
+		} else {
+			$data['config_session_expire'] = 3600;
+		}
+
 		if (isset($this->request->post['config_file_max_size'])) {
 			$data['config_file_max_size'] = $this->request->post['config_file_max_size'];
 		} elseif ($this->config->get('config_file_max_size')) {
