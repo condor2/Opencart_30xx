@@ -293,11 +293,11 @@ class ControllerMarketplaceModification extends Controller {
 															$new_lines = explode("\n", $add);
 
 															if ($offset < 0) {
-																array_splice($lines, $line_id + $offset, abs($offset) + 1, [str_replace($search, $add, $line)]);
+																array_splice($lines, $line_id + $offset, abs($offset) + 1, array(str_replace($search, $add, $line)));
 
 																$line_id -= $offset;
 															} else {
-																array_splice($lines, $line_id, $offset + 1, [str_replace($search, $add, $line)]);
+																array_splice($lines, $line_id, $offset + 1, array(str_replace($search, $add, $line)));
 															}
 															break;
 														case 'before':
@@ -455,7 +455,7 @@ class ControllerMarketplaceModification extends Controller {
 			$files = array();
 
 			// Make path into an array
-			$path =[DIR_MODIFICATION . '*'];
+			$path =array(DIR_MODIFICATION . '*');
 
 			// While the path array is still populated keep looping through
 			while (count($path) != 0) {
