@@ -11,8 +11,6 @@ $_['text_filter']            = 'Filter';
 $_['text_default']           = 'Default';
 $_['text_option']            = 'Option';
 $_['text_option_value']      = 'Option Value';
-$_['text_percent']           = 'Percentage';
-$_['text_amount']            = 'Fixed Amount';
 $_['text_keyword']           = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 
 // Column
