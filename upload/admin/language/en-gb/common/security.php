@@ -18,7 +18,6 @@ $_['entry_directory']  = 'Directory';
 
 // Button
 $_['button_move']      = 'Move';
-$_['button_manual']    = 'Manual';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify the storage directory!';
