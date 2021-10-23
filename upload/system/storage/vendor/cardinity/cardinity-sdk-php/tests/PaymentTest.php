@@ -8,6 +8,18 @@ use Cardinity\Method\ResultObject;
 
 class PaymentTest extends ClientTestCase
 {
+    /**
+     * @return void
+     */
+    public function setUp(): void
+    {
+        $this->paymentParams = $this->getPaymentParams();
+        parent::setUp();
+    }
+
+    /**
+     * @return void
+     */
     public function testResultObjectSerialization()
     {
         $payment = $this->getPayment();
@@ -26,6 +38,9 @@ class PaymentTest extends ClientTestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testResultObjectUnserialization()
     {
         $json = '{"id":"foo","amount":"55.00","type":"bar","payment_method":"card","payment_instrument":{"card_brand":"Visa","pan":"4447","exp_year":'.(date('Y')+4).',"exp_month":11,"holder":"James Bond"},"authorization_information":{"url":"http:\/\/...","data":"some_data"}}';
@@ -44,17 +59,22 @@ class PaymentTest extends ClientTestCase
     }
 
     /**
-     * @expectedException Cardinity\Exception\InvalidAttributeValue
      * @dataProvider invalidAmountValuesData
+     * @param mixed $amount
+     * @return void
      */
     public function testAmountValidationConstraint($amount)
     {
-        $params = $this->getPaymentParams();
-        $params['amount'] = $amount;
-        $method = new Payment\Create($params);
+        $this->paymentParams['amount'] = $amount;
+        $method = new Payment\Create($this->paymentParams);
+
+        $this->expectException(\Cardinity\Exception\InvalidAttributeValue::class);
         $this->client->call($method);
     }
 
+    /**
+     * @return array
+     */
     public function invalidAmountValuesData()
     {
         return [
@@ -64,82 +84,47 @@ class PaymentTest extends ClientTestCase
     }
 
     /**
-     * @expectedException Cardinity\Exception\InvalidAttributeValue
+     * @return void
      */
     public function testMissingRequiredAttribute()
     {
         $params = $this->getPaymentParams();
         unset($params['currency']);
         $method = new Payment\Create($params);
+        $this->expectException(\Cardinity\Exception\InvalidAttributeValue::class);
         $this->client->call($method);
-    }
-
-    /**
-     * In order to simulate a failed payment:
-     * status declined: Amount larger than 150.00 will trigger a declined payment.
-     */
-    public function testCreateDeclined()
-    {
-        $params = $this->getPaymentParams();
-        $params['amount'] = 150.01;
-
-        try {
-            $method = new Payment\Create($params);
-            $this->client->call($method);
-        } catch (Exception\Declined $e) {
-            $result = $e->getResult();
-
-            $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
-            $this->assertSame('declined', $result->getStatus());
-            $this->assertSame(true, $result->isDeclined());
-            $this->assertSame('CRD-TEST: Do Not Honor', $result->getError());
-            $this->assertStringContainsString('status: CRD-TEST: Do Not Honor;', $e->getErrorsAsString());
-
-            return;
-        }
-
-        $this->fail('An expected exception has not been raised.');
     }
 
     /**
      * Invalid data. Check error message.
+     * @return void
      */
     public function testCreateFailPanValidation()
     {
-        $params = $this->getPaymentParams();
-        $params['payment_instrument']['pan'] = '4242424242424241';
-
-        try {
-            $method = new Payment\Create($params);
-            $this->client->callNoValidate($method);
-        } catch (Exception\ValidationFailed $e) {
-            $result = $e->getResult();
-
-            $this->assertInstanceOf('Cardinity\Method\Error', $result);
-            $this->assertSame('invalid credit card number.', $e->getErrors()[0]['message']);
-            return;
-        }
-
-        $this->fail('An expected exception has not been raised.');
+        $this->paymentParams['payment_instrument']['pan'] = '4242424242424241';
+        $method = new Payment\Create($this->paymentParams);
+        $this->expectException(\Cardinity\Exception\InvalidAttributeValue::class);
+        $this->client->call($method);
     }
 
     /**
      * Invalid data. Generic handling.
-     * @expectedException Cardinity\Exception\ValidationFailed
+     * @return void
      */
     public function testCreateFailMonthValidation()
     {
-        $params = $this->getPaymentParams();
-        $params['payment_instrument']['exp_month'] = 13;
-
-        $method = new Payment\Create($params);
+        $this->paymentParams['payment_instrument']['exp_month'] = 13;
+        $method = new Payment\Create($this->paymentParams);
+        $this->expectException(\Cardinity\Exception\ValidationFailed::class);
         $this->client->call($method);
     }
 
+    /**
+     * @return ResultObject
+     */
     public function testCreate()
     {
-        $params = $this->getPaymentParams();
-        $method = new Payment\Create($params);
+        $method = new Payment\Create($this->paymentParams);
         $result = $this->client->call($method);
 
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
@@ -151,6 +136,8 @@ class PaymentTest extends ClientTestCase
 
     /**
      * @depends testCreate
+     * @param Payment\Payment
+     * @return ResultObject
      */
     public function testCreateRecurring(Payment\Payment $payment)
     {
@@ -172,6 +159,8 @@ class PaymentTest extends ClientTestCase
 
     /**
      * @depends testCreate
+     * @param Payment\Payment
+     * @return void
      */
     public function testGet(Payment\Payment $payment)
     {
@@ -183,6 +172,9 @@ class PaymentTest extends ClientTestCase
         $this->assertSame(true, $result->isApproved());
     }
 
+    /**
+     * @return void
+     */
     public function testGetAll()
     {
         $method = new Payment\GetAll(5);
@@ -192,12 +184,14 @@ class PaymentTest extends ClientTestCase
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result[0]);
     }
 
+    /**
+     * @return ResultObject
+     */
     public function testCreate3dFail()
     {
-        $params = $this->getPaymentParams();
-        $params['description'] = '3d-fail';
+        $this->paymentParams['description'] = '3d-fail';
 
-        $method = new Payment\Create($params);
+        $method = new Payment\Create($this->paymentParams);
         $result = $this->client->call($method);
 
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
@@ -210,6 +204,7 @@ class PaymentTest extends ClientTestCase
 
     /**
      * @depends testCreate3dFail
+     * @param Payment\Payment
      */
     public function testFinalizePaymentFail(Payment\Payment $payment)
     {
@@ -219,7 +214,7 @@ class PaymentTest extends ClientTestCase
         try {
             $method = new Payment\Finalize($paymentId, $authorizationInformation);
             $this->client->call($method);
-        } catch (Exception\Declined $e) {
+        } catch (\Cardinity\Exception\Declined $e) {
             $result = $e->getResult();
 
             $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
@@ -233,6 +228,9 @@ class PaymentTest extends ClientTestCase
         $this->fail('An expected exception has not been raised.');
     }
 
+    /**
+     * @return ResultObject
+     */
     public function testCreate3dPass()
     {
         $params = $this->getPaymentParams();
@@ -251,6 +249,8 @@ class PaymentTest extends ClientTestCase
 
     /**
      * @depends testCreate3dPass
+     * @param Payment\Payment
+     * @return void
      */
     public function testFinalizePaymentPass(Payment\Payment $payment)
     {

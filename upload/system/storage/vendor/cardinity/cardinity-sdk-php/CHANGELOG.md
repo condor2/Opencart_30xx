@@ -1,5 +1,12 @@
 # Cardinity Client PHP Library
 
+
+- Added `Method\Validators\CallbackUrlConstraint` custom validation constraint class
+- Added `Method\Validators\CallbackUrlConstraintValidator` custom constraint validation class
+- Added `getInsideArray` method to `Method\Payment\Create` class
+- Added `getNotificationUrlConstraints` method to `Method\Payment\Create` for `notification_url` parameter
+- Added `getIpAddressConstraints` method to `Method\Payment\Create` for `ip_address` parameter.
+- Added unit tests for new methods.
 ## v3.0.0
 
 ### Added

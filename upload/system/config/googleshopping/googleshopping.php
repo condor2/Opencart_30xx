@@ -8,15 +8,15 @@ $_['advertise_google_product_status_limit'] = 1000; // No more than 1000
 // An array with values means it is required only in these specific cases
 $_['advertise_google_country_required_fields'] = array(
     'google_product_category' => array(
-        'countries' => [],
+        'countries' => array(),
         'selected_field' => NULL
     ),
     'condition' => array(
-        'countries' => [],
+        'countries' => array(),
         'selected_field' => NULL
     ),
     'adult' => array(
-        'countries' => [],
+        'countries' => array(),
         'selected_field' => NULL
     ),
     'multipack' => array(
