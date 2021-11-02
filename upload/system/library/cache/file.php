@@ -47,7 +47,7 @@ class File {
 		return false;
 	}
 
-	public function set($key, $value, $expire = '') {
+	public function set($key, $value, $expire = 0) {
 		$this->delete($key);
 
 		if (!$expire) {

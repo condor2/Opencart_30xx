@@ -4,7 +4,7 @@ class Redis {
 	private $expire;
 	private $cache;
 
-	public function __construct($expire) {
+	public function __construct($expire = 3600) {
 		$this->expire = $expire;
 
 		$this->cache = new \Redis();
@@ -17,7 +17,7 @@ class Redis {
 		return json_decode($data, true);
 	}
 
-	public function set($key, $value, $expire = '') {
+	public function set($key, $value, $expire = 0) {
 		if (!$expire) {
 			$expire = $this->expire;
 		}

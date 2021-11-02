@@ -5,7 +5,7 @@ class Mem {
 	private $memcache;
 	const CACHEDUMP_LIMIT = 9999;
 
-	public function __construct($expire) {
+	public function __construct($expire = 3600) {
 		$this->expire = $expire;
 
 		$this->memcache = new \Memcache();
@@ -16,12 +16,12 @@ class Mem {
 		return $this->memcache->get(CACHE_PREFIX . $key);
 	}
 
-	public function set($key, $value, $expire = '') {
+	public function set($key, $value, $expire = 0) {
 		if (!$expire) {
 			$expire = $this->expire;
 		}
 
-		return $this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $expire);
+		$this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $expire);
 	}
 
 	public function delete($key) {
