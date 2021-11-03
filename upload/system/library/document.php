@@ -103,11 +103,12 @@ class Document {
 	 * @param	string	$rel
 	 * @param	string	$media
      */
-	public function addStyle($href, $rel = 'stylesheet', $media = 'screen') {
+	public function addStyle($href, $rel = 'stylesheet', $media = 'screen', $sort = 1) {
 		$this->styles[$href] = array(
 			'href'  => $href,
 			'rel'   => $rel,
-			'media' => $media
+			'media' => $media,
+            'sort'  => $sort
 		);
 	}
 
@@ -117,6 +118,14 @@ class Document {
 	 * @return	array
      */
 	public function getStyles() {
+		$sort_order = [];
+
+		foreach ($this->styles as $key => $value) {
+			$sort_order[$key] = $value['sort'];
+		}
+
+		array_multisort($sort_order, SORT_ASC, $this->styles);
+
 		return $this->styles;
 	}
 
@@ -126,8 +135,11 @@ class Document {
      * @param	string	$href
 	 * @param	string	$position
      */
-	public function addScript($href, $position = 'header') {
-		$this->scripts[$position][$href] = $href;
+	public function addScript($href, $position = 'header', $sort = 1) {
+		$this->scripts[$position][$href] = array(
+			'href' => $href,
+			'sort' => $sort
+		);
 	}
 
 	/**
@@ -139,6 +151,14 @@ class Document {
      */
 	public function getScripts($position = 'header') {
 		if (isset($this->scripts[$position])) {
+			$sort_order = array();
+
+			foreach ($this->scripts[$position] as $key => $value) {
+				$sort_order[$key] = $value['sort'];
+			}
+
+			array_multisort($sort_order, SORT_ASC, $this->scripts[$position]);
+
 			return $this->scripts[$position];
 		} else {
 			return array();
