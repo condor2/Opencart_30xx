@@ -108,7 +108,7 @@ class Document {
 			'href'  => $href,
 			'rel'   => $rel,
 			'media' => $media,
-            'sort'  => $sort
+			'sort'  => $sort
 		);
 	}
 
@@ -118,7 +118,7 @@ class Document {
 	 * @return	array
      */
 	public function getStyles() {
-		$sort_order = [];
+		$sort_order = array();
 
 		foreach ($this->styles as $key => $value) {
 			$sort_order[$key] = $value['sort'];
