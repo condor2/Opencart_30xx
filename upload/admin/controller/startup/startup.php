@@ -37,9 +37,16 @@ class ControllerStartupStartup extends Controller {
 
 		$path = substr($path, 0, strrpos($path, '/')) . '/';
 
+		// Update the session lifetime
+		if ($this->config->get('config_session_expire')) {
+			$this->config->set('session_expire', $this->config->get('config_session_expire'));
+		}
+
+		$expire = (int)$this->config->get('config_session_expire');
+
 		// Require higher security for session cookies
 		$option = array(
-			'expires'  => time() + $this->config->get('session_expire'),
+			'expires'  => time() + $expire,
 			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
