@@ -12,58 +12,57 @@
 */
 class Url {
 	private $url;
-	private $ssl;
 	private $rewrite = array();
-	
+
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
-	 * @param	string	$url
-	 * @param	string	$ssl
-	 *
- 	*/
-	public function __construct($url, $ssl = '') {
+	 * @param string $url
+	 * @param string $ssl Depricated
+	 */
+	public function __construct($url) {
 		$this->url = $url;
-		$this->ssl = $ssl;
 	}
 
 	/**
+	 * Add a rewrite method to the URL system
 	 *
+	 * @param Controller $rewrite
 	 *
-	 * @param	object	$rewrite
- 	*/	
+	 * @return void
+	 */
 	public function addRewrite($rewrite) {
 		$this->rewrite[] = $rewrite;
 	}
 
 	/**
-	 * 
+	 * Generates a URL
 	 *
-	 * @param	string		$route
-	 * @param	mixed		$args
-	 * @param	bool		$secure
+	 * @param string        $route
+	 * @param string|array	$args
+	 * @param bool			$js
 	 *
-	 * @return	string
- 	*/
-	public function link($route, $args = '', $secure = false) {
-		if ($this->ssl && $secure) {
-			$url = $this->ssl . 'index.php?route=' . $route;
-		} else {
-			$url = $this->url . 'index.php?route=' . $route;
-		}
-		
+	 * @return string
+	 */
+	public function link($route, $args = '', $js = false) {
+		$url = $this->url . 'index.php?route=' . $route;
+
 		if ($args) {
 			if (is_array($args)) {
-				$url .= '&amp;' . http_build_query($args);
+				$url .= '&' . http_build_query($args);
 			} else {
-				$url .= str_replace('&', '&amp;', '&' . ltrim($args, '&'));
+				$url .= '&' . trim($args, '&');
 			}
 		}
-		
+
 		foreach ($this->rewrite as $rewrite) {
 			$url = $rewrite->rewrite($url);
 		}
-		
-		return $url; 
+
+		if (!$js) {
+			return str_replace('&', '&amp;', $url);
+		} else {
+			return $url;
+		}
 	}
 }

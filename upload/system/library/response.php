@@ -16,7 +16,7 @@
 class Response {
 	private $headers = array();
 	private $level = 0;
-	private $output;
+	private $output = '';
 
 	/**
 	 * Constructor
@@ -27,7 +27,7 @@ class Response {
 	public function addHeader($header) {
 		$this->headers[] = $header;
 	}
-	
+
 	/**
 	 * Redirect
 	 *
@@ -39,7 +39,7 @@ class Response {
 		header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
 		exit();
 	}
-	
+
 	/**
 	 * Set Compression
 	 *
@@ -48,16 +48,7 @@ class Response {
 	public function setCompression($level) {
 		$this->level = $level;
 	}
-	
-	/**
-	 * Get Output
-	 *
-	 * @return	array
- 	*/
-	public function getOutput() {
-		return $this->output;
-	}
-	
+
 	/**
 	 * Set Output
 	 *
@@ -66,7 +57,16 @@ class Response {
 	public function setOutput($output) {
 		$this->output = $output;
 	}
-	
+
+	/**
+	 * Get Output
+	 *
+	 * @return	array
+ 	*/
+	public function getOutput() {
+		return $this->output;
+	}
+
 	/**
 	 * Compress
 	 *
@@ -104,7 +104,7 @@ class Response {
 
 		return gzencode($data, (int)$level);
 	}
-	
+
 	/**
 	 * Output
 	 *
@@ -119,7 +119,7 @@ class Response {
 					header($header, true);
 				}
 			}
-			
+
 			echo $output;
 		}
 	}

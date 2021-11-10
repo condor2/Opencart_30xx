@@ -28,8 +28,8 @@ class Document {
 	}
 
 	/**
-     * 
-	 * 
+     *
+	 *
 	 * @return	string
      */
 	public function getTitle() {
@@ -49,7 +49,7 @@ class Document {
      * 
      *
      * @param	string	$description
-	 * 
+	 *
 	 * @return	string
      */
 	public function getDescription() {
@@ -67,7 +67,7 @@ class Document {
 
 	/**
      *
-	 * 
+	 *
 	 * @return	string
      */
 	public function getKeywords() {
@@ -75,7 +75,7 @@ class Document {
 	}
 	
 	/**
-     * 
+     *
      *
      * @param	string	$href
 	 * @param	string	$rel
@@ -88,7 +88,7 @@ class Document {
 	}
 
 	/**
-     * 
+     *
 	 * 
 	 * @return	array
      */
@@ -97,7 +97,7 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$href
 	 * @param	string	$rel
@@ -112,8 +112,8 @@ class Document {
 	}
 
 	/**
-     * 
-	 * 
+     *
+	 *
 	 * @return	array
      */
 	public function getStyles() {
@@ -134,7 +134,7 @@ class Document {
      * 
      *
      * @param	string	$position
-	 * 
+	 *
 	 * @return	array
      */
 	public function getScripts($position = 'header') {

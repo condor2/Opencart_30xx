@@ -50,7 +50,7 @@ class Cache {
 	 * @return	string
      */
 	public function set(string $key, $value, $expire = '') {
-		return $this->adaptor->set($key, $value, $expire);
+		$this->adaptor->set($key, $value, $expire);
 	}
    
     /**
@@ -59,6 +59,6 @@ class Cache {
      * @param	string	$key	The cache key
      */
 	public function delete(string $key) {
-		return $this->adaptor->delete($key);
+		$this->adaptor->delete($key);
 	}
 }

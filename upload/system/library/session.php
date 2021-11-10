@@ -31,8 +31,8 @@ class Session {
 				$this->adaptor = new $class();
 			}
 
-			register_shutdown_function([$this, 'close']);
-			register_shutdown_function([$this, 'gc']);
+			register_shutdown_function(array($this, 'close'));
+			register_shutdown_function(array($this, 'gc'));
 		} else {
 			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
 		}
@@ -75,7 +75,7 @@ class Session {
 		
 		return $session_id;
 	}
-	
+
 	/**
 	 * Close
 	 *
@@ -84,12 +84,12 @@ class Session {
 	public function close() {
 		$this->adaptor->write($this->session_id, $this->data);
 	}
-	
+
 	/**
 	 * Destroy
 	 *
 	 * Deletes the current session from storage
- 	*/	
+ 	*/
 	public function destroy() {
 		$this->data = array();
 
