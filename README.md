@@ -14,6 +14,7 @@ This is a modified version of Opencart.
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=39538">PHPMailer Integration - by @cansei_vendi</a>
 - <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.16.1</a>
 - GDPR function from 4.0.0.0_b.
+- Display Affiliates List on Marketing. Partial implementation. Code from 4.0.0.0_b.
 
 ## Removed
 - Promotion
