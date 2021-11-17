@@ -93,7 +93,6 @@ $_['button_order']              = 'Orders';
 
 // Help
 $_['help_safe']                 = 'Set to true to avoid this customer from being caught by the anti-fraud system';
-$_['help_affiliate']            = 'Enable / Disable the customers ability to use the affiliate system.';
 $_['help_tracking']             = 'The tracking code that will be used to track referrals.';
 $_['help_commission']           = 'Percentage the affiliate receives on each order.';
 $_['help_points']               = 'Use minus to remove points';
