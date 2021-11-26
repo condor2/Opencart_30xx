@@ -459,7 +459,7 @@ class ControllerMarketplaceModification extends Controller {
 			$files = array();
 
 			// Make path into an array
-			$path =array(DIR_MODIFICATION . '*');
+			$path = array(DIR_MODIFICATION . '*');
 
 			// While the path array is still populated keep looping through
 			while (count($path) != 0) {

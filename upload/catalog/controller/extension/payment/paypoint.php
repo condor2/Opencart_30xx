@@ -72,7 +72,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 
 	public function callback() {
 		if (isset($this->request->get['trans_id'])) {
-			$order_id = $this->request->get['trans_id'];
+			$order_id = (int)$this->request->get['trans_id'];
 		} else {
 			$order_id = 0;
 		}

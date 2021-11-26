@@ -780,7 +780,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$success = $error = '';
 
 		if (isset($this->request->get['filter_transaction_id'])) {
-			$filter_transaction_id = $this->request->get['filter_transaction_id'];
+			$filter_transaction_id = (int)$this->request->get['filter_transaction_id'];
 		} else {
 			$filter_transaction_id = '';
 		}
@@ -788,55 +788,55 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		if (isset($this->request->get['filter_transaction_type'])) {
 			$filter_transaction_type = $this->request->get['filter_transaction_type'];
 		} else {
-			$filter_transaction_type = null;
+			$filter_transaction_type = '';
 		}
 
 		if (isset($this->request->get['filter_payment_type'])) {
 			$filter_payment_type = $this->request->get['filter_payment_type'];
 		} else {
-			$filter_payment_type = null;
+			$filter_payment_type = '';
 		}
 
 		if (isset($this->request->get['filter_card_type'])) {
 			$filter_card_type = $this->request->get['filter_card_type'];
 		} else {
-			$filter_card_type = null;
+			$filter_card_type = '';
 		}
 
 		if (isset($this->request->get['filter_merchant_account_id'])) {
-			$filter_merchant_account_id = $this->request->get['filter_merchant_account_id'];
+			$filter_merchant_account_id = (int)$this->request->get['filter_merchant_account_id'];
 		} else {
-			$filter_merchant_account_id = null;
+			$filter_merchant_account_id = '';
 		}
 
 		if (isset($this->request->get['filter_transaction_status'])) {
 			$filter_transaction_status = $this->request->get['filter_transaction_status'];
 		} else {
-			$filter_transaction_status = null;
+			$filter_transaction_status = '';
 		}
 
 		if (isset($this->request->get['filter_date_from'])) {
 			$filter_date_from = $this->request->get['filter_date_from'];
 		} else {
-			$filter_date_from = null;
+			$filter_date_from = '';
 		}
 
 		if (isset($this->request->get['filter_date_to'])) {
 			$filter_date_to = $this->request->get['filter_date_to'];
 		} else {
-			$filter_date_to = null;
+			$filter_date_to = '';
 		}
 
 		if (isset($this->request->get['filter_amount_from'])) {
 			$filter_amount_from = $this->request->get['filter_amount_from'];
 		} else {
-			$filter_amount_from = null;
+			$filter_amount_from = '';
 		}
 
 		if (isset($this->request->get['filter_amount_to'])) {
 			$filter_amount_to = $this->request->get['filter_amount_to'];
 		} else {
-			$filter_amount_to = null;
+			$filter_amount_to = '';
 		}
 
 		$json['transactions'] = array();

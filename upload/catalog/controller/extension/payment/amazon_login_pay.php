@@ -104,7 +104,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 throw $this->model_extension_payment_amazon_login_pay->loggedException($this->language->get('error_shipping_methods'), $this->language->get('error_shipping_methods'));
             }
 
-            $order_reference_id = $this->request->get['AmazonOrderReferenceId'];
+            $order_reference_id = (int)$this->request->get['AmazonOrderReferenceId'];
 
             $this->session->data['apalwa']['pay']['order_reference_id'] = $order_reference_id;
 

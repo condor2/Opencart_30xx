@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '10860e38fcbfd29cfeca28b4f283606e8471a400',
+    'reference' => '22933dc7685212ca1cd280e04036d967fc3c2fb3',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -104,7 +104,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '10860e38fcbfd29cfeca28b4f283606e8471a400',
+      'reference' => '22933dc7685212ca1cd280e04036d967fc3c2fb3',
     ),
     'psr/http-message' => 
     array (
@@ -142,12 +142,12 @@ private static $installed = array (
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v2.4.0',
-      'version' => '2.4.0.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5f38c8804a9e97d23e0c8d63341088cd8a22d627',
+      'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
     ),
     'symfony/polyfill-ctype' => 
     array (
@@ -214,30 +214,30 @@ private static $installed = array (
     ),
     'symfony/translation-contracts' => 
     array (
-      'pretty_version' => 'v2.4.0',
-      'version' => '2.4.0.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '95c812666f3e91db75385749fe219c5e494c7f95',
+      'reference' => 'd28150f0f44ce854e942b671fc2620a98aae1b1e',
     ),
     'symfony/validator' => 
     array (
-      'pretty_version' => 'v5.3.8',
-      'version' => '5.3.8.0',
+      'pretty_version' => 'v5.3.12',
+      'version' => '5.3.12.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3a773f6f03ef2846c280e4f5b5f34cf950ead127',
+      'reference' => '379ca8939ebcab78d835e188673396a9f8d6eee8',
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.3.3',
-      'version' => '3.3.3.0',
+      'pretty_version' => 'v3.3.4',
+      'version' => '3.3.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a27fa056df8a6384316288ca8b0fa3a35fdeb569',
+      'reference' => '65cb6f0b956485e1664f13d023c55298a4bb59ca',
     ),
     'zoujingli/wechat-php-sdk' => 
     array (

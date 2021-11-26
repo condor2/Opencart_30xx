@@ -175,7 +175,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->load->model('extension/payment/divido');
 		$this->load->language('extension/payment/divido');
 
-		$order_id = $this->request->get['order_id'];
+		$order_id = (int)$this->request->get['order_id'];
 
 		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($order_id);
 		$proposal_id = null;

@@ -332,7 +332,7 @@ class ControllerMarketplaceInstall extends Controller {
 
 							$this->model_setting_modification->addModification($modification_data);
 						}
-					} catch(Exception $exception) {
+					} catch (Exception $exception) {
 						$json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
 					}
 				}
@@ -375,7 +375,7 @@ class ControllerMarketplaceInstall extends Controller {
 					$next = array_shift($path);
 
 					// We have to use scandir function because glob will not pick up dot files.
-					foreach (array_diff(scandir($next), ['.', '..']) as $file) {
+					foreach (array_diff(scandir($next), array('.', '..')) as $file) {
 						$file = $next . '/' . $file;
 	
 						if (is_dir($file)) {
@@ -470,7 +470,7 @@ class ControllerMarketplaceInstall extends Controller {
 						$next = array_shift($path);
 
 						// We have to use scandir function because glob will not pick up dot files.
-						foreach (array_diff(scandir($next), ['.', '..']) as $file) {
+						foreach (array_diff(scandir($next), array('.', '..')) as $file) {
 							$file = $next . '/' . $file;
 
 							if (is_dir($file)) {
