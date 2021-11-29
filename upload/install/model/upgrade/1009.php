@@ -193,6 +193,71 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "extension` SET `code` = 'default' WHERE `code` = 'theme_default'");
 		}
 
+		//Settings-Coupon
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'coupon'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_coupon' AND `key` = 'total_coupon_sort_order' WHERE `key` = 'coupon_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_coupon' AND `key` = 'total_coupon_status' WHERE `key` = 'coupon_status'");
+		}
+
+		//Settings-Credit
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'credit'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_credit' AND `key` = 'total_credit_sort_order' WHERE `key` = 'credit_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_credit' AND `key` = 'total_credit_status' WHERE `key` = 'credit_status'");
+		}
+
+		//Settings-Reward
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'reward'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_reward' AND `key` = 'total_reward_sort_order' WHERE `key` = 'reward_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_reward' AND `key` = 'total_reward_status' WHERE `key` = 'reward_status'");
+		}
+
+		//Settings-Shipping
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'shipping'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_shipping' AND `key` = 'total_shipping_sort_order' WHERE `key` = 'shipping_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_shipping' AND `key` = 'total_shipping_status' WHERE `key` = 'shipping_status'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_shipping' AND `key` = 'total_shipping_estimator' WHERE `key` = 'shipping_estimator'");
+		}
+
+		//Settings-SubTotal
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'sub_total'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_sub_total' AND `key` = 'total_sub_total_sort_order' WHERE `key` = 'sub_total_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_sub_total' AND `key` = 'total_sub_total_status' WHERE `key` = 'sub_total_status'");
+		}
+
+		//Settings-Tax
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'tax'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_tax' AND `key` = 'total_tax_sort_order' WHERE `key` = 'tax_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_tax' AND `key` = 'total_tax_status' WHERE `key` = 'tax_status'");
+		}
+
+		//Settings-Total
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'total'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_total' AND `key` = 'total_total_sort_order' WHERE `key` = 'total_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_total' AND `key` = 'total_total_status' WHERE `key` = 'total_status'");
+		}
+
+		//Settings-Voucher
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'voucher'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_voucher' AND `key` = 'total_voucher_sort_order' WHERE `key` = 'voucher_sort_order'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_voucher' AND `key` = 'total_voucher_status' WHERE `key` = 'voucher_status'");
+		}
+
 		// OPENCART_SERVER
 		$upgrade = true;
 
