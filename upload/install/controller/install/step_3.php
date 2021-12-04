@@ -188,7 +188,7 @@ class ControllerInstallStep3 extends Controller {
 			'pgsql'
 		);
 
-		$data['drivers'] = [];
+		$data['drivers'] = array();
 
 		foreach ($db_drivers as $db_driver) {
 			if (extension_loaded($db_driver)) {
