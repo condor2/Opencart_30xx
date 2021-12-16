@@ -15,6 +15,7 @@ This is a modified version of Opencart.
 - <a href="https://ckeditor.com/ckeditor-4/download/">CKEditor v4.17.1</a>
 - GDPR function from 4.0.0.0_b.
 - Display Affiliates List on Marketing. Partial implementation. Code from 4.0.0.0_b.
+- <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=42126">Admin menu fix - by @UK Pixel</a>
 
 ## Removed
 - Promotion

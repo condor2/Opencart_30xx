@@ -1017,3 +1017,233 @@ html[dir="rtl"] .text-right {
         float: left !important;
     }
 }
+
+#button-menu-fix {
+    line-height: 40px;
+    float: left;
+    font-size: 19px;
+    padding: 10px 16px;
+    display: inline-block;
+    cursor: pointer;
+    color: #6D6D6D;
+    border-right: 1px solid #eee;
+}
+/* Desktop */
+@media (min-width: 768px){
+	#button-menu {
+		display: none;
+	}
+}
+#column-left-fix.active #profile {
+	display: block;
+	padding: 10px 15px 10px 15px;
+	overflow: auto;
+	border-bottom: 1px solid #585858;
+}
+#profile div {
+	float: left;
+	color: #C4C4C4;
+}
+#profile div i {
+	font-size: 42px;
+	color: #2ca5d3;
+}
+#profile div + div {
+	margin-left: 15px;
+}
+#profile h4 {
+	margin-top: 6px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	color: #FFF;
+	margin-bottom: 0;
+}
+#column-left-fix {
+	width: 50px;
+    height: 100%;
+    top: 0px;
+    transition: all 0.3s;
+    background-color: #242d37;
+    position: absolute;
+    padding-top: 63px;
+    z-index: 10;
+}
+#column-left-fix.active {
+	width: 254px;
+	display: block;
+}
+#content {
+	padding-bottom: 40px;
+	transition: all 0.3s;
+}
+#column-left-fix + #content {
+	margin-left: 50px;
+}
+#column-left-fix + #content + #footer {
+	margin-left: 50px;
+}
+#column-left-fix.active #stats{
+	display: block;
+}
+#stats {
+    display: none;
+}
+
+#column-left-fix::-webkit-scrollbar { width: 3px; height: 3px;}
+#column-left-fix::-webkit-scrollbar-button {  background-color: #666; }
+#column-left-fix::-webkit-scrollbar-track {  background-color: #999;}
+#column-left-fix::-webkit-scrollbar-track-piece { background-color: #ffffff;}
+#column-left-fix::-webkit-scrollbar-thumb { height: 50px; background-color: #0b91d2; border-radius: 3px;}
+#column-left-fix::-webkit-scrollbar-corner { background-color: #999;}}
+#column-left-fix::-webkit-resizer { background-color: #666;}
+/* Mobile */
+@media (max-width: 767px) {
+#column-left-fix {
+	overflow: hidden;
+	display: none;
+}
+#column-left-fix + #content {
+	margin-left: 0;
+}
+#column-left-fix + #content + #footer {
+	margin-left: 0;
+}
+}
+/* Menu */
+#menu, #menu ul, #menu li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+#menu li li {
+    border-bottom: 1px solid #2b3642;
+}
+#menu li.open li:last-child {
+    border-bottom: 0;
+}
+#menu {
+	margin-bottom: 25px;
+}
+#menu > li {
+	position: relative;
+}
+#menu li a i {
+	font-size: 16px;
+}
+#menu > li > a {
+	padding-left: 13px;
+}
+#menu > li > a:hover {
+    background-color: #293141;
+}
+#menu > li > a > span {
+	display: none;
+	margin-left: 8px;
+}
+#menu li li a {
+	color: #9d9d9d;
+}
+#menu li li a:before {
+	content: "\f101";
+	font-size: 14px;
+	font-family: FontAwesome;
+	margin-left: 10px;
+	margin-right: 10px;
+	transition: margin ease 0.5s;
+}
+#menu li li a:hover:before {
+	margin-right: 20px;
+}
+#menu li li.active a:last-child:before {
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+#menu > li > ul {
+	position: absolute;
+	left: 50px;
+	top: 0px;
+	width: 240px;
+	visibility: hidden;
+}
+#menu li ul {
+	overflow: hidden;
+}
+#menu > li:hover > ul {
+	visibility: visible;
+}
+#menu li a.parent:after {
+    opacity: 0;
+}
+#menu li li a.parent:after, #column-left-fix.active #menu > li a.parent:after {
+	font-family: FontAwesome;
+    content: "\f105";
+    float: right;
+    margin-right: 8px;
+    opacity: 1;
+}
+#menu li li.open > a.parent:after, #column-left-fix.active #menu > li.open > a.parent:after, #column-left-fix.active #menu > li li.open > a.parent:after {
+	font-family: FontAwesome;
+	content: "\f107";
+	float: right;
+	margin-right: 8px;
+}
+
+
+#menu li ul a {
+	padding-left: 20px;
+}
+#menu li li li ul a {
+	padding-left: 60px;
+}
+#menu li li li li ul a {
+	padding-left: 80px;
+}
+
+/* Menu Active */
+/* Desktop */
+@media (min-width: 768px) {
+#column-left-fix.active {
+	overflow: auto;
+}
+#column-left-fix.active + #content {
+	margin-left: 254px;
+}
+#column-left-fix.active + #content + #footer {
+	margin-left: 254px;
+}
+}
+/* Mobile */
+@media (max-width: 767px) {
+#button-menu-fix {
+    margin-right: 17px;
+    font-size: 17px;
+    padding: 10px 16px;
+    line-height: 25px;
+}
+#column-left-fix.active + #content {
+	position: relative;
+	left: 254px;
+}
+#column-left-fix.active + #content + #footer {
+	position: relative;
+	left: 254px;
+}
+}
+#column-left-fix.active {
+	width: 254px;
+}
+#column-left-fix.active #menu li i {
+	font-size: 14px;
+}
+#column-left-fix.active #menu > li > a > span {
+	display: inline;
+}
+#column-left-fix.active #menu > li > ul {
+	position: relative;
+	left: auto;
+	top: auto;
+	width: auto;
+	visibility: visible;
+}
