@@ -225,6 +225,9 @@ class ControllerCatalogProduct extends Controller {
 	}
 
 	protected function getList() {
+		$this->document->addScript('view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+		$this->document->addStyle('view/javascript/jquery/magnific/magnific-popup.css');
+
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
 		} else {
@@ -374,8 +377,10 @@ class ControllerCatalogProduct extends Controller {
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
 				$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 40, 40);
+                $popup = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'));
 			} else {
 				$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+                $popup = $this->model_tool_image->resize(html_entity_decode('placeholder.png', ENT_QUOTES, 'UTF-8'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'));
 			}
 
 			$special = false;
@@ -393,6 +398,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['products'][] = array(
 				'product_id' => $result['product_id'],
 				'image'      => $image,
+                'popup'      => $popup,
 				'name'       => $result['name'],
 				'model'      => $result['model'],
 				'price'      => $this->currency->format($result['price'], $this->config->get('config_currency')),

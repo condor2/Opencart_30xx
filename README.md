@@ -45,6 +45,7 @@ This is a modified version of Opencart.
 - Admin Zone filter code from 4.0.0.0_b.
 - Address fields on Registration page like 2.3.0.2
 - Default editor can be changed from store settings.
+- Admin Product List Image Popup
 
 ## Note
 This version is not supported by Opencart. You need to have PHP 7.4 to use this version.

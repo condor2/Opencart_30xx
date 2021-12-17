@@ -129,7 +129,7 @@
                       {% endif %}</td>
                     <td class="text-left">{{ product.product_id }}</td>
                     <td class="text-center">{% if product.image %}
-                    <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" />
+                    <a class="thumbnail" href="{{ product.popup }}" title="{{ product.name }}"><img src="{{ product.image }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
                     {% else %}
                     <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span>
                     {% endif %}</td>
@@ -254,6 +254,12 @@ $('input[name=\'filter_model\']').autocomplete({
 	'select': function(item) {
 		$('input[name=\'filter_model\']').val(item['label']);
 	}
+});
+
+$(document).ready(function() {
+	$('.thumbnail').magnificPopup({
+		type:'image',
+	});
 });
 //--></script>
 </div>
