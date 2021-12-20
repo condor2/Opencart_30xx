@@ -6,7 +6,7 @@ final class Twig {
 	public function set($key, $value) {
 		$this->data[$key] = $value;
 	}
-	
+
 	public function render($filename, $code = '') {
 		if (!$code) {
 			$file = DIR_TEMPLATE . $filename . '.twig';
@@ -39,6 +39,6 @@ final class Twig {
 		} catch (Exception $e) {
 			trigger_error('Error: Could not load template ' . $filename . '!');
 			exit();
-		}	
-	}	
+		}
+	}
 }
