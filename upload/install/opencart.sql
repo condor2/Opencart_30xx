@@ -1108,7 +1108,7 @@ CREATE TABLE `oc_customer_affiliate_report` (
   `store_id` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `country` varchar(2) NOT NULL,
-  `date_added` datetime NOT NULL
+  `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_affiliate_report_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
