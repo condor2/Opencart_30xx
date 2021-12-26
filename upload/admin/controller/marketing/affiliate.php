@@ -658,6 +658,9 @@ class ControllerMarketingAffiliate extends Controller {
 			$data['bank_account_number'] = '';
 		}
 
+		// Custom Fields
+		$this->load->model('customer/custom_field');
+
 		$data['custom_fields'] = array();
 
 		$filter_data = array(
@@ -665,21 +668,20 @@ class ControllerMarketingAffiliate extends Controller {
 			'order' => 'ASC'
 		);
 
-		// Custom Fields
-		$this->load->model('customer/custom_field');
-
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
-			$data['custom_fields'][] = array(
-				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
-			);
+			if ($custom_field['status']) {
+				$data['custom_fields'][] = array(
+					'custom_field_id'    => $custom_field['custom_field_id'],
+					'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
+					'name'               => $custom_field['name'],
+					'value'              => $custom_field['value'],
+					'type'               => $custom_field['type'],
+					'location'           => $custom_field['location'],
+					'sort_order'         => $custom_field['sort_order']
+				);
+			}
 		}
 
 		if (isset($this->request->post['custom_field'])) {
@@ -782,12 +784,12 @@ class ControllerMarketingAffiliate extends Controller {
 		}
 
 		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
+			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
 		}
 
-		$data['reports'] = [];
+		$data['reports'] = array();
 
 		$this->load->model('marketing/affiliate');
 		$this->load->model('customer/customer');
@@ -806,24 +808,25 @@ class ControllerMarketingAffiliate extends Controller {
 				$store = '';
 			}
 
-			$data['reports'][] = [
+			$data['reports'][] = array(
 				'ip'         => $result['ip'],
 				'account'    => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
 				'store'      => $store,
 				'country'    => $result['country'],
 				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
 				'filter_ip'  => $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&filter_ip=' . $result['ip'])
-			];
+			);
 		}
 
 		$report_total = $this->model_marketing_affiliate->getTotalReports($customer_id);
 
-		$data['pagination'] = $this->load->controller('common/pagination', [
-			'total' => $report_total,
-			'page'  => $page,
-			'limit' => 10,
-			'url'   => $this->url->link('marketing/affiliate/report', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id . '&page={page}')
-		]);
+		$pagination = new Pagination();
+		$pagination->total = $report_total;
+		$pagination->page = $page;
+		$pagination->limit = 10;
+		$pagination->url = $this->url->link('marketing/affiliate/report', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id . '&page={page}', true);
+
+		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($report_total - 10)) ? $report_total : ((($page - 1) * 10) + 10), $report_total, ceil($report_total / 10));
 
