@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6e8ab630e4dbd9a262a3b3c1815657d4b14d8254',
+    'reference' => '551ca11c67b9139963aa711b814bb97c81f68694',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6e8ab630e4dbd9a262a3b3c1815657d4b14d8254',
+      'reference' => '551ca11c67b9139963aa711b814bb97c81f68694',
     ),
     'psr/http-message' => 
     array (
@@ -119,12 +119,12 @@
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c726b64c1ccfe2896cb7df2e1331c357ad1c8ced',
+      'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
     ),
     'symfony/polyfill-ctype' => 
     array (
@@ -191,12 +191,12 @@
     ),
     'symfony/translation-contracts' => 
     array (
-      'pretty_version' => 'v3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1b6ea5a7442af5a12dba3dbd6d71034b5b234e77',
+      'reference' => 'd28150f0f44ce854e942b671fc2620a98aae1b1e',
     ),
     'symfony/validator' => 
     array (
