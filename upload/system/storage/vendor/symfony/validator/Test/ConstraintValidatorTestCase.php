@@ -25,6 +25,7 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -58,6 +59,7 @@ abstract class ConstraintValidatorTestCase extends TestCase
     protected $propertyPath;
     protected $constraint;
     protected $defaultTimezone;
+    private $defaultLocale;
     private $expectedViolations;
     private $call;
 
@@ -78,10 +80,11 @@ abstract class ConstraintValidatorTestCase extends TestCase
         $this->validator = $this->createValidator();
         $this->validator->initialize($this->context);
 
+        $this->defaultLocale = \Locale::getDefault();
+        \Locale::setDefault('en');
+
         $this->expectedViolations = [];
         $this->call = 0;
-
-        \Locale::setDefault('en');
 
         $this->setDefaultTimezone('UTC');
     }
@@ -89,11 +92,13 @@ abstract class ConstraintValidatorTestCase extends TestCase
     protected function tearDown(): void
     {
         $this->restoreDefaultTimezone();
+
+        \Locale::setDefault($this->defaultLocale);
     }
 
     protected function setDefaultTimezone(?string $defaultTimezone)
     {
-        // Make sure this method can not be called twice before calling
+        // Make sure this method cannot be called twice before calling
         // also restoreDefaultTimezone()
         if (null === $this->defaultTimezone) {
             $this->defaultTimezone = date_default_timezone_get();
@@ -293,10 +298,7 @@ abstract class ConstraintValidatorTestCase extends TestCase
     abstract protected function createValidator();
 }
 
-/**
- * @internal
- */
-class ConstraintViolationAssertion
+final class ConstraintViolationAssertion
 {
     /**
      * @var ExecutionContextInterface
@@ -317,6 +319,9 @@ class ConstraintViolationAssertion
     private $constraint;
     private $cause;
 
+    /**
+     * @internal
+     */
     public function __construct(ExecutionContextInterface $context, string $message, Constraint $constraint = null, array $assertions = [])
     {
         $this->context = $context;
@@ -325,6 +330,9 @@ class ConstraintViolationAssertion
         $this->assertions = $assertions;
     }
 
+    /**
+     * @return $this
+     */
     public function atPath(string $path)
     {
         $this->propertyPath = $path;
@@ -332,6 +340,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setParameter(string $key, string $value)
     {
         $this->parameters[$key] = $value;
@@ -339,6 +350,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setParameters(array $parameters)
     {
         $this->parameters = $parameters;
@@ -346,6 +360,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setTranslationDomain($translationDomain)
     {
         // no-op for BC
@@ -353,6 +370,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setInvalidValue($invalidValue)
     {
         $this->invalidValue = $invalidValue;
@@ -360,6 +380,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setPlural(int $number)
     {
         $this->plural = $number;
@@ -367,6 +390,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setCode(string $code)
     {
         $this->code = $code;
@@ -374,6 +400,9 @@ class ConstraintViolationAssertion
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setCause($cause)
     {
         $this->cause = $cause;
@@ -447,6 +476,9 @@ class AssertingContextualValidator implements ContextualValidatorInterface
     {
     }
 
+    /**
+     * @return $this
+     */
     public function doAtPath(string $path)
     {
         Assert::assertFalse($this->expectNoValidate, 'No validation calls have been expected.');
@@ -464,6 +496,9 @@ class AssertingContextualValidator implements ContextualValidatorInterface
     {
     }
 
+    /**
+     * @return $this
+     */
     public function doValidate($value, $constraints = null, $groups = null)
     {
         Assert::assertFalse($this->expectNoValidate, 'No validation calls have been expected.');
@@ -489,6 +524,9 @@ class AssertingContextualValidator implements ContextualValidatorInterface
     {
     }
 
+    /**
+     * @return $this
+     */
     public function doValidateProperty(object $object, string $propertyName, $groups = null)
     {
         return $this;
@@ -498,12 +536,15 @@ class AssertingContextualValidator implements ContextualValidatorInterface
     {
     }
 
+    /**
+     * @return $this
+     */
     public function doValidatePropertyValue($objectOrClass, string $propertyName, $value, $groups = null)
     {
         return $this;
     }
 
-    public function getViolations()
+    public function getViolations(): ConstraintViolationListInterface
     {
     }
 
