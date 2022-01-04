@@ -17,9 +17,12 @@ class ControllerMarketplaceInstaller extends Controller {
 			'href' => $this->url->link('marketplace/installer', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
-		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
+		// Use the ini_get('upload_max_filesize') for the max file size
+		$upload_max_filesize = (int)preg_filter('/[^0-9]/', '', ini_get('upload_max_filesize'));
 
-		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
+		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $upload_max_filesize);
+
+		$data['config_file_max_size'] = ($upload_max_filesize * 1024 * 1024);
 
 		$data['user_token'] = $this->session->data['user_token'];
 		

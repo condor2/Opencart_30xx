@@ -875,12 +875,10 @@ class ControllerSettingSetting extends Controller {
 			$data['config_session_expire'] = 3600;
 		}
 
-		if (isset($this->request->post['config_file_max_size'])) {
-			$data['config_file_max_size'] = $this->request->post['config_file_max_size'];
-		} elseif ($this->config->get('config_file_max_size')) {
+		if ($this->config->get('config_file_max_size')) {
 			$data['config_file_max_size'] = $this->config->get('config_file_max_size');
 		} else {
-			$data['config_file_max_size'] = 300000;
+			$data['config_file_max_size'] = 20;
 		}
 
 		if (isset($this->request->post['config_file_ext_allowed'])) {
@@ -1021,6 +1019,12 @@ class ControllerSettingSetting extends Controller {
 
 		if (!$this->request->post['config_file_max_size']) {
 			$this->error['file_max_size'] = $this->language->get('error_file_max_size');
+		} else {
+			$upload_max_filesize = (int)preg_filter('/[^0-9]/', '', ini_get('upload_max_filesize'));
+
+			if ($this->request->post['config_file_max_size'] > $upload_max_filesize) {
+				$this->error['file_max_size'] = sprintf($this->language->get('error_upload_size'), $upload_max_filesize);
+			}
 		}
 
 		if ($this->error && !isset($this->error['warning'])) {
