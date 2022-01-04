@@ -218,5 +218,3 @@ $_['error_log_invalid']              = 'Error Log Filename invalid!';
 $_['error_log_extension']            = 'Error Log Filename extension needs to be .log!';
 $_['error_encryption']               = 'Encryption Key must be between 32 and 1024 characters!';
 $_['error_file_max_size']            = 'Max File Size required!';
-$_['error_upload_max_filesize']      = 'Max File Size cannot be greater than %s!';
-$_['error_upload_max_filesize']      = 'Max File Size cannot be greater than %s!';
