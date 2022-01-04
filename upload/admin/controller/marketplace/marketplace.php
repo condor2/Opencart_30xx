@@ -377,6 +377,12 @@ class ControllerMarketplaceMarketplace extends Controller {
 		);
 
 		$data['licenses'][] = array(
+			'text'  => $this->language->get('text_recommended'),
+			'value' => 'recommended',
+			'href'  => $this->url->link('marketplace/marketplace', 'user_token=' . $this->session->data['user_token'] . '&filter_license=recommended' . $url, true)
+		);
+
+		$data['licenses'][] = array(
 			'text'  => $this->language->get('text_free'),
 			'value' => 'free',
 			'href'  => $this->url->link('marketplace/marketplace', 'user_token=' . $this->session->data['user_token'] . '&filter_license=free' . $url, true)
