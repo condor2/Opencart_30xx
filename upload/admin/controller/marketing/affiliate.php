@@ -26,8 +26,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 			$url = '';
 
-			if (isset($this->request->get['filter_name'])) {
-				$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_customer'])) {
+				$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_tracking'])) {
@@ -78,8 +78,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 			$url = '';
 
-			if (isset($this->request->get['filter_name'])) {
-				$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_customer'])) {
+				$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_tracking'])) {
@@ -132,8 +132,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 			$url = '';
 
-			if (isset($this->request->get['filter_name'])) {
-				$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_customer'])) {
+				$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_tracking'])) {
@@ -171,10 +171,10 @@ class ControllerMarketingAffiliate extends Controller {
 	}
 
 	protected function getList() {
-		if (isset($this->request->get['filter_name'])) {
-			$filter_name = $this->request->get['filter_name'];
+		if (isset($this->request->get['filter_customer'])) {
+			$filter_customer = $this->request->get['filter_customer'];
 		} else {
-			$filter_name = '';
+			$filter_customer = '';
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -221,8 +221,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -273,7 +273,7 @@ class ControllerMarketingAffiliate extends Controller {
 		$data['affiliates'] = array();
 
 		$filter_data = array(
-			'filter_name'       => $filter_name,
+			'filter_name'       => $filter_customer,
 			'filter_tracking'   => $filter_tracking,
 			'filter_commission' => $filter_commission,
 			'filter_status'     => $filter_status,
@@ -326,8 +326,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -364,8 +364,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -402,7 +402,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($affiliate_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($affiliate_total - $this->config->get('config_limit_admin'))) ? $affiliate_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $affiliate_total, ceil($affiliate_total / $this->config->get('config_limit_admin')));
 
-		$data['filter_name'] = $filter_name;
+		$data['filter_customer'] = $filter_customer;
 		$data['filter_tracking'] = $filter_tracking;
 		$data['filter_commission'] = $filter_commission;
 		$data['filter_status'] = $filter_status;
@@ -467,8 +467,8 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {

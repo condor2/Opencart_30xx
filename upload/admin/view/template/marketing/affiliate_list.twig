@@ -34,7 +34,7 @@
           <div class="panel-body">
             <div class="form-group">
               <label class="control-label" for="input-customer">{{ entry_customer }}</label>
-              <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-tracking">{{ entry_tracking }}</label>
@@ -137,10 +137,10 @@
 $('#button-filter').on('click', function() {
 	url = 'index.php?route=marketing/affiliate&user_token={{ user_token }}';
 
-	var filter_name = $('input[name=\'filter_name\']').val();
+	var filter_customer = $('input[name=\'filter_customer\']').val();
 
-	if (filter_name) {
-		url += '&filter_name=' + encodeURIComponent(filter_name);
+	if (filter_customer) {
+		url += '&filter_customer=' + encodeURIComponent(filter_customer);
 	}
 
 	var filter_tracking = $('input[name=\'filter_tracking\']').val();
@@ -171,7 +171,7 @@ $('#button-filter').on('click', function() {
 });
 //--></script>
 <script type="text/javascript"><!--
-$('input[name=\'filter_name\']').autocomplete({
+$('input[name=\'filter_customer\']').autocomplete({
 	'source': function(request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_affiliate=1&filter_name=' + encodeURIComponent(request),
@@ -187,7 +187,7 @@ $('input[name=\'filter_name\']').autocomplete({
 		});
 	},
 	'select': function(item) {
-		$('input[name=\'filter_name\']').val(item['label']);
+		$('input[name=\'filter_customer\']').val(item['label']);
 	}
 });
 //--></script>
