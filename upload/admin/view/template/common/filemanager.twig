@@ -56,6 +56,10 @@ $('a.thumbnail').on('click', function(e) {
 
 	$('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
 
+    {% if ckeditor %}
+      CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertImageHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
+    {% endif %}
+
 	$('#modal-image').modal('hide');
 });
 {% endif %}
@@ -105,6 +109,10 @@ $('#button-search').on('click', function(e) {
 
 	{% if target %}
 	url += '&target=' + '{{ target|escape('js') }}';
+	{% endif %}
+
+	{% if ckeditor %}
+	url += '&ckeditor=' + '{{ ckeditor|escape('js') }}';
 	{% endif %}
 
 	$('#modal-image').load(url);
