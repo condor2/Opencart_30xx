@@ -7,4 +7,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+
+	config.filebrowserWindowWidth = '800';
+	config.filebrowserWindowHeight = '500';
+	config.resize_enabled = true;
+
+	config.htmlEncodeOutput = false;
+	config.entities = false;
+	config.extraPlugins = 'opencart';
 };
