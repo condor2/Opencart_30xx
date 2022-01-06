@@ -6,7 +6,8 @@
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-sm-5"><a href="{{ parent }}" data-toggle="tooltip" title="{{ button_parent }}" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a> <a href="{{ refresh }}" data-toggle="tooltip" title="{{ button_refresh }}" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+        <div class="col-sm-5"><a href="{{ parent }}" data-toggle="tooltip" title="{{ button_parent }}" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a>
+          <a href="{{ refresh }}" data-toggle="tooltip" title="{{ button_refresh }}" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
           <button type="button" data-toggle="tooltip" title="{{ button_upload }}" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
           <button type="button" data-toggle="tooltip" title="{{ button_folder }}" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
           <button type="button" data-toggle="tooltip" title="{{ button_delete }}" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
@@ -56,13 +57,25 @@ $('a.thumbnail').on('click', function(e) {
 
 	$('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
 
-    {% if ckeditor %}
-      CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertImageHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
-    {% endif %}
-
 	$('#modal-image').modal('hide');
 });
 {% endif %}
+
+$('#modal-image').on('click', 'a.thumbnail', function(e) {
+	e.preventDefault();
+
+  {% if thumb %}
+	$('#{{ thumb|escape('js') }}').attr('src', $(this).find('img').attr('src'));
+
+	$('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
+  {% endif %}
+
+  {% if ckeditor %}
+	CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
+  {% endif %}
+
+	$('#modal-image').modal('hide');
+});
 
 $('a.directory').on('click', function(e) {
 	e.preventDefault();
