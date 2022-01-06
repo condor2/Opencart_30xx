@@ -59,16 +59,9 @@ $('a.thumbnail').on('click', function(e) {
 
 	$('#modal-image').modal('hide');
 });
-{% endif %}
-
+{% else %}
 $('#modal-image').on('click', 'a.thumbnail', function(e) {
 	e.preventDefault();
-
-  {% if thumb %}
-	$('#{{ thumb|escape('js') }}').attr('src', $(this).find('img').attr('src'));
-
-	$('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
-  {% endif %}
 
   {% if ckeditor %}
 	CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
@@ -76,6 +69,7 @@ $('#modal-image').on('click', 'a.thumbnail', function(e) {
 
 	$('#modal-image').modal('hide');
 });
+{% endif %}
 
 $('a.directory').on('click', function(e) {
 	e.preventDefault();
