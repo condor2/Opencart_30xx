@@ -21,6 +21,7 @@ This is a modified version of Opencart.
 - Promotion
 - Openbay
 - Klarna Payment
+- Google Shopping
 
 ## Updates
 - Latest version of Paypal Commerce
