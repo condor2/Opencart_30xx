@@ -46,16 +46,16 @@ class ControllerToolBackup extends Controller {
 
 		$this->response->setOutput($this->load->view('tool/backup', $data));
 	}
-	
+
 	public function import() {
 		$this->load->language('tool/backup');
-		
+
 		$json = array();
-		
+
 		if (!$this->user->hasPermission('modify', 'tool/backup')) {
 			$json['error'] = $this->language->get('error_permission');
 		}
-		
+
 		if (isset($this->request->files['import']['tmp_name']) && is_uploaded_file($this->request->files['import']['tmp_name'])) {
 			$filename = tempnam(DIR_UPLOAD, 'bac');
 
@@ -68,12 +68,12 @@ class ControllerToolBackup extends Controller {
 
 		if (!is_file($filename)) {
 			$json['error'] = $this->language->get('error_file');
-		}	
+		}
 
 		if (isset($this->request->get['position'])) {
 			$position = $this->request->get['position'];
 		} else {
-			$position = 0; 	
+			$position = 0;
 		}
 
 		if (!$json) {
@@ -89,14 +89,14 @@ class ControllerToolBackup extends Controller {
 				$position = ftell($handle);
 
 				$line = fgets($handle, 1000000);
-				
+
 				if (substr($line, 0, 14) == 'TRUNCATE TABLE' || substr($line, 0, 11) == 'INSERT INTO') {
 					$sql = '';
-					
+
 					$start = true;
 				}
 
-				if ($i > 0 && (substr($line, 0, 24) == 'TRUNCATE TABLE `oc_user`' || substr($line, 0, 30) == 'TRUNCATE TABLE `oc_user_group`')) {
+				if ($i > 0 && (substr($line, 0, 24) == 'TRUNCATE TABLE `' . DB_PREFIX .  'user`' || substr($line, 0, 30) == 'TRUNCATE TABLE `' . DB_PREFIX . 'user_group`')) {
 					fseek($handle, $position, SEEK_SET);
 
 					break;
@@ -105,13 +105,13 @@ class ControllerToolBackup extends Controller {
 				if ($start) {
 					$sql .= $line;
 				}
-				
+
 				if ($start && substr($line, -2) == ";\n") {
 					$this->db->query(substr($sql, 0, strlen($sql) -2));
 					
 					$start = false;
 				}
-					
+
 				$i++;
 			}
 
@@ -123,11 +123,11 @@ class ControllerToolBackup extends Controller {
 
 			if ($position && !feof($handle)) {
 				$json['next'] = str_replace('&amp;', '&', $this->url->link('tool/backup/import', 'user_token=' . $this->session->data['user_token'] . '&import=' . $filename . '&position=' . $position, true));
-			
+
 				fclose($handle);
 			} else {
 				fclose($handle);
-				
+
 				unlink($filename);
 
 				$json['success'] = $this->language->get('text_success');
@@ -163,5 +163,5 @@ class ControllerToolBackup extends Controller {
 
 			$this->response->setOutput($this->model_tool_backup->backup($this->request->post['backup']));		
 		}
-	}	
+	}
 }
