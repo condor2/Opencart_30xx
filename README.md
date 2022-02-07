@@ -49,6 +49,8 @@ This is a modified version of Opencart.
 
 ## Note
 This version is not supported by Opencart. You need to have PHP 7.4 to use this version.
+Should work just fine on PHP 8.0
+Not compatible with PHP 8.1
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).
