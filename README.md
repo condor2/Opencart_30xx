@@ -48,8 +48,8 @@ This is a modified version of Opencart.
 - Admin Product List Image Popup
 
 ## Note
-This version is not supported by Opencart. You need to have PHP 7.4 to use this version.
-Should work just fine on PHP 8.0
+This version is not supported by Opencart. You need to have PHP 7.4 to use this version.<br>
+Should work just fine on PHP 8.0<br>
 Not compatible with PHP 8.1
 
 ## LICENSE
