@@ -141,12 +141,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 		curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 		curl_setopt(
-				$curl, CURLOPT_HTTPHEADER, [
+				$curl, CURLOPT_HTTPHEADER, array(
 			"Authorization: " . $this->config->get('payment_worldpay_service_key'),
 			"Content-Type: application/json",
 			"Content-Length: " . strlen($json)
 				)
-		];
+		);
 
 		$result = json_decode(curl_exec($curl));
 		curl_close($curl);
@@ -170,5 +170,4 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$log->write($message);
 		}
 	}
-
 }

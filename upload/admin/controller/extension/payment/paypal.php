@@ -350,8 +350,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$token_info = array(
 			'grant_type' => 'client_credentials'
-		);	
-		);	
+		);
 							
 		$paypal->setAccessToken($token_info);
 				

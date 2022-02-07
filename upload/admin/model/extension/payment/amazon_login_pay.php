@@ -255,9 +255,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function fetchOrder($order_reference_id) {
-    	$order = $this->offAmazon("GetOrderReferenceDetails", [
+    	$order = $this->offAmazon("GetOrderReferenceDetails", array(
             'AmazonOrderReferenceId' => $order_reference_id
-        )];
+        ));
 
     	$responseBody = $order['ResponseBody'];
 
