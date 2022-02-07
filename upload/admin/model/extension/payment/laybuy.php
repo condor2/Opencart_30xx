@@ -131,16 +131,16 @@ class ModelExtensionPaymentLaybuy extends Model {
 		}
 
 		$sort_data = array(
-			'lt.order_id',
+			'`lt`.order_id',
 			'customer',
-			'lt.amount',
-			'lt.downpayment',
-			'lt.months',
-			'lt.downpayment_amount',
-			'lt.first_payment_due',
-			'lt.last_payment_due',
-			'lt.status',
-			'lt.date_added'
+			'`lt`.amount',
+			'`lt`.downpayment',
+			'`lt`.months',
+			'`lt`.downpayment_amount',
+			'`lt`.first_payment_due',
+			'`lt`.last_payment_due',
+			'`lt`.status',
+			'`lt`.date_added'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
