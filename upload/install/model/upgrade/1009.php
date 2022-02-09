@@ -82,7 +82,7 @@ class ModelUpgrade1009 extends Model {
 
 		$api_query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "api' AND COLUMN_NAME = 'name'");
 
-		//Api
+		// API
 		if ($api_query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` DROP COLUMN `username`");
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "api` CHANGE COLUMN `name` `username` VARCHAR(64) NOT NULL");
@@ -124,7 +124,7 @@ class ModelUpgrade1009 extends Model {
 		$query = $this->db->query("SELECT `statistics_id` FROM `" . DB_PREFIX . "statistics` WHERE `code` = 'order_sale'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `oc_statistics` (`statistics_id`, `code`, `value`) VALUES
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` (`statistics_id`, `code`, `value`) VALUES
 				(1, 'order_sale', 0),
 				(2, 'order_processing', 0),
 				(3, 'order_complete', 0),
@@ -160,7 +160,7 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Timiș') . "' WHERE `name` = '" . $this->db->escape('Timis') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `name` = '" . $this->db->escape('Vâlcea') . "' WHERE `name` = '" . $this->db->escape('Valcea') . "'");
 
-		//Customer IP
+		// Customer IP
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_ip' AND COLUMN_NAME = 'customer_ip_id'");
 
 		if (!$query->num_rows) {
@@ -173,14 +173,14 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD `country` VARCHAR(2) NOT NULL AFTER `ip`");
 		}
 
-		//Timezone
+		// Timezone
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_timezone'");
 
 		if (!$query->num_rows) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_timezone', `value` = 'UTC', `serialized` = '0'");
 		}
 
-		//Theme
+		// Theme
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `value` = 'theme_default'");
 
 		if ($query->num_rows) {
@@ -193,7 +193,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "extension` SET `code` = 'default' WHERE `code` = 'theme_default'");
 		}
 
-		//Settings-Coupon
+		// Settings - Coupon
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'coupon'");
 
 		if ($query->num_rows) {
@@ -201,7 +201,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_coupon' AND `key` = 'total_coupon_status' WHERE `key` = 'coupon_status'");
 		}
 
-		//Settings-Credit
+		// Settings - Credit
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'credit'");
 
 		if ($query->num_rows) {
@@ -209,7 +209,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_credit' AND `key` = 'total_credit_status' WHERE `key` = 'credit_status'");
 		}
 
-		//Settings-Reward
+		// Settings - Reward
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'reward'");
 
 		if ($query->num_rows) {
@@ -217,7 +217,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_reward' AND `key` = 'total_reward_status' WHERE `key` = 'reward_status'");
 		}
 
-		//Settings-Shipping
+		// Settings - Shipping
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'shipping'");
 
 		if ($query->num_rows) {
@@ -226,7 +226,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_shipping' AND `key` = 'total_shipping_estimator' WHERE `key` = 'shipping_estimator'");
 		}
 
-		//Settings-SubTotal
+		// Settings - SubTotal
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'sub_total'");
 
 		if ($query->num_rows) {
@@ -234,7 +234,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_sub_total' AND `key` = 'total_sub_total_status' WHERE `key` = 'sub_total_status'");
 		}
 
-		//Settings-Tax
+		// Settings - Tax
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'tax'");
 
 		if ($query->num_rows) {
@@ -242,7 +242,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_tax' AND `key` = 'total_tax_status' WHERE `key` = 'tax_status'");
 		}
 
-		//Settings-Total
+		// Settings - Total
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'total'");
 
 		if ($query->num_rows) {
@@ -250,12 +250,25 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_total' AND `key` = 'total_total_status' WHERE `key` = 'total_status'");
 		}
 
-		//Settings-Voucher
+		// Settings - Voucher
 		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'voucher'");
 
 		if ($query->num_rows) {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_voucher' AND `key` = 'total_voucher_sort_order' WHERE `key` = 'voucher_sort_order'");
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `code` = 'total_voucher' AND `key` = 'total_voucher_status' WHERE `key` = 'voucher_status'");
+		}
+
+		// Report - Marketing
+		$query = $this->db->query("SELECT `extension_id` FROM `" . DB_PREFIX . "extension` WHERE `type` = 'report' AND `code` = 'marketing'");
+
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'report', `code` = 'marketing'");
+		}
+
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'report_customer_transaction' AND `key` = 'report_customer_transaction_status_sort_order'");
+
+		if ($query->num_rows) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `key` = 'report_customer_transaction_sort_order' WHERE `key` = 'report_customer_transaction_status_sort_order'");
 		}
 
 		// OPENCART_SERVER
