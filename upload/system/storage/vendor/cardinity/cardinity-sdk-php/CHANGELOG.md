@@ -1,12 +1,39 @@
 # Cardinity Client PHP Library
 
+## v3.0.3
 
+### Added
 - Added `Method\Validators\CallbackUrlConstraint` custom validation constraint class
 - Added `Method\Validators\CallbackUrlConstraintValidator` custom constraint validation class
 - Added `getInsideArray` method to `Method\Payment\Create` class
 - Added `getNotificationUrlConstraints` method to `Method\Payment\Create` for `notification_url` parameter
 - Added `getIpAddressConstraints` method to `Method\Payment\Create` for `ip_address` parameter.
 - Added unit tests for new methods.
+- Added `getStatementDescriptorDuffix` method to `Method\Payment\Payment` for `statement_descriptor_prefix` parameter.
+- Added `setStatementDescriptorDuffix` method to `Method\Payment\Payment` for `statement_descriptor_prefix` parameter.
+
+
+### Updated
+- Updated `getThreeDS2DataConstraints` method of `Method\Payment\Create` class
+- Updated `getBrowserInfoConstraints` method of `Method\Payment\Create` class.
+- Updated `getValidationConstraints` method of `Method\Payment\Create` class
+
+## v3.0.2
+
+### Changed
+
+- Changed `getThreeds2data` method to `getThreeds2Data` of class `Method\Payment\Payment`
+- Changed `setThreeds2data` method to `setThreeds2Data` of class `Method\Payment\Payment`
+- Changed `unserialize` method of `Method\ResultObject` class
+- Changed `propertyName` method of `Method\ResultObject` class
+
+
+## v3.0.1
+
+### Fixed
+
+- Removed redundant comma in `Method\Payment\Create.php` line 84.
+
 ## v3.0.0
 
 ### Added

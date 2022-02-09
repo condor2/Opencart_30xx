@@ -16,6 +16,7 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Url;
 
 class Client
 {
@@ -59,6 +60,13 @@ class Client
             'consumer_secret' => $options['consumerSecret']
         ]);
 
+        $validator = Validation::createValidator();
+
+        if(isset($options['apiEndpoint'])){
+            self::validateClientEndpoint($options, $validator);
+            self::$url = $options['apiEndpoint'];
+        }
+
         $stack = HandlerStack::create();
         $stack->push($oauth);
 
@@ -78,7 +86,7 @@ class Client
 
         return new self(
             new Guzzle\ClientAdapter($client, new Guzzle\ExceptionMapper($mapper)),
-            new Validator(Validation::createValidator()),
+            new Validator($validator),
             $mapper
         );
     }
@@ -184,5 +192,24 @@ class Client
         }
 
         return $data;
+    }
+
+    /**
+     * Validate endPoint is a valid URL
+     *
+     * @param [array] $options
+     * @param [Validator] $validator
+     * @return void
+     */
+    private static function validateClientEndpoint($options, $validator){
+        $violations = $validator->validate($options['apiEndpoint'], [
+            new Url(),
+        ]);
+        if(count($violations) != 0){
+            throw new Exception\InvalidAttributeValue(
+                'Your API endpoint is not a valid URL',
+                $violations
+            );
+        }
     }
 }

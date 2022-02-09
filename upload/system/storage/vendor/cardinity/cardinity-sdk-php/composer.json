@@ -26,5 +26,8 @@
         "psr-4": {
             "Cardinity\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }

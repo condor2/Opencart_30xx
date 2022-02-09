@@ -28,8 +28,8 @@ class ClientTestCase extends TestCase
     protected function getConfig()
     {
         return [
-            'consumerKey' => CONSUMER_KEY,
-            'consumerSecret' => CONSUMER_SECRET,
+            'consumerKey' => $_ENV['CONSUMER_KEY'],
+            'consumerSecret' => $_ENV['CONSUMER_SECRET'],
         ];
     }
 
