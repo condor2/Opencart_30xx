@@ -46,7 +46,7 @@ class ControllerStartupStartup extends Controller {
 
 		// Require higher security for session cookies
 		$option = array(
-			'expires'  => time() + $expire,
+			'expires'  => $this->config->get('config_session_expire') ? time() + (int)$this->config->get('config_session_expire') : 0,
 			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
@@ -85,14 +85,14 @@ class ControllerStartupStartup extends Controller {
 		$this->registry->set('tax', new Cart\Tax($this->registry));
 
 		if ($this->config->get('config_tax_default') == 'shipping') {
-			$this->tax->setShippingAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+			$this->tax->setShippingAddress($this->config->get('config_country_id'), (int)$this->config->get('config_zone_id'));
 		}
 
 		if ($this->config->get('config_tax_default') == 'payment') {
-			$this->tax->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+			$this->tax->setPaymentAddress($this->config->get('config_country_id'), (int)$this->config->get('config_zone_id'));
 		}
 
-		$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+		$this->tax->setStoreAddress($this->config->get('config_country_id'), (int)$this->config->get('config_zone_id'));
 
 		// Weight
 		$this->registry->set('weight', new Cart\Weight($this->registry));
