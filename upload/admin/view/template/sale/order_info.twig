@@ -80,7 +80,7 @@
               <tr>
                 <td>{{ text_invoice }}</td>
                 <td id="invoice" class="text-right">{{ invoice_no }}</td>
-                <td style="width: 1%;" class="text-center">{% if not invoice_no %}
+                <td style="width: 1%;" class="text-center"><td id="invoice" class="text-right">{% if not invoice_no %}{{ text_not_generated }}{% else %}{{ invoice_no }}{% endif %}</td>
                   <button id="button-invoice" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_generate }}" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
                   {% else %}
                   <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-refresh"></i></button>
