@@ -2,7 +2,12 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info"><i class="fa fa-print"></i></a> <a href="{{ shipping }}" target="_blank" data-toggle="tooltip" title="{{ button_shipping_print }}" class="btn btn-info"><i class="fa fa-truck"></i></a> <a href="{{ edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="pull-right">
+        <a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info" disabled="disabled"><i class="fa fa-print"></i></a>
+        <a href="{{ shipping }}" target="_blank" data-toggle="tooltip" title="{{ button_shipping_print }}" class="btn btn-info"><i class="fa fa-truck"></i></a>
+        <a href="{{ edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -38,8 +43,7 @@
               <td>{{ shipping_method }}</td>
             </tr>
             {% endif %}
-              </tbody>
-            
+            </tbody>
           </table>
         </div>
       </div>
@@ -79,12 +83,14 @@
             <tbody>
               <tr>
                 <td>{{ text_invoice }}</td>
-                <td id="invoice" class="text-right">{{ invoice_no }}</td>
-                <td style="width: 1%;" class="text-center"><td id="invoice" class="text-right">{% if not invoice_no %}{{ text_not_generated }}{% else %}{{ invoice_no }}{% endif %}</td>
+                <td id="invoice" class="text-right">{% if not invoice_no %} {{ text_not_generated }} {% else %} {{ invoice_no }} {% endif %}</td>
+                <td style="width: 1%;" class="text-center">
+                  {% if not invoice_no %}
                   <button id="button-invoice" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_generate }}" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
                   {% else %}
                   <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-refresh"></i></button>
-                  {% endif %}</td>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td>{{ text_reward }}</td>
