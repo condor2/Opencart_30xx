@@ -197,14 +197,14 @@ class Image {
 		imagedestroy($image_old);
 
 		static $matrix, $divisor;
-        if (!$matrix) {
-           $matrix = array(
-               array(-1, -1, -1),
-               array(-1, 16, -1),
-               array(-1, -1, -1),
-           );
-           $divisor = array_sum(array_map("array_sum", $matrix));
-        }
+		if (!$matrix) {
+			$matrix = array(
+				array(-1, -1, -1),
+				array(-1, 16, -1),
+				array(-1, -1, -1),
+			);
+			$divisor = array_sum(array_map("array_sum", $matrix));
+		}
 
         imageconvolution($this->image, $matrix, $divisor, 0);
 
