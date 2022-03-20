@@ -677,9 +677,7 @@ class ControllerCustomerCustomer extends Controller {
 			$data['multistore'] = $data['multistore'] + 1;
 		}
 
-		if (isset($this->request->post['store_id'])) {
-			$data['store_id'] = $this->request->post['store_id'];
-		} elseif (!empty($customer_info)) {
+		if (!empty($customer_info)) {
 			$data['store_id'] = $customer_info['store_id'];
 		} else {
 			$data['store_id'] = array(0);
