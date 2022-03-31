@@ -35,6 +35,9 @@ $_['column_name']           = 'Name';
 $_['column_sort_order']     = 'Sort Order';
 $_['column_action']         = 'Action';
 
+// Button
+$_['button_report_print']   = 'Print Recurring List';
+
 // Error
 $_['error_warning']         = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']      = 'Warning: You do not have permission to modify recurring profiles!';
