@@ -34,6 +34,10 @@ class ControllerSaleReturn extends Controller {
 				$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 			}
 
+			if (isset($this->request->get['filter_recurring'])) {
+				$url .= '&filter_recurring=' . urlencode(html_entity_decode($this->request->get['filter_recurring'], ENT_QUOTES, 'UTF-8'));
+			}
+
 			if (isset($this->request->get['filter_customer'])) {
 				$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 			}
@@ -96,6 +100,10 @@ class ControllerSaleReturn extends Controller {
 
 			if (isset($this->request->get['filter_order_id'])) {
 				$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+			}
+
+			if (isset($this->request->get['filter_recurring'])) {
+				$url .= '&filter_recurring=' . $this->request->get['filter_recurring'];
 			}
 
 			if (isset($this->request->get['filter_customer'])) {
@@ -164,6 +172,10 @@ class ControllerSaleReturn extends Controller {
 				$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 			}
 
+			if (isset($this->request->get['filter_recurring'])) {
+				$url .= '&filter_recurring=' . $this->request->get['filter_recurring'];
+			}
+
 			if (isset($this->request->get['filter_customer'])) {
 				$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 			}
@@ -217,6 +229,12 @@ class ControllerSaleReturn extends Controller {
 			$filter_order_id = (int)$this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
+		}
+
+		if (isset($this->request->get['filter_recurring'])) {
+			$filter_recurring = $this->request->get['filter_recurring'];
+		} else {
+			$filter_recurring = '';
 		}
 
 		if (isset($this->request->get['filter_customer'])) {
@@ -283,6 +301,10 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 		}
 
+		if (isset($this->request->get['filter_recurring'])) {
+			$url .= '&filter_recurring=' . urlencode(html_entity_decode($this->request->get['filter_recurring'], ENT_QUOTES, 'UTF-8'));
+		}
+
 		if (isset($this->request->get['filter_customer'])) {
 			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -339,6 +361,7 @@ class ControllerSaleReturn extends Controller {
 		$filter_data = array(
 			'filter_return_id'        => $filter_return_id,
 			'filter_order_id'         => $filter_order_id,
+			'filter_recurring'        => $filter_recurring,
 			'filter_customer'         => $filter_customer,
 			'filter_product'          => $filter_product,
 			'filter_model'            => $filter_model,
@@ -405,6 +428,10 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 		}
 
+		if (isset($this->request->get['filter_recurring'])) {
+			$url .= '&filter_recurring=' . urlencode(html_entity_decode($this->request->get['filter_recurring'], ENT_QUOTES, 'UTF-8'));
+		}
+
 		if (isset($this->request->get['filter_customer'])) {
 			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -458,6 +485,10 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
 		}
 
+		if (isset($this->request->get['filter_recurring'])) {
+			$url .= '&filter_recurring=' . urlencode(html_entity_decode($this->request->get['filter_recurring'], ENT_QUOTES, 'UTF-8'));
+		}
+
 		if (isset($this->request->get['filter_customer'])) {
 			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -502,6 +533,7 @@ class ControllerSaleReturn extends Controller {
 
 		$data['filter_return_id'] = $filter_return_id;
 		$data['filter_order_id'] = $filter_order_id;
+		$data['filter_recurring'] = $filter_recurring;
 		$data['filter_customer'] = $filter_customer;
 		$data['filter_product'] = $filter_product;
 		$data['filter_model'] = $filter_model;
@@ -590,6 +622,10 @@ class ControllerSaleReturn extends Controller {
 
 		if (isset($this->request->get['filter_order_id'])) {
 			$url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
+		}
+
+		if (isset($this->request->get['filter_recurring'])) {
+			$url .= '&filter_recurring=' . urlencode(html_entity_decode($this->request->get['filter_recurring'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_customer'])) {

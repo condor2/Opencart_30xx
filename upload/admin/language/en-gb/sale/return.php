@@ -20,6 +20,7 @@ $_['column_return_id']     = 'Return ID';
 $_['column_order_id']      = 'Order ID';
 $_['column_customer']      = 'Customer';
 $_['column_product']       = 'Product';
+$_['entry_recurring']      = 'Recurring Orders';
 $_['column_model']         = 'Model';
 $_['column_status']        = 'Status';
 $_['column_date_added']    = 'Date Added';

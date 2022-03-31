@@ -34,6 +34,10 @@ class ModelSaleReturn extends Model {
 			$implode[] = "r.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 
+		if (!empty($data['filter_recurring'])) {
+			$implode[] = "r.`product_id` IN (SELECT or.`product_id` FROM `" . DB_PREFIX . "order_recurring` or LEFT JOIN `" . DB_PREFIX . "recurring` r ON (or.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = or.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";	
+		}
+
 		if (!empty($data['filter_customer'])) {
 			$implode[] = "CONCAT(r.`firstname`, ' ', r.`lastname`) LIKE '" . $this->db->escape((string)$data['filter_customer']) . "%'";
 		}
@@ -117,6 +121,10 @@ class ModelSaleReturn extends Model {
 
 		if (!empty($data['filter_order_id'])) {
 			$implode[] = "r.`order_id` = '" . $this->db->escape((string)$data['filter_order_id']) . "'";
+		}
+
+		if (!empty($data['filter_recurring'])) {
+			$implode[] = "r.`product_id` IN (SELECT or.`product_id` FROM `" . DB_PREFIX . "order_recurring` or LEFT JOIN `" . DB_PREFIX . "recurring` r ON (or.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = or.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";	
 		}
 
 		if (!empty($data['filter_product'])) {
