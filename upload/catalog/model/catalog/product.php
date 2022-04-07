@@ -545,10 +545,10 @@ class ModelCatalogProduct extends Model {
 		$implode = array();
 
 		foreach ($category_ids as $category_id) {
-			$implode[] = (int)$category_id;
+			$implode[] = "category_id = '" . (int)$category_id . "'";
 		}
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "' AND `category_id` IN(" . implode(',', $implode) . ")");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "' AND (" . implode(" OR ", $implode) . ")");
 
   	    return $query->row;
 	}
