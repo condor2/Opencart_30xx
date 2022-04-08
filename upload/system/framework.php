@@ -93,16 +93,10 @@ $registry->set('request', $request);
 
 // Response
 $response = new Response();
-
-foreach ($config->get('response_header') as $header) {
-	$response->addHeader($header);
-}
-
-$response->addHeader('Access-Control-Allow-Origin: *');
-$response->addHeader('Access-Control-Allow-Credentials: true');
-$response->addHeader('Access-Control-Max-Age: 1000');
-$response->addHeader('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding');
-$response->addHeader('Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE');
+$response->addHeader('Content-Type: text/html; charset=utf-8');
+$response->addHeader('Expires: Thu, 19 Nov 1981 08:52:00 GMT');
+$response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+$response->addHeader('Pragma: no-cache');
 $response->setCompression($config->get('config_compression'));
 $registry->set('response', $response);
 
