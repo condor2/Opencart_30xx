@@ -656,12 +656,12 @@ class ControllerSettingStore extends Controller {
 			$data['icon'] = $data['placeholder'];
 		}
 
-		if (isset($this->request->post['config_secure'])) {
-			$data['config_secure'] = (int)$this->request->post['config_secure'];
-		} elseif (isset($store_info['config_secure'])) {
-			$data['config_secure'] = $store_info['config_secure'];
+		if (isset($this->request->post['config_maintenance'])) {
+			$data['config_maintenance'] = (int)$this->request->post['config_secure'];
+		} elseif (isset($store_info['config_maintenance'])) {
+			$data['config_maintenance'] = $store_info['config_maintenance'];
 		} else {
-			$data['config_secure'] = '';
+			$data['config_maintenance'] = '';
 		}
 
 		$data['header'] = $this->load->controller('common/header');
