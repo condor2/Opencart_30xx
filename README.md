@@ -47,7 +47,8 @@ This is a modified version of Opencart.
 - Default editor can be changed from store settings.
 - Admin Product List Image Popup
 - Multi Store Maintenance Setting
-- Separate E-mail adress for Order and Contact form
+- Filter Customers by Affiliate Status
+- Separate E-mail address for Order and Contact form
 
 ## Note
 This version is not supported by Opencart. You need to have PHP at least 7.4 to use this version.
