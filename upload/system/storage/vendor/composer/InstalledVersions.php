@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '66d6931433570241618d6175d3a0963f5021c107',
+    'reference' => '4c554f7d7af398c63e8e7a15e7211bcbb19844b0',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -45,12 +45,12 @@ private static $installed = array (
     ),
     'cardinity/cardinity-sdk-php' => 
     array (
-      'pretty_version' => 'v3.0.4',
-      'version' => '3.0.4.0',
+      'pretty_version' => 'v3.0.5',
+      'version' => '3.0.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8a3e79ebc89cf26777f27a061ff356e8eeb1c47f',
+      'reference' => 'a74ac61e730ae1e252074e19e7007534da65779b',
     ),
     'divido/divido-php' => 
     array (
@@ -63,21 +63,21 @@ private static $installed = array (
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '6.5.5',
-      'version' => '6.5.5.0',
+      'pretty_version' => '7.4.2',
+      'version' => '7.4.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9d4290de1cfd701f38099ef7e183b64b4b7b0c5e',
+      'reference' => 'ac1ec1cd9b5624694c3a40be801d94137afb12b4',
     ),
     'guzzlehttp/oauth-subscriber' => 
     array (
-      'pretty_version' => '0.3.0',
-      'version' => '0.3.0.0',
+      'pretty_version' => '0.6.0',
+      'version' => '0.6.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '04960cdef3cd80ea401d6b0ca8b3e110e9bf12cf',
+      'reference' => '8d6cab29f8397e5712d00a383eeead36108a3c1f',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -90,12 +90,12 @@ private static $installed = array (
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.8.5',
-      'version' => '1.8.5.0',
+      'pretty_version' => '2.2.1',
+      'version' => '2.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '337e3ad8e5716c15f9657bd214d16cc5e69df268',
+      'reference' => 'c94a94f120803a18554c1805ef2e539f8285f9a2',
     ),
     'opencart/opencart' => 
     array (
@@ -104,7 +104,39 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '66d6931433570241618d6175d3a0963f5021c107',
+      'reference' => '4c554f7d7af398c63e8e7a15e7211bcbb19844b0',
+    ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'psr/http-factory' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '12ac7fcd07e5b077433f5f2bee95b3a771bf61be',
+    ),
+    'psr/http-factory-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'psr/http-message' => 
     array (
@@ -142,12 +174,12 @@ private static $installed = array (
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => 'v2.5.1',
+      'version' => '2.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
+      'reference' => 'e8b495ea28c1d97b5e0c121748d6f9b53d075c66',
     ),
     'symfony/polyfill-ctype' => 
     array (
@@ -158,24 +190,6 @@ private static $installed = array (
       ),
       'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
     ),
-    'symfony/polyfill-intl-idn' => 
-    array (
-      'pretty_version' => 'v1.25.0',
-      'version' => '1.25.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '749045c69efb97c70d25d7463abba812e91f3a44',
-    ),
-    'symfony/polyfill-intl-normalizer' => 
-    array (
-      'pretty_version' => 'v1.25.0',
-      'version' => '1.25.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
-    ),
     'symfony/polyfill-mbstring' => 
     array (
       'pretty_version' => 'v1.25.0',
@@ -184,15 +198,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '0abb51d2f102e00a4eefcf46ba7fec406d245825',
-    ),
-    'symfony/polyfill-php72' => 
-    array (
-      'pretty_version' => 'v1.25.0',
-      'version' => '1.25.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
     ),
     'symfony/polyfill-php73' => 
     array (
@@ -223,30 +228,30 @@ private static $installed = array (
     ),
     'symfony/translation-contracts' => 
     array (
-      'pretty_version' => 'v2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => 'v2.5.1',
+      'version' => '2.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd28150f0f44ce854e942b671fc2620a98aae1b1e',
+      'reference' => '1211df0afa701e45a04253110e959d4af4ef0f07',
     ),
     'symfony/validator' => 
     array (
-      'pretty_version' => 'v5.4.6',
-      'version' => '5.4.6.0',
+      'pretty_version' => 'v5.4.8',
+      'version' => '5.4.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ab461eab209e3be062ba9c609d37b37e8364dbe4',
+      'reference' => 'bdc6d04ba95c73ccbf906b4ad9b8775c738d83ad',
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.3.9',
-      'version' => '3.3.9.0',
+      'pretty_version' => 'v3.3.10',
+      'version' => '3.3.10.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6ff9b0e440fa66f97f207e181c41340ddfa5683d',
+      'reference' => '8442df056c51b706793adf80a9fd363406dd3674',
     ),
     'zoujingli/wechat-php-sdk' => 
     array (

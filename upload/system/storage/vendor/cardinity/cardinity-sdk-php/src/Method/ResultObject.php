@@ -111,6 +111,10 @@ abstract class ResultObject implements ResultObjectInterface
         }
     }
 
+
+    public function __serialize(): array {return[];}
+    public function __unserialize(array $data): void {}
+
     /**
      * @param string $class
      * @return array

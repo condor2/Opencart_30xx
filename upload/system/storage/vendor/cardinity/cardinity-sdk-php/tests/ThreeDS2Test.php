@@ -9,11 +9,35 @@ use Cardinity\Method\ResultObject;
 
 class ThreeDS2Test extends ClientTestCase
 {
-    /**
-     * @return void
-     */
+    public function optionalBrowserInfoProvider()
+    {
+        return [
+            [['ip_address' => '0.0.0.0']],
+            [['javascript_enabled' => false]],
+            [['javascript_enabled' => true]],
+            [['java_enabled' => false]],
+            [['java_enabled' => true]],
+            [['ip_address' => '0.0.0.0', 'javascript_enabled' => true]],
+            [['ip_address' => '0.0.0.0', 'java_enabled' => true]],
+            [['ip_address' => '0.0.0.0', 'java_enabled' => false, 'javascript_enabled' => true]],
+            [['java_enabled' => false, 'javascript_enabled' => true]],
+        ];
+    }
+
+
+    public function optionalAddressProvider()
+    {
+        return [
+            [['address_line2' => 'address line 2']],
+            [['address_line3' => 'address line 3']],
+            [['state' => 'vilnius']],
+            [['address_line2' => 'address line 2', 'state' => 'vilnius']],
+        ];
+    }
+
     public function testClientCallSuccess()
     {
+
         $threeDS2Data = $this->getThreeDS2Data();
 
         $method = new Payment\Create([
@@ -39,14 +63,12 @@ class ThreeDS2Test extends ClientTestCase
             $this->assertEquals('pending', $payment->getStatus());
         } catch (Exception\Declined $exception) {
             $payment = $exception->getResult();
-            $status = $payment->getStatus();
             $errors = $exception->getErrors();
         } catch (Exception\ValidationFailed $exception) {
             $payment = $exception->getResult();
-            $status = $payment->getStatus();
             $errors = $exception->getErrors();
-        } catch (Cardinity\Exception\InvalidAttributeValue $exception) {
-            $errors = $exception->getErrors();
+        } catch (Exception\InvalidAttributeValue $exception) {
+            $errors = $exception->getViolations();
         }
         if (isset($errors)) {
             $this->assertContains('[threeds2_data][notification_url]',$errors);
