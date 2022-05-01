@@ -50,6 +50,10 @@ class ControllerCustomerCustomer extends Controller {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 			}
 
+			if (isset($this->request->get['filter_affiliate_status'])) {
+				$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
+			}
+
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
 			}
@@ -104,6 +108,10 @@ class ControllerCustomerCustomer extends Controller {
 
 			if (isset($this->request->get['filter_date_added'])) {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+			}
+
+			if (isset($this->request->get['filter_affiliate_status'])) {
+				$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
 			}
 
 			if (isset($this->request->get['sort'])) {
@@ -164,6 +172,10 @@ class ControllerCustomerCustomer extends Controller {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 			}
 
+			if (isset($this->request->get['filter_affiliate_status'])) {
+				$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
+			}
+
 			if (isset($this->request->get['sort'])) {
 				$url .= '&sort=' . $this->request->get['sort'];
 			}
@@ -218,6 +230,10 @@ class ControllerCustomerCustomer extends Controller {
 
 			if (isset($this->request->get['filter_date_added'])) {
 				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+			}
+
+			if (isset($this->request->get['filter_affiliate_status'])) {
+				$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
 			}
 
 			if (isset($this->request->get['sort'])) {
@@ -275,6 +291,12 @@ class ControllerCustomerCustomer extends Controller {
 			$filter_date_added = '';
 		}
 
+		if (isset($this->request->get['filter_affiliate_status'])) {
+			$filter_affiliate_status = $this->request->get['filter_affiliate_status'];
+		} else {
+			$filter_affiliate_status = '';
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -319,6 +341,10 @@ class ControllerCustomerCustomer extends Controller {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
+		if (isset($this->request->get['filter_affiliate_status'])) {
+			$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
@@ -358,6 +384,7 @@ class ControllerCustomerCustomer extends Controller {
 			'filter_customer_group_id' => $filter_customer_group_id,
 			'filter_status'            => $filter_status,
 			'filter_date_added'        => $filter_date_added,
+			'filter_affiliate_status'  => $filter_affiliate_status,
 			'filter_ip'                => $filter_ip,
 			'sort'                     => $sort,
 			'order'                    => $order,
@@ -456,6 +483,10 @@ class ControllerCustomerCustomer extends Controller {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
+		if (isset($this->request->get['filter_affiliate_status'])) {
+			$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
+		}
+
 		if ($order == 'ASC') {
 			$url .= '&order=DESC';
 		} else {
@@ -498,6 +529,10 @@ class ControllerCustomerCustomer extends Controller {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
+		if (isset($this->request->get['filter_affiliate_status'])) {
+			$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
@@ -522,6 +557,7 @@ class ControllerCustomerCustomer extends Controller {
 		$data['filter_status'] = $filter_status;
 		$data['filter_ip'] = $filter_ip;
 		$data['filter_date_added'] = $filter_date_added;
+		$data['filter_affiliate_status'] = $filter_affiliate_status;
 
 		$this->load->model('customer/customer_group');
 
@@ -630,6 +666,10 @@ class ControllerCustomerCustomer extends Controller {
 
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+		}
+
+		if (isset($this->request->get['filter_affiliate_status'])) {
+			$url .= '&filter_affiliate_status=' . $this->request->get['filter_affiliate_status'];
 		}
 
 		if (isset($this->request->get['sort'])) {

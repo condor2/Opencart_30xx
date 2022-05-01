@@ -82,6 +82,22 @@
                 </span>
               </div>
             </div>
+            <div class="form-group">
+              <label class="control-label" for="input-affiliate-status">{{ entry_affiliate_status }}</label>
+              <select name="filter_affiliate_status" id="input-affiliate-status" class="form-control">
+                <option value=""></option>
+                {% if filter_affiliate_status == '1' %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                {% endif %}
+                {% if filter_affiliate_status == '0' %}
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% else %}
+                <option value="0">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
             <div class="form-group text-right">
               <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
@@ -219,6 +235,12 @@
 
     if (filter_date_added) {
       	url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+    }
+
+    var filter_affiliate_status = $('select[name=\'filter_affiliate_status\']').val();
+
+    if (filter_affiliate_status !== '') {
+      	url += '&filter_affiliate_status=' + encodeURIComponent(filter_affiliate_status); 
     }
 
     location = url;

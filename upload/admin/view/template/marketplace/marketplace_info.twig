@@ -57,10 +57,10 @@
                   <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
-                    <th>{{ text_name }}</th>
+                      <th>{{ text_name }}</th>
                       <th>{{ text_date_added }}</th>
                       <th class="text-right">{{ text_action }}</th>
-                        </thead>
+                    </thead>
                     <tbody>
                     {% if downloads %}
                     {% for download in downloads %}
@@ -73,7 +73,8 @@
                         <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_install }}</button>
                         {% else %}
                         <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_download }}</button>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                     </tr>
                     {% endfor %}
                     {% else %}
