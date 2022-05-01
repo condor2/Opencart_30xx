@@ -1310,18 +1310,11 @@ class ControllerCustomerCustomer extends Controller {
 				$filter_email = '';
 			}
 
-			if (isset($this->request->get['filter_affiliate'])) {
-				$filter_affiliate = $this->request->get['filter_affiliate'];
-			} else {
-				$filter_affiliate = '';
-			}
-
 			$this->load->model('customer/customer');
 
 			$filter_data = array(
 				'filter_name'      => $filter_name,
 				'filter_email'     => $filter_email,
-				'filter_affiliate' => $filter_affiliate,
 				'start'            => 0,
 				'limit'            => 5
 			);

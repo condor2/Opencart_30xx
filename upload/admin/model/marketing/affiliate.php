@@ -122,7 +122,7 @@ class ModelMarketingAffiliate extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getReports($customer_id, $start = 0, $limit = 10) {
@@ -142,6 +142,6 @@ class ModelMarketingAffiliate extends Model {
 	public function getTotalReports($customer_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "customer_affiliate_report WHERE customer_id = '" . (int)$customer_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }
