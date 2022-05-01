@@ -47,6 +47,18 @@ class ControllerSettingSetting extends Controller {
 			$data['error_email'] = '';
 		}
 
+		if (isset($this->error['order_email'])) {
+			$data['error_order_email'] = $this->error['order_email'];
+		} else {
+			$data['error_order_email'] = '';
+		}
+
+		if (isset($this->error['contact_email'])) {
+			$data['error_contact_email'] = $this->error['contact_email'];
+		} else {
+			$data['error_contact_email'] = '';
+		}
+
 		if (isset($this->error['telephone'])) {
 			$data['error_telephone'] = $this->error['telephone'];
 		} else {
@@ -243,12 +255,24 @@ class ControllerSettingSetting extends Controller {
 			$data['config_email'] = $this->config->get('config_email');
 		}
 
+		if (isset($this->request->post['config_order_email'])) {
+			$data['config_order_email'] = $this->request->post['config_order_email'];
+		} else {
+			$data['config_order_email'] = $this->config->get('config_order_email');
+		}
+
+		if (isset($this->request->post['config_contact_email'])) {
+			$data['config_contact_email'] = $this->request->post['config_contact_email'];
+		} else {
+			$data['config_contact_email'] = $this->config->get('config_contact_email');
+		}
+
 		if (isset($this->request->post['config_telephone'])) {
 			$data['config_telephone'] = $this->request->post['config_telephone'];
 		} else {
 			$data['config_telephone'] = $this->config->get('config_telephone');
 		}
-		
+
 		if (isset($this->request->post['config_image'])) {
 			$data['config_image'] = $this->request->post['config_image'];
 		} else {
@@ -965,6 +989,14 @@ class ControllerSettingSetting extends Controller {
 
 		if ((utf8_strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['email'] = $this->language->get('error_email');
+		}
+
+		if ((utf8_strlen($this->request->post['config_order_email']) > 96) || !filter_var($this->request->post['config_order_email'], FILTER_VALIDATE_EMAIL)) {
+			$this->error['order_email'] = $this->language->get('error_order_email');
+		}
+
+		if ((utf8_strlen($this->request->post['config_contact_email']) > 96) || !filter_var($this->request->post['config_contact_email'], FILTER_VALIDATE_EMAIL)) {
+			$this->error['contact_email'] = $this->language->get('error_contact_email');
 		}
 
 		if ((utf8_strlen($this->request->post['config_telephone']) < 3) || (utf8_strlen($this->request->post['config_telephone']) > 32)) {

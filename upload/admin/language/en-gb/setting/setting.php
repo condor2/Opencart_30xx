@@ -131,6 +131,8 @@ $_['entry_error_log']                = 'Log Errors';
 $_['entry_error_filename']           = 'Error Log Filename';
 $_['entry_status']                   = 'Status';
 $_['entry_editor_default']           = 'Default editor';
+$_['entry_order_email']              = 'Order E-Mail';
+$_['entry_contact_email']            = 'Contact E-Mail';
 
 // Help
 $_['help_geocode']                   = 'Please enter your store location geocode manually.';
@@ -217,3 +219,5 @@ $_['error_log_invalid']              = 'Error Log Filename invalid!';
 $_['error_log_extension']            = 'Error Log Filename extension needs to be .log!';
 $_['error_encryption']               = 'Encryption Key must be between 32 and 1024 characters!';
 $_['error_file_max_size']            = 'Max File Size required!';
+$_['error_order_email']              = 'E-Mail Address does not appear to be valid!';
+$_['error_contact_email']            = 'E-Mail Address does not appear to be valid!';
