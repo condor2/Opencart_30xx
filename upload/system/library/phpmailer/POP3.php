@@ -314,7 +314,7 @@ class POP3
         //So ignore errors here
         try {
             @fclose($this->pop_conn);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             //Do nothing
         }
     }

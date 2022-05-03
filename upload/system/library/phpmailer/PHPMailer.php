@@ -1434,7 +1434,7 @@ class PHPMailer
             }
 
             return $this->postSend();
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->mailHeader = '';
             $this->setError($exc->getMessage());
             if ($this->exceptions) {
@@ -1571,7 +1571,7 @@ class PHPMailer
             }
 
             return true;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             if ($this->exceptions) {
                 throw $exc;
@@ -1608,7 +1608,7 @@ class PHPMailer
 
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
             }
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
@@ -2038,7 +2038,7 @@ class PHPMailer
                     }
 
                     return true;
-                } catch (Exception $exc) {
+                } catch (\Exception $exc) {
                     $lastexception = $exc;
                     $this->edebug($exc->getMessage());
                     // We must have connected, but then failed TLS or Auth, so close connection nicely
@@ -2834,7 +2834,7 @@ class PHPMailer
                     @unlink($signed);
                     throw new Exception($this->lang('signing') . openssl_error_string());
                 }
-            } catch (Exception $exc) {
+            } catch (\Exception $exc) {
                 $body = '';
                 if ($this->exceptions) {
                     throw $exc;
@@ -2992,7 +2992,7 @@ class PHPMailer
                 6 => $disposition,
                 7 => $name,
             );
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
@@ -3149,7 +3149,7 @@ class PHPMailer
             $file_buffer = $this->encodeString($file_buffer, $encoding);
 
             return $file_buffer;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
@@ -3482,7 +3482,7 @@ class PHPMailer
                 6 => $disposition,
                 7 => 0,
             );
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
@@ -3554,7 +3554,7 @@ class PHPMailer
                 6 => $disposition,
                 7 => $cid,
             );
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
@@ -3615,7 +3615,7 @@ class PHPMailer
                 6 => $disposition,
                 7 => $cid,
             );
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
