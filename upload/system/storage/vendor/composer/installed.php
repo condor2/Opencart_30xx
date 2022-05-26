@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4c554f7d7af398c63e8e7a15e7211bcbb19844b0',
+    'reference' => 'ede4ba747cd46c1639fcfb6e3f84735416cb760a',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -40,12 +40,12 @@
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.4.2',
-      'version' => '7.4.2.0',
+      'pretty_version' => '7.4.3',
+      'version' => '7.4.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ac1ec1cd9b5624694c3a40be801d94137afb12b4',
+      'reference' => '74a8602c6faec9ef74b7a9391ac82c5e65b1cdab',
     ),
     'guzzlehttp/oauth-subscriber' => 
     array (
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4c554f7d7af398c63e8e7a15e7211bcbb19844b0',
+      'reference' => 'ede4ba747cd46c1639fcfb6e3f84735416cb760a',
     ),
     'psr/http-client' => 
     array (
@@ -142,12 +142,12 @@
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.10.2',
-      'version' => '1.10.2.0',
+      'pretty_version' => 'v1.10.3',
+      'version' => '1.10.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '387f4f4abf5d99f16be16314c5ab856f81c82f46',
+      'reference' => '0f1e1516ed2412ad43e42a6a319e77624ba1f713',
     ),
     'symfony/deprecation-contracts' => 
     array (
@@ -223,12 +223,12 @@
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.3.10',
-      'version' => '3.3.10.0',
+      'pretty_version' => 'v3.4.1',
+      'version' => '3.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8442df056c51b706793adf80a9fd363406dd3674',
+      'reference' => 'e939eae92386b69b49cfa4599dd9bead6bf4a342',
     ),
     'zoujingli/wechat-php-sdk' => 
     array (
