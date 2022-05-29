@@ -1474,8 +1474,6 @@ INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort
 (38, 'admin_setting', 'admin/model/setting/setting/editSetting/after', 'event/currency', 1, 0);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 (39, 'admin_mail_gdpr', 'admin/model/customer/gdpr/editStatus/after', 'mail/gdpr', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(40, 'admin_return_recurring', 'admin/view/sale/return_form/after', 'extension/module/return_recurring/notify', 1, 0);
 
 -----------------------------------------------------------
 

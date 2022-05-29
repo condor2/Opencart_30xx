@@ -15,7 +15,6 @@ $_['text_year']             = 'Year';
 $_['text_recurring']        = '<p><i class="fa fa-info-circle"></i> Recurring amounts are calculated by the frequency and cycles.</p><p>For example if you use a frequency of "week" and a cycle of "2", then the user will be billed every 2 weeks.</p><p>The duration is the number of times the user will make a payment, set this to 0 if you want payments until they are cancelled.</p>';
 $_['text_profile']          = 'Recurring Profile';
 $_['text_trial']            = 'Trial Profile';
-$_['text_report']           = 'Recurring Report';
 
 // Entry
 $_['entry_name']            = 'Name';
