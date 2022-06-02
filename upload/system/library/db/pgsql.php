@@ -1,9 +1,13 @@
 <?php
 namespace DB;
-final class PgSQL {
+class PgSQL {
 	private $connection;
 
-	public function __construct($hostname, $username, $password, $database, $port = '5432') {
+	public function __construct($hostname, $username, $password, $database, $port = '') {
+		if (!$port) {
+			$port = '5432';
+		}
+
 		try {
 			$pg = @pg_connect('host=' . $hostname . ' port=' . $port .  ' user=' . $username . ' password='	. $password . ' dbname=' . $database . ' options=\'--client_encoding=UTF8\' ');
 		} catch (\Exception $e) {
