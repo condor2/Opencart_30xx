@@ -336,6 +336,7 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_timezone'] = 'UTC';
 		}
+
 		// Set Time Zone
 		$data['timezones'] = array();
 
@@ -345,7 +346,9 @@ class ControllerSettingSetting extends Controller {
 
 		foreach ($timezones as $timezone) {
 			date_timezone_set($timestamp, timezone_open($timezone));
+
 			$hour = ' (' . date_format($timestamp, 'P') . ')';
+
 			$data['timezones'][] = array(
 				'text'  => $timezone . $hour,
 				'value' => $timezone
