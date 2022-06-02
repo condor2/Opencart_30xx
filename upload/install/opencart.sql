@@ -3329,6 +3329,8 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_image', '', 0),
 (0, 'config', 'config_telephone', '123456789', 0),
 (0, 'config', 'config_email', 'demo@opencart.com', 0),
+(0, 'config', 'config_order_email', 'demo@opencart.com', 0),
+(0, 'config', 'config_contact_email', 'demo@opencart.com', 0),
 (0, 'config', 'config_geocode', '', 0),
 (0, 'config', 'config_owner', 'Your Name', 0),
 (0, 'config', 'config_address', 'Address 1', 0),
