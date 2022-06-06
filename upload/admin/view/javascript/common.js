@@ -72,16 +72,16 @@ $(document).ready(function() {
 		$('body > .tooltip').remove();
 	});
 
-	$('#button-menu').on('click', function(e) {
-		e.preventDefault();
-		
-		$('#column-left').toggleClass('active');
-	});
-
 	// Set last page opened on the menu
 	$('#menu a[href]').on('click', function() {
 		sessionStorage.setItem('menu', $(this).attr('href'));
 	});
+
+	var my = {
+		window : $(window)
+	};
+
+	if (my.window.width() > 640) {
 
 	if (!sessionStorage.getItem('menu')) {
 		$('#menu #dashboard').addClass('active');
@@ -90,21 +90,16 @@ $(document).ready(function() {
 		$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active open');
 	}
 
-	var my = {
-		window : $(window)
-	};
+	if (localStorage.getItem('column-left') == 'active') {
+		$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
 
-	if(my.window.width() > 640){
-	if (localStorage.getItem('column-left-fix') == 'active') {
-		$('#button-menu-fix i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
-
-		$('#column-left-fix').addClass('active');
+		$('#column-left').addClass('active');
 
 		// Slide Down Menu
 		$('#menu li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li').not('.active').has('ul').children('ul').addClass('collapse');
 	} else {
-		$('#button-menu-fix i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
+		$('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
 
 		$('#menu li li.active').has('ul').children('ul').addClass('collapse in');
 		$('#menu li li').not('.active').has('ul').children('ul').addClass('collapse');
@@ -112,23 +107,23 @@ $(document).ready(function() {
 	}
 
 	// Menu button
-	$('#button-menu-fix').on('click', function() {
+	$('#button-menu').on('click', function() {
 		// Checks if the left column is active or not.
-		if ($('#column-left-fix').hasClass('active')) {
-			localStorage.setItem('column-left-fix', '');
+		if ($('#column-left').hasClass('active')) {
+			localStorage.setItem('column-left', '');
 
-			$('#button-menu-fix i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
+			$('#button-menu i').replaceWith('<i class="fa fa-indent fa-lg"></i>');
 
-			$('#column-left-fix').removeClass('active');
+			$('#column-left').removeClass('active');
 
 			$('#menu > li > ul').removeClass('in collapse');
 			$('#menu > li > ul').removeAttr('style');
 		} else {
-			localStorage.setItem('column-left-fix', 'active');
+			localStorage.setItem('column-left', 'active');
 
-			$('#button-menu-fix i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
+			$('#button-menu i').replaceWith('<i class="fa fa-dedent fa-lg"></i>');
 
-			$('#column-left-fix').addClass('active');
+			$('#column-left').addClass('active');
 
 			// Add the slide down to open menu items
 			$('#menu li.open').has('ul').children('ul').addClass('collapse in');
@@ -138,7 +133,7 @@ $(document).ready(function() {
 
 	// Menu
 	$('#menu').find('li').has('ul').children('a').on('click', function() {
-		if ($('#column-left-fix').hasClass('active')) {
+		if ($('#column-left').hasClass('active')) {
 			$(this).parent('li').toggleClass('open').children('ul').collapse('toggle');
 			$(this).parent('li').siblings().removeClass('open').children('ul.in').collapse('hide');
 		} else if (!$(this).parent().parent().is('#menu')) {
@@ -147,11 +142,11 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li > a').removeClass('collapsed');
+	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li > a').removeClass('collapsed');
 	
-	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('in');
+	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('in');
 	
-	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
+	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
 	
 	// Image Manager
 	$(document).on('click', 'a[data-toggle=\'image\']', function(e) {

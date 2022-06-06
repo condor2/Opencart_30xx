@@ -16,6 +16,7 @@ This is a modified version of Opencart.
 - GDPR function from 4.0.0.0_b.
 - Display Affiliates List on Marketing. Code from 3.1.0.0b
 - <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=42126">Admin menu fix - by @UK Pixel</a>
+- Admin Header Notification like in 2.3.0.2
 
 ## Removed
 - Promotion
