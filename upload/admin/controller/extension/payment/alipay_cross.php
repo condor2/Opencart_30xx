@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipayCross extends Controller {
-	protected $error = array();
+	private $error = array();
 	private $currencies = array('GBP', 'HKD', 'USD', 'CHF', 'SGD', 'SEK', 'DKK', 'NOK', 'JPY', 'CAD', 'AUD', 'EUR', 'NZD', 'KRW', 'THB');
 
 	public function index() {

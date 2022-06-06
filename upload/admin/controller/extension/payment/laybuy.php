@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentLaybuy extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->model('setting/setting');

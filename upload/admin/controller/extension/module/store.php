@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleStore extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/store');

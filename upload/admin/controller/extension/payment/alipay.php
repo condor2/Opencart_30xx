@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipay extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/alipay');

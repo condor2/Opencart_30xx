@@ -195,7 +195,7 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE `product_id` = " . (int)$product_id);
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE `product_id` = '" . (int)$product_id . "'");
 
 		if (isset($data['product_recurring'])) {
 			foreach ($data['product_recurring'] as $product_recurring) {
@@ -349,7 +349,7 @@ class ModelCatalogProduct extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_download` WHERE `product_id` = '" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_layout` WHERE `product_id` = '" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_store` WHERE `product_id` = '" . (int)$product_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE `product_id` = " . (int)$product_id);
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_recurring` WHERE `product_id` = '" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "review` WHERE `product_id` = '" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'product_id=" . (int)$product_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "coupon_product` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -370,11 +370,11 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND pd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
-        if (isset($data['filter_manufacturer'])) {
-            if (!empty($data['filter_manufacturer']) || $data['filter_manufacturer'] == '0') {
-                $sql .= " AND p.`manufacturer_id` = '" . (int)$data['filter_manufacturer'] . "'";
-            }
-        }
+		if (isset($data['filter_manufacturer'])) {
+			if (!empty($data['filter_manufacturer']) || $data['filter_manufacturer'] == '0') {
+				$sql .= " AND p.`manufacturer_id` = '" . (int)$data['filter_manufacturer'] . "'";
+			}
+		}
 
 		if (!empty($data['filter_model'])) {
 			$sql .= " AND p.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
@@ -382,10 +382,6 @@ class ModelCatalogProduct extends Model {
 
 		if (!empty($data['filter_price'])) {
 			$sql .= " AND p.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
-		}
-
-		if (!empty($data['filter_recurring'])) {
-			$sql .= " AND p.`product_id` IN (SELECT pr.`product_id` FROM `" . DB_PREFIX . "product_recurring` pr LEFT JOIN `" . DB_PREFIX . "recurring` r ON (pr.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND p.`product_id` = pr.`product_id` AND pd.`language_id` = rd.`language_id`)";	
 		}
 
 		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
@@ -673,10 +669,6 @@ class ModelCatalogProduct extends Model {
 
 		if (isset($data['filter_price']) && $data['filter_price'] !== '') {
 			$sql .= " AND p.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
-		}
-
-		if (!empty($data['filter_recurring'])) {
-			$sql .= " AND p.`product_id` IN (SELECT pr.`product_id` FROM `" . DB_PREFIX . "product_recurring` pr LEFT JOIN `" . DB_PREFIX . "recurring` r ON (pr.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND p.`product_id` = pr.`product_id` AND pd.`language_id` = rd.`language_id`)";	
 		}
 
 		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {

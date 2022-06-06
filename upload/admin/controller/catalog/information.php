@@ -1,6 +1,6 @@
 <?php
 class ControllerCatalogInformation extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('catalog/information');

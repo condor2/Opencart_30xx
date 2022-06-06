@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleEbayListing extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/ebay_listing');

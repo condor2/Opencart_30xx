@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionDashboardRecent extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/dashboard/recent');

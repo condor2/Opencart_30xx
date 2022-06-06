@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationGeoZone extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('localisation/geo_zone');

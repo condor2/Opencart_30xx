@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleDividoCalculator extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/module/divido_calculator');
