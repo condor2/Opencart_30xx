@@ -74,10 +74,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		if (!empty($amazon_login_pay_order) && $total_captured == 0) {
 
 			$cancel_response = array();
-			$cancel_paramter_data = array();
+			$cancel_parameter_data = array();
 
-			$cancel_paramter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
-			$cancel_details = $this->offAmazon('CancelOrderReference', $cancel_paramter_data);
+			$cancel_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
+			$cancel_details = $this->offAmazon('CancelOrderReference', $cancel_parameter_data);
 			$cancel_details_xml = simplexml_load_string($cancel_details['ResponseBody']);
 			$this->logger($cancel_details_xml);
 			if (isset($cancel_details_xml->Error)) {
@@ -121,14 +121,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				$amazon_authorization_id = $amazon_login_pay_order['amazon_authorization_id'];
 			}
 
-			$capture_paramter_data = array();
-			$capture_paramter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
-			$capture_paramter_data['AmazonAuthorizationId'] = $amazon_authorization_id;
-			$capture_paramter_data['CaptureAmount.Amount'] = $amount;
-			$capture_paramter_data['CaptureAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
-			$capture_paramter_data['CaptureReferenceId'] = 'capture_' . mt_rand();
-			$capture_paramter_data['TransactionTimeout'] = 0;
-			$capture_details = $this->offAmazon('Capture', $capture_paramter_data);
+			$capture_parameter_data = array();
+			$capture_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
+			$capture_parameter_data['AmazonAuthorizationId'] = $amazon_authorization_id;
+			$capture_parameter_data['CaptureAmount.Amount'] = $amount;
+			$capture_parameter_data['CaptureAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
+			$capture_parameter_data['CaptureReferenceId'] = 'capture_' . mt_rand();
+			$capture_parameter_data['TransactionTimeout'] = 0;
+			$capture_details = $this->offAmazon('Capture', $capture_parameter_data);
 
 			$capture_response = $this->validateResponse('Capture', $capture_details);
 			$capture_response['AmazonAuthorizationId'] = $amazon_authorization_id;
@@ -139,22 +139,22 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	private function authorize($amazon_login_pay_order, $amount) {
-		$authorize_paramter_data = array();
-		$authorize_paramter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
-		$authorize_paramter_data['AuthorizationAmount.Amount'] = $amount;
-		$authorize_paramter_data['AuthorizationAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
-		$authorize_paramter_data['AuthorizationReferenceId'] = 'auth_' . mt_rand();
-		$authorize_paramter_data['TransactionTimeout'] = 0;
-		$authorize_details = $this->offAmazon('Authorize', $authorize_paramter_data);
+		$authorize_parameter_data = array();
+		$authorize_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
+		$authorize_parameter_data['AuthorizationAmount.Amount'] = $amount;
+		$authorize_parameter_data['AuthorizationAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
+		$authorize_parameter_data['AuthorizationReferenceId'] = 'auth_' . mt_rand();
+		$authorize_parameter_data['TransactionTimeout'] = 0;
+		$authorize_details = $this->offAmazon('Authorize', $authorize_parameter_data);
 
 		return $this->validateResponse('Authorize', $authorize_details);
 	}
 
 	public function closeOrderRef($amazon_order_reference_id) {
-		$close_paramter_data = array();
-		$close_paramter_data['AmazonOrderReferenceId'] = $amazon_order_reference_id;
-		$this->offAmazon('CloseOrderReference', $close_paramter_data);
-		$close_details = $this->offAmazon('CloseOrderReference', $close_paramter_data);
+		$close_parameter_data = array();
+		$close_parameter_data['AmazonOrderReferenceId'] = $amazon_order_reference_id;
+		$this->offAmazon('CloseOrderReference', $close_parameter_data);
+		$close_details = $this->offAmazon('CloseOrderReference', $close_parameter_data);
 		$this->logger($close_details);
 	}
 
@@ -175,14 +175,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 					$refund_amount = $amazon_captures_remaining[$i]['capture_remaining'];
 				}
 
-				$refund_paramter_data = array();
-				$refund_paramter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
-				$refund_paramter_data['AmazonCaptureId'] = $amazon_captures_remaining[$i]['amazon_capture_id'];
-				$refund_paramter_data['RefundAmount.Amount'] = $refund_amount;
-				$refund_paramter_data['RefundAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
-				$refund_paramter_data['RefundReferenceId'] = 'refund_' . mt_rand();
-				$refund_paramter_data['TransactionTimeout'] = 0;
-				$refund_details = $this->offAmazon('Refund', $refund_paramter_data);
+				$refund_parameter_data = array();
+				$refund_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
+				$refund_parameter_data['AmazonCaptureId'] = $amazon_captures_remaining[$i]['amazon_capture_id'];
+				$refund_parameter_data['RefundAmount.Amount'] = $refund_amount;
+				$refund_parameter_data['RefundAmount.CurrencyCode'] = $amazon_login_pay_order['currency_code'];
+				$refund_parameter_data['RefundReferenceId'] = 'refund_' . mt_rand();
+				$refund_parameter_data['TransactionTimeout'] = 0;
+				$refund_details = $this->offAmazon('Refund', $refund_parameter_data);
 				$refund_response[$i] = $this->validateResponse('Refund', $refund_details);
 				$refund_response[$i]['amazon_authorization_id'] = $amazon_captures_remaining[$i]['amazon_authorization_id'];
 				$refund_response[$i]['amazon_capture_id'] = $amazon_captures_remaining[$i]['amazon_capture_id'];
@@ -281,11 +281,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	public function validateDetails($data) {
-		$validate_paramter_data = array();
-		$validate_paramter_data['AWSAccessKeyId'] = $data['payment_amazon_login_pay_access_key'];
-		$validate_paramter_data['SellerId'] = $data['payment_amazon_login_pay_merchant_id'];
-		$validate_paramter_data['AmazonOrderReferenceId'] = 'validate details';
-		$validate_details = $this->offAmazon('GetOrderReferenceDetails', $validate_paramter_data);
+		$validate_parameter_data = array();
+		$validate_parameter_data['AWSAccessKeyId'] = $data['payment_amazon_login_pay_access_key'];
+		$validate_parameter_data['SellerId'] = $data['payment_amazon_login_pay_merchant_id'];
+		$validate_parameter_data['AmazonOrderReferenceId'] = 'validate details';
+		$validate_details = $this->offAmazon('GetOrderReferenceDetails', $validate_parameter_data);
 		$validate_response = $this->validateResponse('GetOrderReferenceDetails', $validate_details, true);
 		if ($validate_response['error_code'] && $validate_response['error_code'] != 'InvalidOrderReferenceId') {
 			return $validate_response;
