@@ -142,12 +142,12 @@ $(document).ready(function() {
 		}
 	});
 
-	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li > a').removeClass('collapsed');
-	
-	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('in');
-	
-	//$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
-	
+	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li > a').removeClass('collapsed');
+
+	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('in');
+
+	$('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
+
 	// Image Manager
 	$(document).on('click', 'a[data-toggle=\'image\']', function(e) {
 		var $element = $(this);
