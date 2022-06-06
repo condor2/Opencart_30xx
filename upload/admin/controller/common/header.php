@@ -80,7 +80,7 @@ class ControllerCommonHeader extends Controller {
 
 			$this->load->model('customer/customer_approval');
 
-			$customer_total = $this->model_customer_customer_approval->getTotalCustomerApprovals();
+			$customer_total = $this->model_customer_customer_approval->getTotalCustomerApprovals(array('filter_type' => 'customer'));
 
 			$data['customer_total'] = $customer_total;
 			$data['customer_approval'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true);
