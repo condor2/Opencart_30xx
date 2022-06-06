@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountPassword extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function index() {
 		if (!$this->customer->isLogged()) {

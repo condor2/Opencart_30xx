@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountAffiliate extends Controller {
-	protected $error = array();
+	private $error = array();
 
 	public function add() {
 		if (!$this->customer->isLogged()) {
