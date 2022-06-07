@@ -18,12 +18,12 @@ class Mail {
 
 		$header  = 'MIME-Version: 1.0' . $eol;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
-		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
+		$header .= 'From: =?UTF-8?B?' . chunk_split(base64_encode($this->sender)) . '?= <' . $this->from . '>' . $eol;
 
 		if (!$this->reply_to) {
-			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
+			$header .= 'Reply-To: =?UTF-8?B?' . chunk_split(base64_encode($this->sender)) . '?= <' . $this->from . '>' . $eol;
 		} else {
-			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->reply_to) . '?= <' . $this->reply_to . '>' . $eol;
+			$header .= 'Reply-To: =?UTF-8?B?' . chunk_split(base64_encode($this->reply_to)) . '?= <' . $this->reply_to . '>' . $eol;
 		}
 
 		$header .= 'Return-Path: ' . $this->from . $eol;
@@ -78,9 +78,9 @@ class Mail {
 		ini_set('sendmail_from', $this->from);
 
 		if ($this->parameter) {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
+			mail($to, '=?UTF-8?B?' . chunk_split(base64_encode($this->subject)) . '?=', $message, $header, $this->parameter);
 		} else {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
+			mail($to, '=?UTF-8?B?' . chunk_split(base64_encode($this->subject)) . '?=', $message, $header);
 		}
 	}
 }
