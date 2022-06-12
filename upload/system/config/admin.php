@@ -23,6 +23,8 @@ $_['template_cache']    = true;
 
 // Actions
 $_['action_pre_action'] = array(
+	'startup/setting',
+	'startup/session',
 	'startup/startup',
 	'startup/error',
 	'startup/event',

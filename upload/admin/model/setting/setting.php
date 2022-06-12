@@ -1,5 +1,11 @@
 <?php
 class ModelSettingSetting extends Model {
+	public function getSettings($store_id = 0) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' OR `store_id` = '0' ORDER BY `store_id` ASC");
+
+		return $query->rows;
+	}
+
 	public function getSetting($code, $store_id = 0) {
 		$setting_data = array();
 
@@ -40,7 +46,7 @@ class ModelSettingSetting extends Model {
 		if ($query->num_rows) {
 			return $query->row['value'];
 		} else {
-			return null;
+			return '';
 		}
 	}
 
