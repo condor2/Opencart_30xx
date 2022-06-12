@@ -83,7 +83,7 @@ class ControllerCommonHeader extends Controller {
 			$customer_total = $this->model_customer_customer_approval->getTotalCustomerApprovals(array('filter_type' => 'customer'));
 
 			$data['customer_total'] = $customer_total;
-			$data['customer_approval'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true);
+			$data['customer_approval'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . '&filter_type=customer', true);
 
 			// Products
 			$this->load->model('catalog/product');
