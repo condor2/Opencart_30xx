@@ -122,15 +122,10 @@ if ($config->get('session_autostart')) {
 
 	$session->start($session_id);
 
-	// Setting the cookie path to the store front so admin users can login to cutomers accounts.
-	$path = dirname($_SERVER['PHP_SELF']);
-
-	$path = substr($path, 0, strrpos($path, '/')) . '/';
-
 	// Require higher security for session cookies
 	$option = array(
 		'expires'  => 0,
-		'path'     => $config->get('session_path'),
+		'path'     => !empty($request->server['PHP_SELF']) ? rtrim(dirname($request->server['PHP_SELF']), '/') . '/' : '/',
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,

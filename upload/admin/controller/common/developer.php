@@ -3,26 +3,9 @@ class ControllerCommonDeveloper extends Controller {
 	public function index() {
 		$this->load->language('common/developer');
 
-		$data['user_token'] = $this->session->data['user_token'];
-
 		$data['developer_theme'] = $this->config->get('developer_theme');
-		$data['developer_sass'] = $this->config->get('developer_sass');
 
-		$eval = false;
-
-		$eval = '$eval = true;';
-
-		eval($eval);
-
-		if ($eval === true) {
-			$data['eval'] = true;
-		} else {
-			$this->load->model('setting/setting');
-
-			$this->model_setting_setting->editSetting('developer', array('developer_theme' => 1), 0);
-
-			$data['eval'] = false;
-		}
+		$data['user_token'] = $this->session->data['user_token'];
 
 		$this->response->setOutput($this->load->view('common/developer', $data));
 	}

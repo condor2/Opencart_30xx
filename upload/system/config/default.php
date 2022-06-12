@@ -36,7 +36,7 @@ $_['cache_engine']         = 'file'; // apc, file, mem, memcached or redis
 $_['cache_expire']         = 3600;
 
 // Session
-$_['session_autostart']    = true;
+$_['session_autostart']    = false;
 $_['session_engine']       = 'file'; // db or file
 $_['session_name']         = 'OCSESSID';
 $_['session_domain']       = '';
@@ -49,7 +49,6 @@ $_['session_samesite']     = 'Strict';
 // Template
 $_['template_engine']      = 'twig';
 $_['template_directory']   = '';
-$_['template_cache']       = false;
 
 // Error
 $_['error_display']        = true; // You need to change this to false on a live site.

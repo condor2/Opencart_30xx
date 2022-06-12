@@ -15,11 +15,6 @@ $_['db_port']            = DB_PORT;
 $_['session_autostart']  = false;
 $_['session_engine']     = 'db'; // db or file
 
-// Template
-$_['template_engine']    = 'twig';
-$_['template_directory'] = '';
-$_['template_cache']     = true;
-
 // Autoload Libraries
 $_['library_autoload']   = array();
 
