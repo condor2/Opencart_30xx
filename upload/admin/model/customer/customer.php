@@ -75,10 +75,6 @@ class ModelCustomerCustomer extends Model {
 	public function getCustomers($data = array()) {
 		$sql = "SELECT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name`, cgd.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (c.`customer_group_id` = cgd.`customer_group_id`)";
 
-		if (!empty($data['filter_affiliate_status'])) {
-			$sql .= " LEFT JOIN `" . DB_PREFIX . "customer_affiliate` ca ON (ca.`customer_id` = c.`customer_id`)";
-		}
-
 		$sql .= " WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
@@ -95,10 +91,6 @@ class ModelCustomerCustomer extends Model {
 
 		if (!empty($data['filter_customer_group_id'])) {
 			$sql .= " AND c.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
-		}
-
-		if (!empty($data['filter_affiliate_status'])) {
-			$sql .= " AND (SELECT `customer_id` FROM `" . DB_PREFIX . "customer_affiliate` ca WHERE ca.`customer_id` = c.`customer_id`)";
 		}
 
 		if (!empty($data['filter_ip'])) {
@@ -221,10 +213,6 @@ class ModelCustomerCustomer extends Model {
 	public function getTotalCustomers($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` c";
 
-		if (!empty($data['filter_affiliate_status'])) {
-			$sql .= " LEFT JOIN `" . DB_PREFIX . "customer_affiliate` ca ON (ca.`customer_id` = c.`customer_id`)";
-		}
-
 		$implode = array();
 
 		if (!empty($data['filter_name'])) {
@@ -252,11 +240,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-		}
-
-		if (!empty($data['filter_affiliate_status'])) {
-			$implode[] = "ca.`status` = '" . (int)$data['filter_affiliate_status'] . "'";
+			$implode[] = "DATE(c.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if ($implode) {
