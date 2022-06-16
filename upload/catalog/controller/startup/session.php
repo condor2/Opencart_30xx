@@ -1,7 +1,7 @@
 <?php
 class ControllerStartupSession extends Controller {
 	public function index() {
-		$session = new Session($this->config->get('session_engine'), $this->registry);
+		$session = new \Session($this->config->get('session_engine'), $this->registry);
 		$this->registry->set('session', $session);
 
 		if (isset($this->request->get['route']) && substr((string)$this->request->get['route'], 0, 4) == 'api/' && isset($this->request->get['api_token'])) {
@@ -28,9 +28,6 @@ class ControllerStartupSession extends Controller {
 
 		Is it not better to have multiple cookies when accessing parts of the system
 		that requires different cookie sessions for security reasons.
-
-		Also cookies can be accessed via the URL parameters. So why force only one cookie
-		for all sessions!
 		*/
 
 		// Update the session lifetime
@@ -46,14 +43,13 @@ class ControllerStartupSession extends Controller {
 
 		$session->start($session_id);
 
-		$option = array(
-			'expires'  => 0,
-			//'expires'  => time() + (int)$this->config->get('config_session_expire'),
+		$option = [
+			'expires'  => time() + (int)$this->config->get('config_session_expire'),
 			'path'     => !empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => $this->config->get('session_samesite')
-		);
+		];
 
 		$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 
