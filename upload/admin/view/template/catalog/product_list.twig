@@ -158,12 +158,6 @@ $('#button-filter').on('click', function() {
 		url += '&filter_name=' + encodeURIComponent(filter_name);
 	}
 
-	var filter_manufacturer = $('select[name=\'filter_manufacturer\']').val();
-
-	if (filter_manufacturer != '*') {
-		url += '&filter_manufacturer=' + encodeURIComponent(filter_manufacturer);
-	}
-
 	var filter_model = $('input[name=\'filter_model\']').val();
 
 	if (filter_model) {
