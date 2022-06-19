@@ -181,19 +181,19 @@ class ModelSaleOrder extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$sql .= " AND CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '%" . $this->db->escape((string)$data['filter_customer']) . "%'";
+			$sql .= " AND CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_email'])) {
-			$sql .= " AND o.`email` LIKE '%" . $this->db->escape((string)$data['filter_email']) . "%'";
+			$sql .= " AND o.`email` LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$sql .= " AND DATE(o.`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+			$sql .= " AND DATE(o.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if (!empty($data['filter_date_modified'])) {
-			$sql .= " AND DATE(o.`date_modified`) = DATE('" . $this->db->escape((string)$data['filter_date_modified']) . "')";
+			$sql .= " AND DATE(o.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
 		}
 
 		if (!empty($data['filter_total'])) {
@@ -303,19 +303,19 @@ class ModelSaleOrder extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape((string)$data['filter_customer']) . "%'";
+			$sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_email'])) {
-			$sql .= " AND `email` LIKE '%" . $this->db->escape((string)$data['filter_email']) . "%'";
+			$sql .= " AND `email` LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$sql .= " AND DATE(`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+			$sql .= " AND DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if (!empty($data['filter_date_modified'])) {
-			$sql .= " AND DATE(`date_modified`) = DATE('" . $this->db->escape((string)$data['filter_date_modified']) . "')";
+			$sql .= " AND DATE(`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
 		}
 
 		if (!empty($data['filter_total'])) {
@@ -421,19 +421,19 @@ class ModelSaleOrder extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape((string)$data['filter_customer']) . "%'";
+			$sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_email'])) {
-			$sql .= " AND `email` LIKE '%" . $this->db->escape((string)$data['filter_email']) . "%'";
+			$sql .= " AND `email` LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$sql .= " AND DATE(`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+			$sql .= " AND DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if (!empty($data['filter_date_modified'])) {
-			$sql .= " AND DATE(`date_modified`) = DATE('" . $this->db->escape((string)$data['filter_date_modified']) . "')";
+			$sql .= " AND DATE(`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
 		}
 
 		if (!empty($data['filter_total'])) {

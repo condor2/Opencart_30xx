@@ -10,11 +10,11 @@ class ModelCustomerGdpr extends Model {
 		$implode = array();
 
 		if (!empty($data['filter_email'])) {
-			$implode[] = "`email` LIKE '" . $this->db->escape((string)$data['filter_email']) . "'";
+			$implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
 		}
 
 		if (!empty($data['filter_action'])) {
-			$implode[] = "`action` = '" . $this->db->escape((string)$data['filter_action']) . "'";
+			$implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
@@ -22,7 +22,7 @@ class ModelCustomerGdpr extends Model {
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if ($implode) {
@@ -60,11 +60,11 @@ class ModelCustomerGdpr extends Model {
 		$implode = array();
 
 		if (!empty($data['filter_email'])) {
-			$implode[] = "`email` LIKE '" . $this->db->escape((string)$data['filter_email']) . "'";
+			$implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
 		}
 
 		if (!empty($data['filter_action'])) {
-			$implode[] = "`action` = '" . $this->db->escape((string)$data['filter_action']) . "'";
+			$implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
@@ -72,7 +72,7 @@ class ModelCustomerGdpr extends Model {
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape((string)$data['filter_date_added']) . "')";
+			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if ($implode) {

@@ -6,7 +6,7 @@ class ModelCatalogCategory extends Model {
 		$category_id = $this->db->getLastId();
 
 		if (isset($data['image'])) {
-			$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "' WHERE `category_id` = '" . (int)$category_id . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape($data['image']) . "' WHERE `category_id` = '" . (int)$category_id . "'");
 		}
 
 		foreach ($data['category_description'] as $language_id => $value) {
