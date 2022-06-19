@@ -19,9 +19,7 @@ class ModelCatalogManufacturer extends Model {
 		if (isset($data['manufacturer_seo_url'])) {
 			foreach ($data['manufacturer_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
-					if (!empty($keyword)) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$store_id . "', `language_id` = '" . (int)$language_id . "', `query` = 'manufacturer_id=" . (int)$manufacturer_id . "', `keyword` = '" . $this->db->escape($keyword) . "'");
-					}
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$store_id . "', `language_id` = '" . (int)$language_id . "', `query` = 'manufacturer_id=" . (int)$manufacturer_id . "', `keyword` = '" . $this->db->escape($keyword) . "'");
 				}
 			}
 		}
@@ -58,9 +56,7 @@ class ModelCatalogManufacturer extends Model {
 		if (isset($data['manufacturer_seo_url'])) {
 			foreach ($data['manufacturer_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
-					if (!empty($keyword)) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$store_id . "', `language_id` = '" . (int)$language_id . "', `query` = 'manufacturer_id=" . (int)$manufacturer_id . "', `keyword` = '" . $this->db->escape($keyword) . "'");
-					}
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$store_id . "', `language_id` = '" . (int)$language_id . "', `query` = 'manufacturer_id=" . (int)$manufacturer_id . "', `keyword` = '" . $this->db->escape($keyword) . "'");
 				}
 			}
 		}
