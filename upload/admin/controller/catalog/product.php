@@ -234,12 +234,6 @@ class ControllerCatalogProduct extends Controller {
 			$filter_name = '';
 		}
 
-		if (isset($this->request->get['filter_manufacturer'])) {
-			$filter_manufacturer = $this->request->get['filter_manufacturer'];
-		} else {
-			$filter_manufacturer = '';
-		}
-
 		if (isset($this->request->get['filter_model'])) {
 			$filter_model = $this->request->get['filter_model'];
 		} else {
@@ -294,10 +288,6 @@ class ControllerCatalogProduct extends Controller {
 			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
 		}
 
-		if (isset($this->request->get['filter_manufacturer'])) {
-			$url .= '&filter_manufacturer=' . $this->request->get['filter_manufacturer'];
-		}
-
 		if (isset($this->request->get['filter_model'])) {
 			$url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -346,7 +336,6 @@ class ControllerCatalogProduct extends Controller {
 
 		$filter_data = array(
 			'filter_name'	      => $filter_name,
-			'filter_manufacturer' => $filter_manufacturer,
 			'filter_model'	      => $filter_model,
 			'filter_price'	      => $filter_price,
 			'filter_quantity'     => $filter_quantity,
@@ -363,16 +352,6 @@ class ControllerCatalogProduct extends Controller {
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
 		$results = $this->model_catalog_product->getProducts($filter_data);
-
-		$this->load->model('catalog/manufacturer');
-
-		$data['manufacturers'][] = array(
-			'manufacturer_id' => '0',
-			'name' => $this->language->get('entry_no_manufacturers'),
-			'sort_order' => '0'
-		);
-
-		$data['manufacturers'] = array_merge($data['manufacturers'], $this->model_catalog_manufacturer->getManufacturers($filter_data));
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
@@ -520,7 +499,6 @@ class ControllerCatalogProduct extends Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($product_total - $this->config->get('config_limit_admin'))) ? $product_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $product_total, ceil($product_total / $this->config->get('config_limit_admin')));
 
 		$data['filter_name'] = $filter_name;
-		$data['filter_manufacturer'] = $filter_manufacturer;
 		$data['filter_model'] = $filter_model;
 		$data['filter_price'] = $filter_price;
 		$data['filter_quantity'] = $filter_quantity;

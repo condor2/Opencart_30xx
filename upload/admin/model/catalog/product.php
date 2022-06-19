@@ -370,12 +370,6 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND pd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
-		if (isset($data['filter_manufacturer'])) {
-			if (!empty($data['filter_manufacturer']) || $data['filter_manufacturer'] == '0') {
-				$sql .= " AND p.`manufacturer_id` = '" . (int)$data['filter_manufacturer'] . "'";
-			}
-		}
-
 		if (!empty($data['filter_model'])) {
 			$sql .= " AND p.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
 		}

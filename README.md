@@ -39,7 +39,6 @@ This is a modified version of Opencart.
 - Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil">Opencart Brasil</a>
 - Manufacturer Layout Override
 - {% include %} function support
-- Filter by Manufacturer in Product List
 - Orders button when you edit a customer. Code used from 4.0.0.0_b
 - Display Store name in Sales-->Orders. Code used from 4.0.0.0_b
 - SameSite cookie code from 4.0.0.0_b.
