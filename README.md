@@ -50,6 +50,7 @@ This is a modified version of Opencart.
 - Filter Customers by Affiliate Status
 - Separate E-mail address for Order and Contact form
 - Enable/Disable Affiliate system.
+- Filters on Admin Attribute List
 
 ## Note
 This version is not supported by Opencart. You need to have PHP at least 7.4 to use this version.
