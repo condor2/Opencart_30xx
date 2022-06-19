@@ -90,10 +90,6 @@ class ModelCatalogManufacturer extends Model {
 	public function getManufacturers($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "manufacturer";
 
-		if (!empty($data['filter_name'])) {
-			$sql .= " WHERE `name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
-		}
-
 		$sort_data = array(
 			'name',
 			'sort_order'

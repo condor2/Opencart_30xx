@@ -206,7 +206,7 @@ class ControllerCatalogAttribute extends Controller {
 
 		$filter_data = array(
 			'filter_name' => $filter_name,
-            'filter_attribute_group_id' => $filter_attribute_group_id,
+			'filter_attribute_group_id' => $filter_attribute_group_id,
 			'sort'        => $sort,
 			'order'       => $order,
 			'start'       => ($page - 1) * $this->config->get('config_limit_admin'),

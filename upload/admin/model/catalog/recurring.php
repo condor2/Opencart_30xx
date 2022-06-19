@@ -62,10 +62,6 @@ class ModelCatalogRecurring extends Model {
 	public function getRecurrings($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-		if (!empty($data['filter_name'])) {
-			$sql .= " AND rd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
-		}
-
 		$sort_data = array(
 			'rd.`name`',
 			'r.`sort_order`'
