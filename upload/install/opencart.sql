@@ -1378,6 +1378,22 @@ CREATE TABLE `oc_download_description` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_download_report`
+--
+
+DROP TABLE IF EXISTS `oc_download_report`;
+CREATE TABLE `oc_download_report` (
+  `download_report_id` int(11) NOT NULL AUTO_INCREMENT,
+  `download_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `ip` varchar(40) NOT NULL,
+  `country` varchar(2) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`download_report_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+--
 -- Table structure for table `oc_event`
 --
 
