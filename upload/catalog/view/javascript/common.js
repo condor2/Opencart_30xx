@@ -363,7 +363,7 @@ $(document).on('click', '.agree', function(e) {
 });
 
     // Cookie Policy
-    $('#cookie button').on('click', function () {
+    $(document).on('click', '#cookie button', function(e) {
         var element = this;
 
         $.ajax({
