@@ -20,7 +20,7 @@ class Cache {
 	 * @param	int		$expire		Optional parameters
 	 *
  	*/
-	public function __construct(string $adaptor, $expire = 3600) {
+	public function __construct($adaptor, $expire = 3600) {
 		$class = 'Cache\\' . $adaptor;
 
 		if (class_exists($class)) {
@@ -37,7 +37,7 @@ class Cache {
      *
      * @return	string
      */
-	public function get(string $key) {
+	public function get($key) {
 		return $this->adaptor->get($key);
 	}
 	
@@ -49,7 +49,7 @@ class Cache {
 	 * 
 	 * @return	string
      */
-	public function set(string $key, $value, $expire = '') {
+	public function set($key, $value, $expire = '') {
 		$this->adaptor->set($key, $value, $expire);
 	}
    
@@ -58,7 +58,7 @@ class Cache {
      *
      * @param	string	$key	The cache key
      */
-	public function delete(string $key) {
+	public function delete($key) {
 		$this->adaptor->delete($key);
 	}
 }

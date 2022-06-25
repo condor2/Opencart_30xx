@@ -3,7 +3,7 @@ class ControllerCommonLanguage extends Controller {
 	public function index() {
 		$this->load->language('common/language');
 
-		$data['action'] = $this->url->link('common/language/language', '', $this->request->server['HTTPS']);
+		$data['action'] = $this->url->link('common/language/language', '');
 
 		$data['code'] = $this->session->data['language'];
 
@@ -39,7 +39,7 @@ class ControllerCommonLanguage extends Controller {
 				$url = '&' . urldecode(http_build_query($url_data, '', '&'));
 			}
 
-			$data['redirect'] = $this->url->link($route, $url, $this->request->server['HTTPS']);
+			$data['redirect'] = $this->url->link($route, $url);
 		}
 
 		return $this->load->view('common/language', $data);

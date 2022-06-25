@@ -32,7 +32,7 @@ final class Loader {
  	*/	
 	public function controller($route, $data = array()) {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 		
 		// Keep the original trigger
 		$trigger = $route;
@@ -162,7 +162,9 @@ final class Loader {
 	 * @param	string	$route
  	*/	
 	public function helper($route) {
-		$file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
+
+		$file = DIR_SYSTEM . 'helper/' . $route . '.php';
 
 		if (is_file($file)) {
 			include_once($file);
@@ -177,6 +179,9 @@ final class Loader {
 	 * @param	string	$route
  	*/	
 	public function config($route) {
+		// Sanitize the call
+		$route = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $route);
+
 		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
 		
 		$this->registry->get('config')->load($route);
