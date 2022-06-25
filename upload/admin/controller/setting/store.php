@@ -500,6 +500,12 @@ class ControllerSettingStore extends Controller {
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
 
+		if (isset($store_info['config_cookie_id'])) {
+			$data['config_cookie_id'] = $store_info['config_cookie_id'];
+		} else {
+			$data['config_cookie_id'] = '';
+		}
+
 		if (isset($this->request->post['config_gdpr_id'])) {
 			$data['config_gdpr_id'] = $this->request->post['config_gdpr_id'];
 		} elseif (isset($store_info['config_gdpr_id'])) {
