@@ -31,7 +31,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 					if (!in_array($product['product_id'], $product_data) && $product['description']) {
 						
 						$product_data[] = $product['product_id'];
-						
+
 						$output .= '<item>';
 						$output .= '<title><![CDATA[' . $product['name'] . ']]></title>';
 						$output .= '<link>' . $this->url->link('product/product', 'product_id=' . $product['product_id']) . '</link>';
@@ -49,7 +49,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 						$output .= '  <g:model_number>' . $product['model'] . '</g:model_number>';
 
 						if ($product['mpn']) {
-							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>' ;
+							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>';
 						} else {
 							$output .= '  <g:identifier_exists>false</g:identifier_exists>';
 						}

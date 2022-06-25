@@ -9,7 +9,7 @@ class ControllerExtensionCaptchaBasic extends Controller {
 			$data['error_captcha'] = '';
 		}
 
-		$data['route'] = (string)$this->request->get['route'];
+		$data['route'] = $this->request->get['route'];
 
 		$this->session->data['captcha'] = substr(sha1(mt_rand()), 17, 6); 
 
