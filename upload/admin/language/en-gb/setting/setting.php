@@ -36,6 +36,9 @@ $_['text_upload']                    = 'Uploads';
 $_['text_error']                     = 'Error Handling';
 $_['text_summernote']                = 'Summernote';
 $_['text_ckeditor']                  = 'CKEditor';
+$_['text_none']                      = 'None';
+$_['text_lax']                       = 'Lax';
+$_['text_strict']                    = 'Strict';
 
 // Entry
 $_['entry_meta_title']               = 'Meta Title';
@@ -125,6 +128,7 @@ $_['entry_file_ext_allowed']         = 'Allowed File Extensions';
 $_['entry_file_mime_allowed']        = 'Allowed File Mime Types';
 $_['entry_maintenance']              = 'Maintenance Mode';
 $_['entry_session_expire']           = 'Session Lifetime';
+$_['entry_session_samesite']         = 'Session Samesite Cookie';
 $_['entry_password']                 = 'Allow Forgotten Password';
 $_['entry_encryption']               = 'Encryption Key';
 $_['entry_compression']              = 'Output Compression Level';
@@ -190,6 +194,7 @@ $_['help_mail_alert']                = 'Select which features you would like to 
 $_['help_mail_alert_email']          = 'Any additional emails you want to receive the alert email, in addition to the main store email. (comma separated).';
 $_['help_secure']                    = 'To use SSL check with your host if a SSL certificate is installed and add the SSL URL to the catalog and admin config files.';
 $_['help_session_expire']            = 'Set the PHP Session lifetime';
+$_['help_session_samesite']          = 'Set the PHP Session samesite cookie';
 $_['help_shared']                    = 'Try to share the session cookie between stores so the cart can be passed between different domains.';
 $_['help_robots']                    = 'A list of web crawler user agents that shared sessions will not be used with. Use separate lines for each user agent.';
 $_['help_seo_url']                   = 'To use SEO URLs, apache module mod-rewrite must be installed and you need to rename the htaccess.txt to .htaccess.';

@@ -103,7 +103,7 @@ class ControllerStartupStartup extends Controller {
 			$option = array(
 				'expires'  => time() + 3600 * 24 * 1000,
 				'path'     => '/',
-				'SameSite' => $this->config->get('session_samesite')
+				'SameSite' => $this->config->get('config_session_samesite')
 			);
 
 			setcookie('tracking', $this->request->get['tracking'], $option);

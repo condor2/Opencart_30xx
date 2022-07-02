@@ -895,6 +895,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_robots'] = $this->config->get('config_robots');
 		}
 
+		if (isset($this->request->post['config_session_samesite'])) {
+			$data['config_session_samesite'] = $this->request->post['config_session_samesite'];
+		} else {
+			$data['config_session_samesite'] = $this->config->get('config_session_samesite');
+		}
+
 		if (isset($this->request->post['config_seo_url'])) {
 			$data['config_seo_url'] = (int)$this->request->post['config_seo_url'];
 		} else {
