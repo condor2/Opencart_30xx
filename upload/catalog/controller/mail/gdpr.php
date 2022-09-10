@@ -63,7 +63,7 @@ class ControllerMailGdpr extends Controller {
 }
 
 	// catalog/model/account/gdpr/editStatus/after
-	public function remove(string &$route, array &$args, mixed &$output): void {
+	public function remove(&$route, &$args, &$output) {
 		if (isset($args[0])) {
 			$gdpr_id = $args[0];
 		} else {
