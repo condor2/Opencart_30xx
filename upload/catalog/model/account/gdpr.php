@@ -8,6 +8,12 @@ class ModelAccountGdpr extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `code` = '" . $this->db->escape($code) . "'");
 	}
 
+	public function getGdpr($gdpr_id) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+
+		return $query->row;
+	}
+
 	public function getGdprByCode($code) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `code` = '" . $this->db->escape($code) . "'");
 
