@@ -83,8 +83,8 @@ class ControllerAccountDownload extends Controller {
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($download_total - 10)) ? $download_total : ((($page - 1) * 10) + 10), $download_total, ceil($download_total / 10));
-		
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) *  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + 1 : 0, ((($page - 1) *  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) > ($download_total -  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'))) ? $download_total : ((($page - 1) *  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) +  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')), $download_total, ceil($download_total /  $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')));
+
 		$data['continue'] = $this->url->link('account/account', '', true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
