@@ -229,7 +229,7 @@ $(document).ready(function() {
 
 			$.extend(this, option);
 
-			$(this).wrap('<div class="dropdown">');
+			//$(this).wrap('<div class="dropdown">');
 
 			$this.attr('autocomplete', 'off');
 
