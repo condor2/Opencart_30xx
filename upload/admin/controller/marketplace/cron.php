@@ -92,7 +92,10 @@ class ControllerMarketplaceCron extends Controller {
 		);
 
 		$data['delete'] = $this->url->link('marketplace/cron/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['cron'] = $this->url->link('common/cron');
+
+		// Example cron URL
+		$data['cron'] = HTTP_CATALOG . 'index.php?route=cron/cron';
+		//$data['cron'] = $this->url->link('common/cron');
 
 		$data['crons'] = array();
 
@@ -211,7 +214,9 @@ class ControllerMarketplaceCron extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'marketplace/cron')) {
 			$json['error'] = $this->language->get('error_permission');
-		} else {
+		}
+
+		if (!$json) {
 			$this->load->model('setting/cron');
 
 			$cron_info = $this->model_setting_cron->getCron($cron_id);
