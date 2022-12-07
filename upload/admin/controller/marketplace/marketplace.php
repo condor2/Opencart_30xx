@@ -559,6 +559,8 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			$this->document->setTitle($this->language->get('heading_title'));
 
+			$data['error_signature'] = $this->language->get('error_signature');
+
 			if (isset($response_info['error'])) {
 				$data['error_signature'] = $response_info['error'];
 			} else {
