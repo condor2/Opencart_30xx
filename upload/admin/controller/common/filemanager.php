@@ -261,7 +261,6 @@ class ControllerCommonFileManager extends Controller {
 						'svg',
 						'svgz',
 						'webp',
-						'ICO',
 						'JPG',
 						'JPEG',
 						'PNG',
