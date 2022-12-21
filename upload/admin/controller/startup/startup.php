@@ -20,11 +20,6 @@ class ControllerStartupStartup extends Controller {
 			$this->db->query("SET time_zone = '" . $this->db->escape(date('P')) . "'");
 		}
 
-		// Response output compression level
-		if ($this->config->get('config_compression')) {
-			$this->response->setCompression($this->config->get('config_compression'));
-		}
-
 		// Theme
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 				
