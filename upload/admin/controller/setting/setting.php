@@ -545,10 +545,6 @@ class ControllerSettingSetting extends Controller {
 			$data['config_customer_price'] = $this->config->get('config_customer_price');
 		}
 
-		$data['config_telephone_display'] = $this->config->get('config_telephone_display');
-		$data['config_telephone_required'] = $this->config->get('config_telephone_required');
-
-
 		if (isset($this->request->post['config_login_attempts'])) {
 			$data['config_login_attempts'] = (int)$this->request->post['config_login_attempts'];
 		} elseif ($this->config->has('config_login_attempts')) {
