@@ -684,12 +684,10 @@ class ControllerMarketingAffiliate extends Controller {
 			}
 		}
 
-		if (isset($this->request->post['custom_field'])) {
-			$data['affiliate_custom_field'] = $this->request->post['custom_field'];
-		} elseif (!empty($affiliate_info)) {
+		if (!empty($affiliate_info)) {
 			$data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
 		} else {
-			$data['affiliate_custom_field'] = [];
+			$data['affiliate_custom_field'] = array();
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -713,6 +711,8 @@ class ControllerMarketingAffiliate extends Controller {
 		}
 
 		// Check to see if customer is already a affiliate
+		$this->load->model('marketing/affiliate');
+
 		$affiliate_info = $this->model_marketing_affiliate->getAffiliate($this->request->post['customer_id']);
 
 		if ($affiliate_info && (!isset($this->request->get['customer_id']) || ($this->request->get['customer_id'] != $affiliate_info['customer_id']))) {
@@ -778,7 +778,6 @@ class ControllerMarketingAffiliate extends Controller {
 
 	public function report() {
 		$this->load->language('marketing/affiliate');
-
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
@@ -791,13 +790,15 @@ class ControllerMarketingAffiliate extends Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['reports'] = array();
 
 		$this->load->model('marketing/affiliate');
 		$this->load->model('customer/customer');
 		$this->load->model('setting/store');
 
-		$results = $this->model_marketing_affiliate->getReports($customer_id, ($page - 1) * 10, 10);
+		$results = $this->model_marketing_affiliate->getReports($customer_id, ($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$store_info = $this->model_setting_store->getStore($result['store_id']);
@@ -825,12 +826,12 @@ class ControllerMarketingAffiliate extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $report_total;
 		$pagination->page = $page;
-		$pagination->limit = 10;
+		$pagination->limit = $limit;
 		$pagination->url = $this->url->link('marketing/affiliate/report', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($report_total - 10)) ? $report_total : ((($page - 1) * 10) + 10), $report_total, ceil($report_total / 10));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($report_total - $limit)) ? $report_total : ((($page - 1) * $limit) + $limit), $report_total, ceil($report_total / $limit));
 
 		$this->response->setOutput($this->load->view('marketing/affiliate_report', $data));
 	}
