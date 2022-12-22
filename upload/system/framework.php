@@ -125,7 +125,7 @@ if ($config->get('session_autostart')) {
 	// Require higher security for session cookies
 	$option = array(
 		'expires'  => 0,
-		'path'     => $this->config->get('session_path'),
+		'path'     => $config->get('session_path'),
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
