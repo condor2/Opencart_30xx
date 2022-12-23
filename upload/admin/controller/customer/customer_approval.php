@@ -17,12 +17,17 @@ class ControllerCustomerCustomerApproval extends Controller {
 			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
-		$data['user_token'] = $this->session->data['user_token'];
+		$data['approve'] = $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'], true);
+		$data['deny'] = $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'], true);
 
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
-		
+
+		$data['list'] = $this->getList();
+
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -30,9 +35,13 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_approval', $data));	
 	}
 
-	public function customer_approval() {
+	public function list() {
 		$this->load->language('customer/customer_approval');
 
+		$this->response->setOutput($this->getList());
+	}
+
+	public function getList() {
 		if (isset($this->request->get['filter_customer'])) {
 			$filter_customer = $this->request->get['filter_customer'];
 		} else {
@@ -62,12 +71,40 @@ class ControllerCustomerCustomerApproval extends Controller {
 		} else {
 			$filter_date_added = '';
 		}
-
+						
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
 		}
+
+		$url = '';
+
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_customer_group_id'])) {
+			$url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
+		}
+
+		if (isset($this->request->get['filter_type'])) {
+			$url .= '&filter_type=' . $this->request->get['filter_type'];
+		}
+
+		if (isset($this->request->get['filter_date_added'])) {
+			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+		}
+
+		if (isset($this->request->get['page'])) {
+			$url .= '&page=' . $this->request->get['page'];
+		}
+
+		$data['action'] = $this->url->link('customer/customer_approval/list', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['customer_approvals'] = array();
 
@@ -127,13 +164,13 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$pagination->total = $customer_approval_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('customer/customer_approval/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('customer/customer_approval/list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($customer_approval_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_approval_total - $this->config->get('config_limit_admin'))) ? $customer_approval_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_approval_total, ceil($customer_approval_total / $this->config->get('config_limit_admin')));
 
-		$this->response->setOutput($this->load->view('customer/customer_approval_list', $data));
+		return $this->load->view('customer/customer_approval_list', $data);
 	}
 
 	public function approve() {
