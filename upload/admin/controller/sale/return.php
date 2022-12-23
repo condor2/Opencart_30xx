@@ -904,11 +904,13 @@ class ControllerSaleReturn extends Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['histories'] = array();
 
 		$this->load->model('sale/return');
 
-		$results = $this->model_sale_return->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
+		$results = $this->model_sale_return->getReturnHistories($this->request->get['return_id'], ($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
@@ -924,12 +926,12 @@ class ControllerSaleReturn extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
-		$pagination->limit = 10;
+		$pagination->limit = $limit;
 		$pagination->url = $this->url->link('sale/return/history', 'user_token=' . $this->session->data['user_token'] . '&return_id=' . $this->request->get['return_id'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
 
 		$this->response->setOutput($this->load->view('sale/return_history', $data));
 	}

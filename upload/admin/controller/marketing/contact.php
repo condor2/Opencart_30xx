@@ -107,6 +107,8 @@ class ControllerMarketingContact extends Controller {
 					$page = 1;
 				}
 
+				$limit = 10;
+
 				$email_total = 0;
 
 				$emails = array();
@@ -115,8 +117,8 @@ class ControllerMarketingContact extends Controller {
 					case 'newsletter':
 						$customer_data = array(
 							'filter_newsletter' => 1,
-							'start'             => ($page - 1) * 10,
-							'limit'             => 10
+							'start'             => ($page - 1) * $limit,
+							'limit'             => $limit
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -129,8 +131,8 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'customer_all':
 						$customer_data = array(
-							'start' => ($page - 1) * 10,
-							'limit' => 10
+							'start' => ($page - 1) * $limit,
+							'limit' => $limit
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -144,8 +146,8 @@ class ControllerMarketingContact extends Controller {
 					case 'customer_group':
 						$customer_data = array(
 							'filter_customer_group_id' => $this->request->post['customer_group_id'],
-							'start'                    => ($page - 1) * 10,
-							'limit'                    => 10
+							'start'                    => ($page - 1) * $limit,
+							'limit'                    => $limit
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
@@ -160,7 +162,7 @@ class ControllerMarketingContact extends Controller {
 						if (!empty($this->request->post['customer'])) {
 							$email_total = count($this->request->post['customer']);
 
-							$customers = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
+							$customers = array_slice($this->request->post['customer'], ($page - 1) * $limit, $limit);
 
 							foreach ($customers as $customer_id) {
 								$customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -174,8 +176,8 @@ class ControllerMarketingContact extends Controller {
 					case 'affiliate_all':
 						$affiliate_data = array(
 							'filter_affiliate' => 1,
-							'start'            => ($page - 1) * 10,
-							'limit'            => 10
+							'start'            => ($page - 1) * $limit,
+							'limit'            => $limit
 						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
@@ -188,7 +190,7 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'affiliate':
 						if (!empty($this->request->post['affiliate'])) {
-							$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * 10, 10);
+							$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * $limit, $limit);
 
                             foreach ($affiliates as $affiliate_id) {
                                 $affiliate_info = $this->model_customer_customer->getCustomer($affiliate_id);
@@ -205,7 +207,7 @@ class ControllerMarketingContact extends Controller {
 						if (isset($this->request->post['product'])) {
 							$email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
 
-							$results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * 10, 10);
+							$results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * $limit, $limit);
 
 							foreach ($results as $result) {
 								$emails[] = $result['email'];
@@ -216,7 +218,7 @@ class ControllerMarketingContact extends Controller {
 						if (isset($this->request->post['recurring'])) {
 							$email_total = $this->model_sale_order->getTotalEmailsByRecurringProductsOrdered($this->request->post['recurring']);
 
-							$results = $this->model_sale_order->getEmailsByRecurringProductsOrdered($this->request->post['recurring'], ($page - 1) * 10, 10);
+							$results = $this->model_sale_order->getEmailsByRecurringProductsOrdered($this->request->post['recurring'], ($page - 1) * $limit, $limit);
 
 							foreach ($results as $result) {
 								$emails[] = $result['email'];
@@ -228,8 +230,8 @@ class ControllerMarketingContact extends Controller {
 				if ($emails) {
 					$json['success'] = $this->language->get('text_success');
 
-					$start = ($page - 1) * 10;
-					$end = $start + 10;
+					$start = ($page - 1) * $limit;
+					$end = $start + $limit;
 
 						$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
 

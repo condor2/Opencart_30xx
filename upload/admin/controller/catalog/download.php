@@ -425,13 +425,15 @@ class ControllerCatalogDownload extends Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['reports'] = array();
 
 		$this->load->model('catalog/download');
 		$this->load->model('customer/customer');
 		$this->load->model('setting/store');
 
-		$results = $this->model_catalog_download->getDownloadReports($download_id, ($page - 1) * 10, 10);
+		$results = $this->model_catalog_download->getDownloadReports($download_id, ($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$store_info = $this->model_setting_store->getStore($result['store_id']);
@@ -459,12 +461,12 @@ class ControllerCatalogDownload extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $report_total;
 		$pagination->page = $page;
-		$pagination->limit = $this->config->get('config_limit_admin');
+		$pagination->limit = $limit;
 		$pagination->url = $this->url->link('catalog/download_report', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($report_total - $this->config->get('config_limit_admin'))) ? $report_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $report_total, ceil($report_total / $this->config->get('config_limit_admin')));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($report_total - $limit)) ? $report_total : ((($page - 1) * $limit) + $limit), $report_total, ceil($report_total / $limit));
 
 		$this->response->setOutput($this->load->view('catalog/download_report', $data));
 	}
