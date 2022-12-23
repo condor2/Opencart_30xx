@@ -96,7 +96,7 @@ $('#customer-approval').on('click', '.btn-success, .btn-danger', function (e) {
     var element = this;
 
     $.ajax({
-        url: $(element).val(),
+        url: $(element).attr('href'),
         dataType: 'json',
         beforeSend: function () {
             $(element).prop('disabled', true).addClass('loading');
