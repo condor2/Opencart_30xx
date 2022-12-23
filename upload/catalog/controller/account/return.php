@@ -42,7 +42,7 @@ class ControllerAccountReturn extends Controller {
 			$page = 1;
 		}
 
-		$limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
+		$limit = 10;
 
 		$data['returns'] = array();
 
