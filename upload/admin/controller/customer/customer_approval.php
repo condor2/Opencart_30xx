@@ -5,40 +5,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['breadcrumbs'] = array();
+		$this->load->model('customer/customer_approval');
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true)
-		);
-
-		$data['approve'] = $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'], true);
-		$data['deny'] = $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'], true);
-
-		$this->load->model('customer/customer_group');
-
-		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
-
-		$data['list'] = $this->getList();
-
-		$data['user_token'] = $this->session->data['user_token'];
-
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
-
-		$this->response->setOutput($this->load->view('customer/customer_approval', $data));	
-	}
-
-	public function list() {
-		$this->load->language('customer/customer_approval');
-
-		$this->response->setOutput($this->getList());
+		$this->getList();
 	}
 
 	public function getList() {
@@ -104,7 +73,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['action'] = $this->url->link('customer/customer_approval/list', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['action'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['customer_approvals'] = array();
 
@@ -164,13 +133,27 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$pagination->total = $customer_approval_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('customer/customer_approval/list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($customer_approval_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_approval_total - $this->config->get('config_limit_admin'))) ? $customer_approval_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_approval_total, ceil($customer_approval_total / $this->config->get('config_limit_admin')));
 
-		return $this->load->view('customer/customer_approval_list', $data);
+        $data['user_token'] = $this->session->data['user_token'];
+
+        $data['filter_customer'] = $filter_customer;
+        $data['filter_email'] = $filter_email;
+        $data['filter_customer_group_id'] = $filter_customer_group_id;
+        $data['filter_type'] = $filter_type;
+        $data['filter_date_added'] = $filter_date_added;
+
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
+
+		$this->response->setOutput($this->load->view('customer/customer_approval', $data));
+
+
 	}
 
 	public function approve() {
@@ -189,11 +172,10 @@ class ControllerCustomerCustomerApproval extends Controller {
 				$this->model_customer_customer_approval->approveAffiliate($this->request->get['customer_id']);
 			}
 
-			$json['success'] = $this->language->get('text_success');
+			$this->response->redirect($this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->getList();
 	}
 
 	public function deny() {
@@ -212,10 +194,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 				$this->model_customer_customer_approval->denyAffiliate($this->request->get['customer_id']);
 			}
 
-			$json['success'] = $this->language->get('text_success');
+			$this->response->redirect($this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->getList();
 	}
 }
