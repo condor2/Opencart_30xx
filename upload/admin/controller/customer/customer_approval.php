@@ -171,9 +171,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
+		} else {
 			$this->load->model('customer/customer_approval');
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -197,9 +195,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
+		} else {
 			$this->load->model('customer/customer_approval');
 
 			$this->session->data['success'] = $this->language->get('text_success');
