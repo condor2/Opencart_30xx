@@ -73,8 +73,6 @@ class ControllerCustomerCustomerApproval extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['action'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true);
-
 		$data['customer_approvals'] = array();
 
 		$filter_data = array(
@@ -147,13 +145,11 @@ class ControllerCustomerCustomerApproval extends Controller {
         $data['filter_type'] = $filter_type;
         $data['filter_date_added'] = $filter_date_added;
 
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('customer/customer_approval', $data));
-
-
 	}
 
 	public function approve() {
