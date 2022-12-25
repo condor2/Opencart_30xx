@@ -24,7 +24,6 @@ $_['text_shipping']                  = 'Shipping Address';
 $_['text_payment']                   = 'Payment Address';
 $_['text_mail']                      = 'Mail';
 $_['text_smtp']                      = 'SMTP';
-$_['text_phpmailer']                 = 'PHPmailer';
 $_['text_mail_alert']                = 'Mail Alerts';
 $_['text_mail_account']              = 'Register';
 $_['text_mail_affiliate']            = 'Affiliate';
