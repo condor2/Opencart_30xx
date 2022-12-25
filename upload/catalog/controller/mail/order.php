@@ -384,7 +384,7 @@ class ControllerMailOrder extends Controller {
 			$language->load('mail/order_alert');
 
 			// HTML Mail
-			$data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
+			$data['text_received'] = sprintf($language->get('text_received'), $order_info['store_name']);
 			$data['text_link'] = $language->get('text_link');
 			$data['text_download'] = $language->get('text_download');
 			$data['text_order_detail'] = $language->get('text_order_detail');
