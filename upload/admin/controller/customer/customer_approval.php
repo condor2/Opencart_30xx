@@ -149,17 +149,17 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($customer_approval_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_approval_total - $this->config->get('config_limit_admin'))) ? $customer_approval_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_approval_total, ceil($customer_approval_total / $this->config->get('config_limit_admin')));
 
-        $data['user_token'] = $this->session->data['user_token'];
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $data['filter_customer'] = $filter_customer;
-        $data['filter_email'] = $filter_email;
-        $data['filter_customer_group_id'] = $filter_customer_group_id;
-        $data['filter_type'] = $filter_type;
-        $data['filter_date_added'] = $filter_date_added;
+		$data['filter_customer'] = $filter_customer;
+		$data['filter_email'] = $filter_email;
+		$data['filter_customer_group_id'] = $filter_customer_group_id;
+		$data['filter_type'] = $filter_type;
+		$data['filter_date_added'] = $filter_date_added;
 
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('customer/customer_approval', $data));
 	}

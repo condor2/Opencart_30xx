@@ -12,7 +12,6 @@
 */
 class Log {
 	private $file;
-	private $message = '';
 
 	/**
 	 * Constructor
@@ -22,21 +21,15 @@ class Log {
 	public function __construct($filename) {
 		$this->file = DIR_LOGS . $filename;
 	}
-	
+
 	/**
-     * 
+     * Write
      *
      * @param	string	$message
+	 *
+	 * @return  void
      */
 	public function write($message) {
-		$this->message .= date('Y-m-d H:i:s') . ' - ' . print_r($message, true) . "\n";
-	}
-	
-	/**
-     * 
-     *
-     */
-	public function __destruct() {
-		file_put_contents($this->file, $this->message, FILE_APPEND);
+		file_put_contents($this->file, date('Y-m-d H:i:s') . ' - ' . print_r($message, true) . "\n", FILE_APPEND);
 	}
 }

@@ -38,7 +38,20 @@ class ControllerToolBackup extends Controller {
 		
 		$this->load->model('tool/backup');
 
-		$data['tables'] = $this->model_tool_backup->getTables();
+		$ignore = array(
+			DB_PREFIX . 'user',
+			DB_PREFIX . 'user_group'
+		);
+
+		$data['tables'] = array();
+
+		$results = $this->model_tool_backup->getTables();
+
+		foreach ($results as $result) {
+			if (!in_array($result, $ignore)) {
+				$data['tables'][] = $result;
+			}
+		}
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');

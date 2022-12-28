@@ -32,7 +32,7 @@ final class Loader {
  	*/	
 	public function controller($route, $data = array()) {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
 		// Keep the original trigger
 		$trigger = $route;
@@ -180,7 +180,7 @@ final class Loader {
  	*/	
 	public function config($route) {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $route);
+		$route = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', (string)$route);
 
 		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
 		
