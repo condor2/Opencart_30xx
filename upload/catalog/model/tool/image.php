@@ -1,8 +1,8 @@
 <?php
 class ModelToolImage extends Model {
-	public function resize($filename, $width, $height) {
+	public function resize($filename, int $width, int $height) {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
-			return;
+			return '';
 		}
 
 		$extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -22,7 +22,11 @@ class ModelToolImage extends Model {
 			$directories = explode('/', dirname($image_new));
 
 			foreach ($directories as $directory) {
-				$path = $path . '/' . $directory;
+				if (!$path) {
+					$path = $directory;
+				} else {
+					$path = $path . '/' . $directory;
+				}
 
 				if (!is_dir(DIR_IMAGE . $path)) {
 					@mkdir(DIR_IMAGE . $path, 0755);
