@@ -214,17 +214,6 @@ class ControllerMarketingContact extends Controller {
 							}
 						}
 						break;
-					case 'recurring':
-						if (isset($this->request->post['recurring'])) {
-							$email_total = $this->model_sale_order->getTotalEmailsByRecurringProductsOrdered($this->request->post['recurring']);
-
-							$results = $this->model_sale_order->getEmailsByRecurringProductsOrdered($this->request->post['recurring'], ($page - 1) * $limit, $limit);
-
-							foreach ($results as $result) {
-								$emails[] = $result['email'];
-							}
-						}
-						break;
 				}
 
 				if ($emails) {
@@ -233,10 +222,10 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * $limit;
 					$end = $start + $limit;
 
-						$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
+						$json['success'] = sprintf($this->language->get('text_sent'), $start ? $start : 1, $email_total);
 
 					if ($end < $email_total) {
-						$json['next'] = str_replace('&amp;', '&', $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true));
+						$json['next'] = $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true);
 					} else {
 						$json['next'] = '';
 					}

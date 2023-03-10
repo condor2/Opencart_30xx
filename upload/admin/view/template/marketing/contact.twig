@@ -246,9 +246,11 @@ $('#input-recurring').parent().find('.well').delegate('.fa-minus-circle', 'click
 });
 
 function send(url) {
-	for (instance in CKEDITOR.instances) {
-		CKEDITOR.instances[instance].updateElement();
-	}
+	{% if editor == 'ckeditor' %}
+	 for (instance in CKEDITOR.instances) {
+		 CKEDITOR.instances[instance].updateElement();
+	 }
+	{% endif %}
 
 	$.ajax({
 		url: url,
