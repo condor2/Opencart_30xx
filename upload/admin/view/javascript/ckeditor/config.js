@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserWindowHeight = '500';
 	config.resize_enabled = true;
 
-	config.htmlEncodeOutput = false;
+	config.htmlEncodeOutput = true;
 	config.entities = false;
 	config.allowedContent = true;
 	config.extraPlugins = 'opencart,codemirror';
