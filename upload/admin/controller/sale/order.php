@@ -230,7 +230,7 @@ class ControllerSaleOrder extends Controller {
 		$data['invoice'] = $this->url->link('sale/order/invoice', 'user_token=' . $this->session->data['user_token'], true);
 		$data['shipping'] = $this->url->link('sale/order/shipping', 'user_token=' . $this->session->data['user_token'], true);
 		$data['add'] = $this->url->link('sale/order/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['delete'] = str_replace('&amp;', '&', $this->url->link('sale/order/delete', 'user_token=' . $this->session->data['user_token'] . $url, true));
+		$data['delete'] = $this->url->link('sale/order/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['orders'] = array();
 
