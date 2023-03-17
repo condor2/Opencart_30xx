@@ -48,7 +48,7 @@ class ControllerMailOrder extends Controller {
 		$download_status = false;
 
 		$order_products = $this->model_checkout_order->getOrderProducts($order_info['order_id']);
-		
+
 		foreach ($order_products as $order_product) {
 			// Check if there are any linked downloads
 			$product_download_query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product_to_download` WHERE product_id = '" . (int)$order_product['product_id'] . "'");
@@ -81,6 +81,7 @@ class ControllerMailOrder extends Controller {
 		$data['text_order_status'] = $language->get('text_order_status');
 		$data['text_payment_address'] = $language->get('text_payment_address');
 		$data['text_shipping_address'] = $language->get('text_shipping_address');
+		$data['text_image'] = $language->get('text_image');
 		$data['text_product'] = $language->get('text_product');
 		$data['text_model'] = $language->get('text_model');
 		$data['text_quantity'] = $language->get('text_quantity');
@@ -202,6 +203,7 @@ class ControllerMailOrder extends Controller {
 		$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 		$this->load->model('tool/upload');
+		$this->load->model('catalog/product');
 
 		// Products
 		$data['products'] = array();
@@ -230,7 +232,16 @@ class ControllerMailOrder extends Controller {
 				);
 			}
 
+			$product_info = $this->model_catalog_product->getProduct($order_product['product_id']);
+
+			if ($product_info['image']) {
+				$image = $this->model_tool_image->resize($product_info['image'], 60, 60);
+			} else {
+				$image = $this->model_tool_image->resize('placeholder.png', 60, 60);
+			}
+
 			$data['products'][] = array(
+				'thumb'    => $image,
 				'name'     => $order_product['name'],
 				'model'    => $order_product['model'],
 				'option'   => $option_data,
@@ -399,6 +410,7 @@ class ControllerMailOrder extends Controller {
 			$data['text_order_status'] = $language->get('text_order_status');
 			$data['text_payment_address'] = $language->get('text_payment_address');
 			$data['text_shipping_address'] = $language->get('text_shipping_address');
+			$data['text_image'] = $language->get('text_image');
 			$data['text_product'] = $language->get('text_product');
 			$data['text_model'] = $language->get('text_model');
 			$data['text_quantity'] = $language->get('text_quantity');
@@ -511,6 +523,7 @@ class ControllerMailOrder extends Controller {
 			$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 			$this->load->model('tool/upload');
+			$this->load->model('catalog/product');
 
 			// Products
 			$data['products'] = array();
@@ -540,8 +553,17 @@ class ControllerMailOrder extends Controller {
 						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
 					);
 				}
-					
+
+				$product_info = $this->model_catalog_product->getProduct($order_product['product_id']);
+
+				if ($product_info['image']) {
+					$image = $this->model_tool_image->resize($product_info['image'], 60, 60);
+				} else {
+					$image = $this->model_tool_image->resize('placeholder.png', 60, 60);
+				}
+
 				$data['products'][] = array(
+					'thumb'    => $image,
 					'name'     => $order_product['name'],
 					'model'    => $order_product['model'],
 					'quantity' => $order_product['quantity'],

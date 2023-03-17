@@ -16,6 +16,7 @@ $_['text_ip']               = 'IP Address:';
 $_['text_payment_address']  = 'Payment Address';
 $_['text_shipping_address'] = 'Shipping Address';
 $_['text_products']         = 'Products';
+$_['text_image']            = 'Image';
 $_['text_product']          = 'Product';
 $_['text_model']            = 'Model';
 $_['text_quantity']         = 'Quantity';

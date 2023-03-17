@@ -1,8 +1,6 @@
 <?php
 namespace Session;
 class File {
-	private $config;
-
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
 	}
@@ -11,14 +9,42 @@ class File {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		if (is_file($file)) {
-			return json_decode($data, true);
-		} else {
-			return array();
+			$size = filesize($file);
+
+			if ($size) {
+				$handle = fopen($file, 'r');
+
+				flock($handle, LOCK_SH);
+
+				$data = fread($handle, $size);
+
+				flock($handle, LOCK_UN);
+
+				fclose($handle);
+
+				return json_decode($data, true);
+			} else {
+				return array();
+			}
 		}
+
+		return array();
 	}
 
 	public function write($session_id, $data) {
-		file_put_contents(DIR_SESSION . 'sess_' . basename($session_id), json_encode($data));
+		$file = DIR_SESSION . 'sess_' . basename($session_id);
+
+		$handle = fopen($file, 'c');
+
+		flock($handle, LOCK_EX);
+
+		fwrite($handle, json_encode($data));
+		ftruncate($handle, ftell($handle));
+		fflush($handle);
+
+		flock($handle, LOCK_UN);
+
+		fclose($handle);
 
 		return true;
 	}
