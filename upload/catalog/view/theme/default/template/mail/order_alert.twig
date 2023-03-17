@@ -65,7 +65,7 @@
     <tbody>
     {% for product in products %}
     <tr>
-      <td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;"><img src="{{ product.thumb }}" title="{{ product.name }}"></td>
+      <td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: center; padding: 7px;"><a href="{{ product.href }}"><img src="{{ product.thumb }}" title="{{ product.name }}"></a></td>
       <td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ product.name }}
         {% for option in product.option %}<br/>
         &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>{% endfor %}</td>

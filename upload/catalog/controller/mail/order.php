@@ -240,9 +240,12 @@ class ControllerMailOrder extends Controller {
 				$image = $this->model_tool_image->resize('placeholder.png', 60, 60);
 			}
 
+            $url = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
+
 			$data['products'][] = array(
 				'thumb'    => $image,
 				'name'     => $order_product['name'],
+				'href'     => $url,
 				'model'    => $order_product['model'],
 				'option'   => $option_data,
 				'quantity' => $order_product['quantity'],
@@ -250,6 +253,8 @@ class ControllerMailOrder extends Controller {
 				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 			);
 		}
+
+		$data['link'] = $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_info['order_id'];
 
 		// Vouchers
 		$data['vouchers'] = array();
@@ -562,8 +567,11 @@ class ControllerMailOrder extends Controller {
 					$image = $this->model_tool_image->resize('placeholder.png', 60, 60);
 				}
 
+				$url = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
+
 				$data['products'][] = array(
 					'thumb'    => $image,
+					'href'     => $url,
 					'name'     => $order_product['name'],
 					'model'    => $order_product['model'],
 					'quantity' => $order_product['quantity'],
