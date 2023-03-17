@@ -52,6 +52,7 @@ This is a modified version of Opencart.
 - Enable/Disable Affiliate system.
 - Filters on Admin Attribute List
 - Same design for admin order alert like customer order email.
+- Display Product Image in Order E-mail
 
 ## Note
 This version is not supported by Opencart. You need to have PHP at least 7.4 to use this version.
