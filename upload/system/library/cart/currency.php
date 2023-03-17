@@ -22,6 +22,10 @@ class Currency {
 	}
 
 	public function format($number, $currency, $value = '', $format = true) {
+		if (!isset($this->currencies[$currency])) {
+			return '';
+		}
+
 		$symbol_left = $this->currencies[$currency]['symbol_left'];
 		$symbol_right = $this->currencies[$currency]['symbol_right'];
 		$decimal_place = $this->currencies[$currency]['decimal_place'];

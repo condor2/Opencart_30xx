@@ -11,9 +11,9 @@
 * Document class
 */
 class Document {
-	private $title;
-	private $description;
-	private $keywords;
+	private $title = '';
+	private $description = '';
+	private $keywords = '';
 	private $links = array();
 	private $styles = array();
 	private $scripts = array();
@@ -104,7 +104,7 @@ class Document {
 	 * @param	string	$media
      */
 	public function addStyle($href, $rel = 'stylesheet', $media = 'screen', $position = 'header') {
-		$this->styles[$position][$href] = array(
+		$this->styles[$href] = array(
 			'href'  => $href,
 			'rel'   => $rel,
 			'media' => $media
@@ -116,12 +116,8 @@ class Document {
 	 *
 	 * @return	array
      */
-	public function getStyles($position = 'header') {
-		if (isset($this->styles[$position])) {
-			return $this->styles[$position];
-		} else {
-			return array();
-		}
+	public function getStyles() {
+		return $this->styles;
 	}
 
 	/**
@@ -131,7 +127,9 @@ class Document {
 	 * @param	string	$position
      */
 	public function addScript($href, $position = 'header') {
-		$this->scripts[$position][$href] = $href;
+		$this->scripts[$position][$href] = array(
+			'href' => $href
+		);
 	}
 
 	/**

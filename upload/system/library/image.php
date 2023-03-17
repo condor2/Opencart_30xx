@@ -43,6 +43,8 @@ class Image {
 				$this->image = imagecreatefromgif($file);
 			} elseif ($this->mime == 'image/png') {
 				$this->image = imagecreatefrompng($file);
+
+				imageinterlace($this->image, false);
 			} elseif ($this->mime == 'image/jpeg') {
 				$this->image = imagecreatefromjpeg($file);
 			} elseif ($this->mime == 'image/webp') {
@@ -221,42 +223,42 @@ class Image {
 	 * @param	string	$position
      */
 	public function watermark($watermark, $position = 'bottomright') {
-		switch($position) {
+		switch ($position) {
 			case 'topleft':
 				$watermark_pos_x = 0;
 				$watermark_pos_y = 0;
 				break;
 			case 'topcenter':
-				$watermark_pos_x = intval(($this->width - $watermark->getWidth()) / 2);
+				$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
 				$watermark_pos_y = 0;
 				break;
 			case 'topright':
-				$watermark_pos_x = $this->width - $watermark->getWidth();
+				$watermark_pos_x = ($this->width - $watermark->getWidth());
 				$watermark_pos_y = 0;
 				break;
 			case 'middleleft':
 				$watermark_pos_x = 0;
-				$watermark_pos_y = intval(($this->height - $watermark->getHeight()) / 2);
+				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
 			case 'middlecenter':
-				$watermark_pos_x = intval(($this->width - $watermark->getWidth()) / 2);
-				$watermark_pos_y = intval(($this->height - $watermark->getHeight()) / 2);
+				$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
+				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
 			case 'middleright':
-				$watermark_pos_x = $this->width - $watermark->getWidth();
-				$watermark_pos_y = intval(($this->height - $watermark->getHeight()) / 2);
+				$watermark_pos_x = ($this->width - $watermark->getWidth());
+				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
 			case 'bottomleft':
 				$watermark_pos_x = 0;
-				$watermark_pos_y = $this->height - $watermark->getHeight();
+				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
 			case 'bottomcenter':
-				$watermark_pos_x = intval(($this->width - $watermark->getWidth()) / 2);
-				$watermark_pos_y = $this->height - $watermark->getHeight();
+				$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
+				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
 			case 'bottomright':
-				$watermark_pos_x = $this->width - $watermark->getWidth();
-				$watermark_pos_y = $this->height - $watermark->getHeight();
+				$watermark_pos_x = ($this->width - $watermark->getWidth());
+				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
 		}
 
@@ -351,13 +353,12 @@ class Image {
 		}
 
 		if (strlen($color) == 6) {
-			list($r, $g, $b) = array($color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]);
+			[$r, $g, $b] = [$color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]];
 		} elseif (strlen($color) == 3) {
-			list($r, $g, $b) = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
+			[$r, $g, $b] = [$color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]];
 		} else {
-			return false;
+			return [];
 		}
-
 		$r = hexdec($r);
 		$g = hexdec($g);
 		$b = hexdec($b);
