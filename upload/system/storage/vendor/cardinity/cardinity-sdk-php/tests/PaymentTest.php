@@ -13,7 +13,7 @@ class PaymentTest extends ClientTestCase
      */
     public function setUp(): void
     {
-        $this->paymentParams = $this->getPaymentParams();
+        $this->paymentParams = $this->get3ds2PaymentParams();
         parent::setUp();
     }
 
@@ -189,7 +189,7 @@ class PaymentTest extends ClientTestCase
      */
     public function testCreate3dFail()
     {
-        $this->paymentParams['description'] = '3d-fail';
+        $this->paymentParams['payment_instrument']['pan'] = '4200000000000000';
 
         $method = new Payment\Create($this->paymentParams);
         $result = $this->client->call($method);
@@ -197,52 +197,25 @@ class PaymentTest extends ClientTestCase
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
         $this->assertSame('pending', $result->getStatus());
         $this->assertSame(true, $result->isPending());
-        $this->assertSame('3d-fail', $result->getAuthorizationInformation()->getData());
+        $this->assertInstanceOf('Cardinity\Method\Payment\ThreeDS2AuthorizationInformation', $result->getThreeds2Data());
 
         return $result;
     }
 
-    /**
-     * @depends testCreate3dFail
-     * @param Payment\Payment
-     */
-    public function testFinalizePaymentFail(Payment\Payment $payment)
-    {
-        $paymentId = $payment->getId();
-        $authorizationInformation = $payment->getAuthorizationInformation()->getData();
-
-        try {
-            $method = new Payment\Finalize($paymentId, $authorizationInformation);
-            $this->client->call($method);
-        } catch (\Cardinity\Exception\Declined $e) {
-            $result = $e->getResult();
-
-            $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
-            $this->assertSame('declined', $result->getStatus());
-            $this->assertSame(true, $result->isDeclined());
-            $this->assertStringContainsString('status: 33333: 3D Secure Authorization Failed.;', $e->getErrorsAsString());
-
-            return;
-        }
-
-        $this->fail('An expected exception has not been raised.');
-    }
 
     /**
      * @return ResultObject
      */
     public function testCreate3dPass()
     {
-        $params = $this->getPaymentParams();
-        $params['description'] = '3d-pass';
+        $params = $this->paymentParams;
+        $params['payment_instrument']['pan'] = '5454545454545454';
 
         $method = new Payment\Create($params);
         $result = $this->client->call($method);
 
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
         $this->assertSame('pending', $result->getStatus());
-        $this->assertSame(true, $result->isPending());
-        $this->assertSame('3d-pass', $result->getAuthorizationInformation()->getData());
 
         return $result;
     }
@@ -255,9 +228,9 @@ class PaymentTest extends ClientTestCase
     public function testFinalizePaymentPass(Payment\Payment $payment)
     {
         $paymentId = $payment->getId();
-        $authorizationInformation = $payment->getAuthorizationInformation()->getData();
+        $creq = $payment->getThreeds2data()->getCreq();
 
-        $method = new Payment\Finalize($paymentId, $authorizationInformation);
+        $method = new Payment\Finalize($paymentId, $creq, true);
         $result = $this->client->call($method);
 
         $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);

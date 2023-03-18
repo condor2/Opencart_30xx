@@ -16,6 +16,7 @@ use Egulias\EmailValidator\Validation\EmailValidation;
 use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
@@ -56,7 +57,7 @@ class EmailValidator extends ConstraintValidator
             return;
         }
 
-        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
+        if (!\is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
             throw new UnexpectedValueException($value, 'string');
         }
 
@@ -70,6 +71,10 @@ class EmailValidator extends ConstraintValidator
         }
 
         if (null === $constraint->mode) {
+            if (Email::VALIDATION_MODE_STRICT === $this->defaultMode && !class_exists(EguliasEmailValidator::class)) {
+                throw new LogicException(sprintf('The "egulias/email-validator" component is required to make the "%s" constraint default to strict mode.', Email::class));
+            }
+
             $constraint->mode = $this->defaultMode;
         }
 

@@ -26,7 +26,7 @@ This is a modified version of Opencart.
 
 ## Updates
 - Latest version of Paypal Commerce
-- TWIG v3.4.3
+- TWIG v3.5.1
 - Bootstrap 3.4.1
 - Jquery 3.6.1
 - Summernote 0.8.20
@@ -55,7 +55,7 @@ This is a modified version of Opencart.
 - Display Product Image in Order E-mail
 
 ## Note
-This version is not supported by Opencart. You need to have PHP at least 7.4 to use this version.
+This version is not supported by Opencart. You need to have PHP at least 8.0 to use this version.
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).

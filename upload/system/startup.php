@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 
 // Check Version
-if (version_compare(phpversion(), '7.4.0', '<')) {
-	exit('PHP7.4+ Required');
+if (version_compare(phpversion(), '8.0.0', '<')) {
+	exit('PHP 8.0+ Required');
 }
 
 if (!ini_get('date.timezone')) {
