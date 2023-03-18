@@ -382,15 +382,15 @@ class ControllerCustomerCustomer extends Controller {
 
 			$store_data[] = array(
 				'store_id' => 0,
-				'name' => $this->config->get('config_name'),
-				'href' => $this->url->link('customer/customer/login', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&store_id=0', true)
+				'name'     => $this->config->get('config_name'),
+				'href'     => $this->url->link('customer/customer/login', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&store_id=0', true)
 			);
 
 			foreach ($stores as $store) {
 				$store_data[] = array(
 					'store_id' => $store['store_id'],
-					'name' => $store['name'],
-					'href' => $this->url->link('customer/customer/login', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&store_id=' . $store['store_id'], true)
+					'name'     => $store['name'],
+					'href'     => $this->url->link('customer/customer/login', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . '&store_id=' . $store['store_id'], true)
 				);
 			}
 
@@ -659,7 +659,6 @@ class ControllerCustomerCustomer extends Controller {
 		$this->load->model('setting/store');
 
 		$data['stores'] = array();
-		$data['multistore'] = 0;
 
 		$data['stores'][] = array(
 			'store_id' => 0,
@@ -673,8 +672,6 @@ class ControllerCustomerCustomer extends Controller {
 				'store_id' => $store['store_id'],
 				'name'     => $store['name']
 			);
-
-			$data['multistore'] = $data['multistore'] + 1;
 		}
 
 		if (!empty($customer_info)) {
