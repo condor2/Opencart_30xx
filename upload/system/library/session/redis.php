@@ -1,6 +1,9 @@
 <?php
 namespace Session;
 class Redis {
+	private $config;
+	private $redis;
+
 	public function __construct($registry)	{
 		$this->config = $registry->get('config');
 

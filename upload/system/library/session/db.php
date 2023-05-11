@@ -8,7 +8,10 @@ CREATE TABLE IF NOT EXISTS `session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 */
 namespace Session;
-final class DB {
+class DB {
+	private $db;
+	private $config;
+
 	public function __construct($registry) {
 		$this->db = $registry->get('db');
 		$this->config = $registry->get('config');
