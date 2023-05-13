@@ -9,6 +9,7 @@ class ControllerExtensionModuleHTML extends Controller {
 
 		if ($this->config->get('config_editor_default') == 'ckeditor') {
 			$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
+			$this->document->addScript('view/javascript/ckeditor/ckeditor_init.js');
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
 			$this->document->addScript('view/javascript/summernote/summernote.min.js');

@@ -79,10 +79,10 @@
   </div>
 {% if editor == 'ckeditor' %}
 <script type="text/javascript"><!--
-$('textarea[data-toggle=\'ckeditor\']').ckeditor({
-    language:'{{ ckeditor }}'
-});
-  //--></script>
+  {% for language in languages %}
+    ckeditorInit('input-description{{ language.language_id }}', getURLVar('user_token'));
+  {% endfor %}
+//--></script> 
 {% endif %}
 
   <script type="text/javascript"><!--

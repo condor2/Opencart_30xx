@@ -72,6 +72,10 @@ class ControllerCommonFileManager extends Controller {
 					$url .= '&thumb=' . $this->request->get['thumb'];
 				}
 
+				if (isset($this->request->get['ckeditor'])) {
+					$url .= '&ckeditor=' . $this->request->get['ckeditor'];
+				}
+
 				$data['images'][] = array(
 					'thumb' => '',
 					'name'  => implode(' ', $name),

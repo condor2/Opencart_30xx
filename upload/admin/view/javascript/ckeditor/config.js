@@ -15,6 +15,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.htmlEncodeOutput = true;
 	config.entities = false;
 	config.allowedContent = true;
-	config.extraPlugins = 'opencart,codemirror';
+	config.extraPlugins = 'codemirror';
 	config.codemirror_theme = 'monokai';
 };

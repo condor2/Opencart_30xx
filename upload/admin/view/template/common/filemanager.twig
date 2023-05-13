@@ -64,7 +64,9 @@ $('#modal-image').on('click', 'a.thumbnail', function(e) {
 	e.preventDefault();
 
   {% if ckeditor %}
-	CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
+      var ckeditor_target = '{{ ckeditor }}' || null;
+      ckeditor_target = ckeditor_target.split( ':' );
+      CKEDITOR.dialog.getCurrent().setValueOf(ckeditor_target[0], ckeditor_target[1], this.getAttribute('href'));
   {% endif %}
 
 	$('#modal-image').modal('hide');
