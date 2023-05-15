@@ -1,6 +1,6 @@
 <?php
 namespace Mail;
-class Smtp {
+class Smtp extends \stdClass {
 	protected $to = '';
 	protected $from = '';
 	protected $sender = '';
