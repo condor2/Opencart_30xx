@@ -4,12 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6f10da52888f8a096220667f66333ed1
+class ComposerStaticInit294bad7f80bb7b2087d910c6c2c3019b
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -21,7 +20,10 @@ class ComposerStaticInit6f10da52888f8a096220667f66333ed1
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
-            'Wechat\\' => 7,
+            'WePay\\' => 6,
+            'WePayV3\\' => 8,
+            'WeMini\\' => 7,
+            'WeChat\\' => 7,
         ),
         'T' => 
         array (
@@ -58,12 +60,28 @@ class ComposerStaticInit6f10da52888f8a096220667f66333ed1
         array (
             'Braintree\\' => 10,
         ),
+        'A' => 
+        array (
+            'AliPay\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wechat\\' => 
+        'WePay\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-php-sdk/Wechat',
+            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WePay',
+        ),
+        'WePayV3\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WePayV3',
+        ),
+        'WeMini\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WeMini',
+        ),
+        'WeChat\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WeChat',
         ),
         'Twig\\' => 
         array (
@@ -134,6 +152,10 @@ class ComposerStaticInit6f10da52888f8a096220667f66333ed1
         array (
             0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
         ),
+        'AliPay\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/AliPay',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -155,15 +177,16 @@ class ComposerStaticInit6f10da52888f8a096220667f66333ed1
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'We' => __DIR__ . '/..' . '/zoujingli/wechat-developer/We.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6f10da52888f8a096220667f66333ed1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6f10da52888f8a096220667f66333ed1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit6f10da52888f8a096220667f66333ed1::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit6f10da52888f8a096220667f66333ed1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit294bad7f80bb7b2087d910c6c2c3019b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit294bad7f80bb7b2087d910c6c2c3019b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit294bad7f80bb7b2087d910c6c2c3019b::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit294bad7f80bb7b2087d910c6c2c3019b::$classMap;
 
         }, null, ClassLoader::class);
     }

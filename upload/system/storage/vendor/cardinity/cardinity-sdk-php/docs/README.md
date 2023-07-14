@@ -383,6 +383,72 @@ try {
 
 ```
 
+### Get All Chargebacks
+Retreive all chargebacks.
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\GetAll();
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get All Chargebacks under PaymentID
+Retreive all chargebacks issued for a provided payment ID.
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\GetAll(10, "existing_payment_id");
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get Single Chargeback
+Retreive specific chargeback
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\Get("Parent payment id", "Chargeback ID");
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
 ## Exceptions
 ### Exceptions representing API error response
 

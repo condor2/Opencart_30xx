@@ -142,6 +142,10 @@ class Client
             $this->getOptions($method)
         );
 
+        if(!is_array($result)){
+            throw new Exception\UnexpectedError('Unexpected error :'.$result);
+        }
+
         if ($method instanceof MethodResultCollectionInterface) {
             return $this->mapper->mapCollection($result, $method);
         }
