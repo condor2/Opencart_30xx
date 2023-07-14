@@ -271,6 +271,36 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `key` = 'report_customer_transaction_sort_order' WHERE `key` = 'report_customer_transaction_status_sort_order'");
 		}
 
+		// Password Changes
+
+		// Update Customer `password` column Length
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer' AND COLUMN_NAME = 'customer_id'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer` MODIFY `password` VARCHAR(255)");
+		}
+
+		// Update User `password` column Length
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "user' AND COLUMN_NAME = 'user_id'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "user` MODIFY `password` VARCHAR(255)");
+		}
+
+		// Remove Customer `salt` column
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer' AND COLUMN_NAME = 'salt'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer` DROP COLUMN `salt`");
+		}
+
+		// Remove User `salt` column
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "user' AND COLUMN_NAME = 'salt'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "user` DROP COLUMN `salt`");
+		}
+
 		// OPENCART_SERVER
 		$upgrade = true;
 
