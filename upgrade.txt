@@ -13,7 +13,7 @@ THIS IS FOR UPGRADING EXISTING OPENCART 3.0.x STORES ONLY
 1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
  
 2. Download this version of OpenCart and upload ALL new files on top of your current install.
-https://github.com/condor2/Opencart_30xx/archive/refs/heads/master.zip
+https://github.com/condor2/Opencart_3036/archive/master.zip
 
 3. Browse to http://<yourstore.com>/install Replacing <yourstore.com> with your actual site (and subdirectory if applicable).
  
