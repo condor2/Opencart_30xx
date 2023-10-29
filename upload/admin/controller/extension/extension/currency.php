@@ -23,6 +23,10 @@ class ControllerExtensionExtensionCurrency extends Controller {
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/currency/' . $this->request->get['extension']);
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/currency/' . $this->request->get['extension']);
 
+			// Compatibility
+			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'captcha/' . $this->request->get['extension']);
+			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'captcha/' . $this->request->get['extension']);
+
 			// Call install method if it exsits
 			$this->load->controller('extension/currency/' . $this->request->get['extension'] . '/install');
 
@@ -95,8 +99,6 @@ class ControllerExtensionExtensionCurrency extends Controller {
 				);
 			}
 		}
-
-		$data['promotion'] = $this->load->controller('extension/extension/promotion');
 
 		$this->response->setOutput($this->load->view('extension/extension/currency', $data));
 	}
