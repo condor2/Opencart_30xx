@@ -118,7 +118,8 @@ class ControllerLocalisationCurrency extends Controller {
 		$this->load->model('localisation/currency');
 
 		if ($this->validateRefresh()) {
-			$this->load->controller('extension/currency/' . $this->config->get('config_currency_engine') . '/currency', $this->config->get('config_currency'));
+			$config_currency_engine = $this->config->get('config_currency_engine');
+			$this->load->controller('extension/currency/'.$config_currency_engine.'/currency');
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -218,6 +219,8 @@ class ControllerLocalisationCurrency extends Controller {
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
+		} else if (isset($this->error['currency_engine'])) {
+			$data['error_warning'] = $this->error['currency_engine'];
 		} else {
 			$data['error_warning'] = '';
 		}
@@ -458,6 +461,14 @@ class ControllerLocalisationCurrency extends Controller {
 	protected function validateRefresh() {
 		if (!$this->user->hasPermission('modify', 'localisation/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		$config_currency_engine = $this->config->get('config_currency_engine');
+
+		if (!$config_currency_engine) {
+			$this->error['currency_engine'] = $this->language->get('error_currency_engine');
+		} else if (!$this->config->get('currency_'.$config_currency_engine.'_status')) {
+			$this->error['currency_engine'] = $this->language->get('error_currency_engine');
 		}
 
 		return !$this->error;
