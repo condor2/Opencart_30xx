@@ -32,24 +32,24 @@
       <fieldset>
         <legend id="action">{{ text_action }}</legend>
         <div class="form-group">
-          <div class="form-check">
-            <input type="radio" name="action" value="export" id="input-export" checked class="form-check-input"/> <label for="input-export" class="form-check-label"><strong>{{ text_export }}</strong></label>
+          <div class="radio">
+            <label><input type="radio" name="action" value="export" id="input-export" checked> <strong>{{ text_export }}</strong></label>
           </div>
-          <div class="form-check">
-            <input type="radio" name="action" value="remove" id="input-remove" class="form-check-input"/> <label for="input-remove" class="form-check-label"><strong>{{ text_remove }}</strong></label>
-            <div id="collapse-remove" class="alert alert-warning collapse">
-              <p><i class="fa fa-exclamation-triangle"></i> {{ text_warning }}</p>
-              <ul>
-                <li>{{ text_access|format(store) }}</li>
-                <li>{{ text_history }}</li>
-                <li>{{ text_limit|format(limit) }}</li>
-              </ul>
-            </div>
+          <div class="radio">
+            <label><input type="radio" name="action" value="remove" id="input-remove"> <strong>{{ text_remove }}</strong></label>
+          </div>
+          <div id="collapse-remove" class="alert alert-warning collapse">
+            <p><i class="fa fa-exclamation-triangle"></i> {{ text_warning }}</p>
+            <ul>
+              <li>{{ text_access|format(store) }}</li>
+              <li>{{ text_history }}</li>
+              <li>{{ text_limit|format(limit) }}</li>
+            </ul>
           </div>
         </div>
       </fieldset>
       <div class="buttons clearfix">
-        <div class="pull-left"><a href="{{ cancel }}" class="btn btn-default">Cancel</a></div>
+        <div class="pull-left"><a href="{{ cancel }}" class="btn btn-default">{{ button_cancel }}</a></div>
         <div class="pull-right"><button type="button" id="button-continue" class="btn btn-primary">{{ button_continue }}</button></div>
       </div>
       {{ content_bottom }}
