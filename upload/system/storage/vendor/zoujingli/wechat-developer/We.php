@@ -86,6 +86,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * @method \WePay\Redpack WePayRedpack($options = []) static 微信红包支持
  * @method \WePay\Transfers WePayTransfers($options = []) static 微信商户打款到零钱
  * @method \WePay\TransfersBank WePayTransfersBank($options = []) static 微信商户打款到银行卡
+ * @method \WePay\ProfitSharing WePayProfitSharing($options = []) static 微信分账
  */
 class We
 {
@@ -93,7 +94,7 @@ class We
      * 定义当前版本
      * @var string
      */
-    const VERSION = '1.2.48';
+    const VERSION = '1.2.49';
 
     /**
      * 静态配置

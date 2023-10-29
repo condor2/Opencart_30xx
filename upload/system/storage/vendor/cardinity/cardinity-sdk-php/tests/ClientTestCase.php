@@ -10,6 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class ClientTestCase extends TestCase
 {
+    public $client;
+    public $payment3ds2Params;
+    public $paymentParams;
+    public $paymentId;
+
     /**
      * @return void
      */

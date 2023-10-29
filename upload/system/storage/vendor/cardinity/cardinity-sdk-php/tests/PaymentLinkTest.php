@@ -8,6 +8,8 @@ use Cardinity\Method\ResultObject;
 
 class PaymentLinkTest extends ClientTestCase
 {
+    private $paymentLinkParams;
+
     /**
      * @return void
      */

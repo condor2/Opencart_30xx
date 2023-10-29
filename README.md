@@ -5,9 +5,7 @@ This is a modified version of Opencart.
 
 ## Added
 - Bug fixes
-- Currency from Master Branch - 3.1.0.0b
-- Cron Job from Master Branch - 3.1.0.0b
-- Paypal Standard
+- ECB Currency from 3.0.3.9
 - Timezone from Master Branch - 3.1.0.0b
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
@@ -25,8 +23,8 @@ This is a modified version of Opencart.
 - Google Shopping
 
 ## Updates
-- Latest version of Paypal Commerce
-- TWIG v3.6.1
+- Paypal from 3.0.3.9
+- TWIG v3.7.1
 - Bootstrap 3.4.1
 - Jquery 3.6.1
 - Summernote 0.8.20
@@ -55,7 +53,7 @@ This is a modified version of Opencart.
 - Display Product Image in Order E-mail
 
 ## Note
-This version is not supported by Opencart. You need to have PHP at least 8.0 to use this version.
+This version is not supported by Opencart. You need to have PHP at least 7.4.0 to use this version.
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).
