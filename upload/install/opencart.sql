@@ -1849,7 +1849,7 @@ CREATE TABLE `oc_layout_route` (
 
 INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `route`) VALUES
 (1, 6, 0, 'account/%'),
-(2, 6, 0, 'information/gdpr'),
+(2, 14, 0, 'information/gdpr'),
 (3, 10, 0, 'affiliate/%'),
 (4, 3, 0, 'product/category'),
 (5, 1, 0, 'common/home'),
@@ -1862,7 +1862,6 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 (12, 5, 0, 'product/manufacturer'),
 (13, 12, 0, 'product/compare'),
 (14, 13, 0, 'product/search');
-(15, 14, 0, 'information/gdpr');
 
 -----------------------------------------------------------
 
