@@ -26,7 +26,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('ebay_listing_width'), $this->config->get('ebay_listing_height'));
 				}
 
-				$data['products'][] = array(
+				$data['products'][] = [
 					'thumb' => $image, 
 					'name'  => base64_decode($product['Title']), 
 					'price' => $this->currency->format($product['priceGross'], $this->session->data['currency']), 

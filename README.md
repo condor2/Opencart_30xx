@@ -3,6 +3,9 @@
 ## Information
 This is a modified version of Opencart.
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg?style=flat-square)](https://php.net/)
+[![Lint](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml/badge.svg)](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml)
+
 ## Added
 - Bug fixes
 - ECB Currency from 3.0.3.9

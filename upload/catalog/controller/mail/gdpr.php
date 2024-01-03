@@ -60,7 +60,6 @@ class ControllerMailGdpr extends Controller {
 		$mail->setHtml($this->load->view('mail/gdpr', $data));
 		$mail->send();
 	}
-}
 
 	// catalog/model/account/gdpr/editStatus/after
 	public function remove(&$route, &$args, &$output) {
