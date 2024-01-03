@@ -32,6 +32,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     $this->config->set('payment_squareup_merchant_id', null);
                 } else {
                     if (!$this->config->get('payment_squareup_locations')) {
+						$first_location_id = null;
+
                         $previous_setting['payment_squareup_locations'] = $this->squareup->fetchLocations($this->config->get('payment_squareup_access_token'), $first_location_id);
                         $previous_setting['payment_squareup_location_id'] = $first_location_id;
                     }

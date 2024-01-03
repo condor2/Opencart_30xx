@@ -169,6 +169,8 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$json = array();
 
+		$url = '';
+
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
@@ -192,6 +194,8 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$this->load->language('customer/customer_approval');
 
 		$json = array();
+
+		$url = '';
 
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
