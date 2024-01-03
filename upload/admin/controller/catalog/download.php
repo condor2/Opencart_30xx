@@ -425,6 +425,8 @@ class ControllerCatalogDownload extends Controller {
 			$page = 1;
 		}
 
+		$url = '';
+
 		$limit = 10;
 
 		$data['reports'] = array();
