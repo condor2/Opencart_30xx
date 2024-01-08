@@ -596,13 +596,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$reason_code = (string)$authorization->AuthorizationStatus->ReasonCode;
 
 				switch ($reason_code) {
-					case 'InvalidPaymentMethod'
-					:$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
+					case 'InvalidPaymentMethod':$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
 
 						$this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
 						break;
-					default
-					:if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, array('Open'))) {
+					default:if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, array('Open'))) {
 						$this->model_extension_payment_amazon_login_pay->cancelOrder($order_reference_id, "Authorization has failed with the state: " . $authorization->AuthorizationStatus->State);
 					}
 
@@ -735,13 +733,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$reason_code = (string)$authorization->AuthorizationStatus->ReasonCode;
 
 				switch ($reason_code) {
-					case 'InvalidPaymentMethod'
-					:$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
+					case 'InvalidPaymentMethod':$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
 
 						$this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
 						break;
-					default
-					:if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, array('Open'))) {
+					default:if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, array('Open'))) {
 						$this->model_extension_payment_amazon_login_pay->cancelOrder($order_reference_id, "Authorization has failed with the state: " . $authorization->AuthorizationStatus->State);
 					}
 
@@ -909,8 +905,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$xml = $this->model_extension_payment_amazon_login_pay->parseIpnBody($body);
 
 				switch ($xml->getName()) {
-					case 'AuthorizationNotification'
-					:if ($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
+					case 'AuthorizationNotification':if ($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
 						$this->load->model('checkout/order');
 						$oc_order_status_id = $this->config->get('payment_amazon_login_pay_capture_oc_status');
 						$amazon_capture_id = (string)$xml->AuthorizationDetails->IdList->Id;
@@ -948,11 +943,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 						}
 					}
 						break;
-					case 'CaptureNotification'
-					:$this->model_extension_payment_amazon_login_pay->captureIpn($xml);
+					case 'CaptureNotification':$this->model_extension_payment_amazon_login_pay->captureIpn($xml);
 						break;
-					case 'RefundNotification'
-					:$this->model_extension_payment_amazon_login_pay->refundIpn($xml);
+					case 'RefundNotification':$this->model_extension_payment_amazon_login_pay->refundIpn($xml);
 						break;
 				}
 			}

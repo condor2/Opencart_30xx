@@ -38,11 +38,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 		$mysign = "";
 		switch (strtoupper(trim($this->alipay_config['sign_type']))) {
-			case "MD5"
-			:$mysign = $this->md5Sign($prestr, $this->alipay_config['key']);
+			case "MD5":$mysign = $this->md5Sign($prestr, $this->alipay_config['key']);
 				break;
-			default
-			:$mysign = "";
+			default:$mysign = "";
 		}
 
 		return $mysign;
@@ -95,11 +93,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		$prestr = $this->createLinkstring($para_sort);
 
 		switch (strtoupper(trim($this->alipay_config['sign_type']))) {
-			case "MD5"
-			:$isSgin = $this->md5Verify($prestr, $sign, $this->alipay_config['key']);
+			case "MD5":$isSgin = $this->md5Verify($prestr, $sign, $this->alipay_config['key']);
 				break;
-			default
-			:$isSgin = false;
+			default:$isSgin = false;
 		}
 
 		return $isSgin;

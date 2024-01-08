@@ -207,40 +207,31 @@ class Image {
 	 */
 	public function watermark($watermark, $position = 'bottomright') {
 		switch ($position) {
-			case 'topleft'
-			:$watermark_pos_x = 0;
+			case 'topleft':$watermark_pos_x = 0;
 				$watermark_pos_y = 0;
 				break;
-			case 'topcenter'
-			:$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
+			case 'topcenter':$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
 				$watermark_pos_y = 0;
 				break;
-			case 'topright'
-			:$watermark_pos_x = ($this->width - $watermark->getWidth());
+			case 'topright':$watermark_pos_x = ($this->width - $watermark->getWidth());
 				$watermark_pos_y = 0;
 				break;
-			case 'middleleft'
-			:$watermark_pos_x = 0;
+			case 'middleleft':$watermark_pos_x = 0;
 				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
-			case 'middlecenter'
-			:$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
+			case 'middlecenter':$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
 				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
-			case 'middleright'
-			:$watermark_pos_x = ($this->width - $watermark->getWidth());
+			case 'middleright':$watermark_pos_x = ($this->width - $watermark->getWidth());
 				$watermark_pos_y = (int)(($this->height - $watermark->getHeight()) / 2);
 				break;
-			case 'bottomleft'
-			:$watermark_pos_x = 0;
+			case 'bottomleft':$watermark_pos_x = 0;
 				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
-			case 'bottomcenter'
-			:$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
+			case 'bottomcenter':$watermark_pos_x = (int)(($this->width - $watermark->getWidth()) / 2);
 				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
-			case 'bottomright'
-			:$watermark_pos_x = ($this->width - $watermark->getWidth());
+			case 'bottomright':$watermark_pos_x = ($this->width - $watermark->getWidth());
 				$watermark_pos_y = ($this->height - $watermark->getHeight());
 				break;
 		}

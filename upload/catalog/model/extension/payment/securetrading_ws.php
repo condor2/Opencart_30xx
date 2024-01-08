@@ -137,8 +137,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			case 100:
 				$trans_type = 'payment';
 				break;
-			default
-			:$trans_type = '';
+			default:$trans_type = '';
 		}
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_ws_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_ws_settle_status') . "', `modified` = now(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE order_id = " . (int)$order_info['order_id']);

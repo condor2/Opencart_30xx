@@ -66,24 +66,21 @@ class Squareup {
 		}
 
 		switch ($request_data['method']) {
-			case 'GET'
-			:$curl_options[CURLOPT_POST] = false;
+			case 'GET':$curl_options[CURLOPT_POST] = false;
 
 				if (is_string($params)) {
 					$curl_options[CURLOPT_URL] .= ((strpos($url, '?') === false) ? '?' : '&') . $params;
 				}
 
 				break;
-			case 'POST'
-			:$curl_options[CURLOPT_POST] = true;
+			case 'POST':$curl_options[CURLOPT_POST] = true;
 
 				if ($params !== null) {
 					$curl_options[CURLOPT_POSTFIELDS] = $params;
 				}
 
 				break;
-			default
-			:$curl_options[CURLOPT_CUSTOMREQUEST] = $request_data['method'];
+			default:$curl_options[CURLOPT_CUSTOMREQUEST] = $request_data['method'];
 
 				if ($params !== null) {
 					$curl_options[CURLOPT_POSTFIELDS] = $params;
@@ -405,12 +402,9 @@ class Squareup {
 
 	protected function encodeParameters($params, $content_type) {
 		switch ($content_type) {
-			case 'application/json'
-			:return json_encode($params);
-			case 'application/x-www-form-urlencoded'
-			:return http_build_query($params);
-			default
-			:case 'multipart/form-data'
+			case 'application/json':return json_encode($params);
+			case 'application/x-www-form-urlencoded':return http_build_query($params);
+			default:case 'multipart/form-data'
 			// curl will handle the params as multipart form data if we just leave it as an array
 			:return $params;
 		}

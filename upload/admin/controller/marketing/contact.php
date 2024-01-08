@@ -115,8 +115,7 @@ class ControllerMarketingContact extends Controller {
 				$emails = array();
 
 				switch ($this->request->post['to']) {
-					case 'newsletter'
-					:$customer_data = array(
+					case 'newsletter':$customer_data = array(
 						'filter_newsletter' => 1,
 						'start'             => ($page - 1) * $limit,
 						'limit'             => $limit
@@ -130,8 +129,7 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'customer_all'
-					:$customer_data = array(
+					case 'customer_all':$customer_data = array(
 						'start' => ($page - 1) * $limit,
 						'limit' => $limit
 					);
@@ -144,8 +142,7 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'customer_group'
-					:$customer_data = array(
+					case 'customer_group':$customer_data = array(
 						'filter_customer_group_id' => $this->request->post['customer_group_id'],
 						'start'                    => ($page - 1) * $limit,
 						'limit'                    => $limit
@@ -159,8 +156,7 @@ class ControllerMarketingContact extends Controller {
 							$emails[$result['customer_id']] = $result['email'];
 						}
 						break;
-					case 'customer'
-					:if (!empty($this->request->post['customer'])) {
+					case 'customer':if (!empty($this->request->post['customer'])) {
 						$email_total = count($this->request->post['customer']);
 
 						$customers = array_slice($this->request->post['customer'], ($page - 1) * $limit, $limit);
@@ -174,8 +170,7 @@ class ControllerMarketingContact extends Controller {
 						}
 					}
 						break;
-					case 'affiliate_all'
-					:$affiliate_data = array(
+					case 'affiliate_all':$affiliate_data = array(
 						'filter_affiliate' => 1,
 						'start'            => ($page - 1) * $limit,
 						'limit'            => $limit
@@ -189,8 +184,7 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'affiliate'
-					:if (!empty($this->request->post['affiliate'])) {
+					case 'affiliate':if (!empty($this->request->post['affiliate'])) {
 						$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * $limit, $limit);
 
 						foreach ($affiliates as $affiliate_id) {
@@ -204,8 +198,7 @@ class ControllerMarketingContact extends Controller {
 						$email_total = count($this->request->post['affiliate']);
 					}
 						break;
-					case 'product'
-					:if (isset($this->request->post['product'])) {
+					case 'product':if (isset($this->request->post['product'])) {
 						$email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
 
 						$results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * $limit, $limit);
