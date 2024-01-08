@@ -50,7 +50,10 @@ class ControllerMailTransaction extends Controller {
 				$data['logo'] = '';
 			}
 
+			$subject = sprintf($this->language->get('mail_text_subject'), $store_name);
+
 			$data['text_received'] = sprintf($this->language->get('text_received'), $this->config->get('config_name'));
+
 			$data['text_amount'] = $this->language->get('text_amount');
 			$data['text_total'] = $this->language->get('text_total');
 			

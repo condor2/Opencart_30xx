@@ -49,7 +49,7 @@ class Cache {
 	 * 
 	 * @return	string
      */
-	public function set($key, $value, $expire = '') {
+	public function set($key, $value, $expire = 0) {
 		$this->adaptor->set($key, $value, $expire);
 	}
    

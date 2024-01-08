@@ -2,7 +2,8 @@
 namespace Session;
 class Redis {
 	private $config;
-	private $redis;
+	private \Redis $redis;
+	public  $prefix;
 
 	public function __construct($registry)	{
 		$this->config = $registry->get('config');
@@ -12,15 +13,17 @@ class Redis {
 			$this->redis->pconnect(CACHE_HOSTNAME, CACHE_PORT);
 			$this->prefix = CACHE_PREFIX . '.session.'; // session prefix to identify session keys
 		} catch (\RedisException $e) {
-			//
 		}
 	}
 
 	public function read($session_id) {
 		$data = $this->redis->get($this->prefix . $session_id);
-		if (is_null($data) || empty($data))
+
+		if (!$data) {
 			return [];
-		return json_decode($data, true);
+		} else {
+			return json_decode($data, true);
+		}
 	}
 
 	public function write($session_id, $data) {
