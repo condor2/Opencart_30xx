@@ -5,7 +5,6 @@ parameters:
     excludePaths:
         - ./system/storage/vendor/
         - ./upload/system/storage/vendor/
-
 		- ./upload/admin/model/extension/payment/squareup.php
 		- ./catalog/controller/extension/payment/wechat_pay.php
 		- ./catalog/controller/extension/recurring/pp_express.php
