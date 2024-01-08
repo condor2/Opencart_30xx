@@ -15,6 +15,7 @@ parameters:
         - ./upload/catalog/model/extension/shipping/ec_ship.php
         - ./upload/system/config/admin.php
         - ./upload/system/engine/router.php
+        - ./upload/system/framework.php
     tmpDir: .cache
     ignoreErrors:
         - '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
