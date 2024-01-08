@@ -19,13 +19,14 @@ jobs:
         php: ['7.4', '8.0', '8.1', '8.2', '8.3']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: composer:v2
+          tools: composer:v2, cs2pr
+          extensions: mbstring
 
       - name: Lint
         run: |
@@ -43,12 +44,21 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.cache/composer/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install dependencies
-        run: composer require phpstan/phpstan 1.10.50
+          path: |
+            ~/.cache/composer/files
+            ./.cache
+            ./.php-cs-fixer.cache
+          key: OC3.0-PHP${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: OC3.0-PHP${{ matrix.php }}-
 
       - name: PHPStan
-        run: ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+        run: |
+          composer require phpstan/phpstan 1.10.50
+          ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+
+      - name: Code style
+        if: matrix.php == '8.3'
+        run: |
+          composer require --dev -w friendsofphp/php-cs-fixer v3.46.0
+          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
+          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
