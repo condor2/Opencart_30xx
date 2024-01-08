@@ -5,16 +5,6 @@ parameters:
     excludePaths:
         - ./system/storage/vendor/
         - ./upload/system/storage/vendor/
-		- ./upload/admin/model/extension/payment/squareup.php
-		- ./catalog/controller/extension/payment/wechat_pay.php
-		- ./catalog/controller/extension/recurring/pp_express.php
-		- ./catalog/model/extension/payment/alipay.php
-		- ./catalog/model/extension/payment/alipay_cross.php
-		- ./catalog/model/extension/payment/divido.php
-		- ./catalog/model/extension/shipping/ec_ship.php
-		- ./system/config/admin.php
-		- ./system/engine/router.php
-
     tmpDir: .cache
     ignoreErrors:
         - '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
