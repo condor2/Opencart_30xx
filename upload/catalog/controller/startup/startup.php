@@ -4,10 +4,11 @@ class ControllerStartupStartup extends Controller {
 		// To make sure that calls to isset also support dynamic properties from the registry
 		// See https://www.php.net/manual/en/language.oop5.overloading.php#object.isset
 		if ($this->registry) {
-			if ($this->registry->get($key)!== null) {
+			if ($this->registry->get($key) !== null) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -47,10 +48,10 @@ class ControllerStartupStartup extends Controller {
 							break 2;
 						}
 					}
-				}	
+				}
 			}
 
-			if (!$detect) { 
+			if (!$detect) {
 				// Try using language folder to detect the language
 				foreach ($browser_languages as $browser_language) {
 					if (array_key_exists(strtolower($browser_language), $languages)) {
@@ -61,7 +62,7 @@ class ControllerStartupStartup extends Controller {
 				}
 			}
 
-			$code = $detect ? $detect : '';
+			$code = $detect ?: '';
 		}
 
 		if (!array_key_exists($code, $languages)) {

@@ -3,7 +3,7 @@ class ModelUpgrade1009 extends Model {
 	public function upgrade() {
 		// Address
 		$address_info = $this->db->query("SELECT CHARACTER_MAXIMUM_LENGTH FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "address' AND COLUMN_NAME = 'company'");
-		
+
 		if ($address_info->num_rows && $address_info->row['CHARACTER_MAXIMUM_LENGTH'] && $address_info->row['CHARACTER_MAXIMUM_LENGTH'] < 60) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "address` MODIFY COLUMN `company` VARCHAR(60)");
 		}
@@ -14,52 +14,52 @@ class ModelUpgrade1009 extends Model {
 		if ($query->num_rows) {
 			// Removing affiliate and moving to the customer account.
 			$config = new Config();
-			
+
 			$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE store_id = '0'");
-			
+
 			foreach ($setting_query->rows as $setting) {
 				$config->set($setting['key'], $setting['value']);
 			}
-			
+
 			$affiliate_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate`");
-			
+
 			foreach ($affiliate_query->rows as $affiliate) {
 				$customer_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `email` = '" . $this->db->escape($affiliate['email']) . "'");
-				
+
 				if (!$customer_query->num_rows) {
 					$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$config->get('config_customer_group_id') . "', `language_id` = '" . (int)$config->get('config_customer_group_id') . "', `firstname` = '" . $this->db->escape($affiliate['firstname']) . "', `lastname` = '" . $this->db->escape($affiliate['lastname']) . "', `email` = '" . $this->db->escape($affiliate['email']) . "', `telephone` = '" . $this->db->escape($affiliate['telephone']) . "', `password` = '" . $this->db->escape($affiliate['password']) . "', `cart` = '" . $this->db->escape(json_encode([])) . "', `wishlist` = '" . $this->db->escape(json_encode([])) . "', `newsletter` = '0', `custom_field` = '" . $this->db->escape(json_encode([])) . "', `ip` = '" . $this->db->escape($affiliate['ip']) . "', `status` = '" . $this->db->escape($affiliate['status']) . "', `date_added` = '" . $this->db->escape($affiliate['date_added']) . "'");
 
 					$customer_id = $this->db->getLastId();
-					
+
 					$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($affiliate['firstname']) . "', lastname = '" . $this->db->escape($affiliate['lastname']) . "', company = '" . $this->db->escape($affiliate['company']) . "', address_1 = '" . $this->db->escape($affiliate['address_1']) . "', address_2 = '" . $this->db->escape($affiliate['address_2']) . "', city = '" . $this->db->escape($affiliate['city']) . "', postcode = '" . $this->db->escape($affiliate['postcode']) . "', zone_id = '" . (int)$affiliate['zone_id'] . "', country_id = '" . (int)$affiliate['country_id'] . "', custom_field = '" . $this->db->escape(json_encode([])) . "'");
-			
+
 					$address_id = $this->db->getLastId();
-			
+
 					$this->db->query("UPDATE " . DB_PREFIX . "customer SET address_id = '" . (int)$address_id . "' WHERE customer_id = '" . (int)$customer_id . "'");
 				} else {
 					$customer_id = $customer_query->row['customer_id'];
 				}
-				
+
 				$customer_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
-				
+
 				if (!$customer_query->num_rows) {
 					$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate` SET `customer_id` = '" . (int)$customer_id . "', `company` = '" . $this->db->escape($affiliate['company']) . "', `tracking` = '" . $this->db->escape($affiliate['code']) . "', `commission` = '" . (float)$affiliate['commission'] . "', `tax` = '" . $this->db->escape($affiliate['tax']) . "', `payment` = '" . $this->db->escape($affiliate['payment']) . "', `cheque` = '" . $this->db->escape($affiliate['cheque']) . "', `paypal` = '" . $this->db->escape($affiliate['paypal']) . "', `bank_name` = '" . $this->db->escape($affiliate['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($affiliate['bank_branch_number']) . "', `bank_account_name` = '" . $this->db->escape($affiliate['bank_account_name']) . "', `bank_account_number` = '" . $this->db->escape($affiliate['bank_account_number']) . "', `status` = '" . (int)$affiliate['status'] . "', `date_added` = '" . $this->db->escape($affiliate['date_added']) . "'");
 				}
 
 				$customer_query = $this->db->query("SELECT CHARACTER_MAXIMUM_LENGTH FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_affiliate' AND COLUMN_NAME = 'company'");
-		
+
 				if ($customer_query->num_rows && $customer_query->row['CHARACTER_MAXIMUM_LENGTH'] && $customer_query->row['CHARACTER_MAXIMUM_LENGTH'] < 60) {
 					$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_affiliate` MODIFY COLUMN `company` VARCHAR(60)");
 				}
 
 				$affiliate_transaction_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate_transaction` WHERE `affiliate_id` = '" . (int)$affiliate['affiliate_id'] . "'");
-			
+
 				foreach ($affiliate_transaction_query->rows as $affiliate_transaction) {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "customer_transaction SET customer_id = '" . (int)$customer_id . "', order_id = '" . (int)$affiliate_transaction['order_id'] . "', description = '" . $this->db->escape($affiliate_transaction['description']) . "', amount = '" . (float)$affiliate_transaction['amount'] . "', `date_added` = '" . $this->db->escape($affiliate_transaction['date_added']) . "'");
-					
+
 					$this->db->query("DELETE FROM " . DB_PREFIX . "affiliate_transaction WHERE affiliate_transaction_id = '" . (int)$affiliate_transaction['affiliate_transaction_id'] . "'");
 				}
-				
+
 				$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `affiliate_id` = '" . (int)$customer_id . "' WHERE affiliate_id = '" . (int)$affiliate['affiliate_id'] . "'");
 			}
 
@@ -91,13 +91,13 @@ class ModelUpgrade1009 extends Model {
 
 		// Events
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'sort_order'");
-		
+
 		if (!$query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` ADD `sort_order` INT(3) NOT NULL AFTER `action`");
 		}
 
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'date_added'");
-		
+
 		if ($query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` DROP COLUMN `date_added`");
 		}
@@ -108,7 +108,7 @@ class ModelUpgrade1009 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/after') . "' WHERE `code` = '" . $this->db->escape('mail_voucher') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('mail_order_add') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('mail_order_alert') . "'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('statistics_order_history') . "'");		
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = '" . $this->db->escape('statistics_order_history') . "'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('admin/model/sale/return/addOrderHistory/after') . "' WHERE `code` = '" . $this->db->escape('admin_mail_return') . "'");
 
 		$query = $this->db->query("SELECT `event_id` FROM `" . DB_PREFIX . "event` WHERE `code` = 'mail_review'");
@@ -339,8 +339,8 @@ class ModelUpgrade1009 extends Model {
 
 		foreach ($files as $file) {
 			$lines = file($file);
-	
-			for ($i = 0; $i < count($lines); $i++) { 
+
+			for ($i = 0; $i < count($lines); $i++) {
 				if ((strpos($lines[$i], 'DIR_IMAGE') !== false) && (strpos($lines[$i + 1], 'DIR_STORAGE') === false)) {
 					array_splice($lines, $i + 1, 0, array('define(\'DIR_STORAGE\', DIR_SYSTEM . \'storage/\');'));
 				}
@@ -367,7 +367,7 @@ class ModelUpgrade1009 extends Model {
 
 				if (strpos($lines[$i], 'DIR_SESSION') !== false) {
 					$lines[$i] = 'define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');' . "\n";
-				}				
+				}
 
 				if (strpos($lines[$i], 'DIR_UPLOAD') !== false) {
 					$lines[$i] = 'define(\'DIR_UPLOAD\', DIR_STORAGE . \'upload/\');' . "\n";
@@ -375,7 +375,7 @@ class ModelUpgrade1009 extends Model {
 			}
 
 			$output = implode('', $lines);
-			
+
 			$handle = fopen($file, 'w');
 
 			fwrite($handle, $output);

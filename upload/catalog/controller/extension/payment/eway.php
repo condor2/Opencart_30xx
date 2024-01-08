@@ -42,10 +42,10 @@ class ControllerExtensionPaymentEway extends Controller {
 		$this->load->model('localisation/zone');
 
 		$payment_zone_info = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
-		$payment_zone_code = isset($payment_zone_info['code']) ? $payment_zone_info['code'] : '';
+		$payment_zone_code = $payment_zone_info['code'] ?? '';
 
 		$shipping_zone_info = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
-		$shipping_zone_code = isset($shipping_zone_info['code']) ? $shipping_zone_info['code'] : '';
+		$shipping_zone_code = $shipping_zone_info['code'] ?? '';
 
 		$request = new stdClass();
 
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			$item = new stdClass();
 			$item->SKU = (string)substr($product['product_id'], 0, 12);
 			$item->Description = (string)substr($product['name'], 0, 26);
-			$item->Quantity = strval($product['quantity']);
+			$item->Quantity = (string)($product['quantity']);
 			$item->UnitCost = $this->lowestDenomination($item_price, $order_info['currency_code']);
 			$item->Total = $this->lowestDenomination($item_total, $order_info['currency_code']);
 
@@ -172,7 +172,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		$value = (float)$value;
 
-		return (int)($value * pow(10, $power));
+		return (int)($value * 10 ** $power);
 	}
 
 	public function ValidateDenomination($value, $currency) {
@@ -180,7 +180,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		$value = (float)$value;
 
-		return (int)($value * pow(10, '-' . $power));
+		return (int)($value * 10 ** ('-' . $power));
 	}
 
 	public function callback() {
@@ -248,11 +248,11 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$this->load->model('extension/payment/eway');
 				$eway_order_data = array(
-					'order_id' => $order_id,
+					'order_id'       => $order_id,
 					'transaction_id' => $result->TransactionID,
-					'amount' => $this->ValidateDenomination($result->TotalAmount, $order_info['currency_code']),
-					'currency_code' => $order_info['currency_code'],
-					'debug_data' => json_encode($result)
+					'amount'         => $this->ValidateDenomination($result->TotalAmount, $order_info['currency_code']),
+					'currency_code'  => $order_info['currency_code'],
+					'debug_data'     => json_encode($result)
 				);
 
 				$error_array = explode(", ", $result->ResponseMessage);
@@ -299,5 +299,4 @@ class ControllerExtensionPaymentEway extends Controller {
 			}
 		}
 	}
-
 }

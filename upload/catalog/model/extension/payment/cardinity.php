@@ -1,7 +1,7 @@
 <?php
 use Cardinity\Client;
-use Cardinity\Method\Payment;
 use Cardinity\Exception as CardinityException;
+use Cardinity\Method\Payment;
 
 class ModelExtensionPaymentCardinity extends Model {
 	public function addOrder($data) {
@@ -23,9 +23,7 @@ class ModelExtensionPaymentCardinity extends Model {
 		$method = new Payment\Create($payment_data);
 
 		try {
-			$payment = $client->call($method);
-
-			return $payment;
+			return $client->call($method);
 		} catch (Exception $exception) {
 			$this->exception($exception);
 
@@ -42,9 +40,7 @@ class ModelExtensionPaymentCardinity extends Model {
 		$method = new Payment\Finalize($payment_id, $pares);
 
 		try {
-			$payment = $client->call($method);
-
-			return $payment;
+			return $client->call($method);
 		} catch (Exception $exception) {
 			$this->exception($exception);
 
@@ -75,9 +71,9 @@ class ModelExtensionPaymentCardinity extends Model {
 
 		if ($status) {
 			$method_data = [
-				'code'		 => 'cardinity',
-				'title'		 => $this->language->get('text_title'),
-				'terms'		 => '',
+				'code'       => 'cardinity',
+				'title'      => $this->language->get('text_title'),
+				'terms'      => '',
 				'sort_order' => $this->config->get('payment_cardinity_sort_order')
 			];
 		}

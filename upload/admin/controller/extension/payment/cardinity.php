@@ -111,7 +111,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		} else {
 			$data['payment_cardinity_sort_order'] = $this->config->get('payment_cardinity_sort_order');
 		}
-		
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -187,8 +187,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 					$data['refunds'][] = array(
 						'date_added'  => date($this->language->get('datetime_format'), strtotime($refund->getCreated())),
-						'amount'	  => $this->currency->format($refund->getAmount(), $refund->getCurrency(), '1.00000000', true),
-						'status'	  => $refund->getStatus(),
+						'amount'      => $this->currency->format($refund->getAmount(), $refund->getCurrency(), '1.00000000', true),
+						'status'      => $refund->getStatus(),
 						'description' => $refund->getDescription()
 					);
 				}
@@ -242,7 +242,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$check_credentials = true;
 
-		if (version_compare(phpversion(), '7.3', '<')) {
+		if (version_compare(PHP_VERSION, '7.3', '<')) {
 			$this->error['warning'] = $this->language->get('error_php_version');
 		}
 

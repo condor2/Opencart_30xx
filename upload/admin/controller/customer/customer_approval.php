@@ -40,7 +40,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		} else {
 			$filter_date_added = '';
 		}
-						
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -135,9 +135,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
-        $this->load->model('customer/customer_group');
+		$this->load->model('customer/customer_group');
 
-        $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
+		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
 		$pagination = new Pagination();
 		$pagination->total = $customer_approval_total;

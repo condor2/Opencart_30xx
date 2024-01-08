@@ -33,15 +33,15 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$ch = curl_init();
 
 		$defaults = [
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
+			CURLOPT_POST           => 1,
+			CURLOPT_HEADER         => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://webservices.securetrading.net/xml/',
-			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_URL            => 'https://webservices.securetrading.net/xml/',
+			CURLOPT_FRESH_CONNECT  => 1,
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => [
+			CURLOPT_FORBID_REUSE   => 1,
+			CURLOPT_TIMEOUT        => 15,
+			CURLOPT_HTTPHEADER     => [
 				'User-Agent: OpenCart - Secure Trading WS',
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_username') . ':' . $this->config->get('payment_securetrading_ws_password')),
@@ -137,8 +137,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			case 100:
 				$trans_type = 'payment';
 				break;
-			default :
-				$trans_type = '';
+			default
+			:$trans_type = '';
 		}
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_ws_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_ws_settle_status') . "', `modified` = now(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE order_id = " . (int)$order_info['order_id']);
@@ -149,7 +149,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
 		$this->load->model('checkout/order');
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$order_status_id . " WHERE order_id = "  . (int)$order_id);
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$order_status_id . " WHERE order_id = " . (int)$order_id);
 
 		$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 	}

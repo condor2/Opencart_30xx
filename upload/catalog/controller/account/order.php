@@ -10,13 +10,13 @@ class ControllerAccountOrder extends Controller {
 		$this->load->language('account/order');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		
+
 		$url = '';
 
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
-		
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -28,7 +28,7 @@ class ControllerAccountOrder extends Controller {
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
 		);
-		
+
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/order', $url, true)
@@ -194,7 +194,7 @@ class ControllerAccountOrder extends Controller {
 				'country'   => $order_info['payment_country']
 			);
 
-			$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+			$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\\s\\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 			$data['payment_method'] = $order_info['payment_method'];
 
@@ -230,7 +230,7 @@ class ControllerAccountOrder extends Controller {
 				'country'   => $order_info['shipping_country']
 			);
 
-			$data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+			$data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\\s\\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 			$data['shipping_method'] = $order_info['shipping_method'];
 

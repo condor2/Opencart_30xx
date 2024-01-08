@@ -11,14 +11,14 @@ class ControllerMailOrder extends Controller {
 			$order_status_id = $args[1];
 		} else {
 			$order_status_id = 0;
-		}	
+		}
 
 		if (isset($args[2])) {
 			$comment = $args[2];
 		} else {
 			$comment = '';
 		}
-		
+
 		if (isset($args[3])) {
 			$notify = $args[3];
 		} else {
@@ -29,20 +29,20 @@ class ControllerMailOrder extends Controller {
 
 		// We need to grab the old order status ID
 		$order_info = $this->model_checkout_order->getOrder($order_id);
-		
+
 		if ($order_info) {
 			// If order status is 0 then becomes greater than 0 send main html email
 			if (!$order_info['order_status_id'] && $order_status_id) {
 				$this->add($order_info, $order_status_id, $comment, $notify);
-			} 
-			
+			}
+
 			// If order status is not 0 then send update text email
 			if ($order_info['order_status_id'] && $order_status_id && $notify) {
 				$this->edit($order_info, $order_status_id, $comment, $notify);
-			}		
+			}
 		}
 	}
-		
+
 	public function add($order_info, $order_status_id, $comment, $notify) {
 		// Check for any downloadable products
 		$download_status = false;
@@ -57,7 +57,7 @@ class ControllerMailOrder extends Controller {
 				$download_status = true;
 			}
 		}
-		
+
 		// Load the language for any mails that might be required to be sent out
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
@@ -90,13 +90,13 @@ class ControllerMailOrder extends Controller {
 		$data['text_footer'] = $language->get('text_footer');
 
 		$this->load->model('tool/image');
-		
+
 		$this->load->model('setting/setting');
-		
+
 		$config_info = $this->model_setting_setting->getSettingValue('config_logo', $order_info['store_id']);
-		
+
 		if ($config_info && is_file(DIR_IMAGE . html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'))) {
-			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));			
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($config_info, ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
 		} elseif (is_file(DIR_IMAGE . html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'))) {
 			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8'), $this->config->get('theme_default_image_location_width'), $this->config->get('theme_default_image_cart_height'));
 		}
@@ -121,7 +121,7 @@ class ControllerMailOrder extends Controller {
 		$data['ip'] = $order_info['ip'];
 
 		$order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
-	
+
 		if ($order_status_query->num_rows) {
 			$data['order_status'] = $order_status_query->row['name'];
 		} else {
@@ -166,7 +166,7 @@ class ControllerMailOrder extends Controller {
 			'country'   => $order_info['payment_country']
 		);
 
-		$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+		$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 		if ($order_info['shipping_address_format']) {
 			$format = $order_info['shipping_address_format'];
@@ -200,7 +200,7 @@ class ControllerMailOrder extends Controller {
 			'country'   => $order_info['shipping_country']
 		);
 
-		$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+		$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 		$this->load->model('tool/upload');
 		$this->load->model('catalog/product');
@@ -240,7 +240,7 @@ class ControllerMailOrder extends Controller {
 				$image = $this->model_tool_image->resize('placeholder.png', 60, 60);
 			}
 
-            $url = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
+			$url = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
 
 			$data['products'][] = array(
 				'thumb'    => $image,
@@ -268,7 +268,7 @@ class ControllerMailOrder extends Controller {
 
 		// Order Totals
 		$data['totals'] = array();
-		
+
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
 		foreach ($order_totals as $order_total) {
@@ -277,15 +277,15 @@ class ControllerMailOrder extends Controller {
 				'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
 			);
 		}
-	
+
 		$this->load->model('setting/setting');
-		
+
 		$from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
-		
+
 		if (!$from) {
 			$from = $this->config->get('config_email');
 		}
-		
+
 		$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
@@ -301,7 +301,7 @@ class ControllerMailOrder extends Controller {
 		$mail->setHtml($this->load->view('mail/order_add', $data));
 		$mail->send();
 	}
-	
+
 	public function edit($order_info, $order_status_id, $comment, $notify) {
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
@@ -337,13 +337,13 @@ class ControllerMailOrder extends Controller {
 		$data['comment'] = strip_tags($comment);
 
 		$this->load->model('setting/setting');
-		
+
 		$from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
-		
+
 		if (!$from) {
 			$from = $this->config->get('config_email');
 		}
-		
+
 		$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
@@ -359,7 +359,7 @@ class ControllerMailOrder extends Controller {
 		$mail->setHtml($this->load->view('mail/order_edit', $data));
 		$mail->send();
 	}
-	
+
 	// catalog/model/checkout/order/addOrderHistory/before
 	public function alert(&$route, &$args) {
 		if (isset($args[0])) {
@@ -367,19 +367,19 @@ class ControllerMailOrder extends Controller {
 		} else {
 			$order_id = 0;
 		}
-		
+
 		if (isset($args[1])) {
 			$order_status_id = $args[1];
 		} else {
 			$order_status_id = 0;
-		}	
-		
+		}
+
 		if (isset($args[2])) {
 			$comment = $args[2];
 		} else {
 			$comment = '';
 		}
-		
+
 		if (isset($args[3])) {
 			$notify = $args[3];
 		} else {
@@ -389,8 +389,8 @@ class ControllerMailOrder extends Controller {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
-		
-		if ($order_info && !$order_info['order_status_id'] && $order_status_id && in_array('order', (array)$this->config->get('config_mail_alert'))) {	
+
+		if ($order_info && !$order_info['order_status_id'] && $order_status_id && in_array('order', (array)$this->config->get('config_mail_alert'))) {
 
 			// Load the language for any mails that might be required to be sent out
 			$language = new Language($order_info['language_code']);
@@ -444,7 +444,7 @@ class ControllerMailOrder extends Controller {
 			$data['ip'] = $order_info['ip'];
 
 			$order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
-	
+
 			if ($order_status_query->num_rows) {
 				$data['order_status'] = $order_status_query->row['name'];
 			} else {
@@ -489,7 +489,7 @@ class ControllerMailOrder extends Controller {
 				'country'   => $order_info['payment_country']
 			);
 
-			$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+			$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 			if ($order_info['shipping_address_format']) {
 				$format = $order_info['shipping_address_format'];
@@ -523,7 +523,7 @@ class ControllerMailOrder extends Controller {
 				'country'   => $order_info['shipping_country']
 			);
 
-			$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+			$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
 
 			$this->load->model('tool/upload');
 			$this->load->model('catalog/product');
@@ -535,15 +535,15 @@ class ControllerMailOrder extends Controller {
 
 			foreach ($order_products as $order_product) {
 				$option_data = array();
-				
+
 				$order_options = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
-				
+
 				foreach ($order_options as $order_option) {
 					if ($order_option['type'] != 'file') {
 						$value = $order_option['value'];
 					} else {
 						$upload_info = $this->model_tool_upload->getUploadByCode($order_option['value']);
-	
+
 						if ($upload_info) {
 							$value = $upload_info['name'];
 						} else {
@@ -581,7 +581,7 @@ class ControllerMailOrder extends Controller {
 
 			// Vouchers
 			$data['vouchers'] = array();
-			
+
 			$order_vouchers = $this->model_checkout_order->getOrderVouchers($order_id);
 
 			foreach ($order_vouchers as $order_voucher) {
@@ -592,7 +592,7 @@ class ControllerMailOrder extends Controller {
 			}
 
 			$data['totals'] = array();
-			
+
 			$order_totals = $this->model_checkout_order->getOrderTotals($order_id);
 
 			foreach ($order_totals as $order_total) {

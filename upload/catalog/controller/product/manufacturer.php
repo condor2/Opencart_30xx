@@ -164,7 +164,7 @@ class ControllerProductManufacturer extends Controller {
 					$price = false;
 				}
 
-				if (!is_null($result['special']) && (float)$result['special'] >= 0) {
+				if (null !== $result['special'] && (float)$result['special'] >= 0) {
 					$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 					$tax_price = (float)$result['special'];
 				} else {
@@ -298,7 +298,7 @@ class ControllerProductManufacturer extends Controller {
 			$pagination->total = $product_total;
 			$pagination->page = $page;
 			$pagination->limit = $limit;
-			$pagination->url = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] .  $url . '&page={page}');
+			$pagination->url = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url . '&page={page}');
 
 			$data['pagination'] = $pagination->render();
 
@@ -306,17 +306,17 @@ class ControllerProductManufacturer extends Controller {
 
 			// http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
 			if ($page == 1) {
-			    $this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'], true), 'canonical');
+				$this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'], true), 'canonical');
 			} else {
-				$this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page='. $page, true), 'canonical');
+				$this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . $page, true), 'canonical');
 			}
-			
+
 			if ($page > 1) {
-			    $this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page='. (($page - 2) ? '&page='. ($page - 1) : ''), true), 'prev');
+				$this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . (($page - 2) ? '&page=' . ($page - 1) : ''), true), 'prev');
 			}
 
 			if ($limit && ceil($product_total / $limit) > $page) {
-			    $this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page='. ($page + 1), true), 'next');
+				$this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . ($page + 1), true), 'next');
 			}
 
 			$data['text_empty'] = $this->language->get('text_empty');

@@ -1,15 +1,17 @@
 <?php
 /**
  * @package		OpenCart
+ *
  * @author		Daniel Kerr
  * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
- * @link		https://www.opencart.com
-*/
+ *
+ * @see		https://www.opencart.com
+ */
 
 /**
-* Session
-*/
+ * Session
+ */
 class Session {
 	protected $adaptor;
 	protected $session_id;
@@ -18,12 +20,12 @@ class Session {
 	/**
 	 * Constructor
 	 *
-	 * @param	string	$adaptor
-	 * @param	object	$registry
- 	*/
+	 * @param string $adaptor
+	 * @param object $registry
+	 */
 	public function __construct($adaptor, $registry = '') {
 		$class = 'Session\\' . $adaptor;
-		
+
 		if (class_exists($class)) {
 			if ($registry) {
 				$this->adaptor = new $class($registry);
@@ -37,12 +39,12 @@ class Session {
 			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
 		}
 	}
-	
+
 	/**
 	 * Get Session ID
 	 *
-	 * @return	string
- 	*/	
+	 * @return string
+	 */
 	public function getId() {
 		return $this->session_id;
 	}
@@ -52,10 +54,10 @@ class Session {
 	 *
 	 * Starts a session.
 	 *
-	 * @param	string	$session_id
+	 * @param string $session_id
 	 *
-	 * @return	string	Returns the current session ID.
- 	*/	
+	 * @return string returns the current session ID
+	 */
 	public function start($session_id = '') {
 		if (!$session_id) {
 			if (function_exists('random_bytes')) {
@@ -70,9 +72,9 @@ class Session {
 		} else {
 			error_log('Error: Invalid session ID!');
 		}
-		
+
 		$this->data = $this->adaptor->read($session_id);
-		
+
 		return $session_id;
 	}
 
@@ -80,7 +82,7 @@ class Session {
 	 * Close
 	 *
 	 * Writes the session data to storage
- 	*/
+	 */
 	public function close() {
 		$this->adaptor->write($this->session_id, $this->data);
 	}
@@ -89,7 +91,7 @@ class Session {
 	 * Destroy
 	 *
 	 * Deletes the current session from storage
- 	*/
+	 */
 	public function destroy() {
 		$this->data = array();
 

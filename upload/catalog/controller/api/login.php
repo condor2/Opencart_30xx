@@ -13,9 +13,9 @@ class ControllerApiLogin extends Controller {
 		if ($api_info) {
 			// Check if IP is allowed
 			$ip_data = array();
-	
+
 			$results = $this->model_account_api->getApiIps($api_info['api_id']);
-	
+
 			foreach ($results as $result) {
 				$ip_data[] = trim($result['ip']);
 			}

@@ -37,10 +37,10 @@ $_['action_event'] = array(
 	),
 	'controller/*/after' => array(
 		'event/language/after'
-	),	
+	),
 	'view/*/before' => array(
-		500  => 'event/theme',
-		998  => 'event/language',
+		500 => 'event/theme',
+		998 => 'event/language',
 	),
 	'language/*/after' => array(
 		'event/translation'
@@ -50,5 +50,5 @@ $_['action_event'] = array(
 	//),
 	//'controller/*/after'  => array(
 	//	'event/debug/after'
-//	)
+	//	)
 );

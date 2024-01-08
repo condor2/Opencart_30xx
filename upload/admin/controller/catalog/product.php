@@ -335,16 +335,16 @@ class ControllerCatalogProduct extends Controller {
 		$data['products'] = array();
 
 		$filter_data = array(
-			'filter_name'	      => $filter_name,
-			'filter_model'	      => $filter_model,
-			'filter_price'	      => $filter_price,
-			'filter_quantity'     => $filter_quantity,
-			'filter_status'       => $filter_status,
-			'filter_image'        => $filter_image,
-			'sort'                => $sort,
-			'order'               => $order,
-			'start'               => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'               => $this->config->get('config_limit_admin')
+			'filter_name'     => $filter_name,
+			'filter_model'    => $filter_model,
+			'filter_price'    => $filter_price,
+			'filter_quantity' => $filter_quantity,
+			'filter_status'   => $filter_status,
+			'filter_image'    => $filter_image,
+			'sort'            => $sort,
+			'order'           => $order,
+			'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'           => $this->config->get('config_limit_admin')
 		);
 
 		$this->load->model('tool/image');
@@ -366,7 +366,7 @@ class ControllerCatalogProduct extends Controller {
 
 			$product_specials = $this->model_catalog_product->getProductSpecials($result['product_id']);
 
-			foreach ($product_specials  as $product_special) {
+			foreach ($product_specials as $product_special) {
 				if (($product_special['date_start'] == '0000-00-00' || strtotime($product_special['date_start']) < time()) && ($product_special['date_end'] == '0000-00-00' || strtotime($product_special['date_end']) > time())) {
 					$special = $this->currency->format($product_special['price'], $this->config->get('config_currency'));
 
@@ -522,13 +522,13 @@ class ControllerCatalogProduct extends Controller {
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
 			$this->document->addScript('view/javascript/summernote/summernote.min.js');
-			if (file_exists('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js')) {
-			$this->document->addScript('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js');
+			if (file_exists('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js')) {
+				$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js');
 			}
 			$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
-			if (file_exists('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js')) {
-			$this->document->addScript('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js');
-            }
+			if (file_exists('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js')) {
+				$this->document->addScript('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js');
+			}
 			$this->document->addScript('view/javascript/summernote/opencart.js');
 			$this->document->addStyle('view/javascript/summernote/summernote.min.css');
 
@@ -1022,7 +1022,7 @@ class ControllerCatalogProduct extends Controller {
 				'option_id'            => $product_option['option_id'],
 				'name'                 => $product_option['name'],
 				'type'                 => $product_option['type'],
-				'value'                => (isset($product_option['value']) ? $product_option['value'] : ''),
+				'value'                => ($product_option['value'] ?? ''),
 				'required'             => $product_option['required']
 			);
 		}
@@ -1078,7 +1078,7 @@ class ControllerCatalogProduct extends Controller {
 				'priority'          => $product_special['priority'],
 				'price'             => $product_special['price'],
 				'date_start'        => ($product_special['date_start'] != '0000-00-00') ? $product_special['date_start'] : '',
-				'date_end'          => ($product_special['date_end'] != '0000-00-00') ? $product_special['date_end'] :  ''
+				'date_end'          => ($product_special['date_end'] != '0000-00-00') ? $product_special['date_end'] : ''
 			);
 		}
 

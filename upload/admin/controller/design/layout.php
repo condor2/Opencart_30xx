@@ -338,7 +338,7 @@ class ControllerDesignLayout extends Controller {
 			foreach ($modules as $module) {
 				$module_data[] = array(
 					'name' => strip_tags($module['name']),
-					'code' => $code . '.' .  $module['module_id']
+					'code' => $code . '.' . $module['module_id']
 				);
 			}
 

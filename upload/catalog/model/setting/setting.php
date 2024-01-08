@@ -30,5 +30,5 @@ class ModelSettingSetting extends Model {
 		} else {
 			return '';
 		}
-	}	
+	}
 }

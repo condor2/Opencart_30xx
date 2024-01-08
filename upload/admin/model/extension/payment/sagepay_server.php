@@ -95,9 +95,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			$void_data['SecurityKey'] = $sagepay_server_order['SecurityKey'];
 			$void_data['TxAuthNo'] = $sagepay_server_order['TxAuthNo'];
 
-			$response_data = $this->sendCurl($url, $void_data);
-
-			return $response_data;
+			return $this->sendCurl($url, $void_data);
 		} else {
 			return false;
 		}
@@ -133,9 +131,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			$release_data['TxAuthNo'] = $sagepay_server_order['TxAuthNo'];
 			$release_data['Amount'] = $amount;
 
-			$response_data = $this->sendCurl($url, $release_data);
-
-			return $response_data;
+			return $this->sendCurl($url, $release_data);
 		} else {
 			return false;
 		}
@@ -169,7 +165,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 			$refund_data['TxType'] = 'REFUND';
 			$refund_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
-			$refund_data['VendorTxCode'] = $sagepay_server_order['sagepay_server_order_id'] . rand();
+			$refund_data['VendorTxCode'] = $sagepay_server_order['sagepay_server_order_id'] . mt_rand();
 			$refund_data['Amount'] = $amount;
 			$refund_data['Currency'] = $sagepay_server_order['currency_code'];
 			$refund_data['Description'] = substr($this->config->get('config_name'), 0, 100);
@@ -178,9 +174,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			$refund_data['RelatedSecurityKey'] = $sagepay_server_order['SecurityKey'];
 			$refund_data['RelatedTxAuthNo'] = $sagepay_server_order['TxAuthNo'];
 
-			$response_data = $this->sendCurl($url, $refund_data);
-
-			return $response_data;
+			return $this->sendCurl($url, $refund_data);
 		} else {
 			return false;
 		}
@@ -254,6 +248,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
+
 		return $data;
 	}
 

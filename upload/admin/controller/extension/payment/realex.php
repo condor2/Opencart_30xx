@@ -67,7 +67,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/realex', 'user_token=' . $this->session->data['user_token'], true);
-		
+
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_realex_merchant_id'])) {
@@ -244,7 +244,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 				$data['auto_settle'] = $realex_order['settle_type'];
 
 				$data['order_id'] = (int)$this->request->get['order_id'];
-				
+
 				$data['user_token'] = $this->session->data['user_token'];
 
 				return $this->load->view('extension/payment/realex_order', $data);
@@ -348,7 +348,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 			$this->model_extension_payment_realex->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
 			if (isset($rebate_response->result) && $rebate_response->result == '00') {
-				$this->model_extension_payment_realex->addTransaction($realex_order['realex_order_id'], 'rebate', $this->request->post['amount']*-1);
+				$this->model_extension_payment_realex->addTransaction($realex_order['realex_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_realex->getTotalRebated($realex_order['realex_order_id']);
 				$total_captured = $this->model_extension_payment_realex->getTotalCaptured($realex_order['realex_order_id']);
@@ -364,7 +364,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 				$json['data'] = array();
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
-				$json['data']['amount'] = $this->request->post['amount']*-1;
+				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_captured'] = (float)$total_captured;
 				$json['data']['total_rebated'] = (float)$total_rebated;
 				$json['data']['rebate_status'] = $rebate_status;

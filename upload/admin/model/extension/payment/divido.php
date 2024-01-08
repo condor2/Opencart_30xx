@@ -1,16 +1,12 @@
 <?php
 class ModelExtensionPaymentDivido extends Model {
-	const CACHE_KEY_PLANS = 'divido_plans';
+	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	public function getAllPlans() {
 		if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
 			// OpenCart 2.1 decodes json objects to associative arrays so we
 			// need to make sure we're getting a list of simple objects back.
-			$plans = array_map(function ($plan) {
-				return (object)$plan;
-			}, $plans);
-
-			return $plans;
+			return array_map(fn ($plan) => (object)$plan, $plans);
 		}
 
 		$api_key = $this->config->get('payment_divido_api_key');

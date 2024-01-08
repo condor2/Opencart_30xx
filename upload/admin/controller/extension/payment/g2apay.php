@@ -1,7 +1,6 @@
 <?php
 
 class ControllerExtensionPaymentG2apay extends Controller {
-
 	private $error = array();
 
 	public function index() {
@@ -297,5 +296,4 @@ class ControllerExtensionPaymentG2apay extends Controller {
 
 		return !$this->error;
 	}
-
 }

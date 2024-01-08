@@ -1,7 +1,6 @@
 <?php
 
 class ModelExtensionPaymentEway extends Model {
-
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_order` (
@@ -56,6 +55,7 @@ class ModelExtensionPaymentEway extends Model {
 		if ($qry->num_rows) {
 			$order = $qry->row;
 			$order['transactions'] = $this->getTransactions($order['eway_order_id']);
+
 			return $order;
 		} else {
 			return false;
@@ -72,13 +72,13 @@ class ModelExtensionPaymentEway extends Model {
 		}
 		$order['refund_transaction_id'] .= $transaction_id;
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "eway_order` SET `modified` = NOW(), refund_amount = '" . (double)$refund_amount . "', `refund_transaction_id` = '" . $this->db->escape($order['refund_transaction_id']) . "' WHERE eway_order_id = '" . $order['eway_order_id'] . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "eway_order` SET `modified` = NOW(), refund_amount = '" . (float)$refund_amount . "', `refund_transaction_id` = '" . $this->db->escape($order['refund_transaction_id']) . "' WHERE eway_order_id = '" . $order['eway_order_id'] . "'");
 	}
 
 	public function capture($order_id, $capture_amount, $currency) {
 		$eway_order = $this->getOrder($order_id);
 
-		if ($eway_order && $capture_amount > 0 ) {
+		if ($eway_order && $capture_amount > 0) {
 
 			$capture_data = new stdClass();
 			$capture_data->Payment = new stdClass();
@@ -144,7 +144,7 @@ class ModelExtensionPaymentEway extends Model {
 			$refund_data->Refund = new stdClass();
 			$refund_data->Refund->TotalAmount = (int)(number_format($refund_amount, 2, '.', '') * 100);
 			$refund_data->Refund->TransactionID = $eway_order['transaction_id'];
-            $refund_data->Refund->CurrencyCode = $eway_order['currency_code'];
+			$refund_data->Refund->CurrencyCode = $eway_order['currency_code'];
 
 			if ($this->config->get('payment_eway_test')) {
 				$url = 'https://api.sandbox.ewaypayments.com/Transaction/' . $eway_order['transaction_id'] . '/Refund';
@@ -182,7 +182,7 @@ class ModelExtensionPaymentEway extends Model {
 
 		if (curl_errno($ch) != CURLE_OK) {
 			$response = new stdClass();
-			$response->Errors = "POST Error: " . curl_error($ch) . " URL: $url";
+			$response->Errors = "POST Error: " . curl_error($ch) . " URL: {$url}";
 			$response = json_encode($response);
 		} else {
 			$info = curl_getinfo($ch);
@@ -215,13 +215,12 @@ class ModelExtensionPaymentEway extends Model {
 	public function getTotalCaptured($eway_order_id) {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'payment' ");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function getTotalRefunded($eway_order_id) {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'refund'");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
-
 }

@@ -13,13 +13,13 @@ class ControllerMarketingContact extends Controller {
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
 			$this->document->addScript('view/javascript/summernote/summernote.min.js');
-			if (file_exists('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js')) {
-			$this->document->addScript('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js');
+			if (file_exists('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js')) {
+				$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js');
 			}
 			$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
-			if (file_exists('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js')) {
-			$this->document->addScript('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js');
-            }
+			if (file_exists('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js')) {
+				$this->document->addScript('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js');
+			}
 			$this->document->addScript('view/javascript/summernote/opencart.js');
 			$this->document->addStyle('view/javascript/summernote/summernote.min.css');
 
@@ -100,7 +100,7 @@ class ControllerMarketingContact extends Controller {
 
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
 
-				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
+				$store_email = $setting['config_email'] ?? $this->config->get('config_email');
 
 				if (isset($this->request->get['page'])) {
 					$page = (int)$this->request->get['page'];
@@ -115,12 +115,12 @@ class ControllerMarketingContact extends Controller {
 				$emails = array();
 
 				switch ($this->request->post['to']) {
-					case 'newsletter':
-						$customer_data = array(
-							'filter_newsletter' => 1,
-							'start'             => ($page - 1) * $limit,
-							'limit'             => $limit
-						);
+					case 'newsletter'
+					:$customer_data = array(
+						'filter_newsletter' => 1,
+						'start'             => ($page - 1) * $limit,
+						'limit'             => $limit
+					);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -130,11 +130,11 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'customer_all':
-						$customer_data = array(
-							'start' => ($page - 1) * $limit,
-							'limit' => $limit
-						);
+					case 'customer_all'
+					:$customer_data = array(
+						'start' => ($page - 1) * $limit,
+						'limit' => $limit
+					);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -144,12 +144,12 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'customer_group':
-						$customer_data = array(
-							'filter_customer_group_id' => $this->request->post['customer_group_id'],
-							'start'                    => ($page - 1) * $limit,
-							'limit'                    => $limit
-						);
+					case 'customer_group'
+					:$customer_data = array(
+						'filter_customer_group_id' => $this->request->post['customer_group_id'],
+						'start'                    => ($page - 1) * $limit,
+						'limit'                    => $limit
+					);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -159,27 +159,27 @@ class ControllerMarketingContact extends Controller {
 							$emails[$result['customer_id']] = $result['email'];
 						}
 						break;
-					case 'customer':
-						if (!empty($this->request->post['customer'])) {
-							$email_total = count($this->request->post['customer']);
+					case 'customer'
+					:if (!empty($this->request->post['customer'])) {
+						$email_total = count($this->request->post['customer']);
 
-							$customers = array_slice($this->request->post['customer'], ($page - 1) * $limit, $limit);
+						$customers = array_slice($this->request->post['customer'], ($page - 1) * $limit, $limit);
 
-							foreach ($customers as $customer_id) {
-								$customer_info = $this->model_customer_customer->getCustomer($customer_id);
+						foreach ($customers as $customer_id) {
+							$customer_info = $this->model_customer_customer->getCustomer($customer_id);
 
-								if ($customer_info) {
-									$emails[] = $customer_info['email'];
-								}
+							if ($customer_info) {
+								$emails[] = $customer_info['email'];
 							}
 						}
+					}
 						break;
-					case 'affiliate_all':
-						$affiliate_data = array(
-							'filter_affiliate' => 1,
-							'start'            => ($page - 1) * $limit,
-							'limit'            => $limit
-						);
+					case 'affiliate_all'
+					:$affiliate_data = array(
+						'filter_affiliate' => 1,
+						'start'            => ($page - 1) * $limit,
+						'limit'            => $limit
+					);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
 
@@ -189,31 +189,31 @@ class ControllerMarketingContact extends Controller {
 							$emails[] = $result['email'];
 						}
 						break;
-					case 'affiliate':
-						if (!empty($this->request->post['affiliate'])) {
-							$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * $limit, $limit);
+					case 'affiliate'
+					:if (!empty($this->request->post['affiliate'])) {
+						$affiliates = array_slice($this->request->post['affiliate'], ($page - 1) * $limit, $limit);
 
-                            foreach ($affiliates as $affiliate_id) {
-                                $affiliate_info = $this->model_customer_customer->getCustomer($affiliate_id);
+						foreach ($affiliates as $affiliate_id) {
+							$affiliate_info = $this->model_customer_customer->getCustomer($affiliate_id);
 
-                                if ($affiliate_info) {
-                                    $emails[] = $affiliate_info['email'];
-                                }
-                            }
-
-						$email_total = count($this->request->post['affiliate']);
-						}
-						break;
-					case 'product':
-						if (isset($this->request->post['product'])) {
-							$email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
-
-							$results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * $limit, $limit);
-
-							foreach ($results as $result) {
-								$emails[] = $result['email'];
+							if ($affiliate_info) {
+								$emails[] = $affiliate_info['email'];
 							}
 						}
+
+						$email_total = count($this->request->post['affiliate']);
+					}
+						break;
+					case 'product'
+					:if (isset($this->request->post['product'])) {
+						$email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
+
+						$results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * $limit, $limit);
+
+						foreach ($results as $result) {
+							$emails[] = $result['email'];
+						}
+					}
 						break;
 				}
 
@@ -223,7 +223,7 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * $limit;
 					$end = $start + $limit;
 
-						$json['success'] = sprintf($this->language->get('text_sent'), $start ? $start : 1, $email_total);
+					$json['success'] = sprintf($this->language->get('text_sent'), $start ?: 1, $email_total);
 
 					if ($end < $email_total) {
 						$json['next'] = $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true);

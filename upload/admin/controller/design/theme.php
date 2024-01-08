@@ -126,7 +126,7 @@ class ControllerDesignTheme extends Controller {
 
 			if ($files) {
 				foreach ($files as $file) {
-					if (!in_array(basename($file), $path_data))  {
+					if (!in_array(basename($file), $path_data)) {
 						if (is_dir($file)) {
 							$json['directory'][] = array(
 								'name' => basename($file),
@@ -229,7 +229,7 @@ class ControllerDesignTheme extends Controller {
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'design/theme')) {
 			$json['error'] = $this->language->get('error_permission');
-		} 
+		}
 
 		if (substr($path, -5) != '.twig') {
 			$json['error'] = $this->language->get('error_twig');

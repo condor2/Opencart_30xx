@@ -56,7 +56,7 @@ class ControllerMailAffiliate extends Controller {
 			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
 			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
 			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-	
+
 			$mail->setTo($customer_info['email']);
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($store_name);
@@ -67,9 +67,9 @@ class ControllerMailAffiliate extends Controller {
 	}
 
 	public function deny(&$route, &$args, &$output) {
-	// admin/model/customer/customer_approval/denyAffiliate/after
+		// admin/model/customer/customer_approval/denyAffiliate/after
 		$this->load->model('customer/customer');
-		
+
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);
 
 		if ($customer_info) {
@@ -107,7 +107,7 @@ class ControllerMailAffiliate extends Controller {
 			$language->load($language_code);
 			$language->load('mail/affiliate_deny');
 
-			$subject = sprintf($language->get('text_subject'), $store_name);	
+			$subject = sprintf($language->get('text_subject'), $store_name);
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 			$data['text_denied'] = $language->get('text_denied');
@@ -115,7 +115,7 @@ class ControllerMailAffiliate extends Controller {
 
 			$data['button_contact'] = $language->get('button_contact');
 
-			$data['contact'] = $store_url . 'index.php?route=information/contact';	
+			$data['contact'] = $store_url . 'index.php?route=information/contact';
 			$data['store'] = $store_name;
 			$data['store_url'] = $store_url;
 

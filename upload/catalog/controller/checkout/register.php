@@ -2,7 +2,7 @@
 class ControllerCheckoutRegister extends Controller {
 	public function index() {
 		$this->load->language('checkout/checkout');
-		
+
 		$data['entry_newsletter'] = sprintf($this->language->get('entry_newsletter'), $this->config->get('config_name'));
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
@@ -16,7 +16,7 @@ class ControllerCheckoutRegister extends Controller {
 
 			$customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
-			foreach ($customer_groups  as $customer_group) {
+			foreach ($customer_groups as $customer_group) {
 				if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
 					$data['customer_groups'][] = $customer_group;
 				}
@@ -74,7 +74,7 @@ class ControllerCheckoutRegister extends Controller {
 		}
 
 		$data['shipping_required'] = $this->cart->hasShipping();
-		
+
 		$this->response->setOutput($this->load->view('checkout/register', $data));
 	}
 
@@ -212,12 +212,12 @@ class ControllerCheckoutRegister extends Controller {
 
 			// Default Payment Address
 			$this->load->model('account/address');
-				
+
 			$address_id = $this->model_account_address->addAddress($customer_id, $this->request->post);
-			
+
 			// Set the address as default
 			$this->model_account_customer->editAddressId($customer_id, $address_id);
-			
+
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
 

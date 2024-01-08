@@ -173,7 +173,7 @@ $_['error_upload_999']              = 'Warning: No error code available!';
 $_['error_upload_size']             = 'Warning: The uploaded file exceeds the %sMB max file size!';
 $_['error_curl']                    = 'CURL: Error Code(%s): %s';
 
-/* When doing translations only include the matching language code */
+// When doing translations only include the matching language code
 
 // Summernote
 //$_['summernote']                    = 'ar-AR';

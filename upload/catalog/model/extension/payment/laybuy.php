@@ -19,9 +19,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	public function getInitialPayments() {
-		$minimum = $this->config->get('payment_laybuy_min_deposit') ? $this->config->get('payment_laybuy_min_deposit') : 20;
+		$minimum = $this->config->get('payment_laybuy_min_deposit') ?: 20;
 
-		$maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
+		$maximum = $this->config->get('payment_laybuy_max_deposit') ?: 50;
 
 		$initial_payments = array();
 
@@ -47,7 +47,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$status = false;
 		}
 
-		/* Condition for customer group */
+		// Condition for customer group
 		if ($status && $this->config->get('payment_laybuy_customer_group')) {
 			if (isset($this->session->data['guest']) && in_array(0, $this->config->get('payment_laybuy_customer_group'))) {
 				$status = true;
@@ -68,7 +68,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			}
 		}
 
-		/* Condition for categories and products */
+		// Condition for categories and products
 		if ($status && $this->config->get('payment_laybuy_category')) {
 			$allowed_categories = $this->config->get('payment_laybuy_category');
 
@@ -101,10 +101,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		if ($status) {
 			$method_data = [
-				'code'			=> 'laybuy',
-				'title'			=> $this->language->get('text_title'),
-				'terms'			=> '',
-				'sort_order'	=> $this->config->get('payment_laybuy_sort_order')
+				'code'       => 'laybuy',
+				'title'      => $this->language->get('text_title'),
+				'terms'      => '',
+				'sort_order' => $this->config->get('payment_laybuy_sort_order')
 			];
 		}
 
@@ -196,23 +196,23 @@ class ModelExtensionPaymentLaybuy extends Model {
 		$report_content = array();
 
 		$report_content[] = [
-			'instalment'	=> 0,
-			'amount'		=> $this->currency->format($data['downpayment_amount'], $data['currency']),
-			'date'			=> $date_added,
-			'pp_trans_id'	=> $data['dp_paypal_txn_id'],
-			'status'		=> 'Completed'
+			'instalment'  => 0,
+			'amount'      => $this->currency->format($data['downpayment_amount'], $data['currency']),
+			'date'        => $date_added,
+			'pp_trans_id' => $data['dp_paypal_txn_id'],
+			'status'      => 'Completed'
 		];
 
 		for ($month = 1; $month <= $months; $month++) {
-			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month -1) . " month"));
+			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month - 1) . " month"));
 			$date = date($this->language->get('date_format_short'), strtotime($date));
 
 			$report_content[] = [
-			'instalment'	=> $month,
-			'amount'		=> $this->currency->format($data['payment_amounts'], $data['currency']),
-			'date'			=> $date,
-			'pp_trans_id'	=> '',
-			'status'		=> 'Pending'
+				'instalment'  => $month,
+				'amount'      => $this->currency->format($data['payment_amounts'], $data['currency']),
+				'date'        => $date,
+				'pp_trans_id' => '',
+				'status'      => 'Pending'
 			];
 		}
 

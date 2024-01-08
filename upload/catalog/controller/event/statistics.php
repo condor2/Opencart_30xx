@@ -17,7 +17,7 @@ class ControllerEventStatistics extends Controller {
 	// catalog/model/checkout/order/addOrderHistory/before
 	public function addOrderHistory(&$route, &$args) {
 		$this->load->model('checkout/order');
-				
+
 		$order_info = $this->model_checkout_order->getOrder($args[0]);
 
 		if ($order_info) {
@@ -35,7 +35,7 @@ class ControllerEventStatistics extends Controller {
 			if (in_array($new_status_id, $active_status) && !in_array($old_status_id, $active_status)) {
 				$this->model_report_statistics->addValue('order_sale', $order_info['total']);
 			}
-			
+
 			// If order status not in complete or processing remove value to sale total
 			if (!in_array($new_status_id, $active_status) && in_array($old_status_id, $active_status)) {
 				$this->model_report_statistics->removeValue('order_sale', $order_info['total']);

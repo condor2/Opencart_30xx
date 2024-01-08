@@ -12,21 +12,21 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validate()) {
 			$this->model_setting_setting->editSetting('payment_divido', $this->request->post);
-			
+
 			$this->session->data['success'] = $this->language->get('text_success');
-			
+
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
 		$data['entry_plans_options'] = array(
-			'all'		=> $this->language->get('entry_plans_options_all'),
-			'selected'	=> $this->language->get('entry_plans_options_selected'),
+			'all'      => $this->language->get('entry_plans_options_all'),
+			'selected' => $this->language->get('entry_plans_options_selected'),
 		);
 
-		$data['entry_products_options']= array(
-			'all'		=> $this->language->get('entry_products_options_all'),
-			'selected'	=> $this->language->get('entry_products_options_selected'),
-			'threshold'	=> $this->language->get('entry_products_options_threshold'),
+		$data['entry_products_options'] = array(
+			'all'       => $this->language->get('entry_products_options_all'),
+			'selected'  => $this->language->get('entry_products_options_selected'),
+			'threshold' => $this->language->get('entry_products_options_threshold'),
 		);
 
 		$data['button_save'] = $this->language->get('button_save');
@@ -60,7 +60,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/divido', 'user_token=' . $this->session->data['user_token'], 'SSL');
-		
+
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', 'SSL');
 
 		if (isset($this->request->post['payment_divido_api_key'])) {
@@ -144,8 +144,8 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 			if ($category_info) {
 				$data['categories'][] = array(
-					'category_id' 	=> $category_info['category_id'],
-					'name' 			=> ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
+					'category_id' => $category_info['category_id'],
+					'name'        => ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
 				);
 			}
 		}
@@ -165,7 +165,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/divido', $data));
 	}
-
 
 	public function order() {
 		if (!$this->config->get('payment_divido_status')) {

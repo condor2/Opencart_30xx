@@ -86,19 +86,19 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	public function getCustomFields($data = array()) {
-        if (empty($data['filter_customer_group_id'])) {
-            $sql = "SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
-        } else {
-            $sql = "SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` cfcg LEFT JOIN `" . DB_PREFIX . "custom_field` cf ON (cfcg.`custom_field_id` = cf.`custom_field_id`) LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
-        }
+		if (empty($data['filter_customer_group_id'])) {
+			$sql = "SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		} else {
+			$sql = "SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` cfcg LEFT JOIN `" . DB_PREFIX . "custom_field` cf ON (cfcg.`custom_field_id` = cf.`custom_field_id`) LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		}
 
-        if (!empty($data['filter_name'])) {
-            $sql .= " AND cfd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
-        }
+		if (!empty($data['filter_name'])) {
+			$sql .= " AND cfd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+		}
 
-        if (!empty($data['filter_customer_group_id'])) {
-            $sql .= " AND cfcg.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
-        }
+		if (!empty($data['filter_customer_group_id'])) {
+			$sql .= " AND cfcg.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
+		}
 
 		$sort_data = array(
 			'cfd.`name`',
@@ -143,7 +143,7 @@ class ModelCustomerCustomField extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
 		foreach ($query->rows as $result) {
-			$custom_field_data[$result['language_id']] =['name' => $result['name']];
+			$custom_field_data[$result['language_id']] = ['name' => $result['name']];
 		}
 
 		return $custom_field_data;
@@ -169,7 +169,7 @@ class ModelCustomerCustomField extends Model {
 
 		return $custom_field_value_data;
 	}
-	
+
 	public function getCustomFieldCustomerGroups($custom_field_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 

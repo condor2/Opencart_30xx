@@ -4,7 +4,7 @@ class ControllerCommonDashboard extends Controller {
 		$this->load->language('common/dashboard');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

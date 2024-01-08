@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionCurrencyEcb extends Controller {
-
 	private $error = array();
 
 	public function index() {
@@ -50,10 +49,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 		$data['refresh'] = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['text_edit'] = $this->language->get('text_edit');
-		$data['text_edit'] = str_replace('%1',$this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
-		$data['text_edit'] = str_replace('%2',$this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_edit'] = str_replace('%1', $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_edit'] = str_replace('%2', $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
 
-		$data['currency_ecb_cron'] = 'curl -S &quot;'.HTTPS_CATALOG.'index.php?route=extension/currency/ecb/refresh&quot;';
+		$data['currency_ecb_cron'] = 'curl -S &quot;' . HTTPS_CATALOG . 'index.php?route=extension/currency/ecb/refresh&quot;';
 
 		if (isset($this->request->post['currency_ecb_ip'])) {
 			$data['currency_ecb_ip'] = $this->request->post['currency_ecb_ip'];
@@ -74,12 +73,11 @@ class ControllerExtensionCurrencyEcb extends Controller {
 		$this->response->setOutput($this->load->view('extension/currency/ecb', $data));
 	}
 
-
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/currency/ecb')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		} else {
-			if (!empty($this->request->post['currency_ecb_status'])) { 
+			if (!empty($this->request->post['currency_ecb_status'])) {
 				$this->load->model('localisation/currency');
 				$euro_currency = $this->model_localisation_currency->getCurrencyByCode('EUR');
 				if (empty($euro_currency)) {
@@ -87,14 +85,14 @@ class ControllerExtensionCurrencyEcb extends Controller {
 				}
 			}
 			if (!empty($this->request->post['currency_ecb_ip'])) {
-				if (!filter_var($this->request->post['currency_ecb_ip'],FILTER_VALIDATE_IP)) {
+				if (!filter_var($this->request->post['currency_ecb_ip'], FILTER_VALIDATE_IP)) {
 					$this->error['ip'] = $this->language->get('error_ip');
 				}
 			}
 		}
+
 		return !$this->error;
 	}
-
 
 	public function install() {
 		// add event handlers
@@ -104,22 +102,20 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
 		$trigger = 'model/localisation/currency/refresh/before';
 		$route = 'extension/currency/ecb/eventModelLocalisationCurrencyRefreshBefore';
-		$this->model_setting_event->addEvent( $code, $app.$trigger, $route );
+		$this->model_setting_event->addEvent($code, $app . $trigger, $route);
 	}
-
 
 	public function uninstall() {
 		// remove event handlers
 		$this->load->model('setting/event');
 		$code = 'currency_ecb';
-		$this->model_setting_event->deleteEventByCode( $code );
+		$this->model_setting_event->deleteEventByCode($code);
 
 	}
 
-
 	public function currency() {
 		if ($this->config->get('currency_ecb_status')) {
-			if ($this->config->get('config_currency_engine')=='ecb') {
+			if ($this->config->get('config_currency_engine') == 'ecb') {
 				$curl = curl_init();
 
 				curl_setopt($curl, CURLOPT_URL, 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
@@ -172,6 +168,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
 					$this->cache->delete('currency');
 				}
+
 				return true;
 			}
 		}

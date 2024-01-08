@@ -42,7 +42,7 @@ class ControllerMarketplaceExtension extends Controller {
 
 				$data['categories'][] = array(
 					'code' => $extension,
-					'text' => $this->language->get('extension')->get('heading_title') . ' (' . count($files) .')',
+					'text' => $this->language->get('extension')->get('heading_title') . ' (' . count($files) . ')',
 					'href' => $this->url->link('extension/extension/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
 				);
 			}

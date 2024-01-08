@@ -1,41 +1,41 @@
 <?php
 class ControllerExtensionPaymentDivido extends Controller {
-	const
+	public const
 		STATUS_ACCEPTED = 'ACCEPTED',
-		STATUS_ACTION_LENDER = 'ACTION-LENDER',
-		STATUS_CANCELED = 'CANCELED',
-		STATUS_COMPLETED = 'COMPLETED',
-		STATUS_DEPOSIT_PAID = 'DEPOSIT-PAID',
-		STATUS_DECLINED = 'DECLINED',
-		STATUS_DEFERRED = 'DEFERRED',
-		STATUS_REFERRED = 'REFERRED',
-		STATUS_FULFILLED = 'FULFILLED',
-		STATUS_SIGNED = 'SIGNED';
+	STATUS_ACTION_LENDER = 'ACTION-LENDER',
+	STATUS_CANCELED = 'CANCELED',
+	STATUS_COMPLETED = 'COMPLETED',
+	STATUS_DEPOSIT_PAID = 'DEPOSIT-PAID',
+	STATUS_DECLINED = 'DECLINED',
+	STATUS_DEFERRED = 'DEFERRED',
+	STATUS_REFERRED = 'REFERRED',
+	STATUS_FULFILLED = 'FULFILLED',
+	STATUS_SIGNED = 'SIGNED';
 
 	private $status_id = array(
-		self::STATUS_ACCEPTED => 1,
+		self::STATUS_ACCEPTED      => 1,
 		self::STATUS_ACTION_LENDER => 2,
-		self::STATUS_CANCELED => 0,
-		self::STATUS_COMPLETED => 2,
-		self::STATUS_DECLINED => 8,
-		self::STATUS_DEFERRED => 1,
-		self::STATUS_REFERRED => 1,
-		self::STATUS_DEPOSIT_PAID => 1,
-		self::STATUS_FULFILLED => 1,
-		self::STATUS_SIGNED => 2,
+		self::STATUS_CANCELED      => 0,
+		self::STATUS_COMPLETED     => 2,
+		self::STATUS_DECLINED      => 8,
+		self::STATUS_DEFERRED      => 1,
+		self::STATUS_REFERRED      => 1,
+		self::STATUS_DEPOSIT_PAID  => 1,
+		self::STATUS_FULFILLED     => 1,
+		self::STATUS_SIGNED        => 2,
 	);
 
 	private $history_messages = array(
-		self::STATUS_ACCEPTED => 'Credit request accepted',
+		self::STATUS_ACCEPTED      => 'Credit request accepted',
 		self::STATUS_ACTION_LENDER => 'Lender notified',
-		self::STATUS_CANCELED => 'Credit request canceled',
-		self::STATUS_COMPLETED => 'Credit application completed',
-		self::STATUS_DECLINED => 'Credit request declined',
-		self::STATUS_DEFERRED => 'Credit request deferred',
-		self::STATUS_REFERRED => 'Credit request referred',
-		self::STATUS_DEPOSIT_PAID => 'Deposit paid',
-		self::STATUS_FULFILLED => 'Credit request fulfilled',
-		self::STATUS_SIGNED => 'Contract signed',
+		self::STATUS_CANCELED      => 'Credit request canceled',
+		self::STATUS_COMPLETED     => 'Credit application completed',
+		self::STATUS_DECLINED      => 'Credit request declined',
+		self::STATUS_DEFERRED      => 'Credit request deferred',
+		self::STATUS_REFERRED      => 'Credit request referred',
+		self::STATUS_DEPOSIT_PAID  => 'Deposit paid',
+		self::STATUS_FULFILLED     => 'Credit request fulfilled',
+		self::STATUS_SIGNED        => 'Contract signed',
 	);
 
 	public function index() {
@@ -47,7 +47,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$key_parts = explode('.', $api_key);
 		$js_key    = strtolower(array_shift($key_parts));
 
-		list($total, $totals) = $this->model_extension_payment_divido->getOrderTotals();
+		[$total, $totals] = $this->model_extension_payment_divido->getOrderTotals();
 
 		$this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
@@ -59,9 +59,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			}
 		}
 
-		$plans_ids  = array_map(function ($plan) {
-			return $plan->id;
-		}, $plans);
+		$plans_ids  = array_map(fn ($plan) => $plan->id, $plans);
 		$plans_ids  = array_unique($plans_ids);
 		$plans_list = implode(',', $plans_ids);
 
@@ -85,18 +83,21 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		if (!isset($data->status)) {
 			$this->response->setOutput('');
+
 			return;
 		}
 
 		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($data->metadata->order_id);
 		if ($lookup->num_rows != 1) {
 			$this->response->setOutput('');
+
 			return;
 		}
 
 		$hash = $this->model_extension_payment_divido->hashOrderId($data->metadata->order_id, $lookup->row['salt']);
 		if ($hash !== $data->metadata->order_hash) {
 			$this->response->setOutput('');
+
 			return;
 		}
 
@@ -175,14 +176,14 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$products  = array();
 		foreach ($this->cart->getProducts() as $product) {
 			$products[] = array(
-				'type' => 'product',
-				'text' => $product['name'],
+				'type'     => 'product',
+				'text'     => $product['name'],
 				'quantity' => $product['quantity'],
-				'value' => $product['price'],
+				'value'    => $product['price'],
 			);
 		}
 
-		list($total, $totals) = $this->model_extension_payment_divido->getOrderTotals();
+		[$total, $totals] = $this->model_extension_payment_divido->getOrderTotals();
 
 		$sub_total  = $total;
 		$cart_total = $this->cart->getSubTotal();
@@ -283,9 +284,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			return null;
 		}
 
-		$plans_ids = array_map(function ($plan) {
-			return $plan->id;
-		}, $plans);
+		$plans_ids = array_map(fn ($plan) => $plan->id, $plans);
 
 		$plan_list = implode(',', $plans_ids);
 

@@ -69,7 +69,7 @@ class ControllerMailCustomer extends Controller {
 	}
 
 	public function deny(&$route, &$args, &$output) {
-	// admin/controller/mail/customer/deny/after
+		// admin/controller/mail/customer/deny/after
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);

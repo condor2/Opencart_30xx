@@ -153,11 +153,11 @@ class ControllerAccountRegister extends Controller {
 
 		// Custom Fields
 		$data['custom_fields'] = array();
-		
+
 		$this->load->model('account/custom_field');
-		
+
 		$custom_fields = $this->model_account_custom_field->getCustomFields();
-		
+
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'account') {
 				$data['custom_fields'][] = $custom_field;
@@ -295,7 +295,7 @@ class ControllerAccountRegister extends Controller {
 				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 			}
 		}
-		
+
 		return !$this->error;
 	}
 

@@ -35,7 +35,7 @@ class ControllerToolBackup extends Controller {
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['export'] = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
-		
+
 		$this->load->model('tool/backup');
 
 		$ignore = array(
@@ -97,7 +97,7 @@ class ControllerToolBackup extends Controller {
 			$handle = fopen($filename, 'r');
 
 			fseek($handle, $position, SEEK_SET);
-			
+
 			while (!feof($handle) && ($i < 100)) {
 				$position = ftell($handle);
 
@@ -109,7 +109,7 @@ class ControllerToolBackup extends Controller {
 					$start = true;
 				}
 
-				if ($i > 0 && (substr($line, 0, 24) == 'TRUNCATE TABLE `' . DB_PREFIX .  'user`' || substr($line, 0, 30) == 'TRUNCATE TABLE `' . DB_PREFIX . 'user_group`')) {
+				if ($i > 0 && (substr($line, 0, 24) == 'TRUNCATE TABLE `' . DB_PREFIX . 'user`' || substr($line, 0, 30) == 'TRUNCATE TABLE `' . DB_PREFIX . 'user_group`')) {
 					fseek($handle, $position, SEEK_SET);
 
 					break;
@@ -120,8 +120,8 @@ class ControllerToolBackup extends Controller {
 				}
 
 				if ($start && substr($line, -2) == ";\n") {
-					$this->db->query(substr($sql, 0, strlen($sql) -2));
-					
+					$this->db->query(substr($sql, 0, strlen($sql) - 2));
+
 					$start = false;
 				}
 
@@ -174,7 +174,7 @@ class ControllerToolBackup extends Controller {
 
 			$this->load->model('tool/backup');
 
-			$this->response->setOutput($this->model_tool_backup->backup($this->request->post['backup']));		
+			$this->response->setOutput($this->model_tool_backup->backup($this->request->post['backup']));
 		}
 	}
 }

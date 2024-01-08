@@ -11,7 +11,7 @@ class ModelDesignSeoUrl extends Model {
 	public function deleteSeoUrl($seo_url_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 	}
-	
+
 	public function getSeoUrl($seo_url_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 
@@ -41,7 +41,7 @@ class ModelDesignSeoUrl extends Model {
 
 		if ($implode) {
 			$sql .= " WHERE " . implode(" AND ", $implode);
-		}	
+		}
 
 		$sort_data = array(
 			'`query`',
@@ -81,7 +81,7 @@ class ModelDesignSeoUrl extends Model {
 
 	public function getTotalSeoUrls($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "seo_url`";
-		
+
 		$implode = array();
 
 		if (!empty($data['filter_query'])) {

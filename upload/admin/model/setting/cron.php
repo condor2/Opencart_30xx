@@ -24,11 +24,13 @@ class ModelSettingCron extends Model {
 
 	public function getCron($cron_id) {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "cron` WHERE `cron_id` = '" . (int)$cron_id . "'");
+
 		return $query->row;
 	}
 
 	public function getCronByCode($code) {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "cron` WHERE `code` = '" . $this->db->escape($code) . "' LIMIT 1");
+
 		return $query->row;
 	}
 

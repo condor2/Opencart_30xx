@@ -3,7 +3,7 @@ namespace Cache;
 class Mem {
 	private $expire;
 	private $memcache;
-	const CACHEDUMP_LIMIT = 9999;
+	public const CACHEDUMP_LIMIT = 9999;
 
 	public function __construct($expire = 3600) {
 		$this->expire = $expire;

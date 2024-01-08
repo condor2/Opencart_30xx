@@ -42,7 +42,7 @@ class ControllerMarketplaceInstall extends Controller {
 		} else {
 			$extension_install_id = 0;
 		}
-		
+
 		if (!$this->user->hasPermission('modify', 'marketplace/install')) {
 			$json['error'] = $this->language->get('error_permission');
 		}
@@ -81,7 +81,7 @@ class ControllerMarketplaceInstall extends Controller {
 
 	public function move() {
 		$this->load->language('marketplace/install');
-		
+
 		$json = array();
 
 		if (isset($this->request->get['extension_install_id'])) {
@@ -111,12 +111,12 @@ class ControllerMarketplaceInstall extends Controller {
 
 				while (count($path) != 0) {
 					$next = array_shift($path);
-	
+
 					foreach ((array)glob($next) as $file) {
 						if (is_dir($file)) {
 							$path[] = $file . '/*';
 						}
-	
+
 						$files[] = $file;
 					}
 				}
@@ -183,7 +183,7 @@ class ControllerMarketplaceInstall extends Controller {
 						break;
 					}
 				}
-				
+
 				if (!$json) {
 					$this->load->model('setting/extension');
 
@@ -238,7 +238,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->load->language('marketplace/install');
 
 		$json = array();
-		
+
 		if (isset($this->request->get['extension_install_id'])) {
 			$extension_install_id = (int)$this->request->get['extension_install_id'];
 		} else {
@@ -260,7 +260,7 @@ class ControllerMarketplaceInstall extends Controller {
 
 			if (is_file($file)) {
 				$this->load->model('setting/modification');
-				
+
 				// If xml file just put it straight into the DB
 				$xml = file_get_contents($file);
 
@@ -268,7 +268,7 @@ class ControllerMarketplaceInstall extends Controller {
 					try {
 						$dom = new DOMDocument('1.0', 'UTF-8');
 						$dom->loadXml($xml);
-	
+
 						$name = $dom->getElementsByTagName('name')->item(0);
 
 						if ($name) {
@@ -317,8 +317,7 @@ class ControllerMarketplaceInstall extends Controller {
 						}
 
 						if (!$json) {
-							
-							
+
 							$modification_data = array(
 								'extension_install_id' => $extension_install_id,
 								'name'                 => $name,
@@ -364,7 +363,7 @@ class ControllerMarketplaceInstall extends Controller {
 
 		if (!$json) {
 			$directory = DIR_UPLOAD . 'tmp-' . $this->session->data['install'] . '/';
-			
+
 			if (is_dir($directory)) {
 				// Get a list of files ready to upload
 				$files = array();
@@ -377,7 +376,7 @@ class ControllerMarketplaceInstall extends Controller {
 					// We have to use scandir function because glob will not pick up dot files.
 					foreach (array_diff(scandir($next), array('.', '..')) as $file) {
 						$file = $next . '/' . $file;
-	
+
 						if (is_dir($file)) {
 							$path[] = $file;
 						}
@@ -387,7 +386,7 @@ class ControllerMarketplaceInstall extends Controller {
 				}
 
 				rsort($files);
-	
+
 				foreach ($files as $file) {
 					if (is_file($file)) {
 						unlink($file);
@@ -402,7 +401,7 @@ class ControllerMarketplaceInstall extends Controller {
 			}
 
 			$file = DIR_UPLOAD . $this->session->data['install'] . '.tmp';
-			
+
 			if (is_file($file)) {
 				unlink($file);
 			}
@@ -451,11 +450,11 @@ class ControllerMarketplaceInstall extends Controller {
 				if (substr($result['path'], 0, 5) == 'image') {
 					$source = DIR_IMAGE . substr($result['path'], 6);
 				}
-				
+
 				if (substr($result['path'], 0, 14) == 'system/library') {
 					$source = DIR_SYSTEM . 'library/' . substr($result['path'], 15);
 				}
-				
+
 				if (is_file($source)) {
 					unlink($source);
 				}
@@ -494,7 +493,7 @@ class ControllerMarketplaceInstall extends Controller {
 					if (is_file($source)) {
 						unlink($source);
 					}
-		
+
 					if (is_dir($source)) {
 						if ($this->isDirEmpty($source)) {
 							rmdir($source);
@@ -507,12 +506,12 @@ class ControllerMarketplaceInstall extends Controller {
 
 			// Remove the install
 			$this->model_setting_extension->deleteExtensionInstall($extension_install_id);
-			
+
 			// Remove any xml modifications
 			$this->load->model('setting/modification');
 
 			$this->model_setting_modification->deleteModificationsByExtensionInstallId($extension_install_id);
-			
+
 			$json['success'] = $this->language->get('text_success');
 		}
 
@@ -520,13 +519,13 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function isDirEmpty ($dir_name) {
+	private function isDirEmpty($dir_name) {
 		if (!is_dir($dir_name)) {
 			return false;
 		}
 
 		foreach (scandir($dir_name) as $dir_file) {
-			if (!in_array($dir_file, array('.','..'))) {
+			if (!in_array($dir_file, array('.', '..'))) {
 				return false;
 			}
 		}

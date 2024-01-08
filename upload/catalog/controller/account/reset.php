@@ -43,59 +43,59 @@ class ControllerAccountReset extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 
-			$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home')
-			);
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/home')
+		);
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true)
-			);
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_account'),
+			'href' => $this->url->link('account/account', '', true)
+		);
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/reset', '', true)
-			);
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('account/reset', '', true)
+		);
 
-			if (isset($this->error['password'])) {
-				$data['error_password'] = $this->error['password'];
-			} else {
-				$data['error_password'] = '';
-			}
+		if (isset($this->error['password'])) {
+			$data['error_password'] = $this->error['password'];
+		} else {
+			$data['error_password'] = '';
+		}
 
-			if (isset($this->error['confirm'])) {
-				$data['error_confirm'] = $this->error['confirm'];
-			} else {
-				$data['error_confirm'] = '';
-			}
+		if (isset($this->error['confirm'])) {
+			$data['error_confirm'] = $this->error['confirm'];
+		} else {
+			$data['error_confirm'] = '';
+		}
 
-			$data['action'] = $this->url->link('account/reset', '&email=' . urlencode($email) . '&code=' . $code, true);
+		$data['action'] = $this->url->link('account/reset', '&email=' . urlencode($email) . '&code=' . $code, true);
 
-			$data['back'] = $this->url->link('account/login', '', true);
+		$data['back'] = $this->url->link('account/login', '', true);
 
-			if (isset($this->request->post['password'])) {
-				$data['password'] = $this->request->post['password'];
-			} else {
-				$data['password'] = '';
-			}
+		if (isset($this->request->post['password'])) {
+			$data['password'] = $this->request->post['password'];
+		} else {
+			$data['password'] = '';
+		}
 
-			if (isset($this->request->post['confirm'])) {
-				$data['confirm'] = $this->request->post['confirm'];
-			} else {
-				$data['confirm'] = '';
-			}
+		if (isset($this->request->post['confirm'])) {
+			$data['confirm'] = $this->request->post['confirm'];
+		} else {
+			$data['confirm'] = '';
+		}
 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['column_right'] = $this->load->controller('common/column_right');
+		$data['content_top'] = $this->load->controller('common/content_top');
+		$data['content_bottom'] = $this->load->controller('common/content_bottom');
+		$data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
 
-			$this->response->setOutput($this->load->view('account/reset', $data));
+		$this->response->setOutput($this->load->view('account/reset', $data));
 	}
 
 	protected function validate() {

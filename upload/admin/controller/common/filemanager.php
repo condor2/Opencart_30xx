@@ -272,7 +272,7 @@ class ControllerCommonFileManager extends Controller {
 						'SVG',
 						'SVGZ',
 						'WEBP'
-						
+
 					);
 
 					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
@@ -406,7 +406,7 @@ class ControllerCommonFileManager extends Controller {
 				if (is_file($path)) {
 					unlink($path);
 
-				// If path is a directory begin deleting each file and sub folder
+					// If path is a directory begin deleting each file and sub folder
 				} elseif (is_dir($path)) {
 					$files = array();
 
@@ -436,7 +436,7 @@ class ControllerCommonFileManager extends Controller {
 						if (is_file($file)) {
 							unlink($file);
 
-						// If directory use the remove directory function
+							// If directory use the remove directory function
 						} elseif (is_dir($file)) {
 							rmdir($file);
 						}

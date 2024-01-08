@@ -28,7 +28,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		return $this->load->view('extension/payment/cardconnect', $data);
 	}
 
-	public function send()	{
+	public function send() {
 		$this->load->language('extension/payment/cardconnect');
 
 		$this->load->model('extension/payment/cardconnect');
@@ -115,7 +115,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 							'account'    => $account,
 							'expiry'     => $expiry,
 							'cvv2'       => $cvv2,
-							'amount'     => round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
+							'amount'     => round((float)($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
 							'currency'   => $order_info['currency_code'],
 							'orderid'    => $order_info['order_id'],
 							'name'       => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'],
@@ -169,7 +169,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 						$this->model_extension_payment_cardconnect->log('Response: ' . print_r($response_data, true));
 
-					 	if (isset($response_data['respstat']) && $response_data['respstat'] == 'A') {
+						if (isset($response_data['respstat']) && $response_data['respstat'] == 'A') {
 							$this->load->model('checkout/order');
 
 							// if a cheque

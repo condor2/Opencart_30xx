@@ -67,7 +67,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/globalpay', 'user_token=' . $this->session->data['user_token'], true);
-		
+
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_globalpay_merchant_id'])) {
@@ -348,7 +348,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 			$this->model_extension_payment_globalpay->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
 			if (isset($rebate_response->result) && $rebate_response->result == '00') {
-				$this->model_extension_payment_globalpay->addTransaction($globalpay_order['globalpay_order_id'], 'rebate', $this->request->post['amount']*-1);
+				$this->model_extension_payment_globalpay->addTransaction($globalpay_order['globalpay_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_globalpay->getTotalRebated($globalpay_order['globalpay_order_id']);
 				$total_captured = $this->model_extension_payment_globalpay->getTotalCaptured($globalpay_order['globalpay_order_id']);
@@ -364,7 +364,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$json['data'] = array();
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
-				$json['data']['amount'] = $this->request->post['amount']*-1;
+				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_captured'] = (float)$total_captured;
 				$json['data']['total_rebated'] = (float)$total_rebated;
 				$json['data']['rebate_status'] = $rebate_status;

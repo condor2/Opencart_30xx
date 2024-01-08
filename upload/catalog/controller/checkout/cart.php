@@ -108,7 +108,7 @@ class ControllerCheckoutCart extends Controller {
 				// Display prices
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-					
+
 					$price = $this->currency->format($unit_price, $this->session->data['currency']);
 					$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
 				} else {
@@ -167,14 +167,14 @@ class ControllerCheckoutCart extends Controller {
 			$totals = array();
 			$taxes = $this->cart->getTaxes();
 			$total = 0;
-			
-			// Because __call can not keep var references so we put them into an array. 			
+
+			// Because __call can not keep var references so we put them into an array.
 			$total_data = array(
 				'totals' => &$totals,
 				'taxes'  => &$taxes,
 				'total'  => &$total
 			);
-			
+
 			// Display prices
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$sort_order = array();
@@ -190,7 +190,7 @@ class ControllerCheckoutCart extends Controller {
 				foreach ($results as $result) {
 					if ($this->config->get('total_' . $result['code'] . '_status')) {
 						$this->load->model('extension/total/' . $result['code']);
-						
+
 						// We have to put the totals in an array so that they pass by reference.
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
@@ -219,13 +219,13 @@ class ControllerCheckoutCart extends Controller {
 			$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 
 			$data['modules'] = array();
-			
+
 			$files = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
 
 			if ($files) {
 				foreach ($files as $file) {
 					$result = $this->load->controller('extension/total/' . basename($file, '.php'));
-					
+
 					if ($result) {
 						$data['modules'][] = $result;
 					}
@@ -242,7 +242,7 @@ class ControllerCheckoutCart extends Controller {
 			$this->response->setOutput($this->load->view('checkout/cart', $data));
 		} else {
 			$data['text_error'] = $this->language->get('text_empty');
-			
+
 			$data['continue'] = $this->url->link('common/home');
 
 			unset($this->session->data['success']);
@@ -275,10 +275,10 @@ class ControllerCheckoutCart extends Controller {
 
 		if ($product_info) {
 			if (isset($this->request->post['quantity'])) {
-				if(is_numeric($this->request->post['quantity'])) {
+				if (is_numeric($this->request->post['quantity'])) {
 					$quantity = round($this->request->post['quantity']);
 
-					if($quantity < 1) {
+					if ($quantity < 1) {
 						// Post Error Message when it is not bigger than 1
 						$json['error']['quantity'] = $this->language->get('error_quantity_required_zero');
 					}
@@ -341,8 +341,8 @@ class ControllerCheckoutCart extends Controller {
 				$totals = array();
 				$taxes = $this->cart->getTaxes();
 				$total = 0;
-		
-				// Because __call can not keep var references so we put them into an array. 			
+
+				// Because __call can not keep var references so we put them into an array.
 				$total_data = array(
 					'totals' => &$totals,
 					'taxes'  => &$taxes,
@@ -441,7 +441,7 @@ class ControllerCheckoutCart extends Controller {
 			$taxes = $this->cart->getTaxes();
 			$total = 0;
 
-			// Because __call can not keep var references so we put them into an array. 			
+			// Because __call can not keep var references so we put them into an array.
 			$total_data = array(
 				'totals' => &$totals,
 				'taxes'  => &$taxes,

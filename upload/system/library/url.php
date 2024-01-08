@@ -1,15 +1,17 @@
 <?php
 /**
  * @package		OpenCart
+ *
  * @author		Daniel Kerr
  * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
- * @link		https://www.opencart.com
-*/
+ *
+ * @see		https://www.opencart.com
+ */
 
 /**
-* URL class
-*/
+ * URL class
+ */
 class Url {
 	private $url;
 	private $rewrite = array();
@@ -38,9 +40,9 @@ class Url {
 	/**
 	 * Generates a URL
 	 *
-	 * @param string        $route
-	 * @param string|array	$args
-	 * @param bool			$js
+	 * @param string       $route
+	 * @param array|string $args
+	 * @param bool         $js
 	 *
 	 * @return string
 	 */

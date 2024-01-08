@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 
 // Check Version
-if (version_compare(phpversion(), '7.4.0', '<')) {
+if (version_compare(PHP_VERSION, '7.4.0', '<')) {
 	exit('PHP 7.4+ Required');
 }
 
@@ -55,9 +55,9 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 // Modification Override
 function modification($filename) {
 	if (defined('DIR_CATALOG')) {
-		$file = DIR_MODIFICATION . 'admin/' .  substr($filename, strlen(DIR_APPLICATION));
+		$file = DIR_MODIFICATION . 'admin/' . substr($filename, strlen(DIR_APPLICATION));
 	} elseif (defined('DIR_OPENCART')) {
-		$file = DIR_MODIFICATION . 'install/' .  substr($filename, strlen(DIR_APPLICATION));
+		$file = DIR_MODIFICATION . 'install/' . substr($filename, strlen(DIR_APPLICATION));
 	} else {
 		$file = DIR_MODIFICATION . 'catalog/' . substr($filename, strlen(DIR_APPLICATION));
 	}
@@ -106,5 +106,5 @@ require_once(DIR_SYSTEM . 'helper/general.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
 
 function start($application_config) {
-	require_once(DIR_SYSTEM . 'framework.php');	
+	require_once(DIR_SYSTEM . 'framework.php');
 }

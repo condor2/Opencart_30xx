@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModulePayPalSmartButton extends Controller {
 	private $error = array();
-	
+
 	public function index() {
 		$this->load->language('extension/module/paypal_smart_button');
 
@@ -43,25 +43,25 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		$data['action'] = $this->url->link('extension/module/paypal_smart_button', 'user_token=' . $this->session->data['user_token'], true);
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
-						
+
 		if (isset($this->request->post['module_paypal_smart_button_status'])) {
 			$data['status'] = $this->request->post['module_paypal_smart_button_status'];
 		} else {
 			$data['status'] = $this->config->get('module_paypal_smart_button_status');
 		}
-		
-		// Setting 		
+
+		// Setting
 		$_config = new Config();
 		$_config->load('paypal_smart_button');
-		
+
 		$data['setting'] = $_config->get('paypal_smart_button_setting');
-		
+
 		if (isset($this->request->post['module_paypal_smart_button_setting'])) {
 			$data['setting'] = array_replace_recursive((array)$data['setting'], (array)$this->request->post['module_paypal_smart_button_setting']);
 		} else {
 			$data['setting'] = array_replace_recursive((array)$data['setting'], (array)$this->config->get('module_paypal_smart_button_setting'));
 		}
-				
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -74,9 +74,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->load->model('setting/setting');
 
 		$this->model_extension_module_paypal_smart_button->install();
-		
+
 		$setting['module_paypal_smart_button_status'] = 0;
-		
+
 		$this->model_setting_setting->editSetting('module_paypal_smart_button', $setting);
 	}
 

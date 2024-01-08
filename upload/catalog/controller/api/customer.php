@@ -88,13 +88,13 @@ class ControllerApiCustomer extends Controller {
 					'lastname'          => $this->request->post['lastname'],
 					'email'             => $this->request->post['email'],
 					'telephone'         => $this->request->post['telephone'],
-					'custom_field'      => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
+					'custom_field'      => $this->request->post['custom_field'] ?? array()
 				);
 
 				$json['success'] = $this->language->get('text_success');
 			}
 		}
-		
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

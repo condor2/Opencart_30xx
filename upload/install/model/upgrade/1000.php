@@ -81,7 +81,7 @@ class ModelUpgrade1000 extends Model {
 
 			if (isset($match[0])) {
 				preg_match_all('#`(\w[\w\d]*)`#', $match[0], $match);
-			} else{
+			} else {
 				$match = [];
 			}
 
@@ -110,7 +110,7 @@ class ModelUpgrade1000 extends Model {
 				foreach ($index[1] as $field) {
 					if ($key == '') {
 						$key = $field;
-					} else{
+					} else {
 						$index_data[$key][] = $field;
 					}
 				}
@@ -302,7 +302,7 @@ class ModelUpgrade1000 extends Model {
 					}
 
 					if ($index_data) {
-						$this->db->query("ALTER TABLE `" . $table['name'] . "` ADD INDEX `$name` (" . implode(',', $index_data) . ")");
+						$this->db->query("ALTER TABLE `" . $table['name'] . "` ADD INDEX `{$name}` (" . implode(',', $index_data) . ")");
 					}
 				}
 

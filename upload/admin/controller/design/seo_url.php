@@ -251,7 +251,7 @@ class ControllerDesignSeoUrl extends Controller {
 
 		$filter_data = array(
 			'filter_keyword'     => $filter_keyword,
-			'filter_query'	     => $filter_query,
+			'filter_query'       => $filter_query,
 			'filter_store_id'    => $filter_store_id,
 			'filter_language_id' => $filter_language_id,
 			'sort'               => $sort,

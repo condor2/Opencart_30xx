@@ -7,7 +7,7 @@ class ControllerMailForgotten extends Controller {
 
 			$customer_info = $this->model_account_customer->getCustomerByEmail($args[0]);
 
-			if ($customer_info) {		            
+			if ($customer_info) {
 				$this->load->language('mail/forgotten');
 
 				$this->load->model('tool/image');
@@ -22,12 +22,12 @@ class ControllerMailForgotten extends Controller {
 				$data['text_change'] = $this->language->get('text_change');
 				$data['text_ip'] = $this->language->get('text_ip');
 				$data['button_reset'] = $this->language->get('button_reset');
-		
+
 				$data['reset'] = str_replace('&amp;', '&', $this->url->link('account/reset', '&email=' . urlencode($args[0]) . '&code=' . $args[1], true));
 				$data['ip'] = $this->request->server['REMOTE_ADDR'];
 				$data['store_url'] = $this->config->get('config_url');
 				$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-		
+
 				$mail = new Mail($this->config->get('config_mail_engine'));
 				$mail->parameter = $this->config->get('config_mail_parameter');
 				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');

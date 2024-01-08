@@ -15,7 +15,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 				'taxes'  => &$taxes,
 				'total'  => &$total
 			);
-			
+
 			$this->load->model('setting/extension');
 
 			$sort_order = array();
@@ -31,7 +31,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 			foreach ($results as $result) {
 				if ($this->config->get('total_' . $result['code'] . '_status')) {
 					$this->load->model('extension/total/' . $result['code']);
-					
+
 					// __call can not pass-by-reference so we get PHP to call it as an anonymous function.
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 				}

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentDivido extends Model {
-	const CACHE_KEY_PLANS = 'divido_plans';
+	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	public function setMerchant($api_key) {
 		if ($api_key) {
@@ -49,14 +49,12 @@ class ModelExtensionPaymentDivido extends Model {
 			$title = $title_override;
 		}
 
-		$method_data = [
-			'code' => 'divido',
-			'title' => $title,
-			'terms' => '',
+		return [
+			'code'       => 'divido',
+			'title'      => $title,
+			'terms'      => '',
 			'sort_order' => $this->config->get('payment_divido_sort_order')
 		];
-
-		return $method_data;
 	}
 
 	public function getProductSettings($product_id) {
@@ -87,7 +85,7 @@ class ModelExtensionPaymentDivido extends Model {
 		if ($result_get_lookup->num_rows == 0) {
 			$proposal_id = ($proposal_id) ? "'" . $proposal_id . "'" : 'NULL';
 			$application_id = ($application_id) ? "'" . $application_id . "'" : 'NULL';
-			$deposit_amount = ($deposit_amount) ? $deposit_amount : 'NULL';
+			$deposit_amount = ($deposit_amount) ?: 'NULL';
 
 			$query_upsert = "INSERT INTO `" . DB_PREFIX . "divido_lookup` (`order_id`, `salt`, `proposal_id`, `application_id`, `deposit_amount`) VALUES (" . $order_id . ", '" . $salt . "', " . $proposal_id . ", " . $application_id . ", " . $deposit_amount . ")";
 		} else {
@@ -114,6 +112,7 @@ class ModelExtensionPaymentDivido extends Model {
 	public function getLookupByOrderId($order_id) {
 		return $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = " . $order_id);
 	}
+
 	public function getGlobalSelectedPlans() {
 		$all_plans     = $this->getAllPlans();
 		$display_plans = $this->config->get('payment_divido_planselection');
@@ -141,11 +140,7 @@ class ModelExtensionPaymentDivido extends Model {
 		if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
 			// OpenCart 2.1 decodes json objects to associative arrays so we
 			// need to make sure we're getting a list of simple objects back.
-			$plans = array_map(function ($plan) {
-				return (object)$plan;
-			}, $plans);
-
-			return $plans;
+			return array_map(fn ($plan) => (object)$plan, $plans);
 		}
 
 		$api_key = $this->config->get('payment_divido_api_key');
@@ -185,7 +180,7 @@ class ModelExtensionPaymentDivido extends Model {
 		return $plans_plain;
 	}
 
-	public function getCartPlans($cart)	{
+	public function getCartPlans($cart) {
 		$plans = array();
 		$products = $cart->getProducts();
 		foreach ($products as $product) {
@@ -297,8 +292,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		if ($settings['display'] == 'default') {
-			$plans = $this->getPlans(true);
-			return $plans;
+			return $this->getPlans(true);
 		}
 
 		// If the product has non-default plans, fetch all of them.
@@ -318,5 +312,4 @@ class ModelExtensionPaymentDivido extends Model {
 
 		return $plans;
 	}
-
 }

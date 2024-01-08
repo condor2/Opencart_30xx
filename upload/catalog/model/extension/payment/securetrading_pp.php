@@ -49,7 +49,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		$this->load->model('checkout/order');
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = 0 WHERE order_id = "  . (int)$order_id);
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = 0 WHERE order_id = " . (int)$order_id);
 
 		$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 
@@ -72,7 +72,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			case 100:
 				$trans_type = 'payment';
 				break;
-			default :
+			default:
 				$trans_type = 'default';
 		}
 

@@ -63,7 +63,7 @@ class ControllerAccountDownload extends Controller {
 				);
 
 				while (($size / 1024) > 1) {
-					$size = $size / 1024;
+					$size /= 1024;
 					$i++;
 				}
 
@@ -85,7 +85,7 @@ class ControllerAccountDownload extends Controller {
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) *  $limit) + 1 : 0, ((($page - 1) *  $limit) > ($download_total -  $limit)) ? $download_total : ((($page - 1) *  $limit) +  $limit), $download_total, ceil($download_total /  $limit));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($download_total - $limit)) ? $download_total : ((($page - 1) * $limit) + $limit), $download_total, ceil($download_total / $limit));
 
 		$data['continue'] = $this->url->link('account/account', '', true);
 
@@ -123,7 +123,7 @@ class ControllerAccountDownload extends Controller {
 			if (!headers_sent()) {
 				if (file_exists($file)) {
 					header('Content-Type: application/octet-stream');
-					header('Content-Disposition: attachment; filename="' . ($mask ? $mask : basename($file)) . '"');
+					header('Content-Disposition: attachment; filename="' . ($mask ?: basename($file)) . '"');
 					header('Expires: 0');
 					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 					header('Pragma: public');

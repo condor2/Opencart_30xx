@@ -7,19 +7,19 @@ class ControllerMailTransaction extends Controller {
 		} else {
 			$customer_id = 0;
 		}
-		
+
 		if (isset($args[1])) {
 			$description = $args[1];
 		} else {
 			$description = '';
-		}		
-		
+		}
+
 		if (isset($args[2])) {
 			$amount = $args[2];
 		} else {
 			$amount = 0;
 		}
-		
+
 		if (isset($args[3])) {
 			$order_id = $args[3];
 		} else {

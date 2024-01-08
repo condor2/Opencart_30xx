@@ -100,7 +100,7 @@ class ControllerMarketplaceModification extends Controller {
 					if (is_file($file)) {
 						unlink($file);
 
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
@@ -137,7 +137,7 @@ class ControllerMarketplaceModification extends Controller {
 				if (empty($xml)) {
 					continue;
 				}
-				
+
 				$dom = new DOMDocument('1.0', 'UTF-8');
 				$dom->preserveWhiteSpace = false;
 				$dom->loadXml($xml);
@@ -380,7 +380,7 @@ class ControllerMarketplaceModification extends Controller {
 											else {
 												// Log
 												$log[] = 'NOT FOUND - OPERATIONS ABORTED!';
-											 	break;
+												break;
 											}
 										}
 									}
@@ -486,7 +486,7 @@ class ControllerMarketplaceModification extends Controller {
 					if (is_file($file)) {
 						unlink($file);
 
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
@@ -581,11 +581,11 @@ class ControllerMarketplaceModification extends Controller {
 
 	public function clearlog() {
 		$this->load->language('marketplace/modification');
-		
+
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/modification');
-		
+
 		if ($this->validate()) {
 			$handle = fopen(DIR_LOGS . 'ocmod.log', 'w+');
 

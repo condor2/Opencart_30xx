@@ -208,13 +208,13 @@ class ControllerSettingSetting extends Controller {
 
 		foreach ($extensions as $code) {
 			$this->load->language('extension/theme/' . $code, 'extension');
-			
+
 			$data['themes'][] = array(
 				'text'  => $this->language->get('extension')->get('heading_title'),
 				'value' => $code
 			);
 		}
-			
+
 		if (isset($this->request->post['config_layout_id'])) {
 			$data['config_layout_id'] = (int)$this->request->post['config_layout_id'];
 		} else {
@@ -285,7 +285,7 @@ class ControllerSettingSetting extends Controller {
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['config_image'], ENT_QUOTES, 'UTF-8'))) {
 			$data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['config_image'], ENT_QUOTES, 'UTF-8'), 100, 100);
-		} else {			
+		} else {
 			$data['thumb'] = $data['placeholder'];
 		}
 
@@ -727,7 +727,7 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_captcha'] = $this->config->get('config_captcha');
 		}
-		
+
 		$this->load->model('setting/extension');
 
 		$data['captchas'] = array();
@@ -749,7 +749,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_captcha_page'])) {
 			$data['config_captcha_page'] = $this->request->post['config_captcha_page'];
 		} elseif ($this->config->has('config_captcha_page')) {
-		   	$data['config_captcha_page'] = $this->config->get('config_captcha_page');
+			$data['config_captcha_page'] = $this->config->get('config_captcha_page');
 		} else {
 			$data['config_captcha_page'] = array();
 		}
@@ -760,12 +760,12 @@ class ControllerSettingSetting extends Controller {
 			'text'  => $this->language->get('text_register'),
 			'value' => 'register'
 		);
-		
+
 		$data['captcha_pages'][] = array(
 			'text'  => $this->language->get('text_guest'),
 			'value' => 'guest'
 		);
-		
+
 		$data['captcha_pages'][] = array(
 			'text'  => $this->language->get('text_review'),
 			'value' => 'review'
@@ -849,7 +849,7 @@ class ControllerSettingSetting extends Controller {
 		}
 
 		if (isset($this->request->post['config_mail_smtp_timeout'])) {
-			$data['config_mail_smtp_timeout'] =(int) $this->request->post['config_mail_smtp_timeout'];
+			$data['config_mail_smtp_timeout'] = (int)$this->request->post['config_mail_smtp_timeout'];
 		} elseif ($this->config->has('config_mail_smtp_timeout')) {
 			$data['config_mail_smtp_timeout'] = $this->config->get('config_mail_smtp_timeout');
 		} else {
@@ -859,7 +859,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_mail_alert'])) {
 			$data['config_mail_alert'] = $this->request->post['config_mail_alert'];
 		} elseif ($this->config->has('config_mail_alert')) {
-		   	$data['config_mail_alert'] = $this->config->get('config_mail_alert');
+			$data['config_mail_alert'] = $this->config->get('config_mail_alert');
 		} else {
 			$data['config_mail_alert'] = array();
 		}
@@ -891,7 +891,7 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_mail_alert_email'] = $this->config->get('config_mail_alert_email');
 		}
-		
+
 		if (isset($this->request->post['config_secure'])) {
 			$data['config_secure'] = (int)$this->request->post['config_secure'];
 		} else {
@@ -1066,7 +1066,7 @@ class ControllerSettingSetting extends Controller {
 		if (!isset($this->request->post['config_complete_status'])) {
 			$this->error['complete_status'] = $this->language->get('error_complete_status');
 		}
-		
+
 		if (!$this->request->post['config_error_filename']) {
 			$this->error['log'] = $this->language->get('error_log_required');
 		} elseif (preg_match('/\.\.[\/\\\]?/', $this->request->post['config_error_filename'])) {
@@ -1103,11 +1103,11 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$theme = basename($this->request->get['theme']);
 		}
-		
+
 		if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/image/' . $theme . '.png')) {
 			$this->response->setOutput(HTTP_CATALOG . 'catalog/view/theme/' . $theme . '/image/' . $theme . '.png');
 		} else {
 			$this->response->setOutput(HTTP_CATALOG . 'image/no_image.png');
 		}
-	}	
+	}
 }

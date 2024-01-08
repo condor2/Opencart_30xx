@@ -125,7 +125,7 @@ class ControllerApiShipping extends Controller {
 						'iso_code_2'     => $iso_code_2,
 						'iso_code_3'     => $iso_code_3,
 						'address_format' => $address_format,
-						'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : array()
+						'custom_field'   => $this->request->post['custom_field'] ?? array()
 					);
 
 					$json['success'] = $this->language->get('text_address');
@@ -135,7 +135,7 @@ class ControllerApiShipping extends Controller {
 				}
 			}
 		}
-		
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

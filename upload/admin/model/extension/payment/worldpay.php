@@ -1,6 +1,5 @@
 <?php
 class ModelExtensionPaymentWorldpay extends Model {
-
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order` (
@@ -70,9 +69,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 			$url = $worldpay_order['order_code'] . '/refund';
 
-			$response_data = $this->sendCurl($url, $order);
-
-			return $response_data;
+			return $this->sendCurl($url, $order);
 		} else {
 			return false;
 		}
@@ -105,6 +102,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 				$row['amount'] = $this->currency->format($row['amount'], $currency_code, false);
 				$transactions[] = $row;
 			}
+
 			return $transactions;
 		} else {
 			return false;
@@ -112,19 +110,19 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	public function addTransaction($worldpay_order_id, $type, $total) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
 	public function getTotalReleased($worldpay_order_id) {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function getTotalRefunded($worldpay_order_id) {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND 'refund'");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function sendCurl($url, $order) {
@@ -141,11 +139,13 @@ class ModelExtensionPaymentWorldpay extends Model {
 		curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 		curl_setopt(
-				$curl, CURLOPT_HTTPHEADER, array(
-			"Authorization: " . $this->config->get('payment_worldpay_service_key'),
-			"Content-Type: application/json",
-			"Content-Length: " . strlen($json)
-				)
+			$curl,
+			CURLOPT_HTTPHEADER,
+			array(
+				"Authorization: " . $this->config->get('payment_worldpay_service_key'),
+				"Content-Type: application/json",
+				"Content-Length: " . strlen($json)
+			)
 		);
 
 		$result = json_decode(curl_exec($curl));

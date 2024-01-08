@@ -124,7 +124,7 @@ class ControllerAccountLogin extends Controller {
 
 	protected function validate() {
 		if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
-			$this->error['warning'] = $this->language->get('error_login'); 
+			$this->error['warning'] = $this->language->get('error_login');
 		}
 
 		// Check how many login attempts have been made.

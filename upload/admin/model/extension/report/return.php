@@ -23,8 +23,8 @@ class ModelExtensionReportReturn extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
-			case 'day';
+		switch ($group) {
+			case 'day':
 				$sql .= " GROUP BY YEAR(r.date_added), MONTH(r.date_added), DAY(r.date_added)";
 				break;
 			default:
@@ -63,8 +63,8 @@ class ModelExtensionReportReturn extends Model {
 			$group = 'week';
 		}
 
-		switch($group) {
-			case 'day';
+		switch ($group) {
+			case 'day':
 				$sql = "SELECT COUNT(DISTINCT YEAR(date_added), MONTH(date_added), DAY(date_added)) AS total FROM `" . DB_PREFIX . "return`";
 				break;
 			default:

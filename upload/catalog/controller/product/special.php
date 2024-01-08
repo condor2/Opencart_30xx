@@ -93,7 +93,7 @@ class ControllerProductSpecial extends Controller {
 				$price = false;
 			}
 
-			if (!is_null($result['special']) && (float)$result['special'] >= 0) {
+			if (null !== $result['special'] && (float)$result['special'] >= 0) {
 				$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 				$tax_price = (float)$result['special'];
 			} else {
@@ -180,9 +180,9 @@ class ControllerProductSpecial extends Controller {
 		}
 
 		$data['sorts'][] = array(
-				'text'  => $this->language->get('text_model_asc'),
-				'value' => 'p.model-ASC',
-				'href'  => $this->url->link('product/special', 'sort=p.model&order=ASC' . $url)
+			'text'  => $this->language->get('text_model_asc'),
+			'value' => 'p.model-ASC',
+			'href'  => $this->url->link('product/special', 'sort=p.model&order=ASC' . $url)
 		);
 
 		$data['sorts'][] = array(
@@ -241,17 +241,17 @@ class ControllerProductSpecial extends Controller {
 
 		// http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
 		if ($page == 1) {
-		    $this->document->addLink($this->url->link('product/special', '', true), 'canonical');
+			$this->document->addLink($this->url->link('product/special', '', true), 'canonical');
 		} else {
-		    $this->document->addLink($this->url->link('product/special', 'page='. $page , true), 'canonical');
-		}		
-		
+			$this->document->addLink($this->url->link('product/special', 'page=' . $page, true), 'canonical');
+		}
+
 		if ($page > 1) {
-			$this->document->addLink($this->url->link('product/special', (($page - 2) ? '&page='. ($page - 1) : ''), true), 'prev');
+			$this->document->addLink($this->url->link('product/special', (($page - 2) ? '&page=' . ($page - 1) : ''), true), 'prev');
 		}
 
 		if ($limit && ceil($product_total / $limit) > $page) {
-		    $this->document->addLink($this->url->link('product/special', 'page='. ($page + 1), true), 'next');
+			$this->document->addLink($this->url->link('product/special', 'page=' . ($page + 1), true), 'next');
 		}
 
 		$data['text_empty'] = $this->language->get('text_empty');

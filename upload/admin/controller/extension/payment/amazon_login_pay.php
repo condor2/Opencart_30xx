@@ -262,17 +262,17 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->load->model('localisation/currency');
 		$store_buyer_currencies = array();
 		$oc_currencies =  $this->model_localisation_currency->getCurrencies();
-		$amazon_supported_currencies = array('AUD', 'GBP','DKK', 'EUR', 'HKD', 'JPY', 'NZD','NOK', 'ZAR', 'SEK', 'CHF', 'USD');
+		$amazon_supported_currencies = array('AUD', 'GBP', 'DKK', 'EUR', 'HKD', 'JPY', 'NZD', 'NOK', 'ZAR', 'SEK', 'CHF', 'USD');
 		foreach ($amazon_supported_currencies as $amazon_supported_currency) {
 			if (isset($oc_currencies[$amazon_supported_currency]) && $oc_currencies[$amazon_supported_currency]['status'] == '1') {
-				array_push($store_buyer_currencies,$amazon_supported_currency);
+				array_push($store_buyer_currencies, $amazon_supported_currency);
 			}
 		}
 		$this->load->language('common/column_left');
 		$data['help_buyer_multi_currency'] = !empty($store_buyer_currencies) ? sprintf($this->language->get('help_buyer_multi_currency'), implode(', ', $store_buyer_currencies)) : $this->language->get('help_buyer_multi_currency_no_available_currency');
-		$data['text_info_buyer_multi_currencies'] = sprintf($this->language->get('text_info_buyer_multi_currencies'), $this->session->data['user_token'], $this->language->get('text_system'), $this->language->get('text_localisation'),$this->language->get('text_currency'));
+		$data['text_info_buyer_multi_currencies'] = sprintf($this->language->get('text_info_buyer_multi_currencies'), $this->session->data['user_token'], $this->language->get('text_system'), $this->language->get('text_localisation'), $this->language->get('text_currency'));
 		$data['help_capture_oc_status'] = sprintf($this->language->get('help_capture_oc_status'), $this->language->get('text_sale'), $this->language->get('text_order'), $this->language->get('button_view'));
-		
+
 		if (isset($this->request->post['payment_amazon_login_pay_debug'])) {
 			$data['payment_amazon_login_pay_debug'] = $this->request->post['payment_amazon_login_pay_debug'];
 		} elseif ($this->config->get('payment_amazon_login_pay_debug')) {
@@ -457,11 +457,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
 					if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open', 'Suspended'])) {
-                        $this->model_extension_payment_amazon_login_pay->closeOrderRef($order_reference_id);
-                    }
+						$this->model_extension_payment_amazon_login_pay->closeOrderRef($order_reference_id);
+					}
 				}
 
-				if ($total_captured >= (double)$amazon_login_pay_order['total']) {
+				if ($total_captured >= (float)$amazon_login_pay_order['total']) {
 					$this->model_extension_payment_amazon_login_pay->updateCaptureStatus($amazon_login_pay_order['amazon_login_pay_order_id'], 1);
 					$capture_status = 1;
 					$json['msg'] = $this->language->get('text_capture_ok_order');
@@ -549,21 +549,21 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-    protected function trimIntegrationDetails() {
-        $integration_keys = array(
-            'payment_amazon_login_pay_merchant_id',
-            'payment_amazon_login_pay_access_key',
-            'payment_amazon_login_pay_access_secret',
-            'payment_amazon_login_pay_client_id',
-            'payment_amazon_login_pay_client_secret'
-        );
+	protected function trimIntegrationDetails() {
+		$integration_keys = array(
+			'payment_amazon_login_pay_merchant_id',
+			'payment_amazon_login_pay_access_key',
+			'payment_amazon_login_pay_access_secret',
+			'payment_amazon_login_pay_client_id',
+			'payment_amazon_login_pay_client_secret'
+		);
 
-        foreach ($this->request->post as $key => $value) {
-            if (in_array($key, $integration_keys)) {
-                $this->request->post[$key] = trim($value);
-            }
-        }
-    }
+		foreach ($this->request->post as $key => $value) {
+			if (in_array($key, $integration_keys)) {
+				$this->request->post[$key] = trim($value);
+			}
+		}
+	}
 
 	protected function validate() {
 		$this->load->model('localisation/currency');

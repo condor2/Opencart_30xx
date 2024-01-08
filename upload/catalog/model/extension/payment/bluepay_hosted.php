@@ -1,7 +1,6 @@
 <?php
 
 class ModelExtensionPaymentBluePayHosted extends Model {
-
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/bluepay_hosted');
 
@@ -21,9 +20,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'bluepay_hosted',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
+				'code'       => 'bluepay_hosted',
+				'title'      => $this->language->get('text_title'),
+				'terms'      => '',
 				'sort_order' => $this->config->get('payment_bluepay_hosted_sort_order')
 			);
 		}
@@ -53,5 +52,4 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$log->write($message);
 		}
 	}
-
 }

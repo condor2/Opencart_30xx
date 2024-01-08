@@ -122,7 +122,7 @@ class ControllerCustomerGdpr extends Controller {
 		if (isset($this->request->get['filter_date_added'])) {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
-		
+
 		$pagination = new Pagination();
 		$pagination->total = $gdpr_total;
 		$pagination->page = $page;

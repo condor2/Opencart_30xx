@@ -56,17 +56,17 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			}
 
 			$payment_data = array(
-				'amount'			 => (float)$this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false),
-				'currency'			 => $order_info['currency_code'],
-				'order_id'			 => $order_id,
+				'amount'             => (float)$this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false),
+				'currency'           => $order_info['currency_code'],
+				'order_id'           => $order_id,
 				'country'            => $order_country,
 				'payment_method'     => 'card',
 				'payment_instrument' => array(
-					'pan'		=> preg_replace('!\s+!', '', $this->request->post['pan']),
-					'exp_year'	=> (int)$this->request->post['exp_year'],
+					'pan'       => preg_replace('!\s+!', '', $this->request->post['pan']),
+					'exp_year'  => (int)$this->request->post['exp_year'],
 					'exp_month' => (int)$this->request->post['exp_month'],
-					'cvc'		=> $this->request->post['cvc'],
-					'holder'	=> $this->request->post['holder']
+					'cvc'       => $this->request->post['cvc'],
+					'holder'    => $this->request->post['holder']
 				),
 			);
 

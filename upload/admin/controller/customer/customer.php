@@ -1000,7 +1000,7 @@ class ControllerCustomerCustomer extends Controller {
 			$store_info = $this->model_setting_store->getStore($store_id);
 
 			if ($store_info) {
-				$this->response->redirect($store_info['url'] . 'index.php?route=account/login/token&email=' . urlencode($customer_info['email']). '&login_token=' . $token);
+				$this->response->redirect($store_info['url'] . 'index.php?route=account/login/token&email=' . urlencode($customer_info['email']) . '&login_token=' . $token);
 			} else {
 				$this->response->redirect(HTTP_CATALOG . 'index.php?route=account/login/token&email=' . urlencode($customer_info['email']) . '&login_token=' . $token);
 			}
@@ -1324,10 +1324,10 @@ class ControllerCustomerCustomer extends Controller {
 			$this->load->model('customer/customer');
 
 			$filter_data = array(
-				'filter_name'      => $filter_name,
-				'filter_email'     => $filter_email,
-				'start'            => 0,
-				'limit'            => 5
+				'filter_name'  => $filter_name,
+				'filter_email' => $filter_email,
+				'start'        => 0,
+				'limit'        => 5
 			);
 
 			$results = $this->model_customer_customer->getCustomers($filter_data);

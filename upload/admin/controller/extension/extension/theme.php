@@ -45,7 +45,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 		}
-		
+
 		$this->getList();
 	}
 
@@ -80,7 +80,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$stores = $this->model_setting_store->getStores();
 
 		$data['extensions'] = array();
-		
+
 		// Compatibility code for old extension folders
 		$files = glob(DIR_APPLICATION . 'controller/extension/theme/*.php');
 

@@ -3,7 +3,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 	public function index() {
 		if ($this->config->get('ebay_status') == 1) {
 			$this->load->language('extension/module/ebay');
-			
+
 			$this->load->model('tool/image');
 			$this->load->model('extension/openbay/ebay_product');
 
@@ -15,7 +15,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 			if (!$products) {
 				$products = $this->model_extension_openbay_ebay_product->getDisplayProducts();
-				
+
 				$this->cache->set('ebay_listing.' . md5(serialize($products)), $products);
 			}
 
@@ -27,9 +27,9 @@ class ControllerExtensionModuleEbayListing extends Controller {
 				}
 
 				$data['products'][] = [
-					'thumb' => $image, 
-					'name'  => base64_decode($product['Title']), 
-					'price' => $this->currency->format($product['priceGross'], $this->session->data['currency']), 
+					'thumb' => $image,
+					'name'  => base64_decode($product['Title']),
+					'price' => $this->currency->format($product['priceGross'], $this->session->data['currency']),
 					'href'  => (string)$product['link']
 				];
 			}

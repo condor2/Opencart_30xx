@@ -1,15 +1,17 @@
 <?php
 /**
  * @package		OpenCart
+ *
  * @author		Daniel Kerr
  * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
- * @link		https://www.opencart.com
-*/
+ *
+ * @see		https://www.opencart.com
+ */
 
 /**
-* Pagination class
-*/
+ * Pagination class
+ */
 class Pagination {
 	public $total = 0;
 	public $page = 1;
@@ -22,10 +24,8 @@ class Pagination {
 	public $text_prev = '&lt;';
 
 	/**
-     * 
-     *
-     * @return	text
-     */
+	 * @return text
+	 */
 	public function render() {
 		$total = $this->total;
 
@@ -50,7 +50,7 @@ class Pagination {
 
 		if ($page > 1) {
 			$output .= '<li><a href="' . str_replace(array('&amp;page={page}', '?page={page}', '&page={page}'), '', $this->url) . '">' . $this->text_first . '</a></li>';
-			
+
 			if ($page - 1 === 1) {
 				$output .= '<li><a href="' . str_replace(array('&amp;page={page}', '?page={page}', '&page={page}'), '', $this->url) . '">' . $this->text_prev . '</a></li>';
 			} else {

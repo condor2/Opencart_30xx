@@ -82,8 +82,8 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		foreach ($currencies as $currency) {
 			if (in_array($currency['code'], $this->currencies)) {
 				$data['currencies'][] = array(
-					'code'   => $currency['code'],
-					'title'  => $currency['title']
+					'code'  => $currency['code'],
+					'title' => $currency['title']
 				);
 			}
 		}

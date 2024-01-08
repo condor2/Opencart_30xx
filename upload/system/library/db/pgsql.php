@@ -9,7 +9,7 @@ class PgSQL {
 		}
 
 		try {
-			$pg = @pg_connect('host=' . $hostname . ' port=' . $port .  ' user=' . $username . ' password='	. $password . ' dbname=' . $database . ' options=\'--client_encoding=UTF8\' ');
+			$pg = @pg_connect('host=' . $hostname . ' port=' . $port . ' user=' . $username . ' password=' . $password . ' dbname=' . $database . ' options=\'--client_encoding=UTF8\' ');
 		} catch (\Exception $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname);
 		}
@@ -38,7 +38,7 @@ class PgSQL {
 				pg_free_result($resource);
 
 				$query = new \stdClass();
-				$query->row = isset($data[0]) ? $data[0] : array();
+				$query->row = $data[0] ?? array();
 				$query->rows = $data;
 				$query->num_rows = $i;
 

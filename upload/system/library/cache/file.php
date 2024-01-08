@@ -2,20 +2,20 @@
 namespace Cache;
 class File {
 	private $expire;
-	
+
 	/**
 	 * Constructor
 	 *
-	 * @param    int  $expire
+	 * @param int $expire
 	 */
 	public function __construct($expire = 3600) {
 		$this->expire = $expire;
 	}
-	
+
 	/**
 	 * Get
 	 *
-	 * @param    string  $key
+	 * @param string $key
 	 *
 	 * @return array|string|null
 	 */
@@ -32,8 +32,8 @@ class File {
 	/**
 	 * Set
 	 *
-	 * @param    string  $key
-	 * @param    array|string|null  $value
+	 * @param string            $key
+	 * @param array|string|null $value
 	 *
 	 * @return void
 	 */
@@ -50,7 +50,7 @@ class File {
 	/**
 	 * Delete
 	 *
-	 * @param    string  $key
+	 * @param string $key
 	 *
 	 * @return void
 	 */
@@ -72,7 +72,7 @@ class File {
 	public function __destruct() {
 		$files = glob(DIR_CACHE . 'cache.*');
 
-		if ($files && rand(1, 100) == 1) {
+		if ($files && mt_rand(1, 100) == 1) {
 			foreach ($files as $file) {
 				$time = substr(strrchr($file, '.'), 1);
 

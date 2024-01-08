@@ -1,10 +1,10 @@
 <?php
 /**
  * @version    N/A, base on AUSPOST API update on 18 April 2016
- * @link       https://developers.auspost.com.au/docs/reference
+ *
+ * @see       https://developers.auspost.com.au/docs/reference
  * @since      2.3.0.2   Update on 21 March 2017
  */
-
 class ModelExtensionShippingAusPost extends Model {
 	public function getQuote($address) {
 		$this->load->language('extension/shipping/auspost');
@@ -70,7 +70,7 @@ class ModelExtensionShippingAusPost extends Model {
 
 						foreach ($response_services as $response_service) {
 							$quote_data[$response_service['name']] = [
-								'code'         => 'auspost.' .  $response_service['name'],
+								'code'         => 'auspost.' . $response_service['name'],
 								'title'        => $response_service['name'],
 								'cost'         => $this->currency->convert($response_service['price'], 'AUD', $this->config->get('config_currency')),
 								'tax_class_id' => $this->config->get('shipping_auspost_tax_class_id'),
@@ -82,7 +82,7 @@ class ModelExtensionShippingAusPost extends Model {
 			} else {
 				$curl = curl_init();
 
-				curl_setopt($curl, CURLOPT_HTTPHEADER, ['AUTH-KEY: ' .  $api_key]);
+				curl_setopt($curl, CURLOPT_HTTPHEADER, ['AUTH-KEY: ' . $api_key]);
 				curl_setopt($curl, CURLOPT_URL, 'https://digitalapi.auspost.com.au/postage/parcel/international/service.json?country_code=' . urlencode($address['iso_code_2']) . '&weight=' . urlencode($weight));
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
@@ -104,7 +104,7 @@ class ModelExtensionShippingAusPost extends Model {
 
 						foreach ($response_services as $response_service) {
 							$quote_data[$response_service['name']] = [
-								'code'         => 'auspost.' .  $response_service['name'],
+								'code'         => 'auspost.' . $response_service['name'],
 								'title'        => $response_service['name'],
 								'cost'         => $this->currency->convert($response_service['price'], 'AUD', $this->config->get('config_currency')),
 								'tax_class_id' => $this->config->get('shipping_auspost_tax_class_id'),

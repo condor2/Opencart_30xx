@@ -61,7 +61,7 @@ class ControllerExtensionPaymentNochex extends Controller {
 		}
 
 		$data['email_address'] = $order_info['email'];
-		$data['customer_phone_number']= $order_info['telephone'];
+		$data['customer_phone_number'] = $order_info['telephone'];
 		$data['test'] = $this->config->get('payment_nochex_test');
 		$data['success_url'] = $this->url->link('checkout/success', '', true);
 		$data['cancel_url'] = $this->url->link('checkout/payment', '', true);

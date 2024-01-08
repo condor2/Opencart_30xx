@@ -4,7 +4,7 @@ class ControllerToolLog extends Controller {
 
 	public function index() {
 		$this->load->language('tool/log');
-		
+
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		if (isset($this->session->data['error'])) {
@@ -63,7 +63,7 @@ class ControllerToolLog extends Controller {
 				$i = 0;
 
 				while (($size / 1024) > 1) {
-					$size = $size / 1024;
+					$size /= 1024;
 					$i++;
 				}
 
@@ -104,7 +104,7 @@ class ControllerToolLog extends Controller {
 			$this->response->redirect($this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true));
 		}
 	}
-	
+
 	public function clear() {
 		$this->load->language('tool/log');
 

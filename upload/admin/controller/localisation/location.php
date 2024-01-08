@@ -146,13 +146,13 @@ class ControllerLocalisationLocation extends Controller {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'text' =>  $this->language->get('text_home'),
+			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' =>  $this->language->get('heading_title'),
-			'href' =>  $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
 		$data['add'] = $this->url->link('localisation/location/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -301,7 +301,7 @@ class ControllerLocalisationLocation extends Controller {
 		if (!isset($this->request->get['location_id'])) {
 			$data['action'] = $this->url->link('localisation/location/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('localisation/location/edit', 'user_token=' . $this->session->data['user_token'] .  '&location_id=' . $this->request->get['location_id'] . $url, true);
+			$data['action'] = $this->url->link('localisation/location/edit', 'user_token=' . $this->session->data['user_token'] . '&location_id=' . $this->request->get['location_id'] . $url, true);
 		}
 
 		$data['cancel'] = $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -345,7 +345,7 @@ class ControllerLocalisationLocation extends Controller {
 		} else {
 			$data['telephone'] = '';
 		}
-		
+
 		if (isset($this->request->post['fax'])) {
 			$data['fax'] = $this->request->post['fax'];
 		} elseif (!empty($location_info)) {
@@ -353,7 +353,7 @@ class ControllerLocalisationLocation extends Controller {
 		} else {
 			$data['fax'] = '';
 		}
-		
+
 		if (isset($this->request->post['image'])) {
 			$data['image'] = html_entity_decode($this->request->post['image'], ENT_QUOTES, 'UTF-8');
 		} elseif (!empty($location_info)) {

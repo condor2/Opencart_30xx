@@ -289,13 +289,13 @@ class ControllerCatalogCategory extends Controller {
 			$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 		} else {
 			$this->document->addScript('view/javascript/summernote/summernote.min.js');
-			if (file_exists('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js')) {
-			$this->document->addScript('view/javascript/summernote/lang/summernote-'. $this->language->get('summernote') .'.min.js');
+			if (file_exists('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js')) {
+				$this->document->addScript('view/javascript/summernote/lang/summernote-' . $this->language->get('summernote') . '.min.js');
 			}
 			$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
-			if (file_exists('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js')) {
-			$this->document->addScript('view/javascript/summernote/img-lang/'. $this->language->get('summernote') . '.js');
-            }
+			if (file_exists('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js')) {
+				$this->document->addScript('view/javascript/summernote/img-lang/' . $this->language->get('summernote') . '.js');
+			}
 			$this->document->addScript('view/javascript/summernote/opencart.js');
 			$this->document->addStyle('view/javascript/summernote/summernote.min.css');
 
@@ -577,7 +577,7 @@ class ControllerCatalogCategory extends Controller {
 						$seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
 
 						foreach ($seo_urls as $seo_url) {
-							if (($seo_url['store_id'] == $store_id) && (!isset($this->request->get['category_id']) || ($seo_url['query'] != 'category_id=' . $this->request->get['category_id']))) {		
+							if (($seo_url['store_id'] == $store_id) && (!isset($this->request->get['category_id']) || ($seo_url['query'] != 'category_id=' . $this->request->get['category_id']))) {
 								$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_keyword');
 
 								break;

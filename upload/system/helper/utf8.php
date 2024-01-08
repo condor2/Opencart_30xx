@@ -510,27 +510,27 @@ if (extension_loaded('mbstring')) {
 			$chr = ord($string[$i]);
 
 			if ($chr >= 0 && $chr <= 127) {
-				$unicode[] = (ord($string[$i]) * pow(64, 0));
+				$unicode[] = (ord($string[$i]) * 64 ** 0);
 			}
 
 			if ($chr >= 192 && $chr <= 223) {
-				$unicode[] = ((ord($string[$i]) - 192) * pow(64, 1) + (ord($string[$i + 1]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 192) * 64 ** 1 + (ord($string[$i + 1]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 224 && $chr <= 239) {
-				$unicode[] = ((ord($string[$i]) - 224) * pow(64, 2) + (ord($string[$i + 1]) - 128) * pow(64, 1) + (ord($string[$i + 2]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 224) * 64 ** 2 + (ord($string[$i + 1]) - 128) * 64 ** 1 + (ord($string[$i + 2]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 240 && $chr <= 247) {
-				$unicode[] = ((ord($string[$i]) - 240) * pow(64, 3) + (ord($string[$i + 1]) - 128) * pow(64, 2) + (ord($string[$i + 2]) - 128) * pow(64, 1) + (ord($string[$i + 3]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 240) * 64 ** 3 + (ord($string[$i + 1]) - 128) * 64 ** 2 + (ord($string[$i + 2]) - 128) * 64 ** 1 + (ord($string[$i + 3]) - 128) * 64 ** 0);
 			}
 
 			if ($chr >= 248 && $chr <= 251) {
-				$unicode[] = ((ord($string[$i]) - 248) * pow(64, 4) + (ord($string[$i + 1]) - 128) * pow(64, 3) + (ord($string[$i + 2]) - 128) * pow(64, 2) + (ord($string[$i + 3]) - 128) * pow(64, 1) + (ord($string[$i + 4]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 248) * 64 ** 4 + (ord($string[$i + 1]) - 128) * 64 ** 3 + (ord($string[$i + 2]) - 128) * 64 ** 2 + (ord($string[$i + 3]) - 128) * 64 ** 1 + (ord($string[$i + 4]) - 128) * 64 ** 0);
 			}
 
 			if ($chr == 252 || $chr == 253) {
-				$unicode[] = ((ord($string[$i]) - 252) * pow(64, 5) + (ord($string[$i + 1]) - 128) * pow(64, 4) + (ord($string[$i + 2]) - 128) * pow(64, 3) + (ord($string[$i + 3]) - 128) * pow(64, 2) + (ord($string[$i + 4]) - 128) * pow(64, 1) + (ord($string[$i + 5]) - 128) * pow(64, 0));
+				$unicode[] = ((ord($string[$i]) - 252) * 64 ** 5 + (ord($string[$i + 1]) - 128) * 64 ** 4 + (ord($string[$i + 2]) - 128) * 64 ** 3 + (ord($string[$i + 3]) - 128) * 64 ** 2 + (ord($string[$i + 4]) - 128) * 64 ** 1 + (ord($string[$i + 5]) - 128) * 64 ** 0);
 			}
 		}
 

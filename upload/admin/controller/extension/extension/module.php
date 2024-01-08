@@ -34,7 +34,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		} else {
 			$this->session->data['error'] = $this->error['warning'];
 		}
-	
+
 		$this->getList();
 	}
 
@@ -58,7 +58,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		$this->getList();
 	}
-	
+
 	public function add() {
 		$this->load->language('extension/extension/module');
 
@@ -89,7 +89,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 		}
-		
+
 		$this->getList();
 	}
 

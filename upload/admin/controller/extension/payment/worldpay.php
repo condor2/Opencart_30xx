@@ -121,11 +121,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		} else {
 			$data['payment_worldpay_last_cron_job_run'] = '';
 		}
-		
+
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
-		
+
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();

@@ -5,7 +5,7 @@ class ControllerEventStatistics extends Controller {
 		$this->load->model('report/statistics');
 
 		$this->model_report_statistics->addValue('review', 1);
-	}							   
+	}
 
 	// admin/model/catalog/review/deleteReview/after
 	public function deleteReview(&$route, &$args, &$output) {

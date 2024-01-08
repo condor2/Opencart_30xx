@@ -64,7 +64,7 @@ class ControllerCommonForgotten extends Controller {
 			$this->error['warning'] = $this->language->get('error_email');
 		} else {
 			if (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
-			$this->error['warning'] = $this->language->get('error_email');
+				$this->error['warning'] = $this->language->get('error_email');
 			}
 		}
 

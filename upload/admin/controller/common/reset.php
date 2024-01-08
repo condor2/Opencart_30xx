@@ -43,62 +43,62 @@ class ControllerCommonReset extends Controller {
 			$this->response->redirect($this->url->link('common/login', '', true));
 		}
 
-			$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($this->language->get('heading_title'));
 
-			if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-				$this->model_user_user->editPassword($user_info['user_id'], $this->request->post['password']);
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_user_user->editPassword($user_info['user_id'], $this->request->post['password']);
 
-				$this->model_user_user->deleteLoginAttempts($user_info['username']);
+			$this->model_user_user->deleteLoginAttempts($user_info['username']);
 
-				$this->session->data['success'] = $this->language->get('text_success');
+			$this->session->data['success'] = $this->language->get('text_success');
 
-				$this->response->redirect($this->url->link('common/login', '', true));
-			}
+			$this->response->redirect($this->url->link('common/login', '', true));
+		}
 
-			$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/dashboard', '', true)
-			);
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', '', true)
+		);
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('common/reset', '', true)
-			);
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('common/reset', '', true)
+		);
 
-			if (isset($this->error['password'])) {
-				$data['error_password'] = $this->error['password'];
-			} else {
-				$data['error_password'] = '';
-			}
+		if (isset($this->error['password'])) {
+			$data['error_password'] = $this->error['password'];
+		} else {
+			$data['error_password'] = '';
+		}
 
-			if (isset($this->error['confirm'])) {
-				$data['error_confirm'] = $this->error['confirm'];
-			} else {
-				$data['error_confirm'] = '';
-			}
+		if (isset($this->error['confirm'])) {
+			$data['error_confirm'] = $this->error['confirm'];
+		} else {
+			$data['error_confirm'] = '';
+		}
 
-			$data['action'] = $this->url->link('common/reset', 'email=' . urlencode($email) . '&code=' . $code, true);
+		$data['action'] = $this->url->link('common/reset', 'email=' . urlencode($email) . '&code=' . $code, true);
 
-			$data['cancel'] = $this->url->link('common/login', '', true);
+		$data['cancel'] = $this->url->link('common/login', '', true);
 
-			if (isset($this->request->post['password'])) {
-				$data['password'] = $this->request->post['password'];
-			} else {
-				$data['password'] = '';
-			}
+		if (isset($this->request->post['password'])) {
+			$data['password'] = $this->request->post['password'];
+		} else {
+			$data['password'] = '';
+		}
 
-			if (isset($this->request->post['confirm'])) {
-				$data['confirm'] = $this->request->post['confirm'];
-			} else {
-				$data['confirm'] = '';
-			}
+		if (isset($this->request->post['confirm'])) {
+			$data['confirm'] = $this->request->post['confirm'];
+		} else {
+			$data['confirm'] = '';
+		}
 
-			$data['header'] = $this->load->controller('common/header');
-			$data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
+		$data['footer'] = $this->load->controller('common/footer');
 
-			$this->response->setOutput($this->load->view('common/reset', $data));
+		$this->response->setOutput($this->load->view('common/reset', $data));
 	}
 
 	protected function validate() {

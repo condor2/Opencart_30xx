@@ -214,22 +214,22 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 		$data['cards'] = array(
-			'AMEX' => 'American Express',
-			'VISA' => 'Visa',
-			'DELTA' => 'Visa Debit',
-			'ELECTRON' => 'Visa Electron',
-			'PURCHASING' => 'Visa Purchasing',
-			'VPAY' => 'V Pay',
-			'MASTERCARD' => 'MasterCard',
+			'AMEX'            => 'American Express',
+			'VISA'            => 'Visa',
+			'DELTA'           => 'Visa Debit',
+			'ELECTRON'        => 'Visa Electron',
+			'PURCHASING'      => 'Visa Purchasing',
+			'VPAY'            => 'V Pay',
+			'MASTERCARD'      => 'MasterCard',
 			'MASTERCARDDEBIT' => 'MasterCard Debit',
-			'MAESTRO' => 'Maestro',
-			'PAYPAL' => 'PayPal',
+			'MAESTRO'         => 'Maestro',
+			'PAYPAL'          => 'PayPal',
 		);
 
 		$data['settlement_statuses'] = array(
-			'0' => $this->language->get('text_pending_settlement'),
-			'1' => $this->language->get('text_pending_settlement_manually_overriden'),
-			'2' => $this->language->get('text_pending_suspended'),
+			'0'   => $this->language->get('text_pending_settlement'),
+			'1'   => $this->language->get('text_pending_settlement_manually_overriden'),
+			'2'   => $this->language->get('text_pending_suspended'),
 			'100' => $this->language->get('text_pending_settled'),
 		);
 
@@ -307,8 +307,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 					$this->data = array(
 						'order_status_id' => $this->config->get('payment_securetrading_pp_authorisation_reversed_order_status_id'),
-						'notify' => false,
-						'comment' => '',
+						'notify'          => false,
+						'comment'         => '',
 					);
 
 					$this->load->model('sale/order');
@@ -379,7 +379,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount;
 					$json['data']['release_status'] = $release_status;
-					$json['data']['total'] = (double)$total_released;
+					$json['data']['total'] = (float)$total_released;
 					$json['error'] = false;
 				}
 			} else {
@@ -445,8 +445,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$json['data'] = array();
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount * -1;
-					$json['data']['total_released'] = (double)$total_released;
-					$json['data']['total_rebated'] = (double)$total_rebated;
+					$json['data']['total_released'] = (float)$total_released;
+					$json['data']['total_rebated'] = (float)$total_rebated;
 					$json['data']['rebate_status'] = $rebate_status;
 					$json['error'] = false;
 				} else {

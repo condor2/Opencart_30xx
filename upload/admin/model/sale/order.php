@@ -268,7 +268,7 @@ class ModelSaleOrder extends Model {
 
 		return $query->rows;
 	}
-	
+
 	public function getTotalOrders($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order`";
 

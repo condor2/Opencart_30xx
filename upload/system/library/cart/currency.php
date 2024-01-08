@@ -37,9 +37,9 @@ class Currency {
 		}
 
 		$amount = $value ? (float)$number * $value : (float)$number;
-		
+
 		$amount = round($amount, (int)$decimal_place);
-		
+
 		if (!$format) {
 			return $amount;
 		}
@@ -74,7 +74,7 @@ class Currency {
 
 		return $value * ($to / $from);
 	}
-	
+
 	public function getId($currency) {
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['currency_id'];

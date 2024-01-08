@@ -31,7 +31,7 @@ class ModelSaleRecurring extends Model {
 
 		if ($implode) {
 			$sql .= " WHERE " . implode(" AND ", $implode);
-		} 
+		}
 
 		$sort_data = array(
 			'or.`order_recurring_id`',

@@ -17,9 +17,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	public function getInitialPayments() {
-		$minimum = $this->config->get('payment_laybuy_min_deposit') ? $this->config->get('payment_laybuy_min_deposit') : 20;
+		$minimum = $this->config->get('payment_laybuy_min_deposit') ?: 20;
 
-		$maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
+		$maximum = $this->config->get('payment_laybuy_max_deposit') ?: 50;
 
 		$initial_payments = array();
 
@@ -229,30 +229,28 @@ class ModelExtensionPaymentLaybuy extends Model {
 	public function getTransactionStatuses() {
 		$this->load->language('extension/payment/laybuy');
 
-		$transaction_statuses = array(
+		return array(
 			array(
-				'status_id'		=> 1,
-				'status_name'	=> $this->language->get('text_status_1')
+				'status_id'   => 1,
+				'status_name' => $this->language->get('text_status_1')
 			),
 			array(
-				'status_id'		=> 5,
-				'status_name'	=> $this->language->get('text_status_5')
+				'status_id'   => 5,
+				'status_name' => $this->language->get('text_status_5')
 			),
 			array(
-				'status_id'		=> 7,
-				'status_name'	=> $this->language->get('text_status_7')
+				'status_id'   => 7,
+				'status_name' => $this->language->get('text_status_7')
 			),
 			array(
-				'status_id'		=> 50,
-				'status_name'	=> $this->language->get('text_status_50')
+				'status_id'   => 50,
+				'status_name' => $this->language->get('text_status_50')
 			),
 			array(
-				'status_id'		=> 51,
-				'status_name'	=> $this->language->get('text_status_51')
+				'status_id'   => 51,
+				'status_name' => $this->language->get('text_status_51')
 			)
 		);
-
-		return $transaction_statuses;
 	}
 
 	public function install() {

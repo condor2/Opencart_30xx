@@ -19,9 +19,9 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 		if ($status) {
 			$method_data = [
-				'code' => 'sagepay_server',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
+				'code'       => 'sagepay_server',
+				'title'      => $this->language->get('text_title'),
+				'terms'      => '',
 				'sort_order' => $this->config->get('payment_sagepay_server_sort_order')
 			];
 		}
@@ -40,14 +40,15 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		foreach ($query->rows as $row) {
 
 			$card_data[] = [
-				'card_id' => $row['card_id'],
+				'card_id'     => $row['card_id'],
 				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => '**** ' . $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'token'       => $row['token'],
+				'digits'      => '**** ' . $row['digits'],
+				'expiry'      => $row['expiry'],
+				'type'        => $row['type'],
 			];
 		}
+
 		return $card_data;
 	}
 
@@ -71,7 +72,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 	public function addOrder($order_info) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
-		
+
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `VPSTxId` = '" . $this->db->escape($order_info['VPSTxId']) . "',  `VendorTxCode` = '" . $this->db->escape($order_info['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($order_info['SecurityKey']) . "', `date_added` = now(), `date_modified` = now(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 	}
 
@@ -113,6 +114,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 	public function getRecurringOrders($order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE order_id = '" . (int)$order_id . "'");
+
 		return $query->rows;
 	}
 
@@ -138,7 +140,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 		//create new recurring and set to pending status as no payment has been made yet.
 		$recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item['recurring']);
-		
+
 		$this->model_checkout_recurring->editReference($recurring_id, $vendor_tx_code);
 	}
 
@@ -310,6 +312,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		}
 		$log = new Log('sagepay_server_recurring_orders.log');
 		$log->write(print_r($cron_data, 1));
+
 		return $cron_data;
 	}
 
@@ -327,8 +330,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			$minus_even = $cycle / 2;
 
 			if ($day == 1) {
-				$odd = $odd - 1;
-				$plus_even = $plus_even - 1;
+				$odd--;
+				$plus_even--;
 				$day = 16;
 			}
 
@@ -348,6 +351,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		} else {
 			$next_payment->modify('+' . $cycle . ' ' . $frequency);
 		}
+
 		return $next_payment;
 	}
 
@@ -361,6 +365,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 	private function getRecurringOrder($order_recurring_id) {
 		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "sagepay_server_order_recurring WHERE order_recurring_id = '" . (int)$order_recurring_id . "'");
+
 		return $qry->row;
 	}
 
@@ -383,11 +388,13 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		foreach ($qry->rows as $recurring) {
 			$order_recurring[] = $this->getProfile($recurring['order_recurring_id']);
 		}
+
 		return $order_recurring;
 	}
 
 	private function getProfile($order_recurring_id) {
 		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_recurring WHERE order_recurring_id = " . (int)$order_recurring_id);
+
 		return $qry->row;
 	}
 
@@ -424,6 +431,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
+
 		return $data;
 	}
 

@@ -143,12 +143,12 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 			}
 
 			$data['searches'][] = array(
-				'keyword'     => $result['keyword'],
-				'products'    => $result['products'],
-				'category'    => $category,
-				'customer'    => $customer,
-				'ip'          => $result['ip'],
-				'date_added'  => date($this->language->get('datetime_format'), strtotime($result['date_added']))
+				'keyword'    => $result['keyword'],
+				'products'   => $result['products'],
+				'category'   => $category,
+				'customer'   => $customer,
+				'ip'         => $result['ip'],
+				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
 			);
 		}
 

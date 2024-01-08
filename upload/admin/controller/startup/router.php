@@ -16,19 +16,19 @@ class ControllerStartupRouter extends Controller {
 		// Trigger the pre events
 		$result = $this->event->trigger('controller/' . $route . '/before', array(&$route, &$data));
 
-		if (!is_null($result)) {
+		if (null !== $result) {
 			return $result;
 		}
 
 		$action = new Action($route);
 
-		// Any output needs to be another Action object. 
+		// Any output needs to be another Action object.
 		$output = $action->execute($this->registry, $data);
 
 		// Trigger the post events
 		$result = $this->event->trigger('controller/' . $route . '/after', array(&$route, &$output));
 
-		if (!is_null($result)) {
+		if (null !== $result) {
 			return $result;
 		}
 

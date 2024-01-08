@@ -47,7 +47,7 @@ class Smtp extends \stdClass {
 		}
 
 		$header .= 'Return-Path: ' . $this->from . PHP_EOL;
-		$header .= 'X-Mailer: PHP/' . phpversion() . PHP_EOL;
+		$header .= 'X-Mailer: PHP/' . PHP_VERSION . PHP_EOL;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . PHP_EOL . PHP_EOL;
 
 		if (!$this->html) {
@@ -107,7 +107,7 @@ class Smtp extends \stdClass {
 			throw new \Exception('Error: ' . $errstr . ' (' . $errno . ')');
 		} else {
 			if (substr(PHP_OS, 0, 3) != 'WIN') {
-				socket_set_timeout($handle, $this->smtp_timeout, 0);
+				stream_set_timeout($handle, $this->smtp_timeout, 0);
 			}
 
 			while ($line = fgets($handle, 515)) {
@@ -116,7 +116,7 @@ class Smtp extends \stdClass {
 				}
 			}
 
-			fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
+			fwrite($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
 
 			$reply = '';
 
@@ -138,7 +138,7 @@ class Smtp extends \stdClass {
 			}
 
 			if (substr($this->smtp_hostname, 0, 3) == 'tls') {
-				fputs($handle, 'STARTTLS' . "\r\n");
+				fwrite($handle, 'STARTTLS' . "\r\n");
 
 				$this->handleReply($handle, 220, 'Error: STARTTLS not accepted from server!');
 
@@ -146,38 +146,38 @@ class Smtp extends \stdClass {
 			}
 
 			if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
-				fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
+				fwrite($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
 
 				$this->handleReply($handle, 250, 'Error: EHLO not accepted from server!');
 
-				fputs($handle, 'AUTH LOGIN' . "\r\n");
+				fwrite($handle, 'AUTH LOGIN' . "\r\n");
 
 				$this->handleReply($handle, 334, 'Error: AUTH LOGIN not accepted from server!');
 
-				fputs($handle, base64_encode($this->smtp_username) . "\r\n");
+				fwrite($handle, base64_encode($this->smtp_username) . "\r\n");
 
 				$this->handleReply($handle, 334, 'Error: Username not accepted from server!');
 
-				fputs($handle, base64_encode($this->smtp_password) . "\r\n");
+				fwrite($handle, base64_encode($this->smtp_password) . "\r\n");
 
 				$this->handleReply($handle, 235, 'Error: Password not accepted from server!');
 
 			} else {
-				fputs($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
+				fwrite($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
 
 				$this->handleReply($handle, 250, 'Error: HELO not accepted from server!');
 			}
 
 			if ($this->verp) {
-				fputs($handle, 'MAIL FROM: <' . $this->from . '>XVERP' . "\r\n");
+				fwrite($handle, 'MAIL FROM: <' . $this->from . '>XVERP' . "\r\n");
 			} else {
-				fputs($handle, 'MAIL FROM: <' . $this->from . '>' . "\r\n");
+				fwrite($handle, 'MAIL FROM: <' . $this->from . '>' . "\r\n");
 			}
 
 			$this->handleReply($handle, 250, 'Error: MAIL FROM not accepted from server!');
 
 			if (!is_array($this->to)) {
-				fputs($handle, 'RCPT TO: <' . $this->to . '>' . "\r\n");
+				fwrite($handle, 'RCPT TO: <' . $this->to . '>' . "\r\n");
 
 				$reply = $this->handleReply($handle, false, 'RCPT TO [!array]');
 
@@ -186,7 +186,7 @@ class Smtp extends \stdClass {
 				}
 			} else {
 				foreach ($this->to as $recipient) {
-					fputs($handle, 'RCPT TO: <' . $recipient . '>' . "\r\n");
+					fwrite($handle, 'RCPT TO: <' . $recipient . '>' . "\r\n");
 
 					$reply = $this->handleReply($handle, false, 'RCPT TO [array]');
 
@@ -196,7 +196,7 @@ class Smtp extends \stdClass {
 				}
 			}
 
-			fputs($handle, 'DATA' . "\r\n");
+			fwrite($handle, 'DATA' . "\r\n");
 
 			$this->handleReply($handle, 354, 'Error: DATA not accepted from server!');
 
@@ -213,18 +213,18 @@ class Smtp extends \stdClass {
 
 				foreach ($results as $result) {
 					if (substr(PHP_OS, 0, 3) != 'WIN') {
-						fputs($handle, $result . "\r\n");
+						fwrite($handle, $result . "\r\n");
 					} else {
-						fputs($handle, str_replace("\n", "\r\n", $result) . "\r\n");
+						fwrite($handle, str_replace("\n", "\r\n", $result) . "\r\n");
 					}
 				}
 			}
 
-			fputs($handle, '.' . "\r\n");
+			fwrite($handle, '.' . "\r\n");
 
 			$this->handleReply($handle, 250, 'Error: DATA not accepted from server!');
 
-			fputs($handle, 'QUIT' . "\r\n");
+			fwrite($handle, 'QUIT' . "\r\n");
 
 			$this->handleReply($handle, 221, 'Error: QUIT not accepted from server!');
 

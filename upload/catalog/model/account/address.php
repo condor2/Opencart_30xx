@@ -58,7 +58,7 @@ class ModelAccountAddress extends Model {
 				$zone_code = '';
 			}
 
-			$address_data = array(
+			return array(
 				'address_id'     => $address_query->row['address_id'],
 				'firstname'      => $address_query->row['firstname'],
 				'lastname'       => $address_query->row['lastname'],
@@ -77,8 +77,6 @@ class ModelAccountAddress extends Model {
 				'address_format' => $address_format,
 				'custom_field'   => json_decode($address_query->row['custom_field'], true)
 			);
-
-			return $address_data;
 		} else {
 			return false;
 		}

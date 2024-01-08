@@ -56,7 +56,7 @@ class ControllerMailTransaction extends Controller {
 
 			$data['text_amount'] = $this->language->get('text_amount');
 			$data['text_total'] = $this->language->get('text_total');
-			
+
 			$data['amount'] = $this->currency->format($args[2], $this->config->get('config_currency'));
 			$data['total'] = $this->currency->format($this->model_account_customer->getTransactionTotal($args[0]), $this->config->get('config_currency'));
 

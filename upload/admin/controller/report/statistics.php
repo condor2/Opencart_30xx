@@ -1,7 +1,7 @@
 <?php
 class ControllerReportStatistics extends Controller {
 	private $error = array();
-	
+
 	public function index() {
 		$this->load->language('report/statistics');
 
@@ -49,7 +49,7 @@ class ControllerReportStatistics extends Controller {
 			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
 		}
 
-		$this->getList();	
+		$this->getList();
 	}
 
 	public function ordercomplete() {
@@ -127,7 +127,7 @@ class ControllerReportStatistics extends Controller {
 	public function customer() {
 		$this->load->language('report/statistics');
 
-		$this->document->setTitle($this->language->get('heading_title'));	
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('report/statistics');
 

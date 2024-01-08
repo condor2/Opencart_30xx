@@ -3,9 +3,9 @@ namespace Session;
 class Redis {
 	private $config;
 	private \Redis $redis;
-	public  $prefix;
+	public $prefix;
 
-	public function __construct($registry)	{
+	public function __construct($registry) {
 		$this->config = $registry->get('config');
 
 		try {

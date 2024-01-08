@@ -199,7 +199,7 @@ class ControllerAccountAddress extends Controller {
 
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
-				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\\s\\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
 				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
 				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
 			);
@@ -370,7 +370,7 @@ class ControllerAccountAddress extends Controller {
 
 		if (isset($this->request->post['country_id'])) {
 			$data['country_id'] = (int)$this->request->post['country_id'];
-		}  elseif (!empty($address_info)) {
+		} elseif (!empty($address_info)) {
 			$data['country_id'] = $address_info['country_id'];
 		} else {
 			$data['country_id'] = $this->config->get('config_country_id');
@@ -378,7 +378,7 @@ class ControllerAccountAddress extends Controller {
 
 		if (isset($this->request->post['zone_id'])) {
 			$data['zone_id'] = (int)$this->request->post['zone_id'];
-		}  elseif (!empty($address_info)) {
+		} elseif (!empty($address_info)) {
 			$data['zone_id'] = $address_info['zone_id'];
 		} else {
 			$data['zone_id'] = '';
@@ -390,7 +390,7 @@ class ControllerAccountAddress extends Controller {
 
 		// Custom fields
 		$data['custom_fields'] = array();
-		
+
 		$this->load->model('account/custom_field');
 
 		$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));

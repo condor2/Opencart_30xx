@@ -105,54 +105,54 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
 		);
-		
+
 		$data['add'] = $this->url->link('extension/credit_card/sagepay_direct/addCard', '', true);
 		$data['back'] = $this->url->link('extension/credit_card/sagepay_direct', '', true);
 
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text' => 'Visa',
+			'text'  => 'Visa',
 			'value' => 'VISA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'MasterCard',
+			'text'  => 'MasterCard',
 			'value' => 'MC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Delta/Debit',
+			'text'  => 'Visa Delta/Debit',
 			'value' => 'DELTA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Solo',
+			'text'  => 'Solo',
 			'value' => 'SOLO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Maestro',
+			'text'  => 'Maestro',
 			'value' => 'MAESTRO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Electron UK Debit',
+			'text'  => 'Visa Electron UK Debit',
 			'value' => 'UKE'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'American Express',
+			'text'  => 'American Express',
 			'value' => 'AMEX'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Diners Club',
+			'text'  => 'Diners Club',
 			'value' => 'DC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Japan Credit Bureau',
+			'text'  => 'Japan Credit Bureau',
 			'value' => 'JCB'
 		);
 
@@ -160,7 +160,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text' => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -207,17 +207,17 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 			} else {
 				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
 			}
-			
+
 			$payment_data['VPSProtocol'] = '3.00';
 			$payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
 			$payment_data['TxType'] = 'REMOVETOKEN';
 			$payment_data['Token'] = $card['token'];
 
 			$response_data = $this->model_extension_payment_sagepay_direct->sendCurl($url, $payment_data);
-			
+
 			if ($response_data['Status'] == 'OK') {
 				$this->model_extension_payment_sagepay_direct->deleteCard($this->request->get['card_id']);
-				
+
 				$this->session->data['success'] = $this->language->get('text_success_card');
 			} else {
 				$this->session->data['error_warning'] = $this->language->get('text_fail_card');
@@ -225,7 +225,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		} else {
 			$this->session->data['error_warning'] = $this->language->get('text_fail_card');
 		}
-		
+
 		$this->response->redirect($this->url->link('acredit_card/sagepay_direct', '', true));
 	}
 

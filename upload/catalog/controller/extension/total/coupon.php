@@ -49,13 +49,13 @@ class ControllerExtensionTotalCoupon extends Controller {
 
 	public function remove() {
 		$json = array();
-		
+
 		if (isset($this->session->data['coupon'])) {
 			unset($this->session->data['coupon']);
-			
+
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
 		}
-		
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

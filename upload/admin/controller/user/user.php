@@ -400,7 +400,7 @@ class ControllerUserUser extends Controller {
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
 			$data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
-		} else {			
+		} else {
 			$data['thumb'] = $data['placeholder'];
 		}
 

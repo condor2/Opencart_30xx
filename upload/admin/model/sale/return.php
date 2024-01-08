@@ -2,7 +2,7 @@
 class ModelSaleReturn extends Model {
 	public function addReturn($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET `order_id` = '" . (int)$data['order_id'] . "', `product_id` = '" . (int)$data['product_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `product` = '" . $this->db->escape($data['product']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `opened` = '" . (int)$data['opened'] . "', `return_reason_id` = '" . (int)$data['return_reason_id'] . "', `return_action_id` = '" . (int)$data['return_action_id'] . "', `return_status_id` = '" . (int)$data['return_status_id'] . "', `comment` = '" . $this->db->escape($data['comment']) . "', `date_ordered` = '" . $this->db->escape($data['date_ordered']) . "', `date_added` = NOW(), `date_modified` = NOW()");
-	
+
 		return $this->db->getLastId();
 	}
 
@@ -35,7 +35,7 @@ class ModelSaleReturn extends Model {
 		}
 
 		if (!empty($data['filter_recurring'])) {
-			$implode[] = "r.`product_id` IN (SELECT `or`.`product_id` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "recurring` r ON (`or`.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = `or`.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";	
+			$implode[] = "r.`product_id` IN (SELECT `or`.`product_id` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "recurring` r ON (`or`.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = `or`.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";
 		}
 
 		if (!empty($data['filter_customer'])) {
@@ -124,7 +124,7 @@ class ModelSaleReturn extends Model {
 		}
 
 		if (!empty($data['filter_recurring'])) {
-			$implode[] = "r.`product_id` IN (SELECT `or`.`product_id` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "recurring` r ON (`or`.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = `or`.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";	
+			$implode[] = "r.`product_id` IN (SELECT `or`.`product_id` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "recurring` r ON (`or`.`recurring_id` = r.`recurring_id`) LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`name` LIKE '" . $this->db->escape($data['filter_recurring']) . "%' AND r.`product_id` = `or`.`product_id` AND rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "')";
 		}
 
 		if (!empty($data['filter_product'])) {
@@ -173,7 +173,7 @@ class ModelSaleReturn extends Model {
 
 		return (int)$query->row['total'];
 	}
-	
+
 	public function addReturnHistory($return_id, $return_status_id, $comment, $notify) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "return` SET `return_status_id` = '" . (int)$return_status_id . "', `date_modified` = NOW() WHERE `return_id` = '" . (int)$return_id . "'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return_history` SET `return_id` = '" . (int)$return_id . "', `return_status_id` = '" . (int)$return_status_id . "', `notify` = '" . (int)$notify . "', `comment` = '" . $this->db->escape(strip_tags($comment)) . "', `date_added` = NOW()");

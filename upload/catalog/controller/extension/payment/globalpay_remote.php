@@ -6,11 +6,11 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$accounts = $this->config->get('payment_globalpay_remote_account');
 
 		$card_types = array(
-			'visa' => $this->language->get('text_card_visa'),
-			'mc' => $this->language->get('text_card_mc'),
-			'amex' => $this->language->get('text_card_amex'),
+			'visa'   => $this->language->get('text_card_visa'),
+			'mc'     => $this->language->get('text_card_mc'),
+			'amex'   => $this->language->get('text_card_amex'),
 			'switch' => $this->language->get('text_card_switch'),
-			'laser' => $this->language->get('text_card_laser'),
+			'laser'  => $this->language->get('text_card_laser'),
 			'diners' => $this->language->get('text_card_diners'),
 		);
 
@@ -78,7 +78,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		if (isset($json['error'])) {
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
-			die();
+			exit();
 		}
 
 		$order_id = $this->session->data['order_id'];
@@ -112,17 +112,17 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				// Proceed to 3D secure
 				if (isset($verify_3ds->result) && $verify_3ds->result == '00') {
 					$enc_data = array(
-						'account' => $account,
-						'amount' => $amount,
-						'currency' => $currency,
-						'order_id' => $order_id,
+						'account'   => $account,
+						'amount'    => $amount,
+						'currency'  => $currency,
+						'order_id'  => $order_id,
 						'order_ref' => $order_ref,
 						'cc_number' => $this->request->post['cc_number'],
 						'cc_expire' => $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'],
-						'cc_name' => $this->request->post['cc_name'],
-						'cc_type' => $this->request->post['cc_type'],
-						'cc_cvv2' => $this->request->post['cc_cvv2'],
-						'cc_issue' => $this->request->post['cc_issue']
+						'cc_name'   => $this->request->post['cc_name'],
+						'cc_type'   => $this->request->post['cc_type'],
+						'cc_cvv2'   => $this->request->post['cc_cvv2'],
+						'cc_issue'  => $this->request->post['cc_issue']
 					);
 
 					$md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
@@ -136,7 +136,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$this->response->addHeader('Content-Type: application/json');
 					$this->response->setOutput(json_encode($json));
 					$this->response->output();
-					die();
+					exit();
 				}
 
 				// Cardholder Not Enrolled. Shift in liability. ECI = 6
@@ -161,7 +161,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
 						$this->response->output();
-						die();
+						exit();
 					} else {
 						$eci_ref = 2;
 						$xid = '';
@@ -175,7 +175,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				}
 
 				// Invalid response from Enrollment Server. No shift in liability. ECI = 7
-				if (isset($verify_3ds->result)  && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
+				if (isset($verify_3ds->result) && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
 					if ($this->config->get('payment_globalpay_remote_liability') != 1) {
 						$this->load->language('extension/payment/globalpay_remote');
 
@@ -184,7 +184,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
 						$this->response->output();
-						die();
+						exit();
 					} else {
 						$eci_ref = 3;
 						if ($this->request->post['cc_type'] == 'mc') {
@@ -279,7 +279,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				}
 
 				// Invalid response from ACS.  No shift in liability. ECI = 7
-				if (isset($signature_result->result)  && $signature_result->result >= 500 && $signature_result->result < 600) {
+				if (isset($signature_result->result) && $signature_result->result >= 500 && $signature_result->result < 600) {
 					$eci_ref = 9;
 					$xid = '';
 					$cavv = '';
@@ -306,7 +306,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 
 					$this->response->redirect($this->url->link('checkout/checkout', '', true));
-					die();
+					exit();
 				}
 			}
 

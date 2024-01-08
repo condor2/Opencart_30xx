@@ -182,7 +182,7 @@ class ControllerCatalogManufacturer extends Controller {
 
 			$data['manufacturers'][] = array(
 				'manufacturer_id' => $result['manufacturer_id'],
-				'image'		      => $image,
+				'image'           => $image,
 				'name'            => $result['name'],
 				'sort_order'      => $result['sort_order'],
 				'edit'            => $this->url->link('catalog/manufacturer/edit', 'user_token=' . $this->session->data['user_token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url, true)
@@ -417,7 +417,7 @@ class ControllerCatalogManufacturer extends Controller {
 
 		if ($this->request->post['manufacturer_seo_url']) {
 			$this->load->model('design/seo_url');
-			
+
 			foreach ($this->request->post['manufacturer_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
 					if (!empty($keyword)) {
