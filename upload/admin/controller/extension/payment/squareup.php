@@ -630,6 +630,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		try {
 			$token = $this->squareup->exchangeCodeForAccessToken($this->request->get['code']);
 
+			$first_location_id = null;
+
 			$previous_setting = $this->model_setting_setting->getSetting('payment_squareup');
 
 			$previous_setting['payment_squareup_locations'] = $this->squareup->fetchLocations($token['access_token'], $first_location_id);
