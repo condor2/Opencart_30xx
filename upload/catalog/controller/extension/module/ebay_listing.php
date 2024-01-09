@@ -11,13 +11,7 @@ class ControllerExtensionModuleEbayListing extends Controller {
 
 			$data['products'] = array();
 
-			$products = $this->cache->get('ebay_listing.' . md5(serialize($products)));
-
-			if (!$products) {
-				$products = $this->model_extension_openbay_ebay_product->getDisplayProducts();
-
-				$this->cache->set('ebay_listing.' . md5(serialize($products)), $products);
-			}
+			$products = $this->model_extension_openbay_ebay_product->getDisplayProducts();
 
 			foreach ($products['products'] as $product) {
 				if (isset($product['pictures'][0])) {
