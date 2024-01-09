@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -45,7 +45,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * @method \WeChat\Pay WeChatPay($options = []) static 微信支付商户
  * @method \WeChat\Product WeChatProduct($options = []) static 微信商店管理
  * @method \WeChat\Qrcode WeChatQrcode($options = []) static 微信二维码管理
- * @method \WeChat\Receive WeChatReceive($options = []) static 微信推送管理
+ * @method \WeChat\Receive WeChatReceive($options = [], $showEchoStr = true) static 微信推送管理
  * @method \WeChat\Scan WeChatScan($options = []) static 微信扫一扫接入管理
  * @method \WeChat\Script WeChatScript($options = []) static 微信前端支持
  * @method \WeChat\Shake WeChatShake($options = []) static 微信揺一揺周边
@@ -59,6 +59,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * ----- WeMini -----
  * @method \WeMini\Crypt WeMiniCrypt($options = []) static 小程序数据加密处理
  * @method \WeMini\Delivery WeMiniDelivery($options = []) static 小程序即时配送
+ * @method \WeMini\Shipping WeMiniShipping($options = []) satic 小程序发货信息
  * @method \WeMini\Guide WeMiniGuide($options = []) static 小程序导购助手
  * @method \WeMini\Image WeMiniImage($options = []) static 小程序图像处理
  * @method \WeMini\Live WeMiniLive($options = []) static 小程序直播接口
@@ -94,7 +95,7 @@ class We
      * 定义当前版本
      * @var string
      */
-    const VERSION = '1.2.49';
+    const VERSION = '1.2.53';
 
     /**
      * 静态配置

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -72,10 +72,11 @@ class BasicPushEvent
 
     /**
      * BasicPushEvent constructor.
-     * @param array $options
+     * @param array $options 配置参数
+     * @param boolean $showEchoStr 回显内容
      * @throws \WeChat\Exceptions\InvalidResponseException
      */
-    public function __construct(array $options)
+    public function __construct(array $options, $showEchoStr = true)
     {
         if (empty($options['appid'])) {
             throw new InvalidArgumentException("Missing Config -- [appid]");
@@ -108,10 +109,24 @@ class BasicPushEvent
             }
             $this->receive = new DataArray(Tools::xml2arr($this->postxml));
         } elseif ($_SERVER['REQUEST_METHOD'] == "GET" && $this->checkSignature()) {
-            @ob_clean();
-            exit($this->input->get('echostr'));
+            if ($showEchoStr && ob_clean()) {
+                echo($this->input->get('echostr'));
+            }
         } else {
             throw new InvalidResponseException('Invalid interface request.', '0');
+        }
+    }
+
+    /**
+     * 获取回显字串
+     * @return string
+     */
+    public function getEchoStr()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "GET" && $this->checkSignature()) {
+            return $this->input->get('echostr');
+        } else {
+            return '';
         }
     }
 
@@ -129,7 +144,7 @@ class BasicPushEvent
      * @param array $data 消息内容
      * @param boolean $return 是否返回XML内容
      * @param boolean $isEncrypt 是否加密内容
-     * @return string
+     * @return string|void
      * @throws \WeChat\Exceptions\InvalidDecryptException
      */
     public function reply(array $data = [], $return = false, $isEncrypt = false)
