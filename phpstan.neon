@@ -5,7 +5,6 @@ parameters:
     excludePaths:
         - ./system/storage/vendor/
         - ./upload/system/storage/vendor/
-        - ./upload/catalog/controller/extension/module/ebay_listing.php
         - ./upload/catalog/controller/extension/payment/wechat_pay.php
         - ./upload/catalog/controller/extension/recurring/pp_express.php
         - ./upload/catalog/model/extension/payment/alipay.php
