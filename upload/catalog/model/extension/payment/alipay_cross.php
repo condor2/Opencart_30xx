@@ -110,18 +110,18 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	public function createLinkstring($para) {
-		$arg  = "";
-		while ([$key, $val] = each($para)) {
+		$arg = "";
+		foreach ($para as $key => $val) {
 			$arg .= $key . "=" . $val . "&";
 		}
 
-		//remove the last char '&'
-		return substr($arg, 0, count($arg) - 2);
+		// Remove the last char '&'
+		return rtrim($arg, '&');
 	}
 
 	public function paraFilter($para) {
 		$para_filter = array();
-		while ([$key, $val] = each($para)) {
+		foreach ($para as $key => $val) {
 			if ($key == "sign" || $key == "sign_type" || $val == "") {
 				continue;
 			} else {
