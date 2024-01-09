@@ -193,7 +193,7 @@ class ModelExtensionShippingECShip extends Model {
 			'ESP'  => 'ESA',
 			'LKA'  => 'LKA',
 			'KNA'  => 'KNA',
-			'SHN'  => array('SHA','TAA'),
+			'SHN'  => array('SHA', 'TAA'),
 			'LCA'  => 'LCA',
 			'SPM'  => 'PMA',
 			'VCT'  => 'VCA',
