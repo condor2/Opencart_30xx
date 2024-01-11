@@ -31,6 +31,8 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 
 		$this->load->language('extension/recurring/pp_express');
 
+		$log = new Log('recurring_pp_express.log');
+
 		//cancel an active recurring
 		$this->load->model('account/recurring');
 
@@ -61,7 +63,6 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				'SIGNATURE'    => $api_signature,
 				'VERSION'      => '109.0',
 				'BUTTONSOURCE' => 'OpenCart_2.0_EC',
-				'METHOD'       => 'SetExpressCheckout',
 				'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
 				'PROFILEID'    => $recurring_info['reference'],
 				'ACTION'       => 'Cancel'
