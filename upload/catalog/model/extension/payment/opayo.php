@@ -505,11 +505,15 @@ class ModelExtensionPaymentOpayo extends Model {
 		$response_info = explode(chr(10), $response);
 
 		foreach ($response_info as $string) {
-			if (strpos($string, '=') && isset($i)) {
-				$parts = explode('=', $string, 2);
+			if (strpos($string, '=') === false) {
+				continue;
+			}
+
+			$parts = explode('=', $string, 2);
+
+			if ($i !== null) {
 				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
-			} elseif (strpos($string, '=')) {
-				$parts = explode('=', $string, 2);
+			} else {
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
@@ -528,7 +532,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		if ($setting['general']['debug']) {
 			$log = new Log('opayo.log');
 
-			$log->write($title . ': ' . print_r($data, 1));
+			$log->write($title . ': ' . print_r($data, true));
 		}
 	}
 
