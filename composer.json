@@ -14,7 +14,6 @@
         "scssphp/scssphp": "^1.4.1",
         "divido/divido-php": "1.15",
         "php": ">=7.4.0",
-        "twig/twig": "^3.0",
-        "zoujingli/wechat-developer": ">=v1.2.48"
+        "twig/twig": "^3.0"
     }
 }
