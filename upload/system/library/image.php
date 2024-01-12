@@ -273,6 +273,35 @@ class Image {
 		$this->height = imagesy($this->image);
 	}
 
+	private function filter() {
+		$args = func_get_args();
+
+		imagefilter(...$args);
+	}
+
+	/**
+	 * @param string $text
+	 * @param int    $x
+	 * @param int    $y
+	 * @param int    $size
+	 * @param string $color
+	 */
+	private function text($text, $x = 0, $y = 0, $size = 5, $color = '000000') {
+		$rgb = $this->html2rgb($color);
+
+		imagestring($this->image, $size, $x, $y, $text, imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
+	}
+
+	/**
+	 * @param object $merge
+	 * @param object $x
+	 * @param object $y
+	 * @param object $opacity
+	 */
+	private function merge($merge, $x = 0, $y = 0, $opacity = 100) {
+		imagecopymerge($this->image, $merge->getImage(), $x, $y, 0, 0, $merge->getWidth(), $merge->getHeight(), $opacity);
+	}
+
 	/**
 	 * @param string $color
 	 *
