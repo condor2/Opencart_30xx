@@ -11,10 +11,20 @@
 
 /**
  * Model class
+ *
+ * @mixin Registry
  */
-abstract class Model {
+class Model {
+	/**
+	 * @var Registry
+	 */
 	protected $registry;
 
+	/**
+	 * Constructor
+	 *
+	 * @param Registry $registry
+	 */
 	public function __construct($registry) {
 		$this->registry = $registry;
 	}
