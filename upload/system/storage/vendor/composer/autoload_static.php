@@ -28,6 +28,7 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         'T' => 
         array (
             'Twig\\' => 5,
+            'Tools\\PHPStan\\' => 14,
         ),
         'S' => 
         array (
@@ -86,6 +87,10 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Tools\\PHPStan\\' => 
+        array (
+            0 => __DIR__ . '/../../../../..' . '/tools/phpstan',
         ),
         'Symfony\\Polyfill\\Php81\\' => 
         array (

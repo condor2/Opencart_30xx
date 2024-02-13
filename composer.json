@@ -15,5 +15,9 @@
         "divido/divido-php": "1.15",
         "php": ">=7.4.0",
         "twig/twig": "^3.0"
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tools\\PHPStan\\": "tools/phpstan/"
+        }
 }
