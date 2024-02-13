@@ -20,4 +20,5 @@
         "psr-4": {
             "Tools\\PHPStan\\": "tools/phpstan/"
         }
+    }
 }
