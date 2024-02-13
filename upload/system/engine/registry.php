@@ -51,12 +51,10 @@ final class Registry {
 	}
 
 	/**
-     * 
-     *
-     * @param	string	$key
-	 * 
-	 * @return	mixed
-     */
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
 	public function get($key) {
 		return $this->data[$key] ?? null;
 	}
