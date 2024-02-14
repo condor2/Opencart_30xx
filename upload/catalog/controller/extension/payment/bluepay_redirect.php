@@ -7,7 +7,7 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'text'  => sprintf('%02d', $i),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -18,8 +18,8 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%Y', mktime(0, 0, 0, 1, 1, $i))
+				'text'  => sprintf('%02d', $i % 100),
+				'value' => sprintf('%04d', $i)
 			);
 		}
 
@@ -46,11 +46,11 @@ class ControllerExtensionPaymentBluepayRedirect extends Controller {
 
 		$this->load->model('checkout/order');
 
+		$this->load->model('extension/payment/bluepay_redirect');
+
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
-
-		$this->load->model('extension/payment/bluepay_redirect');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 		$post_data = $this->request->post;
