@@ -11,9 +11,13 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('currency_ecb', $this->request->post);
+
 			$this->session->data['success'] = $this->language->get('text_success');
+
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency', true));
 		}
+
+		$data['text_information'] = $this->language->get('text_information');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -53,7 +57,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 		$data['text_information'] = str_replace('%1', $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_information']);
 		$data['text_information'] = str_replace('%2', $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_information']);
 
-		$data['currency_ecb_cron'] = 'curl -S &quot;' . HTTPS_CATALOG . 'index.php?route=extension/currency/ecb/refresh&quot;';
+		$data['currency_ecb_cron'] = 'curl -s &quot;' . HTTPS_CATALOG . 'index.php?route=extension/currency/ecb/refresh&quot;';
 
 		if (isset($this->request->post['currency_ecb_ip'])) {
 			$data['currency_ecb_ip'] = $this->request->post['currency_ecb_ip'];
