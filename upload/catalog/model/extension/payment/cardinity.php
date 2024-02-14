@@ -92,7 +92,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	public function cardinityLog($data, $class_step = 6, $function_step = 6) {
 		if ($this->config->get('payment_cardinity_debug')) {
 			$backtrace = debug_backtrace();
-			$log = \new Log('cardinity.log');
+			$log = new \Log('cardinity.log');
 			$log->write('(' . $backtrace[$class_step]['class'] . '::' . $backtrace[$function_step]['function'] . ') - ' . print_r($data, true));
 		}
 	}
