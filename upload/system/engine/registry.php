@@ -24,6 +24,7 @@
  * @property Config                        $setting
  * @property DB                            $db
  * @property Document                      $document
+ * @property Encryption                    $encryption
  * @property Event                         $event
  * @property googleshopping\Googleshopping $googleshopping
  * @property Language                      $language
@@ -32,6 +33,7 @@
  * @property Request                       $request
  * @property Response                      $response
  * @property Session                       $session
+ * @property ?Squareup                     $squareup
  * @property Url                           $url
  */
 final class Registry {
