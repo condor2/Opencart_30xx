@@ -17,4 +17,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.allowedContent = true;
 	config.extraPlugins = 'codemirror';
 	config.codemirror_theme = 'monokai';
+	config.versionCheck = false;
 };
