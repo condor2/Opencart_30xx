@@ -139,10 +139,10 @@ class ControllerAccountDownload extends Controller {
 
 					exit();
 				} else {
-					exit('Error: Could not find file ' . $file . '!');
+					exit(sprintf($this->language->get('error_not_found'), basename($file)));
 				}
 			} else {
-				exit('Error: Headers already sent out!');
+				exit($this->language->get('error_headers_sent'));
 			}
 		} else {
 			$this->response->redirect($this->url->link('account/download', '', true));

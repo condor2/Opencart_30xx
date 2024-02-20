@@ -412,7 +412,6 @@ class ControllerCatalogDownload extends Controller {
 		return !$this->error;
 	}
 
-
 	public function report(): void {
 		$this->load->language('catalog/download');
 

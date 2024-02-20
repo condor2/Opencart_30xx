@@ -106,6 +106,10 @@ class ModelCatalogDownload extends Model {
 		return $query->rows;
 	}
 
+	public function deleteDownloadReport(int $download_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "download_report` WHERE `download_id` = '" . (int)$download_id . "'");
+	}
+
 	public function getTotalDownloadReports($download_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "download_report` WHERE `download_id` = '" . (int)$download_id . "'");
 
