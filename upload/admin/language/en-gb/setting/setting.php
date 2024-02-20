@@ -38,6 +38,7 @@ $_['text_ckeditor']                  = 'CKEditor';
 $_['text_none']                      = 'None';
 $_['text_lax']                       = 'Lax';
 $_['text_strict']                    = 'Strict';
+$_['text_editor']                    = 'Editor';
 
 // Entry
 $_['entry_meta_title']               = 'Meta Title';
