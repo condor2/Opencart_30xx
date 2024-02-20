@@ -1210,7 +1210,7 @@ $('#tab-product input[name=\'product\']').autocomplete({
 
 		if (item['option'] != '') {
  			html  = '<fieldset>';
-            html += '  <legend>{{ entry_option }}</legend>';
+            html += '  <legend>{{ entry_option|escape('js') }}</legend>';
 
 			for (i = 0; i < item['option'].length; i++) {
 				option = item['option'][i];

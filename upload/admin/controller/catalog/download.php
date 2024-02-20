@@ -355,6 +355,8 @@ class ControllerCatalogDownload extends Controller {
 			$data['mask'] = '';
 		}
 
+		$data['report'] = $this->getReport();
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -410,7 +412,14 @@ class ControllerCatalogDownload extends Controller {
 		return !$this->error;
 	}
 
-	public function report() {
+
+	public function report(): void {
+		$this->load->language('catalog/download');
+
+		$this->response->setOutput($this->getReport());
+	}
+
+	private function getReport() {
 		$this->load->language('catalog/download');
 
 		if (isset($this->request->get['download_id'])) {
@@ -470,7 +479,7 @@ class ControllerCatalogDownload extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($report_total - $limit)) ? $report_total : ((($page - 1) * $limit) + $limit), $report_total, ceil($report_total / $limit));
 
-		$this->response->setOutput($this->load->view('catalog/download_report', $data));
+		return $this->load->view('catalog/download_report', $data);
 	}
 
 	public function upload() {
@@ -552,6 +561,58 @@ class ControllerCatalogDownload extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	public function download() {
+		$this->load->language('catalog/download');
+
+		if (isset($this->request->get['filename'])) {
+			$filename = basename($this->request->get['filename']);
+		} else {
+			$filename = '';
+		}
+
+		$file = DIR_DOWNLOAD . $filename;
+
+		if (is_file($file)) {
+			if (!headers_sent()) {
+				header('Content-Type: application/octet-stream');
+				header('Content-Description: File Transfer');
+				header('Content-Disposition: attachment; filename="' . $filename . '"');
+				header('Content-Transfer-Encoding: binary');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($file));
+
+				readfile($file);
+				exit;
+			} else {
+				exit($this->language->get('error_headers_sent'));
+			}
+		} else {
+			$this->load->language('error/not_found');
+
+			$this->document->setTitle($this->language->get('heading_title'));
+
+			$data['breadcrumbs'] = [];
+
+			$data['breadcrumbs'][] = [
+				'text' => $this->language->get('text_home'),
+				'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+			];
+
+			$data['breadcrumbs'][] = [
+				'text' => $this->language->get('heading_title'),
+				'href' => $this->url->link('error/not_found', 'user_token=' . $this->session->data['user_token'])
+			];
+
+			$data['header'] = $this->load->controller('common/header');
+			$data['column_left'] = $this->load->controller('common/column_left');
+			$data['footer'] = $this->load->controller('common/footer');
+
+			$this->response->setOutput($this->load->view('error/not_found', $data));
+		}
 	}
 
 	public function autocomplete() {

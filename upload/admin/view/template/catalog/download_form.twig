@@ -25,53 +25,70 @@
       </div>
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-download" class="form-horizontal">
-		  <ul class="nav nav-tabs">
-			<li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+            <li><a href="#tab-report" data-toggle="tab">{{ tab_report }}</a></li>
           </ul>
-		  <div class="tab-content">
+          <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
-          <div class="form-group required">
-            <label class="col-sm-2 control-label">{{ entry_name }}</label>
-            <div class="col-sm-10">
-              {% for language in languages %}
-              <div class="input-group"> <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
-                <input type="text" name="download_description[{{ language.language_id }}][name]" value="{{ download_description[language.language_id] ? download_description[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" />
+              <div class="form-group required">
+                <label class="col-sm-2 control-label">{{ entry_name }}</label>
+                <div class="col-sm-10">
+                  {% for language in languages %}
+                    <div class="input-group">
+                      <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                      <input type="text" name="download_description[{{ language.language_id }}][name]" value="{{ download_description[language.language_id] ? download_description[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" />
+                    </div>
+                    {% if error_name[language.language_id] %}
+                    <div class="text-danger">{{ error_name[language.language_id] }}</div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
               </div>
-              {% if error_name[language.language_id] %}
-              <div class="text-danger">{{ error_name[language.language_id] }}</div>
-              {% endif %}
-              {% endfor %}
+              <div class="form-group required">
+                <label class="col-sm-2 control-label" for="input-filename"><span data-toggle="tooltip" title="{{ help_filename }}">{{ entry_filename }}</span></label>
+                <div class="col-sm-10">
+                 <div class="input-group">
+                  <input type="text" name="filename" value="{{ filename }}" placeholder="{{ entry_filename }}" id="input-filename" class="form-control" />
+                   <span class="input-group-btn">
+                    <button type="button" id="button-upload" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+                   </span>
+                  </div>
+                  {% if error_filename %}
+                   <div class="text-danger">{{ error_filename }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-2 control-label" for="input-mask"><span data-toggle="tooltip" title="{{ help_mask }}">{{ entry_mask }}</span></label>
+                 <div class="col-sm-10">
+                  <input type="text" name="mask" value="{{ mask }}" placeholder="{{ entry_mask }}" id="input-mask" class="form-control" />
+                  {% if error_mask %}
+                  <div class="text-danger">{{ error_mask }}</div>
+                  {% endif %}
+                 </div>
+              </div>
             </div>
+            <div class="tab-pane" id="tab-report">
+              <fieldset>
+                <legend>{{ text_report }}</legend>
+                <div id="report">{{ report }}</div>
+              </fieldset>
+			</div>
           </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-filename"><span data-toggle="tooltip" title="{{ help_filename }}">{{ entry_filename }}</span></label>
-            <div class="col-sm-10">
-              <div class="input-group">
-                <input type="text" name="filename" value="{{ filename }}" placeholder="{{ entry_filename }}" id="input-filename" class="form-control" />
-                <span class="input-group-btn">
-                <button type="button" id="button-upload" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
-                </span> </div>
-              {% if error_filename %}
-              <div class="text-danger">{{ error_filename }}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-mask"><span data-toggle="tooltip" title="{{ help_mask }}">{{ entry_mask }}</span></label>
-            <div class="col-sm-10">
-              <input type="text" name="mask" value="{{ mask }}" placeholder="{{ entry_mask }}" id="input-mask" class="form-control" />
-              {% if error_mask %}
-              <div class="text-danger">{{ error_mask }}</div>
-              {% endif %}
-            </div>
-          </div>
-		  </div>
-		</div>
+          <input type="hidden" name="download_id" value="{{ download_id }}" id="input-download-id"/>
         </form>
       </div>
     </div>
   </div>
 <script type="text/javascript"><!--
+$('#report').on('click', '.pagination a', function (e) {
+    e.preventDefault();
+
+    $('#report').load(this.href);
+});
+
+
 $('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
@@ -119,6 +136,9 @@ $('#button-upload').on('click', function() {
 
 						$('input[name=\'filename\']').val(json['filename']);
 						$('input[name=\'mask\']').val(json['mask']);
+
+                        $('#button-download').prop('disabled', false);
+
 					}
 				},
 				error: function(xhr, ajaxOptions, thrownError) {
@@ -128,6 +148,23 @@ $('#button-upload').on('click', function() {
 		}
 	}, 500);
 });
+
+$('#input-filename').on('change', function (e) {
+    var value = $(this).val();
+
+    if (value != '') {
+        $('#button-download').prop('disabled', false);
+    } else {
+        $('#button-download').prop('disabled', true);
+    }
+});
+
+$('#button-download').on('click', function (e) {
+    e.preventDefault();
+    
+    location = 'index.php?route=catalog/download/download&user_token=' + getURLVar('user_token') + '&filename=' + $('#input-filename').val();
+});
+
 //--></script>
 </div>
 {{ footer }}
