@@ -1038,14 +1038,7 @@
 
   function addAttribute() {
 	  html = '<tr id="attribute-row' + attribute_row + '">';
-	  html += ' <td class="text-left" style="width: 40%;">';
-	  html += '  <ul class="nav nav-pills nav-stacked">';
-	  html += '   <li>';
-	  html += '    <input type="text" name="product_attribute[' + attribute_row + '][name]" value="" placeholder="{{ entry_attribute|escape('js') }}" class="form-control" style="position:relative;" />';
-	  html += '    <input type="hidden" name="product_attribute[' + attribute_row + '][attribute_id]" value="" />';
-	  html += '   </li>';
-	  html += '  </ul>';
-	  html += ' </td>';
+	  html += '  <td class="text-left" style="width: 40%;"><input type="text" name="product_attribute[' + attribute_row + '][name]" value="" placeholder="{{ entry_attribute|escape('js') }}" class="form-control" style="position:relative;" /><input type="hidden" name="product_attribute[' + attribute_row + '][attribute_id]" value="" /></td>';
 	  html += '  <td class="text-left">';
     {% for language in languages %}
 	  html += '<div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code|escape('js') }}/{{ language.code|escape('js') }}.png" title="{{ language.name|escape('js') }}" /></span><textarea name="product_attribute[' + attribute_row + '][product_attribute_description][{{ language.language_id }}][text]" rows="5" placeholder="{{ entry_text|escape('js') }}" class="form-control"></textarea></div>';
