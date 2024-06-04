@@ -181,6 +181,14 @@
 	border: 1px solid #919697;
 	border-radius: 3px;
 }
+.payment-paypal .panel-default .input-group .form-control:first-child {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.payment-paypal .panel-default .input-group .form-control:last-child {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
 .payment-paypal .panel-default .form-control:focus {
 	border-color: #488DE6;
 	-webkit-box-shadow: none;
@@ -188,6 +196,26 @@
 }
 .payment-paypal .panel-default textarea.form-control, .payment-paypal .panel-default .form-control[multiple] {
 	height: auto;
+}
+.payment-paypal .panel-default .input-group-addon, .payment-paypal .panel-default .input-group-btn > .btn {
+	font-size: 13px;
+	color: #000000;
+	border: 1px solid #919697;
+	border-radius: 3px;
+}
+.payment-paypal .panel-default .input-group-btn > .btn {
+	height: 42px;
+	padding: 11px 22px;
+}
+.payment-paypal .panel-default .input-group-addon:first-child, .payment-paypal .panel-default .input-group-btn:first-child > .btn {
+    border-right: 0px;
+	border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.payment-paypal .panel-default .input-group-addon:last-child, .payment-paypal .panel-default .input-group-btn:last-child > .btn {
+    border-left: 0px;
+	border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
 }
 .payment-paypal .panel-default .form-check-input {
 	display: inline-block;
@@ -317,6 +345,10 @@
 	width: 37px;
 	background-image: url('../../image/payment/paypal/icon-button.svg');
 }
+.payment-paypal .panel-default .tab .tab-icon-googlepay-button {
+	width: 37px;
+	background-image: url('../../image/payment/paypal/icon-googlepay-button.svg');
+}
 .payment-paypal .panel-default .tab .tab-icon-applepay-button {
 	width: 37px;
 	background-image: url('../../image/payment/paypal/icon-applepay-button.svg');
@@ -325,9 +357,13 @@
 	width: 33px;
 	background-image: url('../../image/payment/paypal/icon-card.svg');
 }
-.payment-paypal .panel-default .tab .tab-icon-message {
+.payment-paypal .panel-default .tab .tab-icon-message-setting {
 	width: 37px;
-	background-image: url('../../image/payment/paypal/icon-message.svg');
+	background-image: url('../../image/payment/paypal/icon-message-setting.svg');
+}
+.payment-paypal .panel-default .tab .tab-icon-message-configurator {
+	width: 37px;
+	background-image: url('../../image/payment/paypal/icon-message-configurator.svg');
 }
 .payment-paypal .panel-default .tab .tab-icon-order-status {
 	width: 28px;
@@ -394,6 +430,12 @@
 	padding: 0px 0px;
 }
 .payment-paypal .panel-default .section-button-setting .legend {
+	padding: 10px 0px;
+}
+.payment-paypal .panel-default .section-googlepay-button-setting {
+	padding: 0px 0px;
+}
+.payment-paypal .panel-default .section-googlepay-button-setting .legend {
 	padding: 10px 0px;
 }
 .payment-paypal .panel-default .section-applepay-button-setting {
@@ -618,6 +660,42 @@
 	background-size: contain;
 	background-repeat: no-repeat;
 }
+.payment-paypal .panel-default #messaging-configurator * {
+	font-size: 13px;
+	line-height: 1.4;
+	-webkit-box-sizing: revert;
+	-moz-box-sizing: revert;
+	box-sizing: revert;
+}
+.payment-paypal .panel-default #messaging-configurator > div {
+    margin: 0 !important;
+    justify-content: flex-start !important;
+}
+.payment-paypal .panel-default #configurator-eligibleContainer {
+    width: 100%  !important;
+	max-width: 110rem !important;
+    padding: 0 !important;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-eligibleContainer .headerOverride {
+	font-size: 15px;
+	font-weight: 700;
+	color: #000000;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-eligibleContainer .buttonOverride {
+	display: none;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-eligibleContainer input {
+	position: absolute;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-controlPanelContainer {
+	margin-right: 50px;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-controlPanelContainer [accordionname] button:not([id^="dropdownMenuButton"]) {
+	padding: 8px 16px 16px 16px;
+}
+.payment-paypal .panel-default #messaging-configurator #configurator-previewSectionContainer > div + div {
+	height: auto;
+}
 @media (max-width: 767px) {
 	.payment-paypal .panel-default .section-cart .table-cart .table-row .table-col-product-image,
 	.payment-paypal .panel-default .section-cart .table-cart .table-row .table-col-product-model,
@@ -687,6 +765,23 @@
 		width: 100% !important;
 	}
 }
+.payment-paypal .panel-default .googlepay-button {
+	position: relative;
+}
+@media (max-width: 476px) {
+	.payment-paypal .panel-default .googlepay-button .googlepay-button-container {
+		width: 100% !important;
+	}
+}
+.payment-paypal .panel-default .googlepay-button-container .gpay-card-info-container-fill {
+	height: 100%;
+}
+.payment-paypal .panel-default .googlepay-button-container.shape-pill .gpay-card-info-container {
+	border-radius: 1000px;
+}
+.payment-paypal .panel-default .googlepay-button-container.shape-rect .gpay-card-info-container {
+	border-radius: 4px;
+}
 .payment-paypal .panel-default .applepay-button {
 	position: relative;
 }
@@ -708,9 +803,6 @@
 	.payment-paypal .panel-default .paypal-card-container {
 		width: 100% !important;
 	}
-}
-.payment-paypal .panel-default .paypal-message {
-	position: relative;
 }
 .payment-paypal .panel-default .paypal-spinner {
 	position: relative;
@@ -761,7 +853,7 @@
 .payment-paypal .panel-auth .section-connect .welcome {
 	font-size: 18px;
 	color: #1D1D1D;
-	margin-bottom: 37px;
+	margin-bottom: 20px;
 }
 .payment-paypal .panel-auth .section-connect .checkout-express {
 	font-size: 13px;
@@ -772,7 +864,7 @@
 	display: inline-block;
 	vertical-align: top;
 	font-family: 'Open Sans', sans-serif;
-	margin-bottom: 37px;
+	margin: 20px 0px 37px 0px;
 }
 .payment-paypal .panel-auth .section-connect .button-connect-ppcp::before {
 	display: none;
@@ -789,6 +881,10 @@
 }
 .payment-paypal .panel-auth .section-connect .button-connect-express-checkout::before {
 	display: none;
+}
+.payment-paypal .panel-auth .section-connect .button-connect {
+	display: inline-block;
+	margin: 10px 0px 37px 0px;
 }
 .payment-paypal .panel-auth .section-connect .control-label {
 	font-size: 13px;
@@ -811,6 +907,11 @@
 }
 .payment-paypal .panel-dashboard .col {
 	padding: 0px 7px;
+}
+@media (min-width: 1200px) {
+	.payment-paypal .panel-dashboard .col-tab {
+		width: 20%;
+	}
 }
 .payment-paypal .panel-dashboard .paypal-sale {
 	padding: 11px 0px;
@@ -835,7 +936,7 @@
 .payment-paypal .panel-dashboard .tab {
 	position: relative;
 	display: block;
-	padding: 37px 7px 30px 7px;
+	padding: 37px 10px 30px 10px;
 	text-align: center;
 	background: #FFFFFF;
 	box-shadow: 0px 2px 6px #00000029;
