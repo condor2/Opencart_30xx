@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
+class ComposerStaticInit41c71bfda099fb0bb78931276bf8708d
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -15,16 +15,13 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
+        '89efb1254ef2d1c5d80096acd12c4098' => __DIR__ . '/..' . '/twig/twig/src/Resources/core.php',
+        'ffecb95d45175fd40f75be8a23b34f90' => __DIR__ . '/..' . '/twig/twig/src/Resources/debug.php',
+        'c7baa00073ee9c61edf148c51917cfb4' => __DIR__ . '/..' . '/twig/twig/src/Resources/escaper.php',
+        'f844ccf1d25df8663951193c3fc307c8' => __DIR__ . '/..' . '/twig/twig/src/Resources/string_loader.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'WePay\\' => 6,
-            'WePayV3\\' => 8,
-            'WeMini\\' => 7,
-            'WeChat\\' => 7,
-        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -61,29 +58,9 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         array (
             'Braintree\\' => 10,
         ),
-        'A' => 
-        array (
-            'AliPay\\' => 7,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WePay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WePay',
-        ),
-        'WePayV3\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WePayV3',
-        ),
-        'WeMini\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WeMini',
-        ),
-        'WeChat\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/WeChat',
-        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -157,10 +134,6 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         array (
             0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
         ),
-        'AliPay\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zoujingli/wechat-developer/AliPay',
-        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -183,16 +156,15 @@ class ComposerStaticInitdfd2ee768c3962029d42a58b61127f86
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'We' => __DIR__ . '/..' . '/zoujingli/wechat-developer/We.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdfd2ee768c3962029d42a58b61127f86::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdfd2ee768c3962029d42a58b61127f86::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitdfd2ee768c3962029d42a58b61127f86::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitdfd2ee768c3962029d42a58b61127f86::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit41c71bfda099fb0bb78931276bf8708d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit41c71bfda099fb0bb78931276bf8708d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit41c71bfda099fb0bb78931276bf8708d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit41c71bfda099fb0bb78931276bf8708d::$classMap;
 
         }, null, ClassLoader::class);
     }
