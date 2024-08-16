@@ -27,7 +27,7 @@ This is a modified version of Opencart.
 
 ## Updates
 - Paypal from 3.0.3.9
-- TWIG v3.8.0
+- TWIG v3.11.0
 - Bootstrap 3.4.1
 - Jquery 3.7.1
 - Summernote 0.8.20
