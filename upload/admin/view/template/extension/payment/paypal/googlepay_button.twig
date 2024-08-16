@@ -42,13 +42,13 @@
 					<div class="section-content">
 						<ul class="nav nav-pills">
 							{% for googlepay_button in setting['googlepay_button'] %}
-							<li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill_{{ googlepay_button['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, googlepay_button['page_name']) }}</a></li>
+							<li class="nav-pill {% if loop.first %} active {% endif %}"><a href="#pill_{{ googlepay_button['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, googlepay_button['page_name']) }}</a></li>
 							{% endfor %}
 						</ul>
 						<hr class="hr" />
 						<div class="tab-content">
 							{% for googlepay_button in setting['googlepay_button'] %}
-							<div id="pill_{{ googlepay_button['page_code'] }}" class="tab-pane {% if loop.first %}active{% endif %}">
+							<div id="pill_{{ googlepay_button['page_code'] }}" class="tab-pane {% if loop.first %} active {% endif %}">
 								<div class="row">
 									<div class="col col-lg-6">
 										{% if (googlepay_button['page_code'] == 'checkout') %}
@@ -161,7 +161,7 @@
 													<div class="form-group-status">
 														<label class="control-label" for="input_googlepay_button_{{ googlepay_button['page_code'] }}_status"><span data-toggle="tooltip" title="{{ help_googlepay_button_status }}">{{ entry_status }}</span></label>
 														<input type="hidden" name="payment_paypal_setting[googlepay_button][{{ googlepay_button['page_code'] }}][status]" value="0" />
-														<input type="checkbox" name="payment_paypal_setting[googlepay_button][{{ googlepay_button['page_code'] }}][status]" value="1" class="switch" {% if googlepay_button['status'] %}checked="checked"{% endif %} />
+														<input type="checkbox" name="payment_paypal_setting[googlepay_button][{{ googlepay_button['page_code'] }}][status]" value="1" class="switch" {% if googlepay_button['status'] %} checked="checked" {% endif %} />
 													</div>
 												</div>
 											</div>

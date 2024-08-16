@@ -42,7 +42,7 @@
 					<div class="section-content">
 						<div class="row">
 							{% for column_paypal_order_status in setting['order_status']|batch(setting['order_status']|length / 2|round(1, 'ceil')) %}
-							<div class="col col-md-6">
+							<div class="col col-md-4">
 								{% for paypal_order_status in column_paypal_order_status %}
 								<div class="form-group">
 									<label class="control-label" for="input_order_status_{{ paypal_order_status['code'] }}">{{ attribute(_context, paypal_order_status['name']) }}</label>
@@ -59,6 +59,21 @@
 								{% endfor %}
 							</div>
 							{% endfor %}
+							<div class="col col-md-4">
+								<div class="form-group">
+									<label class="control-label" for="input_final_order_status"><span data-toggle="tooltip" title="{{ help_final_order_status }}">{{ entry_final_order_status }}</span></label>
+									<div class="well well-sm">
+										{% for order_status in order_statuses %}
+										<div class="checkbox">
+											<label class="control-label">
+												<input type="checkbox" name="payment_paypal_setting[final_order_status][]" value="{{ order_status['order_status_id'] }}" class="form-check-input form-check-input-mini" {% if order_status['order_status_id'] in setting['final_order_status'] %} checked="checked" {% endif %} />
+												{{ order_status['name'] }}
+											</label>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>
