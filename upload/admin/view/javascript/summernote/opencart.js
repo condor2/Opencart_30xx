@@ -89,4 +89,11 @@ $(document).ready(function() {
   			}
 		});
 	});
+	$(document).on('submit', 'form', function() {
+		$('[data-toggle=\'summernote\']').each(function() {
+			if ($(this).summernote('codeview.isActivated')) {
+				$(this).summernote('codeview.deactivate'); 
+			}
+		});
+	});
 });
