@@ -43,12 +43,12 @@ class ModelLocalisationCurrency extends Model {
 	public function getCurrencies($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "currency`";
 
-		$sort_data = [
+		$sort_data = array(
 			'title',
 			'code',
 			'value',
 			'date_modified'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
@@ -84,7 +84,7 @@ class ModelLocalisationCurrency extends Model {
 			$this->cache->set('currency.' . md5($sql), $results);
 		}
 
-		$currency_data = [];
+		$currency_data = array();
 
 		foreach ($results as $result) {
 			$currency_data[$result['code']] = array(
