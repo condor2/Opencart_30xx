@@ -41,70 +41,66 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	public function getCurrencies($data = array()) {
-		if ($data) {
-			$sql = "SELECT * FROM `" . DB_PREFIX . "currency`";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "currency`";
 
-			$sort_data = array(
-				'`title`',
-				'`code`',
-				'`value`',
-				'`date_modified`'
-			);
+		$sort_data = [
+			'title',
+			'code',
+			'value',
+			'date_modified'
+		];
 
-			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY `" . $data['sort'] . "`";
-			} else {
-				$sql .= " ORDER BY `title`";
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY `title`";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
 			}
 
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
 			}
 
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
 
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
+		$results = $this->cache->get('currency.' . md5($sql));
 
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
-
+		if (!$results) {
 			$query = $this->db->query($sql);
 
-			return $query->rows;
-		} else {
-			$currency_data = $this->cache->get('currency');
+			$results = $query->rows;
 
-			if (!$currency_data) {
-				$currency_data = array();
-
-				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` ORDER BY `title` ASC");
-
-				foreach ($query->rows as $result) {
-					$currency_data[$result['code']] = array(
-						'currency_id'   => $result['currency_id'],
-						'title'         => $result['title'],
-						'code'          => $result['code'],
-						'symbol_left'   => $result['symbol_left'],
-						'symbol_right'  => $result['symbol_right'],
-						'decimal_place' => $result['decimal_place'],
-						'value'         => $result['value'],
-						'status'        => $result['status'],
-						'date_modified' => $result['date_modified']
-					);
-				}
-
-				$this->cache->set('currency', $currency_data);
-			}
-
-			return $currency_data;
+			$this->cache->set('currency.' . md5($sql), $results);
 		}
+
+		$currency_data = [];
+
+		foreach ($results as $result) {
+			$currency_data[$result['code']] = array(
+				'currency_id'   => $result['currency_id'],
+				'title'         => $result['title'],
+				'code'          => $result['code'],
+				'symbol_left'   => $result['symbol_left'],
+				'symbol_right'  => $result['symbol_right'],
+				'decimal_place' => $result['decimal_place'],
+				'value'         => $result['value'],
+				'status'        => $result['status'],
+				'date_modified' => $result['date_modified']
+			);
+		}
+
+		return $currency_data;
 	}
 
 	public function getTotalCurrencies() {

@@ -90,7 +90,7 @@ class ModelUserUserGroup extends Model {
 			$permission = $user_group['permission'];
 
 			if (!empty($permission)) {
-				$permission = json_decode($permission,true);
+				$permission = json_decode($permission, true);
 
 				if (!empty($permission['access'])) {
 					$this->removePermission($user_group_id, 'access', $route);

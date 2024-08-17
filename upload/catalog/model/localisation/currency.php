@@ -7,12 +7,14 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	public function getCurrencies() {
-		$currency_data = $this->cache->get('currency');
+		$sql = "SELECT * FROM `" . DB_PREFIX . "currency` WHERE `status` = '1' ORDER BY `title` ASC";
+
+		$currency_data = $this->cache->get('currency.' . md5($sql));
 
 		if (!$currency_data) {
 			$currency_data = array();
 
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` WHERE `status` = '1' ORDER BY `title` ASC");
+			$query = $this->db->query($sql);
 
 			foreach ($query->rows as $result) {
 				$currency_data[$result['code']] = array(
@@ -28,7 +30,7 @@ class ModelLocalisationCurrency extends Model {
 				);
 			}
 
-			$this->cache->set('currency', $currency_data);
+			$this->cache->set('currency.' . md5($sql), $currency_data);
 		}
 
 		return $currency_data;
