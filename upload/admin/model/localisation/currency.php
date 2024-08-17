@@ -5,6 +5,10 @@ class ModelLocalisationCurrency extends Model {
 
 		$currency_id = $this->db->getLastId();
 
+		if ($this->config->get('config_currency_auto')) {
+			$this->refresh();
+		}
+
 		$this->cache->delete('currency');
 
 		return $currency_id;
@@ -12,12 +16,6 @@ class ModelLocalisationCurrency extends Model {
 
 	public function editCurrency($currency_id, $data) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `title` = '" . $this->db->escape($data['title']) . "', `code` = '" . $this->db->escape($data['code']) . "', `symbol_left` = '" . $this->db->escape($data['symbol_left']) . "', `symbol_right` = '" . $this->db->escape($data['symbol_right']) . "', `decimal_place` = '" . $this->db->escape($data['decimal_place']) . "', `value` = '" . (float)$data['value'] . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `currency_id` = '" . (int)$currency_id . "'");
-
-		$this->cache->delete('currency');
-	}
-
-	public function editValueByCode($code, $value) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = NOW() WHERE `code` = '" . $this->db->escape($code) . "'");
 
 		$this->cache->delete('currency');
 	}
@@ -101,6 +99,16 @@ class ModelLocalisationCurrency extends Model {
 		}
 
 		return $currency_data;
+	}
+
+	public function refresh() {
+		$config_currency_engine = $this->config->get('config_currency_engine');
+
+		if ($config_currency_engine) {
+			$this->load->model('extension/currency/' . $config_currency_engine);
+
+			$this->{'model_extension_currency_' . $config_currency_engine}->refresh();
+		}
 	}
 
 	public function getTotalCurrencies() {
