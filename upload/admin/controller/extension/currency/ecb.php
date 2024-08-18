@@ -99,84 +99,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 		return !$this->error;
 	}
 
-	public function install() {
-		// add event handlers
-		$this->load->model('setting/event');
-		$code = 'currency_ecb';
-		$app = 'admin/';
-
-		$trigger = 'model/localisation/currency/refresh/before';
-		$route = 'extension/currency/ecb/eventModelLocalisationCurrencyRefreshBefore';
-		$this->model_setting_event->addEvent($code, $app . $trigger, $route);
-	}
-
-	public function uninstall() {
-		// remove event handlers
-		$this->load->model('setting/event');
-		$code = 'currency_ecb';
-		$this->model_setting_event->deleteEventByCode($code);
-
-	}
-
 	public function currency() {
-		if ($this->config->get('currency_ecb_status')) {
-			if ($this->config->get('config_currency_engine') == 'ecb') {
-				$curl = curl_init();
+		$this->load->model('extension/currency/ecb');
 
-				curl_setopt($curl, CURLOPT_URL, 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($curl, CURLOPT_HEADER, false);
-				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-				curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
-				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-
-				$response = curl_exec($curl);
-
-				curl_close($curl);
-
-				if ($response) {
-					$dom = new \DOMDocument('1.0', 'UTF-8');
-					$dom->loadXml($response);
-
-					$cube = $dom->getElementsByTagName('Cube')->item(0);
-
-					$currencies = [];
-
-					$currencies['EUR'] = 1.0000;
-
-					foreach ($cube->getElementsByTagName('Cube') as $currency) {
-						if ($currency->getAttribute('currency')) {
-							$currencies[$currency->getAttribute('currency')] = $currency->getAttribute('rate');
-						}
-					}
-
-					if ($currencies) {
-						$this->load->model('localisation/currency');
-						$this->load->model('extension/currency/ecb');
-
-						$default = $this->config->get('config_currency');
-
-						$results = $this->model_localisation_currency->getCurrencies();
-
-						foreach ($results as $result) {
-							if (isset($currencies[$result['code']])) {
-								$from = $currencies['EUR'];
-
-								$to = $currencies[$result['code']];
-
-								$this->model_extension_currency_ecb->editValueByCode($result['code'], 1 / ($currencies[$default] * ($from / $to)));
-							}
-						}
-					}
-
-					$this->model_extension_currency_ecb->editValueByCode($default, '1.00000');
-
-					$this->cache->delete('currency');
-				}
-
-				return true;
-			}
-		}
+		$this->model_extension_currency_ecb->refresh();
 
 		return null;
 	}

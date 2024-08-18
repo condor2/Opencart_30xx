@@ -91,9 +91,9 @@ class ControllerExtensionDashboardOrder extends Controller {
 		// Total Orders
 		$this->load->model('sale/order');
 
-		$today = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
+		$today = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
 
-		$yesterday = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
+		$yesterday = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
 
 		$difference = $today - $yesterday;
 

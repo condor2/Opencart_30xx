@@ -58,9 +58,11 @@ class ModelExtensionCurrencyEcb extends Model {
 
 					$this->model_extension_currency_ecb->editValueByCode($default, '1.00000');
 				}
+
 				return true;
 			}
 		}
+
 		return false;
 	}
 }
