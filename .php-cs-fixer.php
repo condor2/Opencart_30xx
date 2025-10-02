@@ -1,7 +1,7 @@
 <?php
 /*
  * This document has been generated with
- * https://mlocati.github.io/php-cs-fixer-configurator/#version:3.62.0|configurator
+ * https://mlocati.github.io/php-cs-fixer-configurator/#version:3.65|configurator
  * you can change this configuration by importing this file.
  */
 $config = new PhpCsFixer\Config();
@@ -56,6 +56,7 @@ return $config
         'heredoc_indentation' => true,
         'heredoc_to_nowdoc' => true,
         'implode_call' => true,
+        'indentation_type' => true,
         'increment_style' => ['style' => 'post'],
         'integer_literal_case' => true,
         'is_null' => true,
@@ -91,6 +92,7 @@ return $config
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_around_offset' => true,
         'no_trailing_comma_in_singleline' => true,
+        'no_trailing_whitespace' => true,
         'no_unneeded_braces' => true,
         'no_unneeded_control_parentheses' => true,
         'no_unneeded_final_method' => true,
@@ -153,6 +155,7 @@ return $config
         'semicolon_after_instruction' => true,
         'set_type_to_cast' => true,
         'simple_to_complex_string_variable' => true,
+        'single_blank_line_at_eof' => true,
         'simplified_if_return' => true,
         'single_line_comment_style' => true,
         'single_line_throw' => true,
@@ -173,6 +176,7 @@ return $config
         'void_return' => false,
         'whitespace_after_comma_in_array' => true,
         'yield_from_array_to_yields' => true,
+        'trailing_comma_in_multiline' => ['elements' => []],
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->in(__DIR__ . '/upload/')

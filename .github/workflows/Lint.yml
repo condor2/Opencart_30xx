@@ -9,17 +9,16 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+        php: ['8.1', '8.2', '8.3', '8.4']
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -28,13 +27,9 @@ jobs:
           tools: composer:v2, cs2pr
           extensions: mbstring
 
-      - name: Lint
+      - name: Lint PHP Files
         run: |
-          error=0
-          for file in $(find upload -type f -name "*.php" ! -path 'upload/system/storage/vendor/*'); do
-            php -l -n $file | grep -v "No syntax errors detected" && error=1
-          done
-          if [ $error -eq 1 ]; then
+          if find upload -type f -name "*.php" ! -path 'upload/system/storage/vendor/*' -exec php -l -n {} + | grep -q "Errors parsing"; then
             echo "Syntax errors were found."
             exit 1
           else
@@ -51,14 +46,14 @@ jobs:
           key: OC3.0-PHP${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: OC3.0-PHP${{ matrix.php }}-
 
-      - name: PHPStan
-        run: |
-          composer require phpstan/phpstan 1.11.10
-          ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+      - name: Install Dependencies
+        run: composer install
 
-      - name: Code style
+      - name: Check Code Style
         if: matrix.php == '8.3'
         run: |
-          composer require --dev -w friendsofphp/php-cs-fixer v3.62.0
-          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
-          ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+          php tools/php-cs-fixer.phar fix --dry-run --diff --ansi || true
+          php tools/php-cs-fixer.phar fix --dry-run --format=checkstyle | cs2pr
+
+      - name: Run PHPStan
+        run: php tools/phpstan.phar analyze --no-progress
