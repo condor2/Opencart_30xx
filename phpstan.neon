@@ -11,7 +11,6 @@ parameters:
         - ./upload/system/storage/vendor/
     tmpDir: .cache
     ignoreErrors:
-        - '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
         - '#^Constant [A-Z_]+ not found\.$#'
         - '#might not be defined\.#'
         - '#invoked with \d+ parameters?, \d+ required\.#'

@@ -1,9 +1,10 @@
 <?php
 // Version
-define('VERSION', '3.0.3.8');
+define('VERSION', '3.0.5.0');
 
 // Configuration
 if (is_file('config.php')) {
+	/** @phpstan-ignore requireOnce.fileNotFound */
 	require_once('config.php');
 }
 
