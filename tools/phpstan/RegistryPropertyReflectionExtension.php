@@ -2,7 +2,6 @@
 
 namespace Tools\PHPStan;
 
-use Registry;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
@@ -11,13 +10,10 @@ use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeCombinator;
+use Registry;
 
 class RegistryPropertyReflectionExtension implements PropertiesClassReflectionExtension {
-	private ReflectionProvider $reflectionProvider;
-
-	public function __construct(ReflectionProvider $reflectionProvider) {
-		$this->reflectionProvider = $reflectionProvider;
-	}
+	public function __construct(private ReflectionProvider $reflectionProvider) {}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool {
 		if (!$classReflection->is(Registry::class)) {
@@ -30,7 +26,6 @@ class RegistryPropertyReflectionExtension implements PropertiesClassReflectionEx
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection {
 		preg_match('/^(model_.+)$/', $propertyName, $matches);
 		$className = $this->convertSnakeToStudly($matches[1]);
-
 
 		$type = new NullType();
 		if ($this->reflectionProvider->hasClass($className)) {
