@@ -308,6 +308,10 @@ class ControllerCatalogProduct extends Controller {
 			$url .= '&filter_image=' . $this->request->get['filter_image'];
 		}
 
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
+		}
+
 		if (isset($this->request->get['order'])) {
 			$url .= '&order=' . $this->request->get['order'];
 		}
