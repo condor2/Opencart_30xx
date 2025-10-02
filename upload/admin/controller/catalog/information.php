@@ -270,7 +270,7 @@ class ControllerCatalogInformation extends Controller {
 			$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
 		}
 
-		$data['text_form'] = (!isset($this->request->get['information_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
+		$data['text_form'] = !isset($this->request->get['information_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
