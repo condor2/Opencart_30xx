@@ -43,7 +43,11 @@ class Create implements MethodInterface
     public function getValidationConstraints()
     {
         return new Assert\Collection([
-            'amount' => $this->buildElement('float', 1),
+            'amount' => new Assert\Regex([
+                'pattern' => '/^\d{1,7}(\.\d{1,4})?$/',
+                'match' => true,
+                'message' => "{{ value }} should be a valid integer number or floating number with 1-4 decimal points."
+            ]),
             'currency' => $this->buildElement('string', 1, ['min' => 3,'max' => 3]),
             'settle' => $this->buildElement('bool'),
             'order_id' => $this->buildElement('string', 0, ['min' => 2,'max' => 50]),
@@ -201,7 +205,7 @@ class Create implements MethodInterface
     private function buildElement(
         string $typeValue,
         bool $isRequired = false,
-        array $length = null,
+        ?array $length = null,
         $args = null // TODO can it be null?
     ): object
     {

@@ -78,8 +78,8 @@ class PaymentTest extends ClientTestCase
     public function invalidAmountValuesData()
     {
         return [
-            ['150.01'],
-            [150],
+            ['11.01234'],
+            ['a23.24'],
         ];
     }
 
@@ -276,6 +276,26 @@ class PaymentTest extends ClientTestCase
             $this->assertSame('declined', $result->getStatus());
             $this->assertSame('01: Card authentication failed', $result->getThreedsStatusReason());
         }
+
+        return $result;
+    }
+
+
+    /**
+     * @return ResultObject
+     */
+    public function testCreateZeroAmountPayment()
+    {
+        $params = $this->paymentParams;
+        $params['amount'] = 0.00;
+        $params['settle'] = false;
+        $params['payment_instrument']['pan'] = '5555555555554444';
+
+        $method = new Payment\Create($params);
+        $result = $this->client->call($method);
+
+        $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
+        $this->assertSame(true, $result->isApproved());
 
         return $result;
     }

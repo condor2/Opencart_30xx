@@ -3,7 +3,7 @@
 ## Information
 This is a modified version of Opencart.
 
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg?style=flat-square)](https://php.net/)
 [![Lint](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml/badge.svg)](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml)
 
 ## Added
@@ -27,7 +27,7 @@ This is a modified version of Opencart.
 
 ## Updates
 - Paypal from 3.0.3.9
-- TWIG v3.11.0
+- TWIG v3.21.1
 - Bootstrap 3.4.1
 - Jquery 3.7.1
 - Summernote 0.8.20
@@ -56,7 +56,7 @@ This is a modified version of Opencart.
 - Display Product Image in Order E-mail
 
 ## Note
-This version is not supported by Opencart. You need to have PHP at least 7.4.0 to use this version.
+This version is not supported by Opencart. You need to have PHP at least 8.1.0 to use this version.
 
 ## LICENSE
 This project is open source software licensed under the [GPL v3](./LICENSE).
