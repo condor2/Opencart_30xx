@@ -8,10 +8,9 @@ parameters:
     paths:
         - ./upload/
     excludePaths:
-        - ./system/storage/vendor/
-        - ./system/storage/cache/template/
+        - ./tools/phpstan/
         - ./upload/system/storage/vendor/
-        - ./upload/system/storage/cache/template/
+        - ./upload/system/storage/cache/
         - ./upload/catalog/controller/extension/payment/wechat_pay.php
     tmpDir: .cache
     ignoreErrors:
