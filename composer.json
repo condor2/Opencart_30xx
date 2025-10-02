@@ -12,7 +12,6 @@
         "cardinity/cardinity-sdk-php": "^3.0",
         "braintree/braintree_php" : "^5.3.1",
         "scssphp/scssphp": "^1.4.1",
-        "divido/divido-php": "1.15",
         "php": ">=8.1.0",
         "twig/twig": "^3.11.3"
     },
