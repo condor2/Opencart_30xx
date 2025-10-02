@@ -3,14 +3,12 @@ $(document).ready(function() {
 	$('[data-toggle=\'summernote\']').each(function() {
 		var element = this;
 
-		var lang = $(element).data('lang');
-
-		if (typeof(lang) == 'undefined') {
-			lang = 'en';
+		if ($(this).attr('data-lang') && $(this).attr('data-lang')!='en-gb') {
+			$('head').append('<script type="text/javascript" src="view/javascript/summernote/lang/summernote-' + $(this).attr('data-lang') + '.min.js"></script>');
 		}
 
 		$(element).summernote({
-			lang: lang,
+			lang: $(this).attr('data-lang'),
 			disableDragAndDrop: true,
 			height: 300,
 			emptyPara: '',
@@ -89,6 +87,7 @@ $(document).ready(function() {
   			}
 		});
 	});
+
 	$(document).on('submit', 'form', function() {
 		$('[data-toggle=\'summernote\']').each(function() {
 			if ($(this).summernote('codeview.isActivated')) {

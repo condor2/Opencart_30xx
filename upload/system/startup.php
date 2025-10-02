@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 
 // Check Version
-if (version_compare(phpversion(), '8.1.0', '<') == true) {
+if (version_compare(PHP_VERSION, '8.1.0', '<') == true) {
 	exit('PHP8.1+ Required');
 }
 
