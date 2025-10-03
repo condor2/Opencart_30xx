@@ -8,7 +8,8 @@ This is a modified version of Opencart.
 
 ## Added
 - Bug fixes
-- ECB Currency from 3.0.3.9
+- ECB Currency from OC 3.0.x.x
+- Fixer Currency from main OC 3.0.x.x
 - Timezone from Master Branch - 3.1.0.0b
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
@@ -20,13 +21,15 @@ This is a modified version of Opencart.
 - Added Cookie code from Opencart 4.0.0.0
 
 ## Removed
-- Promotion
-- Openbay
+- Promotion Code
+- Openbay Module
 - Klarna Payment
-- Google Shopping
+- Google Shopping Module
+- Divido Payment
+- UPS Shipping
 
 ## Updates
-- Paypal from 3.0.3.9
+- PayPal Checkout Integration v3.2.4
 - TWIG v3.21.1
 - Bootstrap 3.4.1
 - Jquery 3.7.1
