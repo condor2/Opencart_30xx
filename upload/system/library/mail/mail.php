@@ -8,7 +8,7 @@ class Mail extends \stdClass {
 			$to = $this->to;
 		}
 
-		if (version_compare(PHP_VERSION, '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
+		if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
 			$eol = "\r\n";
 		} else {
 			$eol = PHP_EOL;
@@ -18,16 +18,16 @@ class Mail extends \stdClass {
 
 		$header  = 'MIME-Version: 1.0' . $eol;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
-		$header .= 'From: =?UTF-8?B?' . chunk_split(base64_encode($this->sender)) . '?= <' . $this->from . '>' . $eol;
-
+		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
+		
 		if (!$this->reply_to) {
-			$header .= 'Reply-To: =?UTF-8?B?' . chunk_split(base64_encode($this->sender)) . '?= <' . $this->from . '>' . $eol;
+			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
 		} else {
-			$header .= 'Reply-To: =?UTF-8?B?' . chunk_split(base64_encode($this->reply_to)) . '?= <' . $this->reply_to . '>' . $eol;
+			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->reply_to) . '?= <' . $this->reply_to . '>' . $eol;
 		}
-
+		
 		$header .= 'Return-Path: ' . $this->from . $eol;
-		$header .= 'X-Mailer: PHP/' . PHP_VERSION . $eol;
+		$header .= 'X-Mailer: PHP/' . phpversion() . $eol;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . $eol . $eol;
 
 		if (!$this->html) {
@@ -45,7 +45,7 @@ class Mail extends \stdClass {
 			if ($this->text) {
 				$message .= chunk_split(base64_encode($this->text)) . $eol;
 			} else {
-				$message .= chunk_split(base64_encode($this->html)) . $eol;
+				$message .= chunk_split(base64_encode('This is a HTML email and your email client software does not support HTML email!')) . $eol;
 			}
 
 			$message .= '--' . $boundary . '_alt' . $eol;
@@ -56,7 +56,7 @@ class Mail extends \stdClass {
 		}
 
 		foreach ($this->attachments as $attachment) {
-			if (is_file($attachment)) {
+			if (file_exists($attachment)) {
 				$handle = fopen($attachment, 'r');
 
 				$content = fread($handle, filesize($attachment));
@@ -78,9 +78,9 @@ class Mail extends \stdClass {
 		ini_set('sendmail_from', $this->from);
 
 		if ($this->parameter) {
-			mail($to, '=?UTF-8?B?' . chunk_split(base64_encode($this->subject)) . '?=', $message, $header, $this->parameter);
+			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
 		} else {
-			mail($to, '=?UTF-8?B?' . chunk_split(base64_encode($this->subject)) . '?=', $message, $header);
+			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
 		}
 	}
 }

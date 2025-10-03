@@ -1,29 +1,13 @@
 <?php
 namespace Mail;
 class Smtp extends \stdClass {
-	protected $to = '';
-	protected $from = '';
-	protected $sender = '';
-	protected $reply_to = '';
-	protected $subject = '';
-	protected $text = '';
-	protected $html = '';
-	protected $attachments = array();
-	protected $smtp_hostname = '';
-	protected $smtp_username = '';
-	protected $smtp_password = '';
-	protected $smtp_port = 25;
-	protected $smtp_timeout = 5;
-	protected $max_attempts = 3;
-	protected $verp = false;
-
-	public function __construct(array $args) {
-		foreach ($args as $key => $value) {
-			if (property_exists($this, $key)) {
-				$this->{$key} = $value;
-			}
-		}
-	}
+	public $smtp_hostname;
+	public $smtp_username;
+	public $smtp_password;
+	public $smtp_port = 25;
+	public $smtp_timeout = 5;
+	public $max_attempts = 3;
+	public $verp = false;
 
 	public function send() {
 		if (is_array($this->to)) {
@@ -48,7 +32,7 @@ class Smtp extends \stdClass {
 
 		$header .= 'Message-ID: <' . base_convert(str_replace(['.', ' '], '', microtime()), 10, 36) . '.' . base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36) . substr($this->from, strrpos($this->from, '@')) . '>' . PHP_EOL;
 		$header .= 'Return-Path: ' . $this->from . PHP_EOL;
-		$header .= 'X-Mailer: PHP/' . PHP_VERSION . PHP_EOL;
+		$header .= 'X-Mailer: PHP/' . phpversion() . PHP_EOL;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . PHP_EOL . PHP_EOL;
 
 		if (!$this->html) {
@@ -66,7 +50,7 @@ class Smtp extends \stdClass {
 			if ($this->text) {
 				$message .= chunk_split(base64_encode($this->text)) . PHP_EOL;
 			} else {
-				$message .= chunk_split(base64_encode($this->html)) . PHP_EOL;
+				$message .= chunk_split(base64_encode('This is a HTML email and your email client software does not support HTML email!')) . PHP_EOL;
 			}
 
 			$message .= '--' . $boundary . '_alt' . PHP_EOL;
@@ -108,7 +92,7 @@ class Smtp extends \stdClass {
 			throw new \Exception('Error: ' . $errstr . ' (' . $errno . ')');
 		} else {
 			if (substr(PHP_OS, 0, 3) != 'WIN') {
-				stream_set_timeout($handle, $this->smtp_timeout, 0);
+				socket_set_timeout($handle, $this->smtp_timeout, 0);
 			}
 
 			while ($line = fgets($handle, 515)) {
@@ -117,7 +101,7 @@ class Smtp extends \stdClass {
 				}
 			}
 
-			fwrite($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
+			fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
 
 			$reply = '';
 
@@ -129,7 +113,7 @@ class Smtp extends \stdClass {
 					$reply = '';
 
 					continue;
-				} elseif (substr($line, 3, 1) == ' ') {
+				} else if (substr($line, 3, 1) == ' ') {
 					break;
 				}
 			}
@@ -139,46 +123,48 @@ class Smtp extends \stdClass {
 			}
 
 			if (substr($this->smtp_hostname, 0, 3) == 'tls') {
-				fwrite($handle, 'STARTTLS' . "\r\n");
+				fputs($handle, 'STARTTLS' . "\r\n");
 
 				$this->handleReply($handle, 220, 'Error: STARTTLS not accepted from server!');
 
-				stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+				if (stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
+					throw new \Exception('Error: TLS could not be established!');
+				}
+
+				fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
+
+				$this->handleReply($handle, 250, 'Error: EHLO not accepted from server!');
 			}
 
 			if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
-				fwrite($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
-
-				$this->handleReply($handle, 250, 'Error: EHLO not accepted from server!');
-
-				fwrite($handle, 'AUTH LOGIN' . "\r\n");
+				fputs($handle, 'AUTH LOGIN' . "\r\n");
 
 				$this->handleReply($handle, 334, 'Error: AUTH LOGIN not accepted from server!');
 
-				fwrite($handle, base64_encode($this->smtp_username) . "\r\n");
+				fputs($handle, base64_encode($this->smtp_username) . "\r\n");
 
 				$this->handleReply($handle, 334, 'Error: Username not accepted from server!');
 
-				fwrite($handle, base64_encode($this->smtp_password) . "\r\n");
+				fputs($handle, base64_encode($this->smtp_password) . "\r\n");
 
 				$this->handleReply($handle, 235, 'Error: Password not accepted from server!');
 
 			} else {
-				fwrite($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
+				fputs($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
 
 				$this->handleReply($handle, 250, 'Error: HELO not accepted from server!');
 			}
 
 			if ($this->verp) {
-				fwrite($handle, 'MAIL FROM: <' . $this->from . '>XVERP' . "\r\n");
+				fputs($handle, 'MAIL FROM: <' . $this->from . '>XVERP' . "\r\n");
 			} else {
-				fwrite($handle, 'MAIL FROM: <' . $this->from . '>' . "\r\n");
+				fputs($handle, 'MAIL FROM: <' . $this->from . '>' . "\r\n");
 			}
 
 			$this->handleReply($handle, 250, 'Error: MAIL FROM not accepted from server!');
 
 			if (!is_array($this->to)) {
-				fwrite($handle, 'RCPT TO: <' . $this->to . '>' . "\r\n");
+				fputs($handle, 'RCPT TO: <' . $this->to . '>' . "\r\n");
 
 				$reply = $this->handleReply($handle, false, 'RCPT TO [!array]');
 
@@ -187,7 +173,7 @@ class Smtp extends \stdClass {
 				}
 			} else {
 				foreach ($this->to as $recipient) {
-					fwrite($handle, 'RCPT TO: <' . $recipient . '>' . "\r\n");
+					fputs($handle, 'RCPT TO: <' . $recipient . '>' . "\r\n");
 
 					$reply = $this->handleReply($handle, false, 'RCPT TO [array]');
 
@@ -197,7 +183,7 @@ class Smtp extends \stdClass {
 				}
 			}
 
-			fwrite($handle, 'DATA' . "\r\n");
+			fputs($handle, 'DATA' . "\r\n");
 
 			$this->handleReply($handle, 354, 'Error: DATA not accepted from server!');
 
@@ -205,34 +191,28 @@ class Smtp extends \stdClass {
 			$message = str_replace("\r\n", "\n", $header . $message);
 			$message = str_replace("\r", "\n", $message);
 
-			$length = (mb_detect_encoding($message, mb_detect_order(), true) == 'ASCII') ? 998 : 249;
-
 			$lines = explode("\n", $message);
 
 			foreach ($lines as $line) {
-				$results = str_split($line, $length);
+				// $results = str_split($line, $length);
+				// see https://php.watch/versions/8.2/str_split-empty-string-empty-array
+				$results = ($line === '') ? [''] : str_split($line, 998);
 
 				foreach ($results as $result) {
-					if (substr(PHP_OS, 0, 3) != 'WIN') {
-						fwrite($handle, $result . "\r\n");
-					} else {
-						fwrite($handle, str_replace("\n", "\r\n", $result) . "\r\n");
-					}
+					fputs($handle, $result . "\r\n");
 				}
 			}
 
-			fwrite($handle, '.' . "\r\n");
+			fputs($handle, '.' . "\r\n");
 
 			$this->handleReply($handle, 250, 'Error: DATA not accepted from server!');
 
-			fwrite($handle, 'QUIT' . "\r\n");
+			fputs($handle, 'QUIT' . "\r\n");
 
 			$this->handleReply($handle, 221, 'Error: QUIT not accepted from server!');
 
 			fclose($handle);
 		}
-
-		return true;
 	}
 
 	private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
