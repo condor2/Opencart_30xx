@@ -43,7 +43,7 @@ class ControllerAccountLogin extends Controller {
 			$this->model_account_customer->addLogin($this->customer->getId(), $this->request->server['REMOTE_ADDR']);
 
 			// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
-			if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false)) {
+			if (isset($this->request->post['redirect']) && (str_contains($this->request->post['redirect'], $this->config->get('config_url')))) {
 				$this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
 				$this->response->redirect($this->url->link('account/account', '', true));
@@ -82,7 +82,7 @@ class ControllerAccountLogin extends Controller {
 		$data['forgotten'] = $this->url->link('account/forgotten', '', true);
 
 		// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
-		if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false)) {
+		if (isset($this->request->post['redirect']) && (str_contains($this->request->post['redirect'], $this->config->get('config_url')))) {
 			$data['redirect'] = $this->request->post['redirect'];
 		} elseif (isset($this->session->data['redirect'])) {
 			$data['redirect'] = $this->session->data['redirect'];
