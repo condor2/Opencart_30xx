@@ -10,7 +10,7 @@ return $config
     ->setIndent("\t")
     ->setRules([
         '@PHP81Migration' => true,
-        '@PHP81Migration:risky' => true,
+        'array_syntax' => ['syntax' => 'short'],
         'array_indentation' => true,
         'binary_operator_spaces' => [
             'default' => 'single_space',
@@ -18,7 +18,6 @@ return $config
         ],
         'blank_line_before_statement' => ['statements' => ['declare', 'return', 'throw', 'try']],
         'braces_position' => ['classes_opening_brace' => 'same_line', 'functions_opening_brace' => 'same_line'],
-        'cast_spaces' => ['space' => 'none'],
         'concat_space' => ['spacing' => 'one'],
         'declare_parentheses' => true,
         'linebreak_after_opening_tag' => true,
