@@ -9,12 +9,12 @@ return $config
     ->setRiskyAllowed(true)
     ->setIndent("\t")
     ->setRules([
-        '@PER-CS2.0:risky' => true,
-        '@PER-CS2.0' => true,
+        '@PER-CS2x0:risky' => true,
+        '@PER-CS2x0' => true,
         '@DoctrineAnnotation' => true,
-        '@PHPUnit100Migration:risky' => true,
-        '@PHP74Migration' => true,
-        '@PHP74Migration:risky' => true,
+        '@PHPUnit10x0Migration:risky' => true,
+        '@PHP7x4Migration' => true,
+        '@PHP7x4Migration:risky' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_push' => false,
