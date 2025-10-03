@@ -166,7 +166,7 @@ return $config
         'string_line_ending' => true,
         'switch_continue_to_break' => true,
         'ternary_to_elvis_operator' => true,
-        'trailing_comma_in_multiline' => true,
+        'trailing_comma_in_multiline' => false,
         'trim_array_spaces' => true,
         'type_declaration_spaces' => true,
         'types_spaces' => true,
