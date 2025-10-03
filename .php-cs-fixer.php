@@ -28,7 +28,7 @@ return $config
         'blank_line_before_statement' => ['statements' => ['declare','return','throw','try']],
         'blank_lines_before_namespace' => false,
         'braces_position' => ['classes_opening_brace' => 'same_line','functions_opening_brace' => 'same_line', 'control_structures_opening_brace' => 'same_line'],
-        'class_definition' = ['single_line' => true],
+        'class_definition' => ['single_line' => true],
         'cast_spaces' => ['space' => 'none'],
         'class_attributes_separation' => ['elements' => ['method' => 'one']],
         'class_reference_name_casing' => true,
