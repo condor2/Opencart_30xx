@@ -55,9 +55,9 @@ class ControllerExtensionCurrencyFixer extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency', true);
 		$data['refresh'] = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true);
 
-		$data['text_edit'] = $this->language->get('text_edit');
-		$data['text_edit'] = str_replace('%1',$this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
-		$data['text_edit'] = str_replace('%2',$this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_information'] = $this->language->get('text_edit');
+		$data['text_information'] = str_replace('%1',$this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_information'] = str_replace('%2',$this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
 
 		$data['currency_fixer_cron'] = 'curl -s &quot;' . HTTPS_CATALOG . 'index.php?route=extension/currency/fixer/refresh&quot;';
 
@@ -103,18 +103,11 @@ class ControllerExtensionCurrencyFixer extends Controller {
 		return !$this->error;
 	}
 
-
-	public function install() {
-	}
-
-
-	public function uninstall() {
-	}
-
-
 	public function currency() {
 		$this->load->model('extension/currency/fixer');
+
 		$this->model_extension_currency_fixer->refresh();
+
 		return null;
 	}
 }
