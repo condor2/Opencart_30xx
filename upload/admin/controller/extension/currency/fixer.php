@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionCurrencyFixer extends Controller {
-
 	private $error = array();
 
 	public function index() {
@@ -56,8 +55,8 @@ class ControllerExtensionCurrencyFixer extends Controller {
 		$data['refresh'] = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['text_information'] = $this->language->get('text_information');
-		$data['text_information'] = str_replace('%1',$this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
-		$data['text_information'] = str_replace('%2',$this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_information'] = str_replace('%1', $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
+		$data['text_information'] = str_replace('%2', $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true), $data['text_edit']);
 
 		$data['currency_fixer_cron'] = 'curl -s &quot;' . HTTPS_CATALOG . 'index.php?route=extension/currency/fixer/refresh&quot;';
 
@@ -86,7 +85,6 @@ class ControllerExtensionCurrencyFixer extends Controller {
 		$this->response->setOutput($this->load->view('extension/currency/fixer', $data));
 	}
 
-
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/currency/fixer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -95,11 +93,12 @@ class ControllerExtensionCurrencyFixer extends Controller {
 				$this->error['api'] = $this->language->get('error_api');
 			}
 			if (!empty($this->request->post['currency_fixer_ip'])) {
-				if (!filter_var($this->request->post['currency_fixer_ip'],FILTER_VALIDATE_IP)) {
+				if (!filter_var($this->request->post['currency_fixer_ip'], FILTER_VALIDATE_IP)) {
 					$this->error['ip'] = $this->language->get('error_ip');
 				}
 			}
 		}
+
 		return !$this->error;
 	}
 

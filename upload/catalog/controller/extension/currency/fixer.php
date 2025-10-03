@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionCurrencyFixer extends Controller {
-
 	public function refresh() {
 		// This function can be called as a CRON task
 
@@ -30,4 +29,3 @@ class ControllerExtensionCurrencyFixer extends Controller {
 		return true;
 	}
 }
-

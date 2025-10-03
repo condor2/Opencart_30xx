@@ -1,6 +1,5 @@
 <?php
 class ModelExtensionCurrencyFixer extends Model {
-
 	public function editValueByCode($code, $value) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = NOW() WHERE `code` = '" . $this->db->escape((string)$code) . "'");
 		$this->cache->delete('currency');
@@ -8,7 +7,7 @@ class ModelExtensionCurrencyFixer extends Model {
 
 	public function refresh() {
 		if ($this->config->get('currency_fixer_status')) {
-			if ($this->config->get('config_currency_engine')=='fixer') {
+			if ($this->config->get('config_currency_engine') == 'fixer') {
 
 				$curl = curl_init();
 
