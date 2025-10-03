@@ -14,7 +14,7 @@ return $config
         '@DoctrineAnnotation' => true,
         '@PHPUnit10x0Migration:risky' => true,
         '@PHP81Migration' => true,
-        '@octal_notation' => false,
+        'octal_notation' => false,
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_push' => false,
