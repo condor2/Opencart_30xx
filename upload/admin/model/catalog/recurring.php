@@ -63,15 +63,15 @@ class ModelCatalogRecurring extends Model {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
-			'rd.`recurring_id`',
-			'rd.`name`',
-			'r.`sort_order`'
+			'rd.recurring_id',
+			'rd.name',
+			'r.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY rd.`name`";
+			$sql .= " ORDER BY rd.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

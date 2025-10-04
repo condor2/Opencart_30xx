@@ -71,16 +71,16 @@ class ModelCatalogOption extends Model {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE od.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
-			'od.`option_id`',
-			'od.`name`',
-			'o.`type`',
-			'o.`sort_order`'
+			'od.option_id',
+			'od.name',
+			'o.type',
+			'o.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY od.`name`";
+			$sql .= " ORDER BY od.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

@@ -36,6 +36,11 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td class="text-left">{% if sort == 'manufacturer_id' %}
+                    <a href="{{ sort_id }}" class="{{ order|lower }}">{{ column_id }}</a>
+                    {% else %}
+                    <a href="{{ sort_id }}">{{ column_id }}</a>
+                    {% endif %}</td>
                   <td style="width: 5px;" class="text-center">{{ column_image }}</td>
                   <td class="text-left">{% if sort == 'name' %}
                     <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
@@ -60,6 +65,7 @@
                     <input type="checkbox" name="selected[]" value="{{ manufacturer.manufacturer_id }}" />
                     {% endif %}
                   </td>
+                  <td class="text-left">{{ manufacturer.manufacturer_id }}</td>
                   <td class="text-center">{% if manufacturer.image %} <img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}" class="img-thumbnail" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
                   <td class="text-left">{{ manufacturer.name }}</td>
                   <td class="text-right">{{ manufacturer.sort_order }}</td>

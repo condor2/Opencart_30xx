@@ -37,15 +37,15 @@ class ModelCatalogAttributeGroup extends Model {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` ag LEFT JOIN `" . DB_PREFIX . "attribute_group_description` agd ON (ag.`attribute_group_id` = agd.`attribute_group_id`) WHERE agd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
-			'agd.`attribute_group_id`',
-			'agd.`name`',
-			'ag.`sort_order`'
+			'agd.attribute_group_id',
+			'agd.name',
+			'ag.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY agd.`name`";
+			$sql .= " ORDER BY agd.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

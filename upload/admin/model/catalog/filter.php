@@ -70,15 +70,15 @@ class ModelCatalogFilter extends Model {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN `" . DB_PREFIX . "filter_group_description` fgd ON (fg.`filter_group_id` = fgd.`filter_group_id`) WHERE fgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
-			'fgd.`filter_group_id`',
-			'fgd.`name`',
-			'fg.`sort_order`'
+			'fgd.filter_group_id',
+			'fgd.name',
+			'fg.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY fgd.`name`";
+			$sql .= " ORDER BY fgd.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

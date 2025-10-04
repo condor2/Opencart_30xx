@@ -397,19 +397,19 @@ class ModelCatalogProduct extends Model {
 		$sql .= " GROUP BY p.product_id";
 
 		$sort_data = array(
-			'p.`product_id`',
-			'pd.`name`',
-			'p.`model`',
-			'p.`price`',
-			'p.`quantity`',
-			'p.`status`',
-			'p.`sort_order`'
+			'p.product_id',
+			'pd.`name',
+			'p.model',
+			'p.price',
+			'p.quantity',
+			'p.status',
+			'p.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY pd.`name`";
+			$sql .= " ORDER BY pd.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

@@ -45,16 +45,16 @@ class ModelCatalogAttribute extends Model {
 		}
 
 		$sort_data = array(
-			'ad.`attribute_id`',
-			'ad.`name`',
+			'ad.attribute_id',
+			'ad.name',
 			'attribute_group',
-			'a.`sort_order`'
+			'a.sort_order'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY `attribute_group`, ad.`name`";
+			$sql .= " ORDER BY attribute_group, ad.name";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

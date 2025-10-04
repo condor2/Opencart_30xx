@@ -41,13 +41,13 @@ class ModelCatalogDownload extends Model {
 		}
 
 		$sort_data = array(
-			'dd.`download_id`',
-			'dd.`name`',
-			'd.`date_added`'
+			'dd.download_id',
+			'dd.name',
+			'd.date_added'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY `" . $data['sort'] . "`";
+			$sql .= " ORDER BY " . $data['sort'];
 		} else {
 			$sql .= " ORDER BY dd.`name`";
 		}
