@@ -762,6 +762,18 @@ class ControllerCatalogProduct extends Controller {
 			$data['price'] = '';
 		}
 
+		$this->load->model('catalog/recurring');
+
+		$data['recurrings'] = $this->model_catalog_recurring->getRecurrings();
+
+		if (isset($this->request->post['product_recurrings'])) {
+			$data['product_recurrings'] = $this->request->post['product_recurrings'];
+		} elseif (!empty($product_info)) {
+			$data['product_recurrings'] = $this->model_catalog_product->getRecurrings($product_info['product_id']);
+		} else {
+			$data['product_recurrings'] = array();
+		}
+
 		$this->load->model('localisation/tax_class');
 
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
