@@ -1,15 +1,15 @@
 # OpenCart
 
 ## Information
-This is a modified version of Opencart.
+This is a modified version of the original OpenCart.
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg?style=flat-square)](https://php.net/)
 [![Lint](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml/badge.svg)](https://github.com/condor2/Opencart_30xx/actions/workflows/Lint.yml)
 
 ## Added
 - Bug fixes
-- ECB Currency from OC 3.0.x.x
-- Fixer Currency from main OC 3.0.x.x
+- ECB Currency from main OC <a href="https://github.com/opencart/opencart/tree/3.0.x.x">OC 3.0.x.x</a>
+- Fixer Currency from main <a href="https://github.com/opencart/opencart/tree/3.0.x.x">OC 3.0.x.x</a>
 - Timezone from Master Branch - 3.1.0.0b
 - Other changes from Master Branch - 3.1.0.0b
 - New cookie function from Master Branch - 3.1.0.0b
@@ -48,7 +48,7 @@ This is a modified version of Opencart.
 - SameSite cookie code from 4.0.0.0_b.
 - Admin Country filter code from 4.0.0.0_b.
 - Admin Zone filter code from 4.0.0.0_b.
-- Default editor can be changed from store settings.
+- Default editor can be changed from Store Settings, Server Tab.
 - Admin Product List Image Popup
 - Multi Store Maintenance Setting
 - Filter Customers by Affiliate Status
