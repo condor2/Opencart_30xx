@@ -8,7 +8,7 @@ This is a modified version of the original OpenCart.
 
 ## Added
 - Bug fixes
-- ECB Currency from main OC <a href="https://github.com/opencart/opencart/tree/3.0.x.x">OC 3.0.x.x</a>
+- ECB Currency from main <a href="https://github.com/opencart/opencart/tree/3.0.x.x">OC 3.0.x.x</a>
 - Fixer Currency from main <a href="https://github.com/opencart/opencart/tree/3.0.x.x">OC 3.0.x.x</a>
 - Timezone from Master Branch - 3.1.0.0b
 - Other changes from Master Branch - 3.1.0.0b

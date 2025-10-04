@@ -46,11 +46,11 @@ class ControllerCommonLanguage extends Controller {
 	}
 
 	public function language() {
-        if (isset($this->request->post['code'])) {
-            $code = $this->request->post['code'];
-        } else {
-            $code = $this->config->get('config_language');
-        }
+		if (isset($this->request->post['code'])) {
+			$code = $this->request->post['code'];
+		} else {
+			$code = $this->config->get('config_language');
+		}
 
 		$option = array(
 			'expires'  => time() + 60 * 60 * 24 * 30,
