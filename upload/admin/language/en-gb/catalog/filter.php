@@ -11,7 +11,7 @@ $_['text_group']        = 'Filter Group';
 $_['text_value']        = 'Filter Values';
 
 // Column
-$_['column_it']			= 'ID';
+$_['column_id']			= 'ID';
 $_['column_group']      = 'Filter Group';
 $_['column_sort_order'] = 'Sort Order';
 $_['column_action']     = 'Action';
