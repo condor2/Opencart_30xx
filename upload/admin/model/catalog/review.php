@@ -48,12 +48,12 @@ class ModelCatalogReview extends Model {
 		}
 
 		$sort_data = array(
-			'r.`review_id`',
-			'pd.`name`',
-			'r.`author`',
-			'r.`rating`',
-			'r.`status`',
-			'r.`date_added`'
+			'r.review_id',
+			'pd.name',
+			'r.author',
+			'r.rating',
+			'r.status',
+			'r.date_added'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
