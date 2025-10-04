@@ -31,6 +31,7 @@ $_['entry_status']          = 'Status';
 $_['entry_sort_order']      = 'Sort Order';
 
 // Column
+$_['column_id']				= 'ID';
 $_['column_name']           = 'Name';
 $_['column_sort_order']     = 'Sort Order';
 $_['column_action']         = 'Action';

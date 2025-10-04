@@ -11,6 +11,7 @@ $_['text_upload']       = 'Your file was successfully uploaded!';
 $_['text_report']       = 'Report';
 
 // Column
+$_['column_id']			= 'ID';
 $_['column_name']       = 'Download Name';
 $_['column_ip']         = 'IP';
 $_['column_account']    = 'Accounts';

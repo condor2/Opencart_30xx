@@ -41,6 +41,7 @@ class ModelCatalogDownload extends Model {
 		}
 
 		$sort_data = array(
+			'dd.`download_id`',
 			'dd.`name`',
 			'd.`date_added`'
 		);

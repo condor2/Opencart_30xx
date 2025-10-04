@@ -45,6 +45,7 @@ class ModelCatalogAttribute extends Model {
 		}
 
 		$sort_data = array(
+			'ad.`attribute_id`',
 			'ad.`name`',
 			'attribute_group',
 			'a.`sort_order`'

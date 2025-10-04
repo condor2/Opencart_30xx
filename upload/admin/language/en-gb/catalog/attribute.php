@@ -9,6 +9,7 @@ $_['text_add']               = 'Add Attribute';
 $_['text_edit']              = 'Edit Attribute';
 
 // Column
+$_['column_id']              = 'ID';
 $_['column_name']            = 'Attribute Name';
 $_['column_attribute_group'] = 'Attribute Group';
 $_['column_sort_order']      = 'Sort Order';

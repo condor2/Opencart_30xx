@@ -39,7 +39,8 @@ This is a modified version of the original OpenCart.
 - Enable and Disable button on Country List
 - Filter by image in Product List
 - Display Manufacturer image in Admin Manufacturer list
-- Display ID in Categories, Products
+- Added ID column in Catalog for: Attributes, Attribute Groups, Categories, Downloads, Filters, Information, Manufacturers, Options, Products, Recurrings, Reviews
+- Added ID column in Sales for: Orders 
 - Show/Hide password. Code used from <a href="https://github.com/opencartbrasil/opencartbrasil">Opencart Brasil</a>
 - Manufacturer Layout Override
 - {% include %} function support

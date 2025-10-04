@@ -10,6 +10,7 @@ $_['text_edit']         = 'Edit Review';
 $_['text_filter']       = 'Filter';
 
 // Column
+$_['column_id']			= 'Review ID';
 $_['column_product']    = 'Product';
 $_['column_author']     = 'Author';
 $_['column_rating']     = 'Rating';

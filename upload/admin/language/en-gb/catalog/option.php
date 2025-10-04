@@ -22,6 +22,7 @@ $_['text_option']        = 'Option';
 $_['text_value']         = 'Option Values';
 
 // Column
+$_['column_id']			 = 'ID';
 $_['column_name']        = 'Option Name';
 $_['column_sort_order']  = 'Sort Order';
 $_['column_action']      = 'Action';
