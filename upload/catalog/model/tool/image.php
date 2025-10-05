@@ -34,9 +34,9 @@ class ModelToolImage extends Model {
 			}
 
 			if ($width_orig != $width || $height_orig != $height) {
-                if ($extension == 'avif' && (!function_exists('imagecreatefromavif') || !function_exists('imageavif'))) {
-                    copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
-                } else {
+				if ($extension == 'avif' && (!function_exists('imagecreatefromavif') || !function_exists('imageavif'))) {
+					copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
+				} else {
 					$image = new Image(DIR_IMAGE . $image_old);
 					$image->resize($width, $height);
 					$image->save(DIR_IMAGE . $image_new);
