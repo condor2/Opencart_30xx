@@ -264,15 +264,7 @@ class ControllerCommonFileManager extends Controller {
 						'gif',
 						'svg',
 						'svgz',
-						'webp',
-						'JPG',
-						'JPEG',
-						'PNG',
-						'GIF',
-						'SVG',
-						'SVGZ',
-						'WEBP'
-
+						'webp'
 					);
 
 					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
