@@ -5,7 +5,7 @@ class ModelToolImage extends Model {
 			return '';
 		}
 
-		$extension = pathinfo($filename, PATHINFO_EXTENSION);
+		$extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
 		$image_old = $filename;
 		$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
@@ -13,7 +13,7 @@ class ModelToolImage extends Model {
 		if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
 			[$width_orig, $height_orig, $image_type] = getimagesize(DIR_IMAGE . $image_old);
 
-			if (!in_array($image_type, [IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_WEBP])) {
+			if (!in_array($image_type, [IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_WEBP, IMAGETYPE_AVIF])) {
 				return $this->config->get('config_url') . 'image/' . $image_old;
 			}
 
@@ -34,9 +34,13 @@ class ModelToolImage extends Model {
 			}
 
 			if ($width_orig != $width || $height_orig != $height) {
-				$image = new Image(DIR_IMAGE . $image_old);
-				$image->resize($width, $height);
-				$image->save(DIR_IMAGE . $image_new);
+                if ($extension == 'avif' && (!function_exists('imagecreatefromavif') || !function_exists('imageavif'))) {
+                    copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
+                } else {
+					$image = new Image(DIR_IMAGE . $image_old);
+					$image->resize($width, $height);
+					$image->save(DIR_IMAGE . $image_new);
+				}
 			} else {
 				copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
 			}

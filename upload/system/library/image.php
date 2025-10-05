@@ -50,6 +50,12 @@ class Image {
 				$this->image = imagecreatefromjpeg($file);
 			} elseif ($this->mime == 'image/webp') {
 				$this->image = imagecreatefromwebp($file);
+			} elseif ($this->mime == 'image/avif') {
+				if (function_exists('imagecreatefromavif')) {
+					$this->image = @imagecreatefromavif($file);
+				} else {
+					error_log('AVIF not supported by GD.');
+				}
 			}
 		} else {
 			error_log('Error: Could not load image ' . $file . '!');
@@ -116,6 +122,12 @@ class Image {
 				imagegif($this->image, $file);
 			} elseif ($extension == 'webp') {
 				imagewebp($this->image, $file);
+			} elseif ($extension == 'avif') {
+				if (function_exists('imageavif')) {
+					imageavif($this->image, $file, $quality);
+				} else {
+					error_log('AVIF not supported by GD.');
+				}
 			}
 
 			imagedestroy($this->image);
@@ -147,7 +159,7 @@ class Image {
 			$scale = min($scale_w, $scale_h);
 		}
 
-		if ($scale == 1 && $scale_h == $scale_w && ($this->mime != 'image/png' && $this->mime != 'image/webp')) {
+		if ($scale == 1 && $scale_h == $scale_w && ($this->mime != 'image/png' && $this->mime != 'image/webp' && $this->mime != 'image/avif')) {
 			return;
 		}
 
@@ -174,6 +186,15 @@ class Image {
 			$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
 
 			imagecolortransparent($this->image, $background);
+
+		} elseif ($this->mime == 'image/avif') {
+			imagealphablending($this->image, false);
+			imagesavealpha($this->image, true);
+
+			$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+
+			imagecolortransparent($this->image, $background);
+
 		} else {
 			$background = imagecolorallocate($this->image, 255, 255, 255);
 		}
