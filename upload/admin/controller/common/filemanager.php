@@ -134,7 +134,7 @@ class ControllerCommonFileManager extends Controller {
 		if (isset($this->request->get['directory'])) {
 			$pos = strrpos($this->request->get['directory'], '/');
 
-			if ($pos) {
+			if ($pos !== false) {
 				$url .= '&directory=' . urlencode(substr($this->request->get['directory'], 0, $pos));
 			}
 		}
