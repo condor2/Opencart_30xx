@@ -1,30 +1,30 @@
 <?php
 class ControllerCommonLanguage extends Controller {
-	public function index() {
-		$this->load->language('common/language');
+    public function index() {
+        $this->load->language('common/language');
 
-		$data['action'] = $this->url->link('common/language/language', '');
+        $data['action'] = $this->url->link('common/language/language', '');
 
-		$data['code'] = $this->session->data['language'];
+        $data['code'] = $this->session->data['language'] ?? $this->config->get('config_language');
 
-		$this->load->model('localisation/language');
+        $this->load->model('localisation/language');
 
-		$data['languages'] = array();
+        $data['languages'] = array();
 
-		$results = $this->model_localisation_language->getLanguages();
+        $results = $this->model_localisation_language->getLanguages();
 
-		foreach ($results as $result) {
-			if ($result['status']) {
-				$data['languages'][] = array(
-					'name' => $result['name'],
-					'code' => $result['code']
-				);
-			}
-		}
+        foreach ($results as $result) {
+            if ($result['status']) {
+                $data['languages'][] = array(
+                    'name' => $result['name'],
+                    'code' => $result['code']
+                );
+            }
+        }
 
-		if (!isset($this->request->get['route'])) {
-			$data['redirect'] = $this->url->link('common/home');
-		} else {
+        if (!isset($this->request->get['route'])) {
+            $data['redirect'] = $this->url->link('common/home');
+        } else {
 			$url_data = $this->request->get;
 
 			unset($url_data['_route_']);
@@ -40,10 +40,10 @@ class ControllerCommonLanguage extends Controller {
 			}
 
 			$data['redirect'] = $this->url->link($route, $url);
-		}
+        }
 
-		return $this->load->view('common/language', $data);
-	}
+        return $this->load->view('common/language', $data);
+    }
 
 	public function language() {
 		if (isset($this->request->post['code'])) {
@@ -61,6 +61,10 @@ class ControllerCommonLanguage extends Controller {
 		setcookie('language', $code, $option);
 
 		$this->session->data['language'] = $code;
+
+		$language = new Language($code);
+		$language->load($code);
+		$this->registry->set('language', $language);
 
 		if (isset($this->request->post['redirect'])) {
 			$this->response->redirect($this->request->post['redirect']);

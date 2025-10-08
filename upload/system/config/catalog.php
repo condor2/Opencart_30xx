@@ -21,13 +21,19 @@ $_['library_autoload']   = array();
 // Actions
 $_['action_pre_action']  = array(
 	'startup/setting',
+	'startup/language',
+	'startup/seo_url',
 	'startup/session',
+	'startup/customer',
+	'startup/currency',
+	'startup/tax',
 	'startup/startup',
+	'startup/marketing',
 	'startup/error',
 	'startup/event',
+	'startup/error',
 	'startup/sass',
-	'startup/maintenance',
-	'startup/seo_url'
+	'startup/maintenance'
 );
 
 // Action Events
