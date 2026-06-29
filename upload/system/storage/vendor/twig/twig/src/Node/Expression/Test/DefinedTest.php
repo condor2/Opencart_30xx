@@ -15,16 +15,8 @@ use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\BlockReferenceExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FunctionExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\MacroReferenceExpression;
-use Twig\Node\Expression\MethodCallExpression;
 use Twig\Node\Expression\SupportDefinedTestInterface;
 use Twig\Node\Expression\TestExpression;
-use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\Node;
 use Twig\TwigTest;
 
@@ -66,5 +58,11 @@ class DefinedTest extends TestExpression
     public function compile(Compiler $compiler): void
     {
         $compiler->subcompile($this->getNode('node'));
+    }
+
+    public function getStringCoercedChildNames(): array
+    {
+        // the `defined` test does not coerce its node to string (it only inspects existence)
+        return [];
     }
 }
